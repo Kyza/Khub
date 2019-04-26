@@ -1,5 +1,7 @@
 # CustomDiscordIcon
 
+CustomDiscordIcon allows you to customize the Discord icon on your taskbar.
+
 ## Changelog
 
 ### 1.1.0
