@@ -1,6 +1,6 @@
 # GhostMessage
 
-GhostMessage allows you to send a message which deletes itself as soon as you send it. Why is this useful? This allows you to notify someone of something without cluttering up the chat, or to send a message which deletes itself after 10 seconds.
+GhostMessage allows you to send a message which deletes itself as soon as you send it. Why is this useful? I have no idea.
 
 ## Usage
 
