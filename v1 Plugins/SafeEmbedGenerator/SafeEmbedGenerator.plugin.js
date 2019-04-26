@@ -3,6 +3,7 @@
 var SafeEmbedGenerator = function() {};
 
 var embedOpen = false;
+var recentEmbeds = [];
 
 var updateInterval;
 var makeSureClosedInterval;
@@ -19,16 +20,6 @@ SafeEmbedGenerator.prototype.start = function() {
     document.head.appendChild(libraryScript);
   }
 
-  libraryScript = document.querySelector('head script[src="https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.js"]');
-  if (!libraryScript || performance.now() - libraryScript.getAttribute("date") > 600000) {
-    if (libraryScript) libraryScript.remove();
-    libraryScript = document.createElement("script");
-    libraryScript.setAttribute("type", "text/javascript");
-    libraryScript.setAttribute("src", "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.js");
-    libraryScript.setAttribute("date", performance.now());
-    document.head.appendChild(libraryScript);
-  }
-
   updateInterval = setInterval(() => {
     ZLibrary.PluginUpdater.checkForUpdate("SafeEmbedGenerator", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/SafeEmbedGenerator/master/SafeEmbedGenerator.plugin.js");
   }, 5000);
@@ -41,41 +32,12 @@ SafeEmbedGenerator.prototype.start = function() {
 
   addButton();
 
-  // libraryScript = document.getElementById("ShowdownJS");
-  // if (!libraryScript || !window.ShowdownJS) {
-  //   if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
-  //   libraryScript = document.createElement("script");
-  //   libraryScript.setAttribute("type", "text/javascript");
-  //   libraryScript.setAttribute("src", "https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js");
-  //   libraryScript.setAttribute("id", "ShowdownJS");
-  //   document.head.appendChild(libraryScript);
-  // }
-  /* End Libraries */
-
-  // BdApi.monkeyPatch(BdApi.findModuleByProps("sendMessage"), "sendMessage", {
-  //   before: e => {
-  //     if (e.methodArguments[1].content.startsWith("https://em.my.to/e/")) {
-  //       e.methodArguments[1].embeds = [{
-  //         "author": {
-  //           "name": "aname"
-  //         },
-  //         "description": "desc",
-  //         "provider": {
-  //           "url": null,
-  //           "name": "pname"
-  //         },
-  //         "title": "title",
-  //         "type": "link",
-  //         "url": e.methodArguments[1].content
-  //       }];
-  //       console.log(e.methodArguments[1]);
-  //     }
-  //   }
-  // });
+  // loadRecentEmbeds();
 };
 
 SafeEmbedGenerator.prototype.load = function() {
   addButton();
+  // loadRecentEmbeds();
 };
 
 SafeEmbedGenerator.prototype.unload = function() {
@@ -95,6 +57,18 @@ SafeEmbedGenerator.prototype.onMessage = function() {
 SafeEmbedGenerator.prototype.onSwitch = function() {
   addButton();
 };
+
+function loadRecentEmbeds() {
+  try {
+    // Load the recent embeds.
+    var pluginsFolder = ZLibrary.PluginUtilities.getBDFolder("plugins");
+
+    var fs = require("fs");
+    recentEmbeds = JSON.parse(fs.readFileSync(pluginsFolder + "/SafeEmbedGenerator.recentEmbeds.json"));
+  } catch (e) {
+    recentEmbeds = [];
+  }
+}
 
 function generateEmbedPreview() {
   /*
@@ -121,7 +95,8 @@ function addButton() {
     var permissions = channel.discordObject.permissions;
 
     // Only add the button if the user has permissions to send messages and embed links.
-    if ((hasPermission("textEmbedLinks") && hasPermission("textSendMessages")) || channel.type != "GUILD_TEXT") {
+		console.log("isAllowed()", isAllowed());
+    if (isAllowed() && (hasPermission("textEmbedLinks") && hasPermission("textSendMessages")) || channel.type != "GUILD_TEXT") {
       if (document.getElementsByClassName("embed-button-wrapper").length == 0) {
         var daButtons = document.getElementsByClassName("da-buttons")[0];
         var embedButton = document.createElement("button");
@@ -161,8 +136,81 @@ function addButton() {
     } else {
       removeButton();
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
 }
+
+
+function isAllowed() {
+  // Must be one of the following requirements.
+  // Be myself.
+  // Have any role in the BetterDiscord servers.
+
+  var guildId = window.location.toString().split("/")[window.location.toString().split("/").length - 2];
+  var betterDiscordServer1;
+  try {
+    betterDiscordServer1 = ZLibrary.DiscordAPI.Guild.fromId("86004744966914048")
+  } catch (e) {}
+  var betterDiscordServer2;
+  try {
+    betterDiscordServer2 = ZLibrary.DiscordAPI.Guild.fromId("86004744966914048")
+  } catch (e) {}
+
+  if (!betterDiscordServer1 || !betterDiscordServer2) {
+    return true;
+  }
+
+	var currentUser1 = betterDiscordServer1.currentUser;
+	var currentUser2 = betterDiscordServer2.currentUser;
+
+  if (guildId.toString() == "86004744966914048" || guildId.toString() == "280806472928198656") {
+    if (!betterDiscordServer1) {
+      if (currentUser2.userId == "220584715265114113") {
+        // The user is Kyza, return true right away.
+        return true;
+      }
+
+      if (currentUser2.roles.length > 0) {
+        // The user is in a BetterDiscord server but has a role.
+        return true;
+      } else {
+        // The user is in a BetterDiscord server but does not have a role.
+        return false;
+      }
+    } else if (!betterDiscordServer2) {
+      if (currentUser1.userId == "220584715265114113") {
+        // The user is Kyza, return true right away.
+        return true;
+      }
+
+      if (currentUser1.roles.length > 0) {
+        // The user is in a BetterDiscord server but has a role.
+        return true;
+      } else {
+        // The user is in a BetterDiscord server but does not have a role.
+        return false;
+      }
+    } else {
+			if (currentUser1.userId == "220584715265114113") {
+        // The user is Kyza, return true right away.
+        return true;
+      }
+
+			if (currentUser1.roles.length > 0 || currentUser2.roles.length > 0) {
+				// The user is in a BetterDiscord server but has a role.
+				return true;
+			} else {
+				// The user is in a BetterDiscord server but does not have a role.
+				return false;
+			}
+		}
+  }
+
+  // The user doesn't have any of the BetterDiscord servers selected, so return true.
+  return true;
+}
+
 
 function removeButton() {
   if (document.getElementsByClassName("embed-button-wrapper").length > 0) {
@@ -177,7 +225,7 @@ function sendEmbed(providerName, providerUrl, authorName, authorUrl, title, desc
   var channel = ZLibrary.DiscordAPI.Channel.from(ZLibrary.DiscordAPI.Channel.fromId(channelId));
 
   // Only send the embed if the user has permissions to embed links.
-  if (hasPermission("textEmbedLinks") || channel.type != "GUILD_TEXT") {
+  if (isAllowed() && hasPermission("textEmbedLinks") || channel.type != "GUILD_TEXT") {
     const obj = {};
     obj.providerName = providerName;
     obj.providerUrl = providerUrl; // The link on the Provider Name.
@@ -189,9 +237,19 @@ function sendEmbed(providerName, providerUrl, authorName, authorUrl, title, desc
     obj.image = image; // The image displayed on the right.
     obj.color = color.replace("#", ""); // The color on the left of the embed.
 
-    // https://em.0x17.cc
-
     var request = require("request");
+
+    // Everything was successful, so add the embed to the recent embeds.
+    recentEmbeds.unshift(obj);
+    // Save the recent embeds.
+    var pluginsFolder = ZLibrary.PluginUtilities.getBDFolder("plugins");
+
+    // var fs = require("fs");
+    // fs.writeFile(pluginsFolder + "/SafeEmbedGenerator.recentEmbeds.json", JSON.stringify(recentEmbeds, null, 2), function(err) {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    // });
 
     request({
       url: "https://em.0x71.cc/",
@@ -207,37 +265,16 @@ function sendEmbed(providerName, providerUrl, authorName, authorUrl, title, desc
   } else {
     BdApi.alert("SafeEmbedGenerator", `You do not have permissions to send embedded links in this channel.<br><br>Because of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.<br><br>This is <strong><u>not</u></strong> a problem with the plugin, it is a <strong><u>server setting</u></strong>.`);
   }
-
-
-  // fetch("https://em.0x71.cc/", {
-  //   method: "POST",
-  // 	mode: "no-cors",
-  //   // headers: {
-  //   //   "Access-Control-Allow-Origin": "*"
-  //   // },
-  //   body: JSON.stringify(obj)
-  // }).then(res => {
-  // 	console.log(res);
-  //   if (res.ok) {
-  //     res.text().then(text => {
-  // 			console.log(text);
-  //       ZLibrary.DiscordAPI.Channel.fromId(channelId).sendMessage(`https://em.0x71.cc/` + JSON.parse(text).id, true);
-  //     });
-  //   } else {
-  //     ZLibrary.DiscordAPI.Channel.fromId(channelId).sendBotMessage("There is a problem with the embed API or you are sending too many requests to the embed API.");
-  //   }
-  // }).catch(() => {
-  //   ZLibrary.DiscordAPI.Channel.fromId(channelId).sendBotMessage("There is a problem with the embed API or you are sending too many requests to the embed API.");
-  // });
 }
+
+var popupWrapperWidth = 320;
+var popupWrapperHeight = 620;
 
 function openEmbedPopup() {
   if (!document.getElementById("embedPopupWrapper")) {
     embedOpen = true;
 
     var popupWrapper = document.createElement("div");
-    var popupWrapperWidth = 320;
-    var popupWrapperHeight = 620;
     popupWrapper.setAttribute("id", "embedPopupWrapper");
 
     var embedButton = document.getElementsByClassName("embed-button-wrapper")[0].getBoundingClientRect();
@@ -255,16 +292,38 @@ function openEmbedPopup() {
 
 
     var providerName = document.createElement("input");
+    providerName.setAttribute("id", "providerName");
+
     var providerUrl = document.createElement("input");
+    providerUrl.setAttribute("id", "providerUrl");
+
     var authorName = document.createElement("input");
+    authorName.setAttribute("id", "authorName");
+
     var authorUrl = document.createElement("input");
+    authorUrl.setAttribute("id", "authorUrl");
+
     var title = document.createElement("input");
+    title.setAttribute("id", "title");
+
     var description = document.createElement("textarea");
+    description.setAttribute("id", "description");
+
     var imageUrl = document.createElement("input");
+    imageUrl.setAttribute("id", "imageUrl");
+
     var imageType = document.createElement("div");
+    imageType.setAttribute("id", "imageType");
+
     var imageTypeText = document.createElement("div");
+    imageTypeText.setAttribute("id", "imageTypeText");
+
     var imageTypeInput = document.createElement("input");
+    imageTypeInput.setAttribute("id", "imageTypeInput");
+
     var colorPicker = document.createElement("input");
+    colorPicker.setAttribute("id", "colorPicker");
+
     var submitButton = document.createElement("input");
     var fadeOutBackground = document.createElement("div");
 
@@ -421,12 +480,69 @@ function openEmbedPopup() {
 
     document.body.appendChild(fadeOutBackground);
 
+    // createRecentEmbedPopup(300);
     createEmbedPreviewPopup(popupWrapperWidth + 80, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
 
     document.body.appendChild(popupWrapper);
+  }
+}
 
-    console.log("Embed popup opened.");
+function createRecentEmbedPopup(offset) {
+  if (!document.getElementById("recentEmbedsWrapper")) {
+    var recentEmbedsWrapper = document.createElement("div");
+    var recentEmbedsWidth = 200;
+    var recentEmbedsHeight = 600;
+    recentEmbedsWrapper.setAttribute("id", "recentEmbedsWrapper");
+    recentEmbedsWrapper.setAttribute("class", "theme-dark");
 
+    var positionInterval = setInterval(() => {
+      if (!document.getElementById("embedPreviewWrapper")) {
+        window.clearInterval(positionInterval);
+      }
+      recentEmbedsWrapper.setAttribute("style", "border-radius: 10px; width: " + recentEmbedsWidth + "px; height: " + recentEmbedsHeight + "px; position: absolute; top: " + ((window.innerHeight / 2) - (recentEmbedsHeight / 2) - 10) + "px; left: " + ((window.innerWidth / 2) - (recentEmbedsWidth / 2) - offset) + "px; background-color: #36393F; z-index: 999999999999999999999; padding: 10px; text-rendering: optimizeLegibility;");
+    }, 100);
+
+    var recentEmbedsInner = document.createElement("div");
+    recentEmbedsInner.setAttribute("style", "overflow-y: scroll; width: " + recentEmbedsWidth + "px; height: " + recentEmbedsHeight + "px;");
+
+    for (var i = 0; i < recentEmbeds.length; i++) {
+      var embed = recentEmbeds[i];
+
+      var embedElement = document.createElement("div");
+      embedElement.setAttribute("id", "embedNumber" + i);
+      embedElement.setAttribute("class", "embed-IeVjo6 da-embed embedWrapper-3AbfJJ da-embedWrapper");
+      embedElement.setAttribute("aria-hidden", "false");
+      embedElement.setAttribute("style", "margin-bottom: 10px; max-width: 426px; width: auto; height: auto;");
+
+      embedElement.ondblclick = (e) => {
+        var target = (e || window.event).target;
+
+        while (!target.id.startsWith("embedNumber")) {
+          target = target.parentElement;
+        }
+
+        var elementIndex = parseInt(target.id.replace("embedNumber", ""));
+
+        document.getElementById("providerName").value = recentEmbeds[elementIndex].providerName;
+        document.getElementById("providerUrl").value = recentEmbeds[elementIndex].providerUrl;
+        document.getElementById("authorName").value = recentEmbeds[elementIndex].authorName;
+        document.getElementById("authorUrl").value = recentEmbeds[elementIndex].authorUrl;
+        // Title isn't being used right now.
+        //				document.getElementById("title").value = recentEmbeds[elementIndex].title;
+        document.getElementById("description").value = recentEmbeds[elementIndex].description;
+        document.getElementById("imageType").setAttribute("checked", (recentEmbeds[elementIndex].isBanner ? "true" : "false"));
+        document.getElementById("colorPicker").value = "#" + recentEmbeds[elementIndex].color;
+
+        createEmbedPreviewPopup(popupWrapperWidth + 80, document.getElementById("providerName").value, document.getElementById("providerUrl").value, document.getElementById("authorName").value, document.getElementById("authorUrl").value, document.getElementById("description").value, document.getElementById("colorPicker").value, document.getElementById("authorUrl").getAttribute("checked"), document.getElementById("imageUrl").value);
+      };
+
+      embedElement.innerHTML = `<div class="embedPill-1Zntps da-embedPill" style="background-color: ` + (embed.color == "000000" ? "#4f545c" : "#" + embed.color) + `;"></div><div class="embedInner-1-fpTo da-embedInner"><div class="embedContent-3fnYWm da-embedContent"><div class="embedContentInner-FBnk7v da-embedContentInner markup-2BOw-j da-markup" style="clear: right;">` + (embed.providerName.trim() != "" ? `<div class=""><` + (embed.providerUrl.trim() == "" ? "span" : "a") + ` tabindex="0" class="` + (embed.providerUrl.trim() == "" ? "embedProvider-3k5pfl da-embedProvider" : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedProviderLink-2Pq1Uw embedLink-1G1K1D embedProvider-3k5pfl da-embedProviderLink da-embedLink da-embedProvider`) + `" href=` + embed.providerUrl + `" rel="noreferrer noopener" target="_blank">` + embed.providerName + `</` + (embed.providerUrl.trim() == "" ? "span" : "a") + `></div>` : "") + `` + (embed.authorName.trim() != "" ? `<div class="embedAuthor-3l5luH da-embedAuthor embedMargin-UO5XwE da-embedMargin"><` + (embed.authorUrl.trim() == "" ? "span" : "a") + ` tabindex="0" class="` + (embed.authorUrl.trim() == "" ? "embedAuthorName-3mnTWj da-embedAuthorName" : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedAuthorNameLink-1gVryT embedLink-1G1K1D embedAuthorName-3mnTWj da-embedAuthorNameLink da-embedLink da-embedAuthorName`) + `" href="` + embed.authorUrl + `" rel="noreferrer noopener" target="_blank">` + embed.authorName + `</` + (embed.providerUrl.trim() == "" ? "span" : "a") + `></div>` : "") + `` + (embed.description.trim() != "" ? `<div class="embedDescription-1Cuq9a da-embedDescription embedMargin-UO5XwE da-embedMargin">` + embed.description + `</div>` : "") + `</div></div></div>`;
+
+      recentEmbedsInner.appendChild(embedElement);
+    }
+
+    recentEmbedsWrapper.appendChild(recentEmbedsInner);
+    document.body.appendChild(recentEmbedsWrapper);
   }
 }
 
@@ -435,22 +551,6 @@ var oldImageWidth = -1;
 var oldImageHeight = -1;
 
 function createEmbedPreviewPopup(offset, providerName, providerUrl, authorName, authorUrl, description, color, imageType, imageUrl) {
-  /*
-  <div class="embed-IeVjo6 da-embed embedWrapper-3AbfJJ da-embedWrapper" aria-hidden="false" style="max-width: 426px;">
-      <div class="embedPill-1Zntps da-embedPill" style="background-color: rgb(55, 201, 208);"></div>
-      <div class="embedInner-1-fpTo da-embedInner">
-          <div class="embedContent-3fnYWm da-embedContent">
-              <div class="embedContentInner-FBnk7v da-embedContentInner markup-2BOw-j da-markup">
-                  <div class=""><a tabindex="0" class="anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedProviderLink-2Pq1Uw embedLink-1G1K1D embedProvider-3k5pfl da-embedProviderLink da-embedLink da-embedProvider" href="https://www.google.com" rel="noreferrer noopener" target="_blank">providerName</a></div>
-                  <div class="embedAuthor-3l5luH da-embedAuthor embedMargin-UO5XwE da-embedMargin"><a tabindex="0" class="anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedAuthorNameLink-1gVryT embedLink-1G1K1D embedAuthorName-3mnTWj da-embedAuthorNameLink da-embedLink da-embedAuthorName" href="https://www.google.com" rel="noreferrer noopener" target="_blank">authorName</a></div>
-                  <div class="embedDescription-1Cuq9a da-embedDescription embedMargin-UO5XwE da-embedMargin">description</div>
-              </div>
-          </div>
-          <a class="anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover imageWrapper-2p5ogY da-imageWrapper imageZoom-1n-ADA da-imageZoom clickable-3Ya1ho da-clickable embedImage-2W1cML da-embedImage embedMarginLarge-YZDCEs da-embedMarginLarge embedWrapper-3AbfJJ da-embedWrapper" href="https://www.google.com/logos/doodles/2019/first-image-of-a-black-hole-6224607435030528-law.gif" rel="noreferrer noopener" target="_blank" role="button" style="width: 400px; height: 160px;">
-          <img alt="" src="https://images-ext-1.discordapp.net/external/3zRq9gokk_AZQJvMGaPM9ukrFURmeOaXmucSBz-hiXU/https/www.google.com/logos/doodles/2019/first-image-of-a-black-hole-6224607435030528-law.gif?format=png&amp;width=400&amp;height=160" style="width: 400px; height: 160px;"></a>
-      </div>
-  </div>
-  */
   var img = new Image();
 
   var create = (useImage, oldImage) => {
@@ -547,14 +647,13 @@ function createEmbedPreviewPopup(offset, providerName, providerUrl, authorName, 
       var previewWrapperHeight = 446;
       previewWrapper.setAttribute("id", "embedPreviewWrapper");
       previewWrapper.setAttribute("class", "theme-dark");
-      previewWrapper.setAttribute("style", "text-rendering: optimizeLegibility;");
 
       var embedButton = document.getElementsByClassName("embed-button-wrapper")[0].getBoundingClientRect();
       var positionInterval = setInterval(() => {
         if (!document.getElementById("embedPreviewWrapper")) {
           window.clearInterval(positionInterval);
         }
-        previewWrapper.setAttribute("style", "border-radius: 10px; width: auto; height: auto; position: absolute; top: " + ((window.innerHeight / 2) - (previewWrapperHeight / 2)) + "px; left: " + ((window.innerWidth / 2) - (previewWrapperWidth / 2) + offset) + "px; background-color: #36393F; z-index: 999999999999999999999; padding: 10px;");
+        previewWrapper.setAttribute("style", "border-radius: 10px; width: auto; height: auto; position: absolute; top: " + ((window.innerHeight / 2) - (previewWrapperHeight / 2)) + "px; left: " + ((window.innerWidth / 2) - (previewWrapperWidth / 2) + offset) + "px; background-color: #36393F; z-index: 999999999999999999999; padding: 10px; text-rendering: optimizeLegibility;");
       }, 100);
 
       previewWrapper.innerHTML = htmlString;
@@ -628,6 +727,9 @@ function closeEmbedPopup() {
     document.getElementById("embedPreviewWrapper").remove();
   } catch (e) {}
   try {
+    document.getElementById("recentEmbedsWrapper").remove();
+  } catch (e) {}
+  try {
     document.getElementById("fadeOutBackground").remove();
   } catch (e) {}
   oldDescription = "";
@@ -641,7 +743,7 @@ SafeEmbedGenerator.prototype.observer = function(e) {
 };
 
 SafeEmbedGenerator.prototype.getSettingsPanel = function() {
-  return "<h3>Settings Panel</h3>\nSettings coming soon.";
+  return "<h3>Settings Panel</h3>\n\nSettings coming soon.";
 };
 
 SafeEmbedGenerator.prototype.getName = function() {
@@ -653,7 +755,7 @@ SafeEmbedGenerator.prototype.getDescription = function() {
 };
 
 SafeEmbedGenerator.prototype.getVersion = function() {
-  return "1.2.9";
+  return "1.2.12";
 };
 
 SafeEmbedGenerator.prototype.getAuthor = function() {
