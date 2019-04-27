@@ -5,6 +5,7 @@ GhostMessage allows you to send a message which deletes itself as soon as you se
 ## Usage
 
 Click the new button in the text area to toggle sending ghost messages.
+
 <img src="/media/ghost-message.gif?raw=true">
 
 ## Changelog
