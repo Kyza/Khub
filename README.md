@@ -27,7 +27,7 @@ Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub
 
 [<img src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discordapp.com/channels/@me)
 
-[<img src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=Kyzakistankromaniakfyz&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discord.gg/c9ESSur)
+[<img src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discord.gg/c9ESSur)
 
 ## BDv2 Plugins
 
