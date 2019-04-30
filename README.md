@@ -25,15 +25,21 @@ I will not start developing or porting my existing plugins to version 2 until BD
 ## BDv1/BBD Plugins
 
 ### Verified
+------
 
 None of my plugins have been verified yet.
 
 ### Unverified
+------
 
-Are you a BetterDiscord staff member? Please consider reviewing the plugins below.
+#### Are you a BetterDiscord staff member? Please consider reviewing the plugins below.
+------
 
-**[SafeEmbedGenerator](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/SafeEmbedGenerator)**
+#### **[SafeEmbedGenerator](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/SafeEmbedGenerator)**
+------
 
-**[GhostMessage](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/GhostMessage)**
+#### **[GhostMessage](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/GhostMessage)**
+------
 
-**[CustomDiscordIcon](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/CustomDiscordIcon)**
+#### **[CustomDiscordIcon](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/CustomDiscordIcon)**
+------
