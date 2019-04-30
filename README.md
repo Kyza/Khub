@@ -24,13 +24,11 @@ I will not start developing or porting my existing plugins to version 2 until BD
 
 ## BDv1/BBD Plugins
 
-------
 ### Verified
 ------
 
 None of my plugins have been verified yet.
 
-------
 ### Unverified
 ------
 
