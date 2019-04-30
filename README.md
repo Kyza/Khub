@@ -16,7 +16,7 @@ Discord:
 `@Kyza#9994`
 `<@220548715265114113>`
 
-Problems with a plugin? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues).
+Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues).
 
 ## BDv2 Plugins
 
