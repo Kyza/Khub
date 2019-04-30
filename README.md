@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/media/KhubLogo.png" />
+  <img src="/media/Khub.png" />
 </p>
   
 <p align="center">
