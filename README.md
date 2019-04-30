@@ -10,6 +10,14 @@
 
 The hub for all of Kyza's plugins and themes.
 
+## Contact
+
+Discord:
+`@Kyza#9994`
+`<@220548715265114113>`
+
+Problems with a plugin? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues).
+
 ## BDv2 Plugins
 
 I will not start developing or porting my existing plugins to version 2 until BDv2 releases as stable.
