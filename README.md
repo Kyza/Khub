@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  The hub for all of Kyza's plugins and themes.
+  <b>The hub for all of Kyza's plugins and themes.</b>
 </p>
 
 ------
