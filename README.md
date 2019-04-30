@@ -24,16 +24,10 @@ I will not start developing or porting my existing plugins to version 2 until BD
 
 ## BDv1/BBD Plugins
 
-### Verified
-------
+Are you a BetterDiscord staff member? Please consider reviewing the unverified plugins below.
 
-None of my plugins have been verified yet.
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/SafeEmbedGenerator)
 
-### Unverified
-------
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/GhostMessage)
 
-Are you a BetterDiscord staff member? Please consider reviewing the plugins below.
-
- * **[SafeEmbedGenerator](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/SafeEmbedGenerator)**
- * **[GhostMessage](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/GhostMessage)**
- * **[CustomDiscordIcon](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/CustomDiscordIcon)**
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/CustomDiscordIcon)
