@@ -3,20 +3,20 @@
 [![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
 
 [![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
-![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
 
-![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)
-![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
 
 The hub for all of Kyza's plugins and themes.
 
 ## Contact
 
-Discord:
-`@Kyza#9994`
-`<@220548715265114113>`
+Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues/new).
 
-Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues).
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030)](https://discord.gg/)
+
+[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030)](https://discord.gg/)
 
 ## BDv2 Plugins
 
