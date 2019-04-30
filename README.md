@@ -17,6 +17,8 @@
   The hub for all of Kyza's plugins and themes.
 </p>
 
+------
+
 ## Contact
 
 Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues/new).
