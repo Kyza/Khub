@@ -23,9 +23,11 @@
 
 Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues/new).
 
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030)](https://discord.gg/)
+[<img src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discordapp.com/channels/@me)
 
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030)](https://discord.gg/)
+[<img src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discordapp.com/channels/@me)
+
+[<img src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=Kyzakistankromaniakfyz&color=7289DA&style=flat&logo=Discord&labelColor=303030" />](https://discord.gg/c9ESSur)
 
 ## BDv2 Plugins
 
