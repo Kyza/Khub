@@ -1,14 +1,30 @@
-# Khub
+<p align="center">
+  Khub
+</p>
+  
+<p align="center">
+  <img src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" />
+</p>
 
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
+<p align="center">
+  <img src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" />
+</p>
+  
+<p align="center">
+  <img src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" />
+</p>
 
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
+<p align="center">
+  <img src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" />
+</p>
+  
+<p align="center">
+  <img src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" />
+</p>
 
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
-[![If you are seeing this, you have bad internet.](https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030)](https://github.com/KyzaGitHub/Khub/)
-
-The hub for all of Kyza's plugins and themes.
+<p align="center">
+  The hub for all of Kyza's plugins and themes.
+</p>
 
 ## Contact
 
