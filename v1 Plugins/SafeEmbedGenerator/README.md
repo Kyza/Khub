@@ -6,6 +6,15 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 
 ![https://imgur.com/8IGwGGa.png](https://imgur.com/8IGwGGa.png)
 
+## Features
+
+- [x] Easy usability.
+- [x] Send custom embeds that won't get you banned.
+- [ ] Includes general plugin settings.
+- [x] Displays live previews of embeds before you send them.
+- [ ] Embeds can be saved to use for later.
+- [ ] Recently used embeds save themselves temporaraly.
+
 ## Usage
 
  * Provider Name: The provider name field of the embed. Must be less than 256 characters.
@@ -86,13 +95,6 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 ### 1.0.0
 
  * Release.
-
-## Planned Feature
-
- * Recently used embeds.
- * Saved embeds.
- * General settings.
- * Save the last used color.
 
 ## Credits
 
