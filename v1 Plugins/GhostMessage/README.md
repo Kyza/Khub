@@ -8,6 +8,12 @@ Click the new button in the text area to toggle sending ghost messages.
 
 <img src="/media/ghost-message.gif?raw=true">
 
+## Features
+
+- [x] Easy to toggle functionality.
+- [x] Instantly delete messages sent.
+- [ ] Delete messages on a timer.
+
 ## Changelog
 
 ### 1.0.0
