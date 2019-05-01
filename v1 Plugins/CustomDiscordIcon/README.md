@@ -4,6 +4,11 @@ CustomDiscordIcon allows you to customize the Discord icon on your taskbar.
 
 ![https://github.com/KyzaGitHub/Khub/raw/master/media/custom-icon.png](https://github.com/KyzaGitHub/Khub/raw/master/media/custom-icon.png)
 
+## Features
+
+- [x] Change the icon Discord on the taskbar to almost any image.
+- [x] Has an option to use the current selected guild/user icon.
+
 ## Changelog
 
 ### 1.1.0
