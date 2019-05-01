@@ -19,6 +19,18 @@
 
 ------
 
+<p align="center">
+  Navigation
+</p>
+
+<p align="center">
+  <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/SafeEmbedGenerator/"><img src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+  <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/GhostMessage/"><img src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+  <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/CustomDiscordIcon/"><img src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+</p>
+
+------
+
 ## Contact
 
 Problems with a plugin or theme? Submit an [issue](https://github.com/KyzaGitHub/Khub/issues/new).
