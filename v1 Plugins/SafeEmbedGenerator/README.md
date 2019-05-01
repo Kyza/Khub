@@ -2,7 +2,7 @@
 
 This BetterDiscord plugin adds a button to the right of your text box which allows you to create safe embeds with ease.
 
-<img src="/media/live.gif?raw=true">
+<img src="https://github.com/KyzaGitHub/Khub/raw/master/media/live.gif">
 
 ![https://imgur.com/8IGwGGa.png](https://imgur.com/8IGwGGa.png)
 
