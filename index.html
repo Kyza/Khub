@@ -154,10 +154,10 @@
 
 					if (target == document.getElementById("fadedBackground")) {
 						fadedBackground.style.opacity = "0";
+						document.body.style.overflowY = "scroll";
 						setTimeout(() => {
 							if (document.getElementById("fadedBackground")) {
 								document.getElementById("fadedBackground").remove();
-								document.body.style.overflow = "default";
 							}
 						}, 1000);
 					}
