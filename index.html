@@ -1,191 +1,266 @@
 <html>
 
 <head>
-  <title>Khub | Kyza's Plugin Hub</title>
+	<title>Khub | Kyza's Plugin Hub</title>
 
-  <meta name="description" content="The hub for all of Kyza's plugins and themes.">
-  <meta property="og:site_name" content="Khub">
-  <meta property="og:image" content="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
-  <meta property="og:title" content="Khub | Kyza's Plugin Hub">
-  <meta property="og:description" content="The hub for all of Kyza's plugins and themes.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kyzagithub.github.io/Khub/">
-  <meta name="theme-color" content="#7bbe17">
-  
-  <link rel="shortcut icon" type="image/png" href="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4" />
+	<meta name="description" content="The hub for all of Kyza's plugins and themes.">
+	<meta property="og:site_name" content="Khub">
+	<meta property="og:image" content="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
+	<meta property="og:title" content="Khub | Kyza's Plugin Hub">
+	<meta property="og:description" content="The hub for all of Kyza's plugins and themes.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://kyzagithub.github.io/Khub/">
+	<meta name="theme-color" content="#7bbe17">
 
-  <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-  <style type="text/css">
-    body {
-      background-color: #242424;
+	<link rel="shortcut icon" type="image/png" href="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4" />
 
-      font-family: 'Comfortaa', cursive;
-      color: white;
-    }
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+	<style type="text/css">
+		body {
+			background-color: #242424;
 
-    #logo {
-      filter: invert(100%);
-      width: 40%;
-      height: auto;
-    }
+			font-family: 'Comfortaa', cursive;
+			color: white;
+		}
 
-    #pfp {
-      position: absolute;
-      top: 15px;
-      left: 15px;
+		#logo {
+			filter: invert(100%);
+			width: 40%;
+			height: auto;
+		}
 
-      z-index: 100;
+		#pfp {
+			position: absolute;
+			top: 15px;
+			left: 15px;
 
-      border-radius: 10%;
+			z-index: 100;
 
-      width: 12%;
-      height: auto;
-    }
+			border-radius: 10%;
 
-    hr {
-      border: none;
-      height: 1em;
-      background-color: rgba(160, 160, 160, 0.7);
-    }
+			width: 12%;
+			height: auto;
+		}
 
-    #content {
-      margin-left: 25%;
-      margin-right: 25%;
-      margin-bottom: 20px;
+		hr {
+			border: none;
+			height: 1em;
+			background-color: rgba(160, 160, 160, 0.7);
+		}
 
-      border-color: rgba(160, 160, 160, 0.7);
-      border-style: solid;
+		#content {
+			margin-left: 25%;
+			margin-right: 25%;
+			margin-bottom: 20px;
 
-      border-top-width: 0px;
-      border-bottom-width: 0px;
-      border-left-width: 0.7em;
-      border-right-width: 0.7em;
+			border-color: rgba(160, 160, 160, 0.7);
+			border-style: solid;
 
-      padding: 10px;
-      padding-top: 0px;
-    }
+			border-top-width: 0px;
+			border-bottom-width: 0px;
+			border-left-width: 0.7em;
+			border-right-width: 0.7em;
 
-    #faq {
-      padding-top: 10px;
-    }
+			padding: 10px;
+			padding-top: 0px;
+		}
 
-    a.link {
-      transition-duration: 0.5s;
-      padding-bottom: -0.05em;
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
+		#faq {
+			padding-top: 10px;
+		}
 
-      border-width: 0px;
-      border-bottom-width: 2px;
-      border-color: gray;
-      border-style: solid;
+		a.link {
+			transition-duration: 0.5s;
+			padding-bottom: -0.05em;
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
 
-      text-decoration: none;
-    }
+			border-width: 0px;
+			border-bottom-width: 2px;
+			border-color: gray;
+			border-style: solid;
 
-    /* unvisited link */
-    a:link.link {
-      background-color: transparent;
-      color: gray;
-    }
+			text-decoration: none;
+		}
 
-    /* visited link */
-    a:visited.link {
-      background-color: transparent;
-      color: gray;
-    }
+		/* unvisited link */
+		a:link {
+			background-color: transparent;
+			color: gray;
+		}
 
-    /* mouse over link */
-    a:hover.link {
-      background-color: gray;
-      color: #242424;
+		/* visited link */
+		a:visited {
+			background-color: transparent;
+			color: gray;
+		}
 
-      border-bottom-width: 0px;
-    }
+		/* mouse over link */
+		a:hover {
+			background-color: gray;
+			color: #242424;
 
-    /* selected link */
-    a:active.link {
-      background-color: transparent;
-      color: gray;
-    }
-  </style>
-  <script>
-  </script>
+			border-bottom-width: 0px;
+		}
+
+		/* selected link */
+		a:active {
+			background-color: transparent;
+			color: gray;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+	<script>
+		var converter = new showdown.Converter();
+
+		function addMarkdown(markdownLink, element, callback) {
+			$.get(markdownLink, function(response) {
+				var text = response;
+				var html = converter.makeHtml(text);
+				element.innerHTML = html;
+				callback();
+			});
+		}
+		//addMarkdown('https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/README.md', this)
+
+		function openDownloadPopup(downloadName) {
+			if (!document.getElementById("fadedBackground")) {
+				var fadedBackground = document.createElement("div");
+				fadedBackground.setAttribute("id", "fadedBackground");
+
+				fadedBackground.style.position = "absolute";
+				fadedBackground.style.top = "0px";
+				fadedBackground.style.left = "0px";
+				fadedBackground.style.width = "100%";
+				fadedBackground.style.height = "100%";
+				fadedBackground.style.padding = "5%";
+				fadedBackground.style.overflowX = "hidden";
+				fadedBackground.style.overflowY = "scroll";
+				fadedBackground.style.zIndex = "100000";
+				fadedBackground.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+				fadedBackground.style.opacity = "0";
+				fadedBackground.style.transitionDuration = "1s";
+
+				setTimeout(() => {
+					fadedBackground.style.opacity = "1";
+				}, 10);
+
+				document.body.style.overflow = "hidden";
+
+				fadedBackground.addEventListener("click", (e) => {
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+
+					if (target == document.getElementById("fadedBackground")) {
+						fadedBackground.style.opacity = "0";
+						setTimeout(() => {
+							if (document.getElementById("fadedBackground")) {
+								document.getElementById("fadedBackground").remove();
+								document.body.style.overflow = "default";
+							}
+						}, 1000);
+					}
+				});
+
+				var popupInner = document.createElement("div");
+				popupInner.style.backgroundColor = "#242424";
+				popupInner.style.borderRadius = "1%";
+				popupInner.style.padding = "20px";
+				popupInner.style.width = "90%";
+
+				fadedBackground.appendChild(popupInner);
+
+				document.body.appendChild(fadedBackground);
+
+				addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/" + downloadName + "/README.md", popupInner, () => {
+					var bg = document.getElementById("fadedBackground");
+
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+					bg.appendChild(document.createElement("br"));
+				});
+			}
+		}
+	</script>
 </head>
 
 <body>
-  <img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
+	<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
 
-  <p align="center">
-    <img id="logo" src="https://github.com/KyzaGitHub/Khub/raw/gh-pages/media/KhubLogo.png">
-  </p>
-  <p align="center">
-    <a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-  </p>
+	<p align="center">
+		<img id="logo" src="https://github.com/KyzaGitHub/Khub/raw/gh-pages/media/KhubLogo.png">
+	</p>
+	<p align="center">
+		<a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+	</p>
 
-  <p align="center">
-    <a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-    <a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-    <a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-    <a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-  </p>
+	<p align="center">
+		<a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+		<a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+		<a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+		<a href="https://github.com/KyzaGitHub/Khub/"><img src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+	</p>
 
-  <p align="center">
-    <b>The hub for all of Kyza's plugins and themes.</b>
-  </p>
+	<p align="center">
+		<b>The hub for all of Kyza's plugins and themes.</b>
+	</p>
 
-  <hr>
+	<hr>
 
-  <h1 align="center">Downloads</h1>
+	<h1 align="center">Downloads</h1>
 
-  <p align="center">
-    <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/SafeEmbedGenerator/"><img
-        src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-    <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/GhostMessage/"><img src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-    <a href="https://kyzagithub.github.io/Khub/v1%20Plugins/CustomDiscordIcon/"><img
-        src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-  </p>
+	<p align="center">
+		<img onclick="openDownloadPopup('SafeEmbedGenerator')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		<img onclick="openDownloadPopup('GhostMessage')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		<img onclick="openDownloadPopup('CustomDiscordIcon')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+	</p>
 
-  <hr>
+	<hr>
 
-  <div id="content">
-    <h1 id="faq">#faq</h1>
-    <h2>Why aren't you developing BDv2 plugins?</h2>
-    <span class="container">
-      BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
-    </span>
-    <h2>Will any of your plugins get me banned?</h2>
-    <span class="container">
-      Nope. ;)
-    </span>
-    <h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
-    <span class="container">
-      The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
-    </span>
-    <h2>Who are you?</h2>
-    <span class="container">
-      A human. Maybe...
-    </span>
-    <h2>Why Khub?</h2>
-    <span class="container">
-      Kyza + Hub = Khub
-    </span>
-    <h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
-    <span class="container">
-      It was a dare, long story.
-    </span>
-  </div>
+	<div id="content">
+		<h1 id="faq">#faq</h1>
+		<h2>Why aren't you developing BDv2 plugins?</h2>
+		<span class="container">
+			BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
+		</span>
+		<h2>Will any of your plugins get me banned?</h2>
+		<span class="container">
+			Nope. ;)
+		</span>
+		<h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
+		<span class="container">
+			The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
+		</span>
+		<h2>Who are you?</h2>
+		<span class="container">
+			A human. Maybe...
+		</span>
+		<h2>Why Khub?</h2>
+		<span class="container">
+			Kyza + Hub = Khub
+		</span>
+		<h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
+		<span class="container">
+			It was a dare, long story.
+		</span>
+	</div>
 
-  <hr>
+	<hr>
 
-  <p align="center">
-    Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
-    <br>
-    <br>
-    <a href="https://discordapp.com/channels/@me"><img src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-    <a href="https://discordapp.com/channels/@me"><img src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-    <a href="https://discord.gg/c9ESSur"><img src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-  </p>
+	<p align="center">
+		Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
+		<br>
+		<br>
+		<a href="https://discordapp.com/channels/@me"><img src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+		<a href="https://discordapp.com/channels/@me"><img src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+		<a href="https://discord.gg/c9ESSur"><img src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+	</p>
 </body>
 
 </html>
