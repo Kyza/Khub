@@ -374,6 +374,24 @@
     border-color: transparent;
 }
 
+/* Emoji Category */
+.theme-dark .category-2U57w6.da-category {
+    background-color: #1f1f1f;
+}
+/* Emoji Scrollbar */
+.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlexscrollerWrap-PyxcLY.da-scrollerWrap.scrollerThemed-2oenus.da-scrollerThemed.themeLight-1_DWyY.scrollerFade-1Ijw5y.da-scrollerFade.scrollerTrack-1ZIpsv.da-scrollerTrack ::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+}
+.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlexscrollerWrap-PyxcLY.da-scrollerWrap.scrollerThemed-2oenus.da-scrollerThemed.themeLight-1_DWyY.scrollerFade-1Ijw5y.da-scrollerFade.scrollerTrack-1ZIpsv.da-scrollerTrack ::-webkit-scrollbar-track-piece {
+    border-radius: 0px;
+    background-color: transparent;
+    border-color: transparent;
+}
+.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlexscrollerWrap-PyxcLY.da-scrollerWrap.scrollerThemed-2oenus.da-scrollerThemed.themeLight-1_DWyY.scrollerFade-1Ijw5y.da-scrollerFade.scrollerTrack-1ZIpsv.da-scrollerTrack ::-webkit-scrollbar-thumb {
+    background-color: #111;
+    border-color: transparent;
+}
+
 /* BetterDiscord Autocomplete */
 #bdea-autocomplete {
     background-color: #111;
@@ -413,7 +431,9 @@
 /* Upload Modal Chat */
 /* Uses default chat colors. */
 
-/* typing-2GQL18 base-gE7OpD da-typing da-base stop-animation */
+.theme-dark .typing-2GQL18.base-gE7OpD.da-typing.da-base {
+    background-color: #1a1a1a;
+}
 
 /* Plugin Styles */
 /* Member Count */
