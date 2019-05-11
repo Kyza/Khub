@@ -137,14 +137,92 @@ div.searchResult-3pzFAB.da-searchResult.expanded-v2Szsz.da-expanded {
     border-color: #111;
 }
 
+/* Search Dropdown */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div.container-3ayLPN.elevationBorderHigh-2WYJ09.da-container.da-elevationBorderHigh {
+    background-color: #131313;
+    border-color: #1f1f1f;
+    border-width: 2px;
+    border-style: solid;
+}
+div.option-96V44q.da-option.searchOption-zQ-1l6.da-searchOption::after, div.option-96V44q.da-option::after {
+    display: none;
+}
+
+/* Context Menus */
+div.contextMenu-HLZMGh.da-contextMenu.theme-dark {
+    border-color: #1f1f1f;
+    border-width: 2px;
+    border-style: solid;
+}
+
+/* Server Dropdown */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div.menu-Sp6bN1.da-menu {
+    background-color: #131313;
+    border-color: #1f1f1f;
+    border-width: 2px;
+    border-style: solid;
+}
+
 /* Slider On */
 div.flexChild-faoVW3.da-flexChild.switchEnabled-V2WDBB.switch-3wwwcV.da-switchEnabled.da-switch.valueUnchecked-2lU_20.value-2hFrkk.sizeDefault-2YlOZr.size-3rFEHg.themeDefault-24hCdX {
-    background-color: #1f1f1f !important;
+    background-color: #1f1f1f;
+}
+
+
+/* Full Profile Top No Activity */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.topSectionNormal-2-vo2m.da-topSectionNormal {
+    background-color: #111;
+}
+/* Full Profile Top Activity 1 */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.topSectionPlaying-1J5E4n.da-topSectionPlaying > header {
+    background-color: #36363f;
+}
+/* Full Profile Top Activity 2 */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.topSectionPlaying-1J5E4n.da-topSectionPlaying > div {
+    background-color: #26262f;
+}
+/* Full Profile Bottom */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.body-3ND3kc.da-body > div > div {
+    background-color: #161616;
+}
+
+/* Mini Profile Top Activity 1 */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.headerPlaying-j0WQBV.header-2BwW8b.size16-14cGz5.da-headerPlaying.da-header.da-size16 > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyCenter-3D2jYp.alignCenter-1dQNNs.noWrap-3jynv6.headerTop-3C2Zn0.da-headerTop {
+    background-color: #36363f;
+}
+/* Mini Profile Top Activity 2 */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.headerPlaying-j0WQBV.header-2BwW8b.size16-14cGz5.da-headerPlaying.da-header.da-size16 > div.activityUserPopout-2yItg2.da-activityUserPopout.activity-11LB_k.da-activity {
+    background-color: #26262f;
+}
+/* Mini Profile Top No Activity */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.headerNormal-T_seeN.header-2BwW8b.size16-14cGz5.da-headerNormal.da-header.da-size16 > div {
+    background-color: #111;
+}
+/* Mini Profile Top Spotify 1 */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.headerSpotify-zpWxgT.header-2BwW8b.size16-14cGz5.da-headerSpotify.da-header.da-size16 > div.activityUserPopout-2yItg2.da-activityUserPopout.activity-11LB_k.da-activity {
+    background-color: #363f36;
+}
+/* Mini Profile Top Spotify 2 */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.headerSpotify-zpWxgT.header-2BwW8b.size16-14cGz5.da-headerSpotify.da-header.da-size16 > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyCenter-3D2jYp.alignCenter-1dQNNs.noWrap-3jynv6.headerTop-3C2Zn0.da-headerTop {
+    background-color: #262f26;
+}
+/* Mini Profile Bottom */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.body-3iLsc4.da-body.charcounter-added, #app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.footer-1fjuF6.da-footer {
+    background-color: #161616;
+}
+/* Mini Profile Chat */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.footer-1fjuF6.da-footer > input {
+    background-color: #111;
 }
 
 /* Plugin Styles */
 /* Member Count */
 #MemberCount {
+    background-color: #131313 !important;
+}
+
+/* Google Translate */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div:nth-child(2) {
     background-color: #131313 !important;
 }
 
