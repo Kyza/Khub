@@ -103,8 +103,62 @@ div.children-19S4PO.da-children::after {
     border-radius: 0px !important;
 }
 
+/* Search Menu */
+#app-mount > div.app-19_DXt.da-app > div.app-2rEoOp.da-app.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.theme-dark > div.layers-3iHuyZ.da-layers.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.spacer-1fA9zc.da-spacer > div > div > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz.da-base > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix.da-spacer.da-firefoxFixScrollFlex > div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix.da-chat.da-firefoxFixScrollFlex > div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix.da-content.da-firefoxFixScrollFlex > div.searchResultsWrap-2DKFzt.da-searchResultsWrap {
+    background-color: #161616;
+}
+
+/* Search Channel Name */
+div.div-1QajIf.da-channelName {
+    background-color: #161616;
+}
+
+/* Search Channel Separator */
+div.channelSeparator-1X1FuH.da-channelSeparator {
+    background-color: #2F3136;
+}
+
+/* Search Results Info */
+#app-mount > div.app-19_DXt.da-app > div.app-2rEoOp.da-app.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.theme-dark > div.layers-3iHuyZ.da-layers.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.spacer-1fA9zc.da-spacer > div > div > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz.da-base > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix.da-spacer.da-firefoxFixScrollFlex > div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix.da-chat.da-firefoxFixScrollFlex > div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix.da-content.da-firefoxFixScrollFlex > div.searchResultsWrap-2DKFzt.da-searchResultsWrap > div.searchHeader-1l-wpR.da-searchHeader {
+    background-color: #111;
+}
+
+/* Highlighted Search Result */
+div.searchResultMessage-2VxO12.da-searchResultMessage.hit-NLlWXA.da-hit {
+    background-color: #1a1a1a;
+    border-color: #111;
+}
+/*div.searchResultMessage-2VxO12.da-searchResultMessage.hit-NLlWXA.da-hit::after {*/
+/*    display: none;*/
+/*}*/
+
+/* Expanded Search Result */
+
+
+/* Slider On */
+div.flexChild-faoVW3.da-flexChild.switchEnabled-V2WDBB.switch-3wwwcV.da-switchEnabled.da-switch.valueUnchecked-2lU_20.value-2hFrkk.sizeDefault-2YlOZr.size-3rFEHg.themeDefault-24hCdX {
+    background-color: #1f1f1f !important;
+}
+
 /* Plugin Styles */
 /* Member Count */
 #MemberCount {
     background-color: #131313 !important;
+}
+
+/* SelectedSafeEmbedGenerator */
+#embedPopupWrapper {
+    background-color: #131313 !important;
+}
+#embedPreviewWrapper,
+#providerName,
+#providerUrl,
+#authorName,
+#authorUrl,
+#description,
+#imageUrl, 
+#colorPicker,
+#embedPopupWrapper > input[type="button"]:nth-child(9) {
+    background-color: #1f1f1f !important;
+    color: white !important;
 }
