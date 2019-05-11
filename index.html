@@ -201,11 +201,11 @@
 
 					var downloadButton = document.createElement("div");
 					downloadButton.innerHTML = "DOWNLOAD";
+					downloadButton.style.userSelect = "none";
 
 					downloadButton.addEventListener("click", (e) => {
 						var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
 						var pluginThemeURL = "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
-						console.log(pluginThemeURL);
 
 						// Get the raw plugin/theme data and save it to a variable.
 						$.get(pluginThemeURL, function(response) {
