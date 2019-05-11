@@ -124,7 +124,7 @@
 		}
 		//addMarkdown('https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/README.md', this)
 
-		function openDownloadPopup(downloadName) {
+		function openDownloadPopup(downloadName, downloadLocation) {
 			if (!document.getElementById("fadedBackground")) {
 				var fadedBackground = document.createElement("div");
 				fadedBackground.setAttribute("id", "fadedBackground");
@@ -166,15 +166,18 @@
 
 				var popupInner = document.createElement("div");
 				popupInner.style.backgroundColor = "#242424";
-				popupInner.style.borderRadius = "1%";
+				popupInner.style.borderRadius = "30px";
 				popupInner.style.padding = "20px";
 				popupInner.style.width = "90%";
+				popupInner.style.overflowX = "scroll";
 
 				fadedBackground.appendChild(popupInner);
 
 				document.body.appendChild(fadedBackground);
 
-				addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/" + downloadName + "/README.md", popupInner, () => {
+				var downloadPath = (downloadLocation == "v1" ? "v1%20Plugins" : (downloadLocation == "v2" ? "v2%20Plugins" : (downloadLocation == "theme" ? : "v1%20Plugins")));
+
+				addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
 					var bg = document.getElementById("fadedBackground");
 
 					bg.appendChild(document.createElement("br"));
@@ -217,9 +220,12 @@
 	<h1 align="center">Downloads</h1>
 
 	<p align="center">
-		<img onclick="openDownloadPopup('SafeEmbedGenerator')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		<img onclick="openDownloadPopup('GhostMessage')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		<img onclick="openDownloadPopup('CustomDiscordIcon')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		<img onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		<img onclick="openDownloadPopup('GhostMessage', 'v1')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		<img onclick="openDownloadPopup('CustomDiscordIcon', 'v1')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+	</p>
+	<p align="center">
+		<img onclick="openDownloadPopup('DarkDarkTheme', 'theme')" src="https://img.shields.io/static/theme.svg?label=DarkDarkTheme&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
 	</p>
 
 	<hr>
