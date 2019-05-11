@@ -103,6 +103,20 @@ div.children-19S4PO.da-children::after {
     border-radius: 0px !important;
 }
 
+/* Ping Menu Top */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.header-ykumBX.da-header.header-SsaQ8X.da-header.header-3LXPrb.da-header {
+    background-color: #131313;
+}
+/* Ping Menu Bottom */
+#app-mount > div:nth-child(4) > div.theme-dark.popouts-3dRSmE.da-popouts > div > div > div.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlex > div {
+    background-color: #1a1a1a;
+}
+/* Ping Menu Message */
+div.messageGroupWrapper-o-Zw7G.da-messageGroupWrapper {
+    background-color: #1a1a1a;
+    border-color: #111;
+}
+
 /* Search Menu */
 #app-mount > div.app-19_DXt.da-app > div.app-2rEoOp.da-app.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.theme-dark > div.layers-3iHuyZ.da-layers.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.spacer-1fA9zc.da-spacer > div > div > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz.da-base > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix.da-spacer.da-firefoxFixScrollFlex > div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix.da-chat.da-firefoxFixScrollFlex > div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix.da-content.da-firefoxFixScrollFlex > div.searchResultsWrap-2DKFzt.da-searchResultsWrap {
     background-color: #161616;
