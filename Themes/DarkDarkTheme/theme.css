@@ -229,6 +229,18 @@ div.flexChild-faoVW3.da-flexChild.switchEnabled-V2WDBB.switch-3wwwcV.da-switchEn
     background-color: #111;
 }
 
+/* Settings Panel */
+div.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.da-scroller.da-firefoxFixScrollFlex.systemPad-3UxEGl.da-systemPad.contentRegionScroller-26nc1e.da-contentRegionScroller {
+    background-color: #1a1a1a;
+}
+
+/* Settings Sidebar */
+div.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.da-scroller.da-firefoxFixScrollFlex.systemPad-3UxEGl.da-systemPad.sidebarRegionScroller-3MXcoP.da-sidebarRegionScroller {
+    background-color: #161616;
+}
+
+
+
 /* Plugin Styles */
 /* Member Count */
 #MemberCount {
