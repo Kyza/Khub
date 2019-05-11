@@ -177,11 +177,28 @@ div.contextMenu-HLZMGh.da-contextMenu.theme-dark {
     border-style: solid;
 }
 
-/* Slider On */
-div.flexChild-faoVW3.da-flexChild.switchEnabled-V2WDBB.switch-3wwwcV.da-switchEnabled.da-switch.valueUnchecked-2lU_20.value-2hFrkk.sizeDefault-2YlOZr.size-3rFEHg.themeDefault-24hCdX {
+/* Slider Off */
+div.da-switchEnabled.da-switch.valueUnchecked-2lU_20 {
     background-color: #1f1f1f;
 }
 
+/* Notification Settings Bottom */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-2yfCgX.da-footer {
+    background-color: #131313;
+}
+/* Notification Settings Main */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlex.content-2BXhLs.da-content.scrollerThemed-2oenus.da-scrollerThemed.themeGhostHairline-DBD-2d > div {
+    background-color: #1a1a1a;
+}
+
+/* Nickname Settings Bottom */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > form > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-2yfCgX.da-footer {
+    background-color: #131313;
+}
+/* Nickname Settings Main */
+#app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > form > div.scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.da-scrollerWrap.da-firefoxFixScrollFlex.content-2BXhLs.da-content.scrollerThemed-2oenus.da-scrollerThemed.themeGhostHairline-DBD-2d > div {
+    background-color: #1a1a1a;
+}
 
 /* Full Profile Top No Activity */
 #app-mount > div:nth-child(4) > div:nth-child(2) > div.modal-1UGdnR.da-modal > div.inner-1JeGVc.da-inner > div > div.topSectionNormal-2-vo2m.da-topSectionNormal {
@@ -239,7 +256,32 @@ div.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.da-scroller.da-firefoxFixScrollF
     background-color: #161616;
 }
 
+/* Audit Log */
+#app-mount > div.app-19_DXt.da-app.platform-win > div.app-2rEoOp.da-app.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.theme-dark > div.layers-3iHuyZ.da-layers.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.spacer-1fA9zc.da-spacer > div:nth-child(2) > div:nth-child(3) > div > div.contentRegion-3nDuYy.da-contentRegion > div.customColumn-Rb6toI.da-customColumn > div > div > div {
+    background-color: #1a1a1a;
+}
 
+/* Changelog Top */
+div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignCenter-1dQNNs.noWrap-3jynv6.header-1R_AjF.da-header {
+    background-color: #161616;
+}
+/* Changelog Main Panel */
+div.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.da-scroller.da-firefoxFixScrollFlex.systemPad-3UxEGl.da-systemPad.inner-3wn6Q5.da-inner.container-2zArDx.da-container.content-8biNdB.da-content {
+    background-color: #1f1f1f;
+}
+/* Changelog Bottom */
+div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-2yfCgX.da-footer {
+    background-color: #161616;
+}
+/* Changelog Background */
+div.modal-3HD5ck.da-modal.modal-1sor29.da-modal.size-JLvFeT.da-size {
+    background-color: #111;
+}
+
+/* New Messages Bar */
+#app-mount > div.app-19_DXt.da-app.platform-win > div.app-2rEoOp.da-app.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.theme-dark > div.layers-3iHuyZ.da-layers.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn.spacer-1fA9zc.da-spacer > div > div > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz.da-base > div.flex-1xMQg5.flex-1O1GKY.da-flex.da-flex.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix.da-spacer.da-firefoxFixScrollFlex > div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix.da-chat.da-firefoxFixScrollFlex > div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix.da-content.da-firefoxFixScrollFlex > div.spacer-1fA9zc.da-spacer.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.da-vertical.da-flex.da-directionColumn > div.messagesWrapper-3lZDfY.da-messagesWrapper > div.newMessagesBar-mujexs.da-newMessagesBar {
+    background-color: #36363f;
+}
 
 /* Plugin Styles */
 /* Member Count */
