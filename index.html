@@ -124,6 +124,8 @@
 		}
 		//addMarkdown('https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/README.md', this)
 
+		var popupInterval;
+
 		function openDownloadPopup(downloadName, downloadLocation) {
 			if (!document.getElementById("fadedBackground")) {
 				var fadedBackground = document.createElement("div");
@@ -134,7 +136,6 @@
 				fadedBackground.style.left = "0px";
 				fadedBackground.style.width = "100%";
 				fadedBackground.style.height = "100%";
-				fadedBackground.style.padding = "5%";
 				fadedBackground.style.overflowX = "hidden";
 				fadedBackground.style.overflowY = "scroll";
 				fadedBackground.style.zIndex = "100000";
@@ -146,7 +147,9 @@
 					fadedBackground.style.opacity = "1";
 				}, 10);
 
-				$("html, body").animate({ scrollTop: 0 }, "slow");
+				$("html, body").animate({
+					scrollTop: 0
+				}, "slow");
 				document.body.style.overflow = "hidden";
 
 				fadedBackground.addEventListener("click", (e) => {
@@ -165,29 +168,63 @@
 				});
 
 				var popupInner = document.createElement("div");
+				popupInner.id = "popupInner";
 				popupInner.style.backgroundColor = "#242424";
 				popupInner.style.borderRadius = "30px";
 				popupInner.style.padding = "20px";
+				popupInner.style.width = "50%";
+				popupInner.style.margin = "0 auto";
+				popupInner.style.marginTop = "30px";
+				popupInner.style.marginBottom = "30px";
+
+				// popupInterval = setInterval(() => {
+				// 	if (!document.getElementById("popupInner")) {
+				// 		clearInterval(popupInterval);
+				// 	}
+				// 	console.log("uwu");
+				// 	popupInner.style.transform = "translate(calc(" + (windowpopupInner.width/2) + "px), -50%)";
+				// }, 100);
 				popupInner.style.width = "90%";
-				popupInner.style.overflowX = "scroll";
+				popupInner.style.overflow = "hidden";
 
 				fadedBackground.appendChild(popupInner);
 
 				document.body.appendChild(fadedBackground);
 
-				var downloadPath = (downloadLocation == "v1" ? "v1%20Plugins" : (downloadLocation == "v2" ? "v2%20Plugins" : (downloadLocation == "theme" ? : "v1%20Plugins")));
+				var downloadPath = "";
+				if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
+				if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
+				if (downloadLocation == "theme") downloadPath = "Themes";
 
 				addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
-					var bg = document.getElementById("fadedBackground");
+					var popupInner = document.getElementById("popupInner");
 
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
-					bg.appendChild(document.createElement("br"));
+					var downloadButton = document.createElement("div");
+					downloadButton.innerHTML = "DOWNLOAD";
+
+					downloadButton.addEventListener("click", (e) => {
+						var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
+						var pluginThemeURL = "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
+						console.log(pluginThemeURL);
+
+						// Get the raw plugin/theme data and save it to a variable.
+						$.get(pluginThemeURL, function(response) {
+							var pluginThemeRaw = response;
+
+							var element = document.createElement('a');
+							element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(pluginThemeRaw));
+							element.setAttribute('download', downloadName + "." + type + ".js");
+
+							element.style.display = 'none';
+							document.body.appendChild(element);
+
+							element.click();
+
+							document.body.removeChild(element);
+						});
+					});
+
+					popupInner.prepend(downloadButton);
 				});
 			}
 		}
