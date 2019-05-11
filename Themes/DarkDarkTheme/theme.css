@@ -374,6 +374,11 @@
     border-color: transparent;
 }
 
+/* BetterDiscord Autocomplete */
+#bdea-autocomplete {
+    background-color: #111;
+}
+
 /* Activity Top */
 .theme-dark .container-1r6BKw.da-container {
     background-color: #111;
@@ -407,6 +412,8 @@
 }
 /* Upload Modal Chat */
 /* Uses default chat colors. */
+
+/* typing-2GQL18 base-gE7OpD da-typing da-base stop-animation */
 
 /* Plugin Styles */
 /* Member Count */
