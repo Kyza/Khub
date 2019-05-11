@@ -396,6 +396,11 @@
     border-color: transparent;
 }
 
+/* Blank CSS Settings Area */
+.theme-dark .contentRegion-3nDuYy.content-region {
+    background-color: #1a1a1a;
+}
+
 /* Upload Background */
 .theme-dark .inner-1JeGVc.da-inner > div {
     background-color: #1f1f1f;
