@@ -170,7 +170,6 @@
 						history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
             setTimeout(() => {
               if (document.getElementById("fadedBackground")) {
-								console.log(window.location.toString().replace(window.location.search, ""));
 								document.body.style.overflowY = "scroll";
                 document.getElementById("fadedBackground").remove();
               }
