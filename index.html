@@ -136,8 +136,10 @@
 
     function openDownloadPopup(downloadName, downloadLocation) {
       if (downloadLocation == "theme") {
+				history.pushState({}, downloadName, window.location + "?theme=" + downloadName)
         // window.location.search = "?theme=" + downloadName;
       } else {
+				history.pushState({}, downloadName, window.location + "?plugin=" + downloadName + "&version=" + downloadLocation)
         // window.location.search = "?plugin=" + downloadName + "&version=" + downloadLocation;
       }
 
@@ -168,8 +170,10 @@
           if (target == document.getElementById("fadedBackground")) {
             fadedBackground.style.opacity = "0";
             document.body.style.overflowY = "scroll";
+						history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
             setTimeout(() => {
               if (document.getElementById("fadedBackground")) {
+								console.log(window.location.toString().replace(window.location.search, ""));
                 document.getElementById("fadedBackground").remove();
               }
             }, 1000);
