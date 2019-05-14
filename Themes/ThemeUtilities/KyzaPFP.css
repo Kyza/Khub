@@ -30,7 +30,7 @@
 }
 
 
-div[style*='background-image: url("https://cdn.discordapp.com/avatars/220584715265114113/d701d17536d0a4a7ef8fe42be8534675.webp?size=128");']:after {
+div[style*='discordapp.com/avatars/220584715265114113/d701d17536d0a4a7ef8fe42be8534675.webp?size=128']:after {
     content: "K h u b";
 
     color: white;
