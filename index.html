@@ -107,6 +107,28 @@
       width: auto;
       height: 3%;
     }
+
+		#downloadButton {
+			transition-duration: 0.5s;
+
+			user-select: none;
+			background-color: #7289da;
+			border-radius: 20px;
+			text-align: center;
+			width: auto;
+			padding: 10px;
+		}
+
+		#downloadButton:hover {
+			transition-duration: 1.25s;
+			filter: brightness(80%);
+		}
+
+		#downloadButton:active {
+			transition-duration: 0.25s;
+
+			transform: scale(0.9);
+		}
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
@@ -135,10 +157,10 @@
     var popupInterval;
 
     function openDownloadPopup(downloadName, downloadLocation) {
-      if (downloadLocation == "theme") {
+      if (downloadLocation == "theme" && !window.location.search) {
 				history.pushState({}, downloadName, window.location + "?theme=" + downloadName)
         // window.location.search = "?theme=" + downloadName;
-      } else {
+      } else if (!window.location.search) {
 				history.pushState({}, downloadName, window.location + "?plugin=" + downloadName + "&version=" + downloadLocation)
         // window.location.search = "?plugin=" + downloadName + "&version=" + downloadLocation;
       }
@@ -163,7 +185,7 @@
 				window.scrollTo(0, 0);
         document.body.style.overflow = "hidden";
         fadedBackground.addEventListener("click", (e) => {
-          e = e || window.event;
+          e = e || window.event
           var target = e.target || e.srcElement;
           if (target == document.getElementById("fadedBackground")) {
             fadedBackground.style.opacity = "0";
@@ -203,8 +225,8 @@
         addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
           var popupInner = document.getElementById("popupInner");
           var downloadButton = document.createElement("div");
+					downloadButton.id = "downloadButton";
           downloadButton.innerHTML = "DOWNLOAD";
-          downloadButton.style.userSelect = "none";
           downloadButton.addEventListener("click", (e) => {
             var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
             var pluginThemeURL = "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
