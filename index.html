@@ -372,6 +372,26 @@
 			openDownloadPopup(getQueryVariable("theme"), "theme")
 		}
 	}
+
+	// An interval to make sure that the popup is open or not.
+	setInterval(() => {
+		if (window.location.search) {
+			if (getQueryVariable("plugin") && getQueryVariable("version")) {
+				openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
+			} else if (getQueryVariable("theme")) {
+				openDownloadPopup(getQueryVariable("theme"), "theme")
+			}
+		} else {
+			document.getElementById("fadedBackground").style.opacity = "0";
+			history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
+			setTimeout(() => {
+				if (document.getElementById("fadedBackground")) {
+					document.body.style.overflowY = "scroll";
+					document.getElementById("fadedBackground").remove();
+				}
+			}, 1000);
+		}
+	}, 100);
 </script>
 
 </html>
