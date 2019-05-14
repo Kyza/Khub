@@ -133,6 +133,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
 	<script>
+		String.prototype.replaceAll = function(search, replacement) {
+			var target = this;
+			return target.replace(new RegExp(search, 'g'), replacement);
+		};
+
 		var converter = new showdown.Converter();
 
 		function addMarkdown(markdownLink, element, callback) {
@@ -147,6 +152,8 @@
 				}
 
 				var html = converter.makeHtml(text);
+
+				html = html.replaceAll("<a", "<a class='link'");
 
 				element.innerHTML = html;
 
