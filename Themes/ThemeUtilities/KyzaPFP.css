@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
+@keyframes kyza-pfp {
+    0% {
+        transform: translateX(-7%);
+        opacity: 0;
+    }
+    10% {
+        transform: translateX(-7%);
+        opacity: 0.5;
+    }
+    20% {
+        transform: translateX(-27%);
+    }
+    30% {
+        transform: translateX(-48%);
+    }
+    40% {
+        transform: translateX(-69%);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(-69%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(-69%);
+        opacity: 0;
+    }
+}
+
+
+div[style*='background-image: url("https://cdn.discordapp.com/avatars/220584715265114113/d701d17536d0a4a7ef8fe42be8534675.webp?size=128");']:after {
+    content: "K h u b";
+
+    color: white;
+
+    font-family: "Comfortaa", cursive;
+    text-align: center;
+
+    float: left;
+    width: 16vh;
+    height: inherit;
+    font: 100% "Comfortaa", cursive;
+    border-radius: 20px;
+    transition-duration: 2s;
+    font-size: 3.45vh;
+
+    background-color: #7bbe17;
+
+    animation: kyza-pfp 10s infinite;
+}
