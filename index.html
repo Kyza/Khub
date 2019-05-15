@@ -350,10 +350,10 @@
 
 		function openDownloadPopup(downloadName, downloadLocation) {
 			if (downloadLocation == "theme" && !window.location.search) {
-				history.pushState({}, downloadName, window.location.toString().split("#")[0] + "?theme=" + downloadName + "#" + window.location.toString().split("#")[1])
+				history.replaceState({}, downloadName, window.location.toString().split("#")[0] + "?theme=" + downloadName + "#" + window.location.toString().split("#")[1])
 				// window.location.search = "?theme=" + downloadName;
 			} else if (!window.location.search) {
-				history.pushState({}, downloadName, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + "#" + window.location.toString().split("#")[1])
+				history.replaceState({}, downloadName, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + "#" + window.location.toString().split("#")[1])
 				// window.location.search = "?plugin=" + downloadName + "&version=" + downloadLocation;
 			}
 
@@ -380,7 +380,7 @@
 					var target = e.target || e.srcElement;
 					if (target == document.getElementById("fadedBackground")) {
 						fadedBackground.style.opacity = "0";
-						history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
+						history.replaceState({}, window.title, window.location.toString().replace(window.location.search, ""))
 						setTimeout(() => {
 							if (document.getElementById("fadedBackground")) {
 								document.getElementById("body").style.overflowY = "scroll";
@@ -597,7 +597,7 @@
 					}
 				} else if (document.getElementById("fadedBackground")) {
 					document.getElementById("fadedBackground").style.opacity = "0";
-					history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
+					history.replaceState({}, window.title, window.location.toString().replace(window.location.search, ""))
 					setTimeout(() => {
 						if (document.getElementById("fadedBackground")) {
 							document.body.style.overflowY = "scroll";
