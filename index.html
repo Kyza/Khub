@@ -130,6 +130,128 @@
 			transform: scale(0.9);
 		}
 	</style>
+	<style>
+	@keyframes slideAway1 {
+		0% {
+			transform: translate(0%, 0%);
+		}
+		100% {
+			transform: translate(-100%, -100%);
+		}
+	}
+	@keyframes slideAway2 {
+		0% {
+			transform: translate(0%, 0%);
+		}
+		100% {
+			transform: translate(100%, -100%);
+		}
+	}
+	@keyframes slideAway3 {
+		0% {
+			transform: translate(0%, 0%);
+		}
+		100% {
+			transform: translate(-100%, 100%);
+		}
+	}
+	@keyframes slideAway4 {
+		0% {
+			transform: translate(0%, 0%);
+		}
+		100% {
+			transform: translate(100%, 100%);
+		}
+	}
+
+	body {
+		overflow: hidden;
+	}
+
+	#body {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 100%;
+		height: 100%;
+
+		overflow-x: hidden;
+	}
+
+	#transitionPanel1 {
+		z-index: 999999;
+
+		background-color: rgba(255, 255, 255, 0.5);
+
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 50%;
+		height: 50%;
+
+		animation-duration: 1s; /* the duration of the animation */
+		animation-timing-function: ease-in-out; /* how the animation will behave */
+		animation-delay: 0.25s; /* how long to delay the animation from starting */
+		animation-iteration-count: 1; /* how many times the animation will play */
+		animation-name: slideAway1; /* the name of the animation we defined above */
+		animation-fill-mode: forwards;
+	}
+	#transitionPanel2 {
+		z-index: 999999;
+
+		background-color: rgba(255, 255, 255, 0.5);
+
+		position: absolute;
+		top: 0px;
+		left: 50%;
+		width: 50%;
+		height: 50%;
+
+		animation-duration: 1s; /* the duration of the animation */
+		animation-timing-function: ease-in-out; /* how the animation will behave */
+		animation-delay: 0.5s; /* how long to delay the animation from starting */
+		animation-iteration-count: 1; /* how many times the animation will play */
+		animation-name: slideAway2; /* the name of the animation we defined above */
+		animation-fill-mode: forwards;
+	}
+	#transitionPanel3 {
+		z-index: 999999;
+
+		background-color: rgba(255, 255, 255, 0.5);
+
+		position: absolute;
+		top: 50%;
+		left: 0px;
+		width: 50%;
+		height: 50%;
+
+		animation-duration: 1s; /* the duration of the animation */
+		animation-timing-function: ease-in-out; /* how the animation will behave */
+		animation-delay: 1s; /* how long to delay the animation from starting */
+		animation-iteration-count: 1; /* how many times the animation will play */
+		animation-name: slideAway3; /* the name of the animation we defined above */
+		animation-fill-mode: forwards;
+	}
+	#transitionPanel4 {
+		z-index: 999999;
+
+		background-color: rgba(255, 255, 255, 0.5);
+
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 50%;
+		height: 50%;
+
+		animation-duration: 1s; /* the duration of the animation */
+		animation-timing-function: ease-in-out; /* how the animation will behave */
+		animation-delay: 0.75s; /* how long to delay the animation from starting */
+		animation-iteration-count: 1; /* how many times the animation will play */
+		animation-name: slideAway4; /* the name of the animation we defined above */
+		animation-fill-mode: forwards;
+	}
+	</style>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
 	<script>
@@ -189,8 +311,8 @@
 				setTimeout(() => {
 					fadedBackground.style.opacity = "1";
 				}, 10);
-				window.scrollTo(0, 0);
-				document.body.style.overflow = "hidden";
+				document.getElementById("body").scrollTo(0, 0);
+				document.getElementById("body").style.overflow = "hidden";
 				fadedBackground.addEventListener("click", (e) => {
 					e = e || window.event
 					var target = e.target || e.srcElement;
@@ -199,7 +321,7 @@
 						history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
 						setTimeout(() => {
 							if (document.getElementById("fadedBackground")) {
-								document.body.style.overflowY = "scroll";
+								document.getElementById("body").style.overflowY = "scroll";
 								document.getElementById("fadedBackground").remove();
 							}
 						}, 1000);
@@ -224,7 +346,7 @@
 				popupInner.style.width = "90%";
 				popupInner.style.overflow = "hidden";
 				fadedBackground.appendChild(popupInner);
-				document.body.appendChild(fadedBackground);
+				document.getElementById("body").appendChild(fadedBackground);
 				var downloadPath = "";
 				if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
 				if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
@@ -249,9 +371,9 @@
 								element.setAttribute('download', downloadName + "." + type + ".js");
 							}
 							element.style.display = 'none';
-							document.body.appendChild(element);
+							document.getElementById("body").appendChild(element);
 							element.click();
-							document.body.removeChild(element);
+							document.getElementById("body").removeChild(element);
 						});
 					});
 					popupInner.prepend(downloadButton);
@@ -262,93 +384,100 @@
 </head>
 
 <body>
-	<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
+	<div id="body">
+		<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
 
-	<p align="center">
-		<img id="logo" src="https://github.com/KyzaGitHub/Khub/raw/master/media/KhubLogo.png">
-	</p>
-	<p align="center">
-		<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-	</p>
+		<p align="center">
+			<img id="logo" src="https://github.com/KyzaGitHub/Khub/raw/master/media/KhubLogo.png">
+		</p>
+		<p align="center">
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+		</p>
 
-	<p align="center">
-		<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-		<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-		<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=1&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-		<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-	</p>
+		<p align="center">
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=1&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+		</p>
 
-	<p align="center">
-		<b>The hub for all of Kyza's plugins and themes.</b>
-	</p>
+		<p align="center">
+			<b>The hub for all of Kyza's plugins and themes.</b>
+		</p>
 
-	<hr>
+		<hr>
 
-	<h1 align="center">Downloads</h1>
+		<h1 align="center">Downloads</h1>
 
-	<p align="center">
-		<img class="shield-small" onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		<img class="shield-small" onclick="openDownloadPopup('GhostMessage', 'v1')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		<img class="shield-small" onclick="openDownloadPopup('CustomDiscordIcon', 'v1')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-	</p>
-	<p align="center">
-		<img class="shield-small" onclick="openDownloadPopup('DarkDarkTheme', 'theme')" src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-	</p>
+		<p align="center">
+			<img class="shield-small" onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+			<img class="shield-small" onclick="openDownloadPopup('GhostMessage', 'v1')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+			<img class="shield-small" onclick="openDownloadPopup('CustomDiscordIcon', 'v1')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		</p>
+		<p align="center">
+			<img class="shield-small" onclick="openDownloadPopup('DarkDarkTheme', 'theme')" src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
+		</p>
 
-	<hr>
+		<hr>
 
-	<div id="content">
-		<h1 id="faq">#faq</h1>
-		<h2>Why aren't you developing BDv2 plugins?</h2>
-		<span class="container">
-			BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
-		</span>
-		<h2>Will any of your plugins get me banned from Discord?</h2>
-		<span class="container">
-			Nope. ;)
-		</span>
-		<h2>Why aren't any of your plugins or themes verified?</h2>
-		<span class="container">
-			Me = Lazy<br>
+		<div id="content">
+			<h1 id="faq">#faq</h1>
+			<h2>Why aren't you developing BDv2 plugins?</h2>
+			<span class="container">
+				BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
+			</span>
+			<h2>Will any of your plugins get me banned from Discord?</h2>
+			<span class="container">
+				Nope. ;)
+			</span>
+			<h2>Why aren't any of your plugins or themes verified?</h2>
+			<span class="container">
+				Me = Lazy<br>
+				<br>
+				Ask a mod if you <i>really</i> want one of my plugins verified, but please don't annoy them.
+			</span>
+			<h2>Why won't GhostMessage ever be verified?</h2>
+			<span class="container">
+				It "encourages spamming", and as moderators, the BetterDiscord Server staff don't want more work.<br>
+				<br>
+				Will it get you banned from Discord? No.<br>
+				<br>
+				If you abuse it, however, it <i>will</i> get you banned from some servers. Especially the BetterDiscord servers.
+			</span>
+			<h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
+			<span class="container">
+				The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
+			</span>
+			<h2>Who are you?</h2>
+			<span class="container">
+				A human. Maybe...
+			</span>
+			<h2>Why Khub?</h2>
+			<span class="container">
+				Kyza + Hub = Khub
+			</span>
+			<h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
+			<span class="container">
+				It was a dare, long story.
+			</span>
+		</div>
+
+		<hr>
+
+		<p align="center">
+			Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
 			<br>
-			Ask a mod if you <i>really</i> want one of my plugins verified, but please don't annoy them.
-		</span>
-		<h2>Why won't GhostMessage ever be verified?</h2>
-		<span class="container">
-			It "encourages spamming", and as moderators, the BetterDiscord Server staff don't want more work.<br>
 			<br>
-			Will it get you banned from Discord? No.<br>
-			<br>
-			If you abuse it, however, it <i>will</i> get you banned from some servers. Especially the BetterDiscord servers.
-		</span>
-		<h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
-		<span class="container">
-			The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
-		</span>
-		<h2>Who are you?</h2>
-		<span class="container">
-			A human. Maybe...
-		</span>
-		<h2>Why Khub?</h2>
-		<span class="container">
-			Kyza + Hub = Khub
-		</span>
-		<h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
-		<span class="container">
-			It was a dare, long story.
-		</span>
+			<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+			<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+			<a href="https://discord.gg/c9ESSur"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
+		</p>
 	</div>
 
-	<hr>
-
-	<p align="center">
-		Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
-		<br>
-		<br>
-		<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-		<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-		<a href="https://discord.gg/c9ESSur"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-	</p>
+	<div id="transitionPanel1"></div>
+	<div id="transitionPanel2"></div>
+	<div id="transitionPanel3"></div>
+	<div id="transitionPanel4"></div>
 </body>
 
 <script>
