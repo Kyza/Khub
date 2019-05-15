@@ -291,6 +291,11 @@
 		}
 
 		.card-info {
+			background-image: url('https://loading.io/spinners/curve-bars/index.curved-bar-spinner.svg');
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			height: 10vw;
 			padding: 10px;
 		}
 	</style>
@@ -306,6 +311,14 @@
 		var converter = new showdown.Converter();
 
 		function addMarkdown(markdownLink, element, callback) {
+			var loadingDiv = document.createElement("div");
+			loadingDiv.style.backgroundImage = "url('https://loading.io/spinners/curve-bars/index.curved-bar-spinner.svg')";
+			loadingDiv.style.backgroundPosition = "center";
+			loadingDiv.style.backgroundRepeat = "no-repeat";
+			loadingDiv.style.backgroundSize = "contain";
+			loadingDiv.style.height = "50vw";
+			element.appendChild(loadingDiv);
+
 			$.get(markdownLink, function(response) {
 				var text = response;
 
@@ -324,7 +337,8 @@
 
 				html = html.replaceAll("<a", "<a class='link'");
 
-				element.innerHTML = html;
+				loadingDiv.remove();
+				element.innerHTML += html;
 
 				callback();
 			});
@@ -423,6 +437,11 @@
 </head>
 
 <body>
+	<!-- Peloading Images -->
+	<div id="imagePreloader">
+		<div style="width: 0px; height: 0px; z-index: -100; background-image: url('https://loading.io/spinners/curve-bars/index.curved-bar-spinner.svg')"></div>
+	</div>
+
 	<div id="body" style="overflow: hidden scroll;">
 		<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&amp;v=4">
 
@@ -459,15 +478,15 @@
 		<div>
 			<div class="plugin-card" onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')">
 				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
-				<div id="SafeEmbedGenerator-info" class="card-info">Version: 1.2.12<br><br>This BetterDiscord plugin adds a button which allows you to create safe embeds with ease.</div>
+				<div id="SafeEmbedGenerator-info" class="card-info"></div>
 			</div>
 			<div class="plugin-card" onclick="openDownloadPopup('GhostMessage', 'v1')">
 				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=GhostMessage&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
-				<div id="GhostMessage-info" class="card-info">Version: 1.0.0<br><br>This BetterDiscord plugin allows you to send a message which instantly deletes itself.</div>
+				<div id="GhostMessage-info" class="card-info"></div>
 			</div>
 			<div class="plugin-card" onclick="openDownloadPopup('CustomDiscordIcon', 'v1')">
 				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
-				<div id="CustomDiscordIcon-info" class="card-info">Version: 1.1.1<br><br>This BetterDiscord plugin allows you to change Discords icon in the taskbar.</div>
+				<div id="CustomDiscordIcon-info" class="card-info"></div>
 			</div>
 
 		</div>
@@ -624,6 +643,8 @@
 				document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
 				document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
 				document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
+				document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
+				document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
 			});
 			$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
 				var versionNumber = getVersionFromPlugin(response);
@@ -632,6 +653,8 @@
 				document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
 				document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
 				document.getElementById("GhostMessage-info").innerHTML += description;
+				document.getElementById("GhostMessage-info").style.backgroundImage = "none";
+				document.getElementById("GhostMessage-info").style.height = "auto";
 			});
 			$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
 				var versionNumber = getVersionFromPlugin(response);
@@ -640,7 +663,11 @@
 				document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
 				document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
 				document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+				document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
+				document.getElementById("CustomDiscordIcon-info").style.height = "auto";
 			});
+			document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
+			document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
 			$(window).bind('load', () => {
 				// Don't allow access to the page until it has been completely loaded.
