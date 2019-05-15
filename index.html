@@ -5,19 +5,142 @@
 
 	<meta name="description" content="The hub for all of Kyza's plugins and themes.">
 	<meta property="og:site_name" content="Khub">
-	<meta property="og:image" content="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
+	<meta property="og:image" content="https://avatars3.githubusercontent.com/u/40003440?s=460&amp;v=4">
 	<meta property="og:title" content="Khub | Kyza's Plugin Hub">
 	<meta property="og:description" content="The hub for all of Kyza's plugins and themes.">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://kyzagithub.github.io/Khub/">
 	<meta name="theme-color" content="#7bbe17">
 
-	<link rel="shortcut icon" type="image/png" href="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4" />
+	<link rel="shortcut icon" type="image/png" href="https://avatars3.githubusercontent.com/u/40003440?s=460&amp;v=4">
 
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-	<style type="text/css">
+	<style>
+		@keyframes slideAway1 {
+			0% {
+				transform: translate(0%, 0%);
+			}
+
+			50% {
+				border-bottom-right-radius: 100%;
+			}
+
+			100% {
+				transform: translate(-101%, -101%);
+			}
+		}
+
+		@keyframes slideAway2 {
+			0% {
+				transform: translate(0%, 0%);
+			}
+
+			50% {
+				border-bottom-left-radius: 100%;
+			}
+
+			100% {
+				transform: translate(101%, -101%);
+			}
+		}
+
+		@keyframes slideAway3 {
+			0% {
+				transform: translate(0%, 0%);
+			}
+
+			50% {
+				border-top-left-radius: 100%;
+			}
+
+			100% {
+				transform: translate(101%, 101%);
+			}
+		}
+
+		@keyframes slideAway4 {
+			0% {
+				transform: translate(0%, 0%);
+			}
+
+			50% {
+				border-top-right-radius: 100%;
+			}
+
+			100% {
+				transform: translate(-101%, 101%);
+			}
+		}
+
 		body {
+			overflow: hidden !important;
+		}
+
+		#body {
 			background-color: #111;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 100%;
+
+			overflow-x: hidden;
+		}
+
+		#transitionPanel1 {
+			z-index: 999999;
+
+			background-color: rgba(255, 255, 255, 0.5);
+
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			width: 50%;
+			height: 50%;
+		}
+
+		#transitionPanel2 {
+			z-index: 999999;
+
+			background-color: rgba(255, 255, 255, 0.5);
+
+			position: fixed;
+			top: 0px;
+			left: 50%;
+			width: 50%;
+			height: 50%;
+		}
+
+		#transitionPanel3 {
+			z-index: 999999;
+
+			background-color: rgba(255, 255, 255, 0.5);
+
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			width: 50%;
+			height: 50%;
+		}
+
+		#transitionPanel4 {
+			z-index: 999999;
+
+			background-color: rgba(255, 255, 255, 0.5);
+
+			position: fixed;
+			top: 50%;
+			left: 0px;
+			width: 50%;
+			height: 50%;
+		}
+	</style>
+	<style type="text/css">
+		* {
+			scroll-behavior: smooth;
+		}
+
+		body {
 			font-family: 'Comfortaa', cursive;
 			color: white;
 
@@ -131,127 +254,45 @@
 
 			transform: scale(0.9);
 		}
-	</style>
-	<style>
-	@keyframes slideAway1 {
-		0% {
-			transform: translate(0%, 0%);
+
+		#plugins+div {}
+
+		.plugin-card,
+		.theme-card {
+			margin: auto;
+			margin-top: 30px;
+			margin-bottom: 30px;
+			background-color: #333;
+
+			width: 60%;
+			height: auto;
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+
+			filter: drop-shadow(0 0 10px #222);
+
+			user-select: none;
+
+			cursor: help;
 		}
-		100% {
-			transform: translate(-100%, -100%);
+
+		.plugin-card>img,
+		.theme-card>img {
+			border-color: #7289DA;
+			border-width: 0px;
+			/* border-style: dotted; */
+			border-right-width: 2px;
+			border-bottom-width: 2px;
+
+			border-radius: 5px;
+
+			transform: translateY(-50%);
 		}
-	}
-	@keyframes slideAway2 {
-		0% {
-			transform: translate(0%, 0%);
+
+		.card-info {
+			padding: 10px;
 		}
-		100% {
-			transform: translate(100%, -100%);
-		}
-	}
-	@keyframes slideAway3 {
-		0% {
-			transform: translate(0%, 0%);
-		}
-		100% {
-			transform: translate(-100%, 100%);
-		}
-	}
-	@keyframes slideAway4 {
-		0% {
-			transform: translate(0%, 0%);
-		}
-		100% {
-			transform: translate(100%, 100%);
-		}
-	}
-
-	body {
-		overflow: hidden;
-	}
-
-	#body {
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		width: 100%;
-		height: 100%;
-
-		overflow-x: hidden;
-	}
-
-	#transitionPanel1 {
-		z-index: 999999;
-
-		background-color: rgba(255, 255, 255, 0.5);
-
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		width: 50%;
-		height: 50%;
-
-		animation-duration: 1s; /* the duration of the animation */
-		animation-timing-function: ease-in-out; /* how the animation will behave */
-		animation-delay: 0.25s; /* how long to delay the animation from starting */
-		animation-iteration-count: 1; /* how many times the animation will play */
-		animation-name: slideAway1; /* the name of the animation we defined above */
-		animation-fill-mode: forwards;
-	}
-	#transitionPanel2 {
-		z-index: 999999;
-
-		background-color: rgba(255, 255, 255, 0.5);
-
-		position: absolute;
-		top: 0px;
-		left: 50%;
-		width: 50%;
-		height: 50%;
-
-		animation-duration: 1s; /* the duration of the animation */
-		animation-timing-function: ease-in-out; /* how the animation will behave */
-		animation-delay: 0.5s; /* how long to delay the animation from starting */
-		animation-iteration-count: 1; /* how many times the animation will play */
-		animation-name: slideAway2; /* the name of the animation we defined above */
-		animation-fill-mode: forwards;
-	}
-	#transitionPanel3 {
-		z-index: 999999;
-
-		background-color: rgba(255, 255, 255, 0.5);
-
-		position: absolute;
-		top: 50%;
-		left: 0px;
-		width: 50%;
-		height: 50%;
-
-		animation-duration: 1s; /* the duration of the animation */
-		animation-timing-function: ease-in-out; /* how the animation will behave */
-		animation-delay: 1s; /* how long to delay the animation from starting */
-		animation-iteration-count: 1; /* how many times the animation will play */
-		animation-name: slideAway3; /* the name of the animation we defined above */
-		animation-fill-mode: forwards;
-	}
-	#transitionPanel4 {
-		z-index: 999999;
-
-		background-color: rgba(255, 255, 255, 0.5);
-
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 50%;
-		height: 50%;
-
-		animation-duration: 1s; /* the duration of the animation */
-		animation-timing-function: ease-in-out; /* how the animation will behave */
-		animation-delay: 0.75s; /* how long to delay the animation from starting */
-		animation-iteration-count: 1; /* how many times the animation will play */
-		animation-name: slideAway4; /* the name of the animation we defined above */
-		animation-fill-mode: forwards;
-	}
 	</style>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -289,17 +330,17 @@
 
 		function openDownloadPopup(downloadName, downloadLocation) {
 			if (downloadLocation == "theme" && !window.location.search) {
-				history.pushState({}, downloadName, window.location + "?theme=" + downloadName)
+				history.pushState({}, downloadName, window.location.toString().split("#")[0] + "?theme=" + downloadName + "#" + window.location.toString().split("#")[1])
 				// window.location.search = "?theme=" + downloadName;
 			} else if (!window.location.search) {
-				history.pushState({}, downloadName, window.location + "?plugin=" + downloadName + "&version=" + downloadLocation)
+				history.pushState({}, downloadName, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + "#" + window.location.toString().split("#")[1])
 				// window.location.search = "?plugin=" + downloadName + "&version=" + downloadLocation;
 			}
 
 			if (!document.getElementById("fadedBackground")) {
 				var fadedBackground = document.createElement("div");
 				fadedBackground.setAttribute("id", "fadedBackground");
-				fadedBackground.style.position = "absolute";
+				fadedBackground.style.position = "fixed";
 				fadedBackground.style.top = "0px";
 				fadedBackground.style.left = "0px";
 				fadedBackground.style.width = "100%";
@@ -313,7 +354,6 @@
 				setTimeout(() => {
 					fadedBackground.style.opacity = "1";
 				}, 10);
-				document.getElementById("body").scrollTo(0, 0);
 				document.getElementById("body").style.overflow = "hidden";
 				fadedBackground.addEventListener("click", (e) => {
 					e = e || window.event
@@ -386,21 +426,26 @@
 </head>
 
 <body>
-	<div id="body">
-		<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&v=4">
+	<div id="body" style="overflow: hidden scroll;">
+		<img id="pfp" src="https://avatars3.githubusercontent.com/u/40003440?s=460&amp;v=4">
 
 		<p align="center">
 			<img id="logo" src="https://github.com/KyzaGitHub/Khub/raw/master/media/KhubLogo.png">
 		</p>
 		<p align="center">
-			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&message=NO&color=red&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large"
+					src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&amp;message=NO&amp;color=red&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
 		</p>
 
 		<p align="center">
-			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&message=3&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Theme%20Count&message=1&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large" src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&message=0&color=7bbe17&style=for-the-badge&logo=Discord&logoColor=909090&labelColor=303030" /></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large"
+					src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&amp;message=3&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large"
+					src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&amp;message=0&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large"
+					src="https://img.shields.io/static/v1.svg?label=Theme%20Count&amp;message=1&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
+			<a href="https://github.com/KyzaGitHub/Khub/"><img class="shield-large"
+					src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&amp;message=0&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
 		</p>
 
 		<p align="center">
@@ -409,120 +454,253 @@
 
 		<hr>
 
-		<h1 align="center">Downloads</h1>
-
-		<p align="center">
-			<img class="shield-small" onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-			<img class="shield-small" onclick="openDownloadPopup('GhostMessage', 'v1')" src="https://img.shields.io/static/v1.svg?label=GhostMessage&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-			<img class="shield-small" onclick="openDownloadPopup('CustomDiscordIcon', 'v1')" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		</p>
-		<p align="center">
-			<img class="shield-small" onclick="openDownloadPopup('DarkDarkTheme', 'theme')" src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&message=Not%20Verified&color=red&style=flat-square&logo=Discord&logoColor=909090&labelColor=303030" />
-		</p>
+		<h1 align="center"><a class="link" href="#faq">#faq</a> <a class="link" href="#plugins">#plugins</a> <a class="link" href="#themes">#themes</a></h1>
 
 		<hr>
 
-		<div id="content">
-			<h1 id="faq">#faq</h1>
-			<h2>Why aren't you developing BDv2 plugins?</h2>
-			<span class="container">
-				BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
-			</span>
-			<h2>Will any of your plugins get me banned from Discord?</h2>
-			<span class="container">
-				Nope. ;)
-			</span>
-			<h2>Why aren't any of your plugins or themes verified?</h2>
-			<span class="container">
-				Me = Lazy<br>
-				<br>
-				Ask a mod if you <i>really</i> want one of my plugins verified, but please don't annoy them.
-			</span>
-			<h2>Why won't GhostMessage ever be verified?</h2>
-			<span class="container">
-				It "encourages spamming", and as moderators, the BetterDiscord Server staff don't want more work.<br>
-				<br>
-				Will it get you banned from Discord? No.<br>
-				<br>
-				If you abuse it, however, it <i>will</i> get you banned from some servers. Especially the BetterDiscord servers.
-			</span>
-			<h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
-			<span class="container">
-				The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
-			</span>
-			<h2>Who are you?</h2>
-			<span class="container">
-				A human. Maybe...
-			</span>
-			<h2>Why Khub?</h2>
-			<span class="container">
-				Kyza + Hub = Khub
-			</span>
-			<h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
-			<span class="container">
-				It was a dare, long story.
-			</span>
+		<h1 id="plugins" align="center">#plugins</h1>
+		<div>
+			<div class="plugin-card" onclick="openDownloadPopup('SafeEmbedGenerator', 'v1')">
+				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<div id="SafeEmbedGenerator-info" class="card-info">Version: 1.2.12<br><br>This BetterDiscord plugin adds a button which allows you to create safe embeds with ease.</div>
+			</div>
+			<div class="plugin-card" onclick="openDownloadPopup('GhostMessage', 'v1')">
+				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=GhostMessage&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<div id="GhostMessage-info" class="card-info">Version: 1.0.0<br><br>This BetterDiscord plugin allows you to send a message which instantly deletes itself.</div>
+			</div>
+			<div class="plugin-card" onclick="openDownloadPopup('CustomDiscordIcon', 'v1')">
+				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<div id="CustomDiscordIcon-info" class="card-info">Version: 1.1.1<br><br>This BetterDiscord plugin allows you to change Discords icon in the taskbar.</div>
+			</div>
+
 		</div>
 
-		<hr>
+		<h1 id="themes" align="center">#themes</h1>
+		<div>
+			<div class="theme-card" onclick="openDownloadPopup('DarkDarkTheme', 'theme')">
+				<img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<div id="DarkDarkTheme-info" class="card-info"></div>
+			</div>
 
-		<p align="center">
-			Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
-			<br>
-			<br>
-			<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&message=@Kyza%239994&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-			<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20ID&message=<@220548715265114113>&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-			<a href="https://discord.gg/c9ESSur"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Server&message=https://discord.gg/c9ESSur&color=7289DA&style=flat&logo=Discord&labelColor=303030" /></a>
-		</p>
-	</div>
+			<hr>
 
-	<div id="transitionPanel1"></div>
-	<div id="transitionPanel2"></div>
-	<div id="transitionPanel3"></div>
-	<div id="transitionPanel4"></div>
-</body>
+			<div id="content">
+				<h1 id="faq">#faq</h1>
+				<h2>Why aren't you developing BDv2 plugins?</h2>
+				<span class="container">
+					BetterDiscord v2 isn't far enough into development for me to consider developing v2 plugins as worth it. Once BDv2 has been released into stable I will being to port my existing plugins as well as create some new ones.
+				</span>
+				<h2>Will any of your plugins get me banned from Discord?</h2>
+				<span class="container">
+					Nope. ;)
+				</span>
+				<h2>Why aren't any of your plugins or themes verified?</h2>
+				<span class="container">
+					Me = Lazy<br>
+					<br>
+					Ask a mod if you <i>really</i> want one of my plugins verified, but please don't annoy them.
+				</span>
+				<h2>Why won't GhostMessage ever be verified?</h2>
+				<span class="container">
+					It "encourages spamming", and as moderators, the BetterDiscord Server staff don't want more work.<br>
+					<br>
+					Will it get you banned from Discord? No.<br>
+					<br>
+					If you abuse it, however, it <i>will</i> get you banned from some servers. Especially the BetterDiscord servers.
+				</span>
+				<h2>Why can't I use SafeEmbedGenerator on the BetterDiscord servers?</h2>
+				<span class="container">
+					The BetterDiscord staff don't want people spamming embeds there, so I disabled it for those servers.
+				</span>
+				<h2>Who are you?</h2>
+				<span class="container">
+					A human. Maybe...
+				</span>
+				<h2>Why Khub?</h2>
+				<span class="container">
+					Kyza + Hub = Khub
+				</span>
+				<h2>Why were you banned from the Discord Source/BetterDocs server?</h2>
+				<span class="container">
+					It was a dare, long story.
+				</span>
+			</div>
 
-<script>
-	function getQueryVariable(variable) {
-		var query = window.location.search.substring(1);
-		var vars = query.split('&');
-		for (var i = 0; i < vars.length; i++) {
-			var pair = vars[i].split('=');
-			if (decodeURIComponent(pair[0]) == variable) {
-				return decodeURIComponent(pair[1]);
-			}
-		}
-		return null;
-	}
+			<hr>
 
-	// If the user has navigated to one of the plugins or themes, open the popup for it right away.
-	if (window.location.search) {
-		if (getQueryVariable("plugin") && getQueryVariable("version")) {
-			openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
-		} else if (getQueryVariable("theme")) {
-			openDownloadPopup(getQueryVariable("theme"), "theme")
-		}
-	}
+			<p align="center">
+				Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>.
+				<br>
+				<br>
+				<a href="https://discordapp.com/channels/@me"><img class="shield-small" src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&amp;message=@Kyza%239994&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
+				<a href="https://discordapp.com/channels/@me"><img class="shield-small"
+						src="https://img.shields.io/static/v1.svg?label=Discord%20ID&amp;message=<@220548715265114113>&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
+				<a href="https://discord.gg/c9ESSur"><img class="shield-small"
+						src="https://img.shields.io/static/v1.svg?label=Discord%20Server&amp;message=https://discord.gg/c9ESSur&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
+			</p>
+		</div>
 
-	// An interval to make sure that the popup is open or not.
-	setInterval(() => {
-		if (window.location.search) {
-			if (getQueryVariable("plugin") && getQueryVariable("version")) {
-				openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
-			} else if (getQueryVariable("theme")) {
-				openDownloadPopup(getQueryVariable("theme"), "theme")
-			}
-		} else {
-			document.getElementById("fadedBackground").style.opacity = "0";
-			history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
-			setTimeout(() => {
-				if (document.getElementById("fadedBackground")) {
-					document.body.style.overflowY = "scroll";
-					document.getElementById("fadedBackground").remove();
+		<div id="transitionPanel1" style="animation-duration: 1s; animation-timing-function: ease-in-out; animation-delay: 0.25s; animation-iteration-count: 1; animation-name: slideAway1; animation-fill-mode: forwards;"></div>
+		<div id="transitionPanel2" style="animation-duration: 1s; animation-timing-function: ease-in-out; animation-delay: 0.25s; animation-iteration-count: 1; animation-name: slideAway2; animation-fill-mode: forwards;"></div>
+		<div id="transitionPanel3" style="animation-duration: 1s; animation-timing-function: ease-in-out; animation-delay: 0.25s; animation-iteration-count: 1; animation-name: slideAway3; animation-fill-mode: forwards;"></div>
+		<div id="transitionPanel4" style="animation-duration: 1s; animation-timing-function: ease-in-out; animation-delay: 0.25s; animation-iteration-count: 1; animation-name: slideAway4; animation-fill-mode: forwards;"></div>
+
+
+		<script>
+			function getQueryVariable(variable) {
+				var query = window.location.search.substring(1);
+				var vars = query.split('&');
+				for (var i = 0; i < vars.length; i++) {
+					var pair = vars[i].split('=');
+					if (decodeURIComponent(pair[0]) == variable) {
+						return decodeURIComponent(pair[1]);
+					}
 				}
-			}, 1000);
-		}
-	}, 100);
-</script>
+				return null;
+			}
+
+			// If the user has navigated to one of the plugins or themes, open the popup for it right away.
+			if (window.location.search) {
+				if (getQueryVariable("plugin") && getQueryVariable("version")) {
+					openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
+				} else if (getQueryVariable("theme")) {
+					openDownloadPopup(getQueryVariable("theme"), "theme")
+				}
+			}
+
+			// An interval to make sure that the popup is open or not.
+			// It also sets the place to scroll to.
+			setInterval(() => {
+				if (window.location.search) {
+					if (getQueryVariable("plugin") && getQueryVariable("version")) {
+						openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
+					} else if (getQueryVariable("theme")) {
+						openDownloadPopup(getQueryVariable("theme"), "theme")
+					}
+				} else if (document.getElementById("fadedBackground")) {
+					document.getElementById("fadedBackground").style.opacity = "0";
+					history.pushState({}, window.title, window.location.toString().replace(window.location.search, ""))
+					setTimeout(() => {
+						if (document.getElementById("fadedBackground")) {
+							document.body.style.overflowY = "scroll";
+							document.getElementById("fadedBackground").remove();
+						}
+					}, 1000);
+				}
+			}, 100);
+
+			$("#body").on("mousewheel DOMMouseScroll", (e) => {
+				// Set a small timeout to give the scroll time to update.
+				setTimeout(() => {
+					var scrollOffset = $("#body")[0].scrollTop;
+					var link = document.createElement("a");
+					link.href = window.location.toString().split("#")[0] + "#" + scrollOffset;
+					link.click();
+				}, 10);
+			});
+
+			function getVersionFromPlugin(pluginText) {
+				var lines = pluginText.split("\n");
+				for (var i = 0; i < lines.length; i++) {
+					if (lines[i].indexOf(".prototype.getVersion = function() {") > -1) {
+						return lines[i + 1].replace("return", "").replaceAll("\"", "").replaceAll("'", "").replace(";", "").trim();
+					}
+				}
+				return "";
+			}
+
+			function getDescriptionFromPlugin(pluginText) {
+				var lines = pluginText.split("\n");
+				for (var i = 0; i < lines.length; i++) {
+					if (lines[i].indexOf(".prototype.getDescription = function() {") > -1) {
+						return lines[i + 1].replace("return", "").replaceAll("\"", "").replaceAll("'", "").replace(";", "").trim();
+					}
+				}
+				return "";
+			}
+
+			// Get the latest plugin and theme info.
+			$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
+				var versionNumber = getVersionFromPlugin(response);
+				var description = getDescriptionFromPlugin(response);
+
+				document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
+				document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
+				document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
+			});
+			$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
+				var versionNumber = getVersionFromPlugin(response);
+				var description = getDescriptionFromPlugin(response);
+
+				document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
+				document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
+				document.getElementById("GhostMessage-info").innerHTML += description;
+			});
+			$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
+				var versionNumber = getVersionFromPlugin(response);
+				var description = getDescriptionFromPlugin(response);
+
+				document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
+				document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
+				document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+			});
+
+			$(window).bind('load', () => {
+				// Don't allow access to the page until it has been completely loaded.
+				var transitionPanel1 = document.getElementById("transitionPanel1");
+				var transitionPanel2 = document.getElementById("transitionPanel2");
+				var transitionPanel3 = document.getElementById("transitionPanel3");
+				var transitionPanel4 = document.getElementById("transitionPanel4");
+
+				transitionPanel1.style.animationDuration = "1s";
+				transitionPanel1.style.animationTimingFunction = "ease-in-out";
+				transitionPanel1.style.animationDelay = "0.25s";
+				transitionPanel1.style.animationIterationCount = "1";
+				transitionPanel1.style.animationName = "slideAway1";
+				transitionPanel1.style.animationFillMode = "forwards";
+
+				transitionPanel2.style.animationDuration = "1s";
+				transitionPanel2.style.animationTimingFunction = "ease-in-out";
+				transitionPanel2.style.animationDelay = "0.25s";
+				transitionPanel2.style.animationIterationCount = "1";
+				transitionPanel2.style.animationName = "slideAway2";
+				transitionPanel2.style.animationFillMode = "forwards";
+
+				transitionPanel3.style.animationDuration = "1s";
+				transitionPanel3.style.animationTimingFunction = "ease-in-out";
+				transitionPanel3.style.animationDelay = "0.25s";
+				transitionPanel3.style.animationIterationCount = "1";
+				transitionPanel3.style.animationName = "slideAway3";
+				transitionPanel3.style.animationFillMode = "forwards";
+
+				transitionPanel4.style.animationDuration = "1s";
+				transitionPanel4.style.animationTimingFunction = "ease-in-out";
+				transitionPanel4.style.animationDelay = "0.25s";
+				transitionPanel4.style.animationIterationCount = "1";
+				transitionPanel4.style.animationName = "slideAway4";
+				transitionPanel4.style.animationFillMode = "forwards";
+
+				// Make sure the user is scrolled to the right position.
+				if (window.location.toString().split("#")[1]) {
+					if (document.getElementById(window.location.toString().split("#")[1])) {
+						$("#body").animate({
+							scrollTop: $("#" + window.location.toString().split("#")[1]).offset().top
+						});
+					} else {
+						$("#body").animate({
+							scrollTop: parseInt(window.location.toString().split("#")[1])
+						});
+					}
+				} else {
+					var link = document.createElement("a");
+					link.href = window.location.toString().split("#")[0] + "#0";
+					link.click();
+				}
+			});
+		</script>
+
+
+	</div>
+</body>
 
 </html>
