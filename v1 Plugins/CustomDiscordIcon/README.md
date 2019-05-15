@@ -11,6 +11,10 @@ CustomDiscordIcon allows you to customize the Discord icon on your taskbar.
 
 ## Changelog
 
+### 1.1.1
+
+ * Fixed some minor bugs.
+
 ### 1.1.0
 
  * Added the ability to use the icon of the current guild or DM.
