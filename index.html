@@ -312,9 +312,9 @@
 				var lines = text.split("\n");
 				var finishedMarkdown = "";
 				for (var i = 0; i < lines.length; i++) {
-					if (lines[i].indexOf("- [x]") > -1) {
+					if (lines[i].indexOf("- [x]") == 0) {
 						lines[i] = "<div><input type='checkbox' disabled checked style=''>" + lines[i].replace("- [x]", "") + "</div>";
-					} else if (lines[i].indexOf("- [ ]") > -1) {
+					} else if (lines[i].indexOf("- [ ]") == 0) {
 						lines[i] = "<div><input type='checkbox' disabled style=''>" + lines[i].replace("- [ ]", "") + "</div>";
 					}
 					finishedMarkdown += lines[i] + "\n";
