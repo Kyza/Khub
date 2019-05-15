@@ -309,14 +309,18 @@
 			$.get(markdownLink, function(response) {
 				var text = response;
 
-				while (text.indexOf("- [x]") > -1) {
-					text = text.replace("- [x]", "<input type='checkbox' disabled checked style='display: block; float: left;' />");
-				}
-				while (text.indexOf("- [ ]") > -1) {
-					text = text.replace("- [ ]", "<input type='checkbox' disabled />");
+				var lines = text.split("\n");
+				var finishedMarkdown = "";
+				for (var i = 0; i < lines.length; i++) {
+					if (lines[i].indexOf("- [x]") > -1) {
+						lines[i] = "<div><input type='checkbox' disabled checked style=''>" + lines[i].replace("- [x]", "") + "</div>";
+					} else if (lines[i].indexOf("- [ ]") > -1) {
+						lines[i] = "<div><input type='checkbox' disabled style=''>" + lines[i].replace("- [ ]", "") + "</div>";
+					}
+					finishedMarkdown += lines[i] + "\n";
 				}
 
-				var html = converter.makeHtml(text);
+				var html = converter.makeHtml(finishedMarkdown.trim());
 
 				html = html.replaceAll("<a", "<a class='link'");
 
@@ -378,13 +382,6 @@
 				popupInner.style.margin = "0 auto";
 				popupInner.style.marginTop = "30px";
 				popupInner.style.marginBottom = "30px";
-				// popupInterval = setInterval(() => {
-				// 	if (!document.getElementById("popupInner")) {
-				// 		clearInterval(popupInterval);
-				// 	}
-				// 	console.log("uwu");
-				// 	popupInner.style.transform = "translate(calc(" + (windowpopupInner.width/2) + "px), -50%)";
-				// }, 100);
 				popupInner.style.width = "90%";
 				popupInner.style.overflow = "hidden";
 				fadedBackground.appendChild(popupInner);
