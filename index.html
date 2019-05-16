@@ -722,17 +722,15 @@
 				}
 			});
 
-			$(window).blur(function(){
-			  $("#body").css("transition-duration", "1s");
-			  $("#body").css("filter", "grayscale(100%)");
+			$(window).blur(function() {
+				$("#body").css("transition-duration", "1s");
+				$("#body").css("filter", "grayscale(100%)");
 			});
-			$(window).focus(function(){
-			  $("#body").css("transition-duration", "0.5s");
-			  $("#body").css("filter", "grayscale(0%)");
+			$(window).focus(function() {
+				$("#body").css("transition-duration", "0.5s");
+				$("#body").css("filter", "grayscale(0%)");
 			});
 		</script>
-
-
 	</div>
 </body>
 
