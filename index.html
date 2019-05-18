@@ -610,11 +610,7 @@
 			}, 100);
 
 			$("#body").on("mousewheel DOMMouseScroll", (e) => {
-				// Set a small timeout to give the scroll time to update.
-				setTimeout(() => {
-					var scrollOffset = $("#body")[0].scrollTop;
-					window.location.replace(window.location.toString().split("#")[0] + "#" + scrollOffset);
-				}, 500);
+				// TODO: Change the hash to the closest hashable place.
 			});
 
 			function getVersionFromPlugin(pluginText) {
@@ -712,13 +708,9 @@
 						$("#body").animate({
 							scrollTop: $("#" + window.location.toString().split("#")[1]).offset().top
 						});
-					} else {
-						$("#body").animate({
-							scrollTop: parseInt(window.location.toString().split("#")[1])
-						});
 					}
 				} else {
-					window.location.replace(window.location.toString().split("#")[0] + "#0");
+					window.location.replace(window.location.toString().split("#")[0]);
 				}
 			});
 		</script>
