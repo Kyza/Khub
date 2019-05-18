@@ -43,9 +43,9 @@ var popupInterval;
 
 function openDownloadPopup(downloadName, downloadLocation) {
   if (downloadLocation == "theme" && !window.location.search) {
-    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?theme=" + downloadName + "#" + window.location.toString().split("#")[1]);
+    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?theme=" + downloadName + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
   } else if (!window.location.search) {
-    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + "#" + window.location.toString().split("#")[1]);
+    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
   }
 
   if (!document.getElementById("fadedBackground")) {
@@ -231,7 +231,7 @@ $(window).bind('load', () => {
 	});
 	document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
 	document.getElementById("DarkDarkTheme-info").style.height = "auto";
-	
+
   // Don't allow access to the page until it has been completely loaded.
   var transitionPanel1 = document.getElementById("transitionPanel1");
   var transitionPanel2 = document.getElementById("transitionPanel2");
