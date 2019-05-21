@@ -1,1 +1,1 @@
-# [You are looking for this.](https://kyzagithub.github.io/Khub)
+# [You are looking for this.](https://kyza.gq/Khub)
