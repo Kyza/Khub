@@ -17,25 +17,29 @@
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 
 	<script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async>
-		var mainCrate = new Crate({
+		new Crate({
 			server: '459014303224168449',
 			channel: '459014304713408537',
 			shard: 'https://disweb.deploys.io',
 			location: ['bottom', 'right'],
 			color: '#7bbe17'
 		});
-		mainCrate.notify({
+		crate.notify({
 			content: "Need help? Join my Discord.",
 			timeout: 10000,
 			avatar: "https://avatars3.githubusercontent.com/u/40003440?s=460&v=4"
 		});
-		mainCrate.on('message', ({ message, channel }) => {
+		crate.on('message', ({ message, channel }) => {
 			crate.notify({
 				content: message,
 				timeout: 10000,
 				avatar: author.avatar
 			});
 		});
+
+		setInterval(() => {
+			crate.show();
+		}, 1000);
 	</script>
 
 	<link rel="stylesheet/less" type="text/css" href="./css/index.less">
