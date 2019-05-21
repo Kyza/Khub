@@ -40,6 +40,7 @@ function addMarkdown(markdownLink, element, callback) {
     callback();
   });
 }
+
 var popupInterval;
 
 function setDownloadSearch(downloadName, downloadLocation) {
