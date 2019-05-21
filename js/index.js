@@ -224,7 +224,6 @@ $(window).bind('load', () => {
   setInterval(() => {
     // Reserve the first 300 pixels of the screen for no hash.
     if (document.getElementById("body").scrollTop < 300) {
-      console.log("none");
       silentHash("");
       return;
     }
@@ -248,8 +247,6 @@ $(window).bind('load', () => {
         };
       }
     }
-
-    console.log(smallest);
 
     if (smallest.distance < $(document).height() / 2) {
       silentHash("#" + smallest.location);
