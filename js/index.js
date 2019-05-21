@@ -41,13 +41,15 @@ function addMarkdown(markdownLink, element, callback) {
 }
 var popupInterval;
 
-function openDownloadPopup(downloadName, downloadLocation) {
+function setDownloadSearch(downloadName, downloadLocation) {
   if (downloadLocation == "theme" && !window.location.search) {
     window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?theme=" + downloadName + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
   } else if (!window.location.search) {
     window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
   }
+}
 
+function openDownloadPopup(downloadName, downloadLocation) {
   if (!document.getElementById("fadedBackground")) {
     var fadedBackground = document.createElement("div");
     fadedBackground.setAttribute("id", "fadedBackground");
@@ -70,14 +72,14 @@ function openDownloadPopup(downloadName, downloadLocation) {
       e = e || window.event
       var target = e.target || e.srcElement;
       if (target == document.getElementById("fadedBackground")) {
-        fadedBackground.style.opacity = "0";
+        // fadedBackground.style.opacity = "0";
         window.history.replaceState({}, document.title, window.location.toString().replace(window.location.search, ""));
-        setTimeout(() => {
-          if (document.getElementById("fadedBackground")) {
-            document.getElementById("body").style.overflowY = "scroll";
-            document.getElementById("fadedBackground").remove();
-          }
-        }, 1000);
+        // setTimeout(() => {
+        //   if (document.getElementById("fadedBackground")) {
+        //     document.getElementById("body").style.overflowY = "scroll";
+        //     document.getElementById("fadedBackground").remove();
+        //   }
+        // }, 1000);
       }
     });
     var popupInner = document.createElement("div");
@@ -85,11 +87,10 @@ function openDownloadPopup(downloadName, downloadLocation) {
     popupInner.style.backgroundColor = "#242424";
     popupInner.style.borderRadius = "30px";
     popupInner.style.padding = "20px";
-    popupInner.style.width = "50%";
     popupInner.style.margin = "0 auto";
     popupInner.style.marginTop = "30px";
     popupInner.style.marginBottom = "30px";
-    popupInner.style.width = "90%";
+    popupInner.style.width = "80%";
     popupInner.style.overflow = "hidden";
     fadedBackground.appendChild(popupInner);
     document.getElementById("body").appendChild(fadedBackground);
@@ -122,13 +123,17 @@ function openDownloadPopup(downloadName, downloadLocation) {
           document.getElementById("body").removeChild(element);
         });
       });
-      popupInner.prepend(downloadButton);
+      try {
+        if (!document.getElementById("downloadButton")) {
+          popupInner.prepend(downloadButton);
+        }
+      } catch (e) {}
     });
   }
 }
 
-function slientHash(hash) {
-  window.location.replace(window.location.toString().split("#")[0] + "#" + hash);
+function silentHash(hash) {
+  window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + hash);
 }
 
 function getQueryVariable(variable) {
@@ -143,15 +148,6 @@ function getQueryVariable(variable) {
   return null;
 }
 
-// If the user has navigated to one of the plugins or themes, open the popup for it right away.
-if (window.location.search) {
-  if (getQueryVariable("plugin") && getQueryVariable("version")) {
-    openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
-  } else if (getQueryVariable("theme")) {
-    openDownloadPopup(getQueryVariable("theme"), "theme")
-  }
-}
-
 // An interval to make sure that the popup is open or not.
 // It also sets the place to scroll to.
 setInterval(() => {
@@ -163,19 +159,17 @@ setInterval(() => {
     }
   } else if (document.getElementById("fadedBackground")) {
     document.getElementById("fadedBackground").style.opacity = "0";
-    window.location.replace(window.location.toString().replace(window.location.search, ""));
+    window.history.replaceState({}, document.title, window.location.toString().replace(window.location.search, ""));
     setTimeout(() => {
       if (document.getElementById("fadedBackground")) {
         document.body.style.overflowY = "scroll";
         document.getElementById("fadedBackground").remove();
       }
     }, 1000);
+  } else if (!window.location.search) {
+    document.getElementById("body").style.overflowY = "scroll";
   }
 }, 100);
-
-$("#body").on("mousewheel DOMMouseScroll", (e) => {
-  // TODO: Change the hash to the closest hashable place.
-});
 
 function getVersionFromPlugin(pluginText) {
   var lines = pluginText.split("\n");
@@ -197,40 +191,104 @@ function getDescriptionFromPlugin(pluginText) {
   return "";
 }
 
+function offset(elem) {
+  if (!elem) elem = this;
+
+  var x = elem.offsetLeft;
+  var y = elem.offsetTop;
+
+  while (elem = elem.offsetParent) {
+    x += elem.offsetLeft;
+    y += elem.offsetTop;
+  }
+
+  return {
+    left: x,
+    top: y
+  };
+}
+
 $(window).bind('load', () => {
-	// Get the latest plugin and theme info.
-	$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
-	  var versionNumber = getVersionFromPlugin(response);
-	  var description = getDescriptionFromPlugin(response);
+  // If the user has navigated to one of the plugins or themes, open the popup for it right away.
+  if (window.location.search) {
+    if (getQueryVariable("plugin") && getQueryVariable("version")) {
+      openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"));
+    } else if (getQueryVariable("theme")) {
+      openDownloadPopup(getQueryVariable("theme"), "theme");
+    }
+  }
 
-	  document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
-	  document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
-	  document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
-	  document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
-	  document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
-	});
-	$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
-	  var versionNumber = getVersionFromPlugin(response);
-	  var description = getDescriptionFromPlugin(response);
+  $("#body").on("mousewheel DOMMouseScroll", (e) => {
+    // Change the hash to the closest hashable place.
+    // The hashable place should be on the top half of the screen.
+    setTimeout(() => {
+      // Reserve the first 300 pixels of the screen for no hash.
+      if (document.getElementById("body").scrollTop < 300) {
+        silentHash("");
+        return;
+      }
+      var locations = ["faq", "plugins", "themes"];
 
-	  document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
-	  document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
-	  document.getElementById("GhostMessage-info").innerHTML += description;
-	  document.getElementById("GhostMessage-info").style.backgroundImage = "none";
-	  document.getElementById("GhostMessage-info").style.height = "auto";
-	});
-	$.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
-	  var versionNumber = getVersionFromPlugin(response);
-	  var description = getDescriptionFromPlugin(response);
+      var setHash = false;
 
-	  document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
-	  document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
-	  document.getElementById("CustomDiscordIcon-info").innerHTML += description;
-	  document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
-	  document.getElementById("CustomDiscordIcon-info").style.height = "auto";
-	});
-	document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
-	document.getElementById("DarkDarkTheme-info").style.height = "auto";
+      var smallest = {
+        location: "",
+        distance: 999999999999999999999999
+      };
+
+      for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+
+        var distance = Math.abs(offset(document.getElementById(location)).top - document.getElementById("body").scrollTop);
+        if (distance < smallest.distance) {
+          smallest = {
+            location: location,
+            distance: distance
+          };
+        }
+      }
+
+      if (smallest.distance < $(document).height() / 2) {
+        silentHash("#" + smallest.location);
+      } else {
+        silentHash("");
+      }
+    }, 500);
+  });
+
+  // Get the latest plugin and theme info.
+  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
+    var versionNumber = getVersionFromPlugin(response);
+    var description = getDescriptionFromPlugin(response);
+
+    document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
+    document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
+    document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
+    document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
+    document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
+  });
+  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
+    var versionNumber = getVersionFromPlugin(response);
+    var description = getDescriptionFromPlugin(response);
+
+    document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
+    document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
+    document.getElementById("GhostMessage-info").innerHTML += description;
+    document.getElementById("GhostMessage-info").style.backgroundImage = "none";
+    document.getElementById("GhostMessage-info").style.height = "auto";
+  });
+  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
+    var versionNumber = getVersionFromPlugin(response);
+    var description = getDescriptionFromPlugin(response);
+
+    document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
+    document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
+    document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+    document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
+    document.getElementById("CustomDiscordIcon-info").style.height = "auto";
+  });
+  document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
+  document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
   // Don't allow access to the page until it has been completely loaded.
   var transitionPanel1 = document.getElementById("transitionPanel1");
