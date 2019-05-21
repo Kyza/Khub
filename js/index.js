@@ -289,6 +289,19 @@ $(window).bind('load', () => {
   document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
   document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
+  // Make sure the user is scrolled to the right position.
+  if (window.location.toString().split("#")[1]) {
+    // If the hash exists as an element, scroll to it.
+    if (document.getElementById(window.location.toString().split("#")[1])) {
+      $("#body").animate({
+        scrollTop: $("#" + window.location.toString().split("#")[1]).offset().top
+      });
+      // If the hash does not exist as an element, remove it.
+    } else {
+      window.location.replace(window.location.toString().split("#")[0]);
+    }
+  }
+
   // Don't allow access to the page until it has been completely loaded.
   var transitionPanel1 = document.getElementById("transitionPanel1");
   var transitionPanel2 = document.getElementById("transitionPanel2");
@@ -322,17 +335,4 @@ $(window).bind('load', () => {
   transitionPanel4.style.animationIterationCount = "1";
   transitionPanel4.style.animationName = "slideAway4";
   transitionPanel4.style.animationFillMode = "forwards";
-
-  // Make sure the user is scrolled to the right position.
-  if (window.location.toString().split("#")[1]) {
-    // If the hash exists as an element, scroll to it.
-    if (document.getElementById(window.location.toString().split("#")[1])) {
-      $("#body").animate({
-        scrollTop: $("#" + window.location.toString().split("#")[1]).offset().top
-      });
-      // If the hash does not exist as an element, remove it.
-    } else {
-      window.location.replace(window.location.toString().split("#")[0]);
-    }
-  }
 });
