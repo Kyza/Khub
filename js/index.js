@@ -32,6 +32,7 @@ function addMarkdown(markdownLink, element, callback) {
     var html = converter.makeHtml(finishedMarkdown.trim());
 
     html = html.replaceAll("<a", "<a class='link'");
+    html = html.replaceAll("<img", "<img style='max-width: 100%;'");
 
     loadingDiv.remove();
     element.innerHTML += html;
@@ -72,14 +73,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
       e = e || window.event
       var target = e.target || e.srcElement;
       if (target == document.getElementById("fadedBackground")) {
-        // fadedBackground.style.opacity = "0";
         window.history.replaceState({}, document.title, window.location.toString().replace(window.location.search, ""));
-        // setTimeout(() => {
-        //   if (document.getElementById("fadedBackground")) {
-        //     document.getElementById("body").style.overflowY = "scroll";
-        //     document.getElementById("fadedBackground").remove();
-        //   }
-        // }, 1000);
       }
     });
     var popupInner = document.createElement("div");
