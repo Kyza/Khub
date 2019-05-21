@@ -218,43 +218,42 @@ $(window).bind('load', () => {
     }
   }
 
-  $("#body").on("mousewheel DOMMouseScroll", (e) => {
-    // Change the hash to the closest hashable place.
-    // The hashable place should be on the top half of the screen.
-    setTimeout(() => {
-      // Reserve the first 300 pixels of the screen for no hash.
-      if (document.getElementById("body").scrollTop < 300) {
-        silentHash("");
-        return;
+  // Change the hash to the closest hashable place.
+  // The hashable place should be on the top half of the screen.
+  // I am using an interval here because onscroll events don't account for the scrollbar being dragged.
+  setInterval(() => {
+    // Reserve the first 300 pixels of the screen for no hash.
+    if (document.getElementById("body").scrollTop < 300) {
+      silentHash("");
+      return;
+    }
+    var locations = ["faq", "plugins", "themes"];
+
+    var setHash = false;
+
+    var smallest = {
+      location: "",
+      distance: 999999999999999999999999
+    };
+
+    for (var i = 0; i < locations.length; i++) {
+      var location = locations[i];
+
+      var distance = Math.abs(offset(document.getElementById(location)).top - document.getElementById("body").scrollTop);
+      if (distance < smallest.distance) {
+        smallest = {
+          location: location,
+          distance: distance
+        };
       }
-      var locations = ["faq", "plugins", "themes"];
+    }
 
-      var setHash = false;
-
-      var smallest = {
-        location: "",
-        distance: 999999999999999999999999
-      };
-
-      for (var i = 0; i < locations.length; i++) {
-        var location = locations[i];
-
-        var distance = Math.abs(offset(document.getElementById(location)).top - document.getElementById("body").scrollTop);
-        if (distance < smallest.distance) {
-          smallest = {
-            location: location,
-            distance: distance
-          };
-        }
-      }
-
-      if (smallest.distance < $(document).height() / 2) {
-        silentHash("#" + smallest.location);
-      } else {
-        silentHash("");
-      }
-    }, 500);
-  });
+    if (smallest.distance < $(document).height() / 2) {
+      silentHash("#" + smallest.location);
+    } else {
+      silentHash("");
+    }
+  }, 100);
 
   // Get the latest plugin and theme info.
   $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
