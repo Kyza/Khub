@@ -93,14 +93,14 @@ function openDownloadPopup(downloadName, downloadLocation) {
     if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
     if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
     if (downloadLocation == "theme") downloadPath = "Themes";
-    addMarkdown("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
+    addMarkdown("https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
       var popupInner = document.getElementById("popupInner");
       var downloadButton = document.createElement("div");
       downloadButton.id = "downloadButton";
       downloadButton.innerHTML = "DOWNLOAD";
       downloadButton.addEventListener("click", (e) => {
         var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
-        var pluginThemeURL = "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
+        var pluginThemeURL = "https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
         // Get the raw plugin/theme data and save it to a variable.
         $.get(pluginThemeURL, function(response) {
           var pluginThemeRaw = response;
@@ -251,7 +251,7 @@ $(window).bind('load', () => {
   }, 100);
 
   // Get the latest plugin and theme info.
-  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
+  $.get("https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
@@ -261,7 +261,7 @@ $(window).bind('load', () => {
     document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
     document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
   });
-  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
+  $.get("https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
@@ -271,7 +271,7 @@ $(window).bind('load', () => {
     document.getElementById("GhostMessage-info").style.backgroundImage = "none";
     document.getElementById("GhostMessage-info").style.height = "auto";
   });
-  $.get("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
+  $.get("https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
