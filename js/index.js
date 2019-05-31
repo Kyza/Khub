@@ -1,5 +1,5 @@
 ;(function () {
-    var src = '//cdn.jsdelivr.net/npm/eruda';
+    var src = 'https://cdnjs.cloudflare.com/ajax/libs/eruda/1.5.5/eruda.min.js';
     if (getQueryVariable("eruda") && localStorage.getItem('active-eruda') != 'true') return;
     document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
     document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
