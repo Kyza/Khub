@@ -4,7 +4,7 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 
 <img src="https://github.com/KyzaGitHub/Khub/raw/master/media/live.gif">
 
-![https://imgur.com/8IGwGGa.png](https://imgur.com/8IGwGGa.png)
+<img src="https://i.imgur.com/8IGwGGa.webp">
 
 ## Features
 
@@ -77,7 +77,7 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 ### 1.2.2
 
  * Removed useless code.
- 
+
 ### 1.2.1
 
  * Lightened the color of the UI to match the dark mode standard.
@@ -99,7 +99,7 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 ## Credits
 
 This plugin is currently using a [new API](https://em.0x71.cc/).
-Thanks to `Qwerasd#5202`for creating this API. 
+Thanks to `Qwerasd#5202`for creating this API.
 
 
 ### Lucario's API is no longer used in this plugin.
