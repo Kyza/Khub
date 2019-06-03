@@ -1,10 +1,3 @@
-;(function () {
-    var src = 'https://cdnjs.cloudflare.com/ajax/libs/eruda/1.5.5/eruda.min.js';
-    if (!getQueryVariable("eruda") == "true" && localStorage.getItem('active-eruda') != 'true') return;
-    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-})();
-
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
   return target.replace(new RegExp(search, 'g'), replacement);
