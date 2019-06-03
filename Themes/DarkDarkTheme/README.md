@@ -2,4 +2,4 @@
 
 ## It's Discord's Dark Theme, but Dark.
 
-<img src="https://i.vgy.me/o52pbh.png">
+<img src="https://i.imgur.com/wW78tpF.webp">
