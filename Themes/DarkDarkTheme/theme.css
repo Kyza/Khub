@@ -101,7 +101,12 @@
 
 /* Channel Titlebar */
 .theme-dark .title-3qD0b-.container-1r6BKw {
-    background-color: #111;
+    background-color: rgba(17, 17, 17, 1);
+}
+
+/* DMs Titlebar */
+.theme-dark .title-3qD0b-.container-1r6BKw.transparent-2ZlE3R {
+    background-color: rgba(17, 17, 17, 0);
 }
 
 /* Members Panel */
@@ -445,6 +450,20 @@
 
 .theme-dark .typing-2GQL18.base-gE7OpD {
     background-color: #1a1a1a;
+}
+
+/* CSS Editor Styles */
+.ace_gutter-cell {
+    background-color: #161616;
+}
+.bd-customcss-attach-controls {
+    background-color: #161616;
+}
+.ace_content {
+    background-color: #1f1f1f;
+}
+#bd-customcss-attach-controls {
+    background-color: red;
 }
 
 /* Plugin Styles */
