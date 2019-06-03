@@ -12,13 +12,13 @@
 	<meta property="og:url" content="https://kyza.gq/Khub/">
 	<meta name="theme-color" content="#7bbe17">
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <meta name="author" content="Kyza">
+	<meta name="author" content="Kyza">
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <meta name="robots" content="index, follow">
+	<meta name="robots" content="index, follow">
 
 	<link rel="shortcut icon" type="image/webp" href="https://kyza.gq/KyzaPFP.webp">
 
@@ -37,7 +37,10 @@
 			timeout: 10000,
 			avatar: "https://kyza.gq/KyzaPFP.webp"
 		});
-		crate.on('message', ({ message, channel }) => {
+		crate.on('message', ({
+			message,
+			channel
+		}) => {
 			crate.notify({
 				content: message,
 				timeout: 10000,
@@ -50,10 +53,10 @@
 	<link rel="stylesheet" type="text/css" href="https://kyza.gq/Khub/css/transition.css">
 
 	<script type="text/javascript" src="https://kyza.gq/Khub/js/less.min.js" defer></script>
-        <script src="https://kyza.gq/Khub/js/lazysizes.min.js"></script>
+	<script src="https://kyza.gq/Khub/js/lazysizes.min.js" async defer></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js" defer></script>
-<!--       <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+	<!--       <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
         <script defer>
                 particlesJS("plugins", {
   "particles": {
@@ -177,24 +180,24 @@
 	</div>
 
 	<div id="body" style="overflow: hidden scroll;">
-		<img id="pfp" alt="Kyza" data-src="https://kyza.gq/KyzaPFP.webp" class="lazyLoad">
+		<img id="pfp" alt="Kyza" data-src="https://kyza.gq/KyzaPFP.webp" class="lazyload">
 
 		<p align="center">
-			<img id="logo" alt="Khub" data-src="https://kyza.gq/Khub/media/KhubLogo.webp" class="lazyLoad">
+			<img id="logo" alt="Khub" data-src="https://kyza.gq/Khub/media/KhubLogo.webp" class="lazyload">
 		</p>
 		<p align="center">
-			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyLoad"
+			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyload"
 					data-src="https://img.shields.io/static/v1.svg?label=Developing%20For%20v2&amp;message=NO&amp;color=red&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
 		</p>
 
 		<p align="center">
-			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyLoad"
+			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyload"
 					data-src="https://img.shields.io/static/v1.svg?label=Plugin%20Count&amp;message=3&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyLoad"
+			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyload"
 					data-src="https://img.shields.io/static/v1.svg?label=Plugins%20Verified&amp;message=0&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyLoad"
+			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyload"
 					data-src="https://img.shields.io/static/v1.svg?label=Theme%20Count&amp;message=1&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
-			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyLoad"
+			<a href="https://github.com/KyzaGitHub/Khub/"><img alt="shield" class="shield-large lazyload"
 					data-src="https://img.shields.io/static/v1.svg?label=Themes%20Verified&amp;message=0&amp;color=7bbe17&amp;style=for-the-badge&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030"></a>
 		</p>
 
@@ -211,15 +214,17 @@
 		<h1 id="plugins" align="center">#plugins</h1>
 		<div>
 			<div class="plugin-card" onclick="setDownloadSearch('SafeEmbedGenerator', 'v1')">
-				<img alt="shield" class="shield-small lazyLoad" data-src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<img alt="shield" class="shield-small lazyload"
+					data-src="https://img.shields.io/static/v1.svg?label=SafeEmbedGenerator&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
 				<div id="SafeEmbedGenerator-info" class="card-info"></div>
 			</div>
 			<div class="plugin-card" onclick="setDownloadSearch('GhostMessage', 'v1')">
-				<img alt="shield" class="shield-small lazyLoad" data-src="https://img.shields.io/static/v1.svg?label=GhostMessage&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<img alt="shield" class="shield-small lazyload" data-src="https://img.shields.io/static/v1.svg?label=GhostMessage&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
 				<div id="GhostMessage-info" class="card-info"></div>
 			</div>
 			<div class="plugin-card" onclick="setDownloadSearch('CustomDiscordIcon', 'v1')">
-				<img alt="shield" class="shield-small lazyLoad" data-src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<img alt="shield" class="shield-small lazyload"
+					data-src="https://img.shields.io/static/v1.svg?label=CustomDiscordIcon&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
 				<div id="CustomDiscordIcon-info" class="card-info"></div>
 			</div>
 
@@ -228,7 +233,8 @@
 		<h1 id="themes" align="center">#themes</h1>
 		<div>
 			<div class="theme-card" onclick="setDownloadSearch('DarkDarkTheme', 'theme')">
-				<img alt="shield" class="shield-small lazyLoad" data-src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
+				<img alt="shield" class="shield-small lazyload"
+					data-src="https://img.shields.io/static/v1.svg?label=Dark%20Dark%20Theme&amp;message=Not%20Verified&amp;color=red&amp;style=flat-square&amp;logo=Discord&amp;logoColor=909090&amp;labelColor=303030">
 				<div id="DarkDarkTheme-info" class="card-info"></div>
 			</div>
 
@@ -236,7 +242,7 @@
 
 			<div id="content">
 				<h1 id="faq">#faq</h1>
-                                <h2>What's all this BetterDiscord stuff?</h2>
+				<h2>What's all this BetterDiscord stuff?</h2>
 				<span class="container">
 					BetterDiscord is a Discord client mod which is made to theme and add functionality to Discord. This website hosts my best Bandaged BetterDiscord themes and plugins.
 				</span>
@@ -270,10 +276,10 @@
 				<span class="container">
 					A human... Maybe...
 				</span>
-                                <h2>When did you start making plugins?</h2>
+				<h2>When did you start making plugins?</h2>
 				<span class="container">
 					I first installed Bandaged BetterDiscord early in 2018, I used it for a while before my harddrive crashed and I forgot about it.<br>
-                                        Recently, in early 2019, I reinstalled Bandaged BetterDiscord and decided to make some plugins of my own.
+					Recently, in early 2019, I reinstalled Bandaged BetterDiscord and decided to make some plugins of my own.
 				</span>
 				<h2>Why Khub?</h2>
 				<span class="container">
@@ -291,10 +297,11 @@
 				Problems with a plugin or theme? Submit an <a class="link" href="https://github.com/KyzaGitHub/Khub/issues/new">issue</a>, or join my <a class="link" href="https://discord.gg/c9Essur">BetterDiscord support server</a>.
 				<br>
 				<br>
-				<a href="https://discordapp.com/channels/@me"><img alt="shield" class="shield-small lazyLoad" data-src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&amp;message=@Kyza%239994&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
-				<a href="https://discordapp.com/channels/@me"><img alt="shield" class="shield-small lazyLoad"
+				<a href="https://discordapp.com/channels/@me"><img alt="shield" class="shield-small lazyload"
+						data-src="https://img.shields.io/static/v1.svg?label=Discord%20Tag&amp;message=@Kyza%239994&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
+				<a href="https://discordapp.com/channels/@me"><img alt="shield" class="shield-small lazyload"
 						data-src="https://img.shields.io/static/v1.svg?label=Discord%20ID&amp;message=<@220548715265114113>&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
-				<a href="https://discord.gg/c9ESSur"><img alt="shield" class="shield-small lazyLoad"
+				<a href="https://discord.gg/c9ESSur"><img alt="shield" class="shield-small lazyload"
 						data-src="https://img.shields.io/static/v1.svg?label=Discord%20Server&amp;message=https://discord.gg/c9ESSur&amp;color=7289DA&amp;style=flat&amp;logo=Discord&amp;labelColor=303030"></a>
 			</p>
 		</div>
