@@ -1,10 +1,3 @@
-;(function () {
-    var src = 'https://cdnjs.cloudflare.com/ajax/libs/eruda/1.5.5/eruda.min.js';
-    if (!getQueryVariable("eruda") == "true" && localStorage.getItem('active-eruda') != 'true') return;
-    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-    document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
-})();
-
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
   return target.replace(new RegExp(search, 'g'), replacement);
@@ -171,6 +164,11 @@ setInterval(() => {
   } else if (!window.location.search) {
     document.getElementById("body").style.overflowY = "scroll";
   }
+
+  // Make sure the height of the particle canvas is the same as the full scroll height.
+  var pcanvas = document.getElementsByClassName("particles-js-canvas-el")[0];
+  // pcanvas.height = $("#body")[0].scrollHeight;
+  pcanvas.style.height = $("#body")[0].scrollHeight + "px";
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
@@ -259,6 +257,7 @@ $(window).bind('load', () => {
 
   // Get the latest plugin and theme info.
   $.get("https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
+    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
@@ -269,6 +268,7 @@ $(window).bind('load', () => {
     document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
   });
   $.get("https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
+    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
@@ -279,6 +279,7 @@ $(window).bind('load', () => {
     document.getElementById("GhostMessage-info").style.height = "auto";
   });
   $.get("https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
+    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
     var versionNumber = getVersionFromPlugin(response);
     var description = getDescriptionFromPlugin(response);
 
