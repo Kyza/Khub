@@ -164,11 +164,6 @@ setInterval(() => {
   } else if (!window.location.search) {
     document.getElementById("body").style.overflowY = "scroll";
   }
-
-  // Make sure the height of the particle canvas is the same as the full scroll height.
-  var pcanvas = document.getElementsByClassName("particles-js-canvas-el")[0];
-  // pcanvas.height = $("#body")[0].scrollHeight;
-  pcanvas.style.height = $("#body")[0].scrollHeight + "px";
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
