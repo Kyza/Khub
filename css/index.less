@@ -1,0 +1,178 @@
+@green: #7bbe17;
+
+* {
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: 'Comfortaa', cursive;
+	color: white;
+	overflow: hidden;
+}
+
+#logo {
+	filter: invert(100%);
+	width: 40%;
+	height: auto;
+}
+
+#pfp {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	z-index: 100;
+	border-radius: 10%;
+	width: 12%;
+	height: auto;
+}
+
+hr {
+	border: none;
+	height: 1em;
+	background-color: #1f1f1f;
+}
+
+#content {
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-bottom: 20px;
+	border-color: #1f1f1f;
+	border-style: solid;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	border-left-width: 0.7em;
+	border-right-width: 0.7em;
+	padding: 0 10px 10px;
+}
+
+#faq {
+	padding-top: 10px;
+}
+
+a.link {
+	transition-duration: 0.5s;
+	padding-bottom: -0.05em;
+	border-radius: 3px;
+	border-width: 0;
+	border-bottom-width: 2px;
+	border-color: gray;
+	border-style: solid;
+	text-decoration: none;
+	color: gray;
+}
+/* unvisited link */
+
+a:link.link {
+	background-color: transparent;
+	color: gray;
+}
+/* visited link */
+
+a:visited.link {
+	background-color: transparent;
+	color: gray;
+}
+/* mouse over link */
+
+a:hover.link {
+	background-color: gray;
+	color: #242424;
+	border-bottom-width: 0;
+}
+/* selected link */
+
+a:active.link {
+	background-color: transparent;
+	color: gray;
+}
+
+.shield-large {
+	width: auto;
+	height: 4%;
+}
+
+.shield-small {
+	width: auto;
+	height: 3%;
+}
+
+#downloadButton {
+	transition-duration: 0.5s;
+	user-select: none;
+	background-color: #7289da;
+	border-radius: 20px;
+	text-align: center;
+	width: auto;
+	padding: 10px;
+}
+
+#downloadButton:hover {
+	transition-duration: 1.25s;
+	filter: brightness(70%);
+}
+
+#downloadButton:active {
+	transition-duration: 0.25s;
+	transform: scale(0.9);
+}
+
+#plugins+div {}
+
+.plugin-card,
+.theme-card {
+	margin: 30px auto;
+	background-color: #333;
+	width: 60%;
+	height: auto;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	filter: drop-shadow(0 0 10px #222);
+	user-select: none;
+	cursor: help;
+}
+
+.plugin-card > img,
+.theme-card > img {
+	border-color: #7289DA;
+	border-width: 0;
+	/* border-style: dotted; */
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-radius: 5px;
+	transform: translateY(-50%);
+}
+
+.card-info {
+	background-image: url("https://kyza.gq/svgs/goo-loader.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	height: 10vw;
+	padding: 10px;
+	filter: grayscale(100%);
+}
+
+*::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+*::-webkit-scrollbar-button {
+	display: none;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: @green;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: darken(@green, 10%);
+}
+
+*::-webkit-scrollbar-corner {
+	background-color: darken(@green, 10%);
+}
+
+*::-webkit-resizer {
+	background-color: darken(@green, 10%);
+}
