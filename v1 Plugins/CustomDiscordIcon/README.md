@@ -2,7 +2,7 @@
 
 CustomDiscordIcon allows you to customize the Discord icon on your taskbar.
 
-![https://github.com/KyzaGitHub/Khub/raw/master/media/custom-icon.png](https://github.com/KyzaGitHub/Khub/raw/master/media/custom-icon.png)
+<img src="https://github.com/KyzaGitHub/Khub/raw/master/media/custom-icon.png">
 
 ## Features
 
