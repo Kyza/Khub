@@ -183,7 +183,7 @@
 				}
 			},
 			"color": {
-				"value": "#7bbe17"
+				"value": "#ffffff"
 			},
 			"shape": {
 				"type": "circle",
@@ -201,36 +201,36 @@
 				}
 			},
 			"opacity": {
-				"value": 0.8,
-				"random": true,
+				"value": 0.5,
+				"random": false,
 				"anim": {
-					"enable": true,
+					"enable": false,
 					"speed": 1,
 					"opacity_min": 0.1,
 					"sync": false
 				}
 			},
 			"size": {
-				"value": 4,
+				"value": 20,
 				"random": true,
 				"anim": {
 					"enable": false,
 					"speed": 40,
-					"size_min": 1,
+					"size_min": 20,
 					"sync": false
 				}
 			},
 			"line_linked": {
-				"enable": true,
-				"distance": 100,
-				"color": "#7bbe17",
-				"opacity": 0.4,
-				"width": 2
+				"enable": false,
+				"distance": 0,
+				"color": "#ffffff",
+				"opacity": 0,
+				"width": 0
 			},
 			"move": {
 				"enable": true,
 				"speed": 6,
-				"direction": Math.random() < 0.5 ? "left" : "right",
+				"direction": "none",
 				"random": true,
 				"straight": false,
 				"out_mode": "bounce",
@@ -266,7 +266,7 @@
 					"distance": 400,
 					"size": 40,
 					"duration": 2,
-					"opacity": 8,
+					"opacity": 0,
 					"speed": 3
 				},
 				"repulse": {
@@ -294,7 +294,7 @@
 		height: 100%;
 		z-index: 100;
 
-		filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 1))
+		filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 1))
 	}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async>
