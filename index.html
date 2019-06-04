@@ -229,14 +229,14 @@
 			},
 			"move": {
 				"enable": true,
-				"speed": 0,
-				"direction": "bottom",
+				"speed": 6,
+				"direction": Math.random() < 0.5 ? "left" : "right",
 				"random": false,
 				"straight": false,
-				"out_mode": "out",
+				"out_mode": "bounce",
 				"bounce": true,
 				"attract": {
-					"enable": true,
+					"enable": false,
 					"rotateX": 600,
 					"rotateY": 1200
 				}
