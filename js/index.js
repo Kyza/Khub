@@ -1,13 +1,14 @@
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
-  return target.replace(new RegExp(search, 'g'), replacement);
+  return target.replace(new RegExp(search, "g"), replacement);
 };
 
 var converter = new showdown.Converter();
 
 function addMarkdown(markdownLink, element, callback) {
   var loadingDiv = document.createElement("div");
-  loadingDiv.style.backgroundImage = "url('https://kyzagithub.github.io/svgs/goo-loader.svg')";
+  loadingDiv.style.backgroundImage =
+    "url('https://kyzagithub.github.io/svgs/goo-loader.svg')";
   loadingDiv.style.backgroundPosition = "center";
   loadingDiv.style.backgroundRepeat = "no-repeat";
   loadingDiv.style.backgroundSize = "contain";
@@ -22,9 +23,15 @@ function addMarkdown(markdownLink, element, callback) {
     var finishedMarkdown = "";
     for (var i = 0; i < lines.length; i++) {
       if (lines[i].indexOf("- [x]") == 0) {
-        lines[i] = "<div><input type='checkbox' disabled checked style=''>" + lines[i].replace("- [x]", "") + "</div>";
+        lines[i] =
+          "<div><input type='checkbox' disabled checked style=''>" +
+          lines[i].replace("- [x]", "") +
+          "</div>";
       } else if (lines[i].indexOf("- [ ]") == 0) {
-        lines[i] = "<div><input type='checkbox' disabled style=''>" + lines[i].replace("- [ ]", "") + "</div>";
+        lines[i] =
+          "<div><input type='checkbox' disabled style=''>" +
+          lines[i].replace("- [ ]", "") +
+          "</div>";
       }
       finishedMarkdown += lines[i] + "\n";
     }
@@ -45,9 +52,29 @@ var popupInterval;
 
 function setDownloadSearch(downloadName, downloadLocation) {
   if (downloadLocation == "theme" && !window.location.search) {
-    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?theme=" + downloadName + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.toString().split("#")[0] +
+        "?theme=" +
+        downloadName +
+        (window.location.toString().split("#")[1]
+          ? "#" + window.location.toString().split("#")[1]
+          : "")
+    );
   } else if (!window.location.search) {
-    window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + "?plugin=" + downloadName + "&version=" + downloadLocation + (window.location.toString().split("#")[1] ? "#" + window.location.toString().split("#")[1] : ""));
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.toString().split("#")[0] +
+        "?plugin=" +
+        downloadName +
+        "&version=" +
+        downloadLocation +
+        (window.location.toString().split("#")[1]
+          ? "#" + window.location.toString().split("#")[1]
+          : "")
+    );
   }
 }
 
@@ -70,11 +97,15 @@ function openDownloadPopup(downloadName, downloadLocation) {
       fadedBackground.style.opacity = "1";
     }, 10);
     document.body.style.overflow = "hidden";
-    fadedBackground.addEventListener("click", (e) => {
-      e = e || window.event
+    fadedBackground.addEventListener("click", e => {
+      e = e || window.event;
       var target = e.target || e.srcElement;
       if (target == document.getElementById("fadedBackground")) {
-        window.history.replaceState({}, document.title, window.location.toString().replace(window.location.search, ""));
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.toString().replace(window.location.search, "")
+        );
       }
     });
     var popupInner = document.createElement("div");
@@ -93,50 +124,84 @@ function openDownloadPopup(downloadName, downloadLocation) {
     if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
     if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
     if (downloadLocation == "theme") downloadPath = "Themes";
-    addMarkdown("https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
-      var popupInner = document.getElementById("popupInner");
-      var downloadButton = document.createElement("div");
-      downloadButton.id = "downloadButton";
-      downloadButton.className = "btn btn-primary";
-      downloadButton.innerHTML = "DOWNLOAD";
-      downloadButton.addEventListener("click", (e) => {
-        var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
-        var pluginThemeURL = "https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
-        // Get the raw plugin/theme data and save it to a variable.
-        $.get(pluginThemeURL, function(response) {
-          var pluginThemeRaw = response;
-          var element = document.createElement('a');
-          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(pluginThemeRaw));
+    addMarkdown(
+      "https://kyza.gq/Khub/" +
+        downloadPath +
+        "/" +
+        downloadName +
+        "/README.md",
+      popupInner,
+      () => {
+        var popupInner = document.getElementById("popupInner");
+        var downloadButton = document.createElement("div");
+        downloadButton.id = "downloadButton";
+        downloadButton.className = "btn btn-primary";
+        downloadButton.innerHTML = "DOWNLOAD";
+        downloadButton.addEventListener("click", e => {
+          var type = downloadLocation
+            .replace("v1", "plugin")
+            .replace("v2", "plugin");
+          var pluginThemeURL =
+            "https://kyza.gq/Khub/" +
+            downloadPath +
+            "/" +
+            downloadName +
+            "/" +
+            downloadName +
+            "." +
+            type +
+            "." +
+            type.replace("plugin", "js").replace("theme", "css");
+          // Get the raw plugin/theme data and save it to a variable.
+          $.get(pluginThemeURL, function(response) {
+            var pluginThemeRaw = response;
+            var element = document.createElement("a");
+            element.setAttribute(
+              "href",
+              "data:text/plain;charset=utf-8," +
+                encodeURIComponent(pluginThemeRaw)
+            );
 
-          if (getQueryVariable("theme")) {
-            element.setAttribute('download', downloadName + "." + type + ".css");
-          } else {
-            element.setAttribute('download', downloadName + "." + type + ".js");
-          }
-          element.style.display = 'none';
-          document.body.appendChild(element);
-          element.click();
-          document.body.removeChild(element);
+            if (getQueryVariable("theme")) {
+              element.setAttribute(
+                "download",
+                downloadName + "." + type + ".css"
+              );
+            } else {
+              element.setAttribute(
+                "download",
+                downloadName + "." + type + ".js"
+              );
+            }
+            element.style.display = "none";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+          });
         });
-      });
-      try {
-        if (!document.getElementById("downloadButton")) {
-          popupInner.prepend(downloadButton);
-        }
-      } catch (e) {}
-    });
+        try {
+          if (!document.getElementById("downloadButton")) {
+            popupInner.prepend(downloadButton);
+          }
+        } catch (e) {}
+      }
+    );
   }
 }
 
 function silentHash(hash) {
-  window.history.replaceState({}, document.title, window.location.toString().split("#")[0] + hash);
+  window.history.replaceState(
+    {},
+    document.title,
+    window.location.toString().split("#")[0] + hash
+  );
 }
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
-  var vars = query.split('&');
+  var vars = query.split("&");
   for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
+    var pair = vars[i].split("=");
     if (decodeURIComponent(pair[0]) == variable) {
       return decodeURIComponent(pair[1]);
     }
@@ -149,13 +214,20 @@ function getQueryVariable(variable) {
 setInterval(() => {
   if (window.location.search) {
     if (getQueryVariable("plugin") && getQueryVariable("version")) {
-      openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"))
+      openDownloadPopup(
+        getQueryVariable("plugin"),
+        getQueryVariable("version")
+      );
     } else if (getQueryVariable("theme")) {
-      openDownloadPopup(getQueryVariable("theme"), "theme")
+      openDownloadPopup(getQueryVariable("theme"), "theme");
     }
   } else if (document.getElementById("fadedBackground")) {
     document.getElementById("fadedBackground").style.opacity = "0";
-    window.history.replaceState({}, document.title, window.location.toString().replace(window.location.search, ""));
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.toString().replace(window.location.search, "")
+    );
     setTimeout(() => {
       if (document.getElementById("fadedBackground")) {
         document.body.style.overflowY = "scroll";
@@ -170,7 +242,8 @@ setInterval(() => {
     document.getElementById("navbar-toggle").style = "display: none;";
     document.getElementById("navbarButtons").className = "";
   } else {
-    document.getElementById("navbarButtons").className = "collapse navbar-collapse";
+    document.getElementById("navbarButtons").className =
+      "collapse navbar-collapse";
     document.getElementById("navbar-toggle").style = "";
   }
 }, 100);
@@ -179,7 +252,12 @@ function getVersionFromPlugin(pluginText) {
   var lines = pluginText.split("\n");
   for (var i = 0; i < lines.length; i++) {
     if (lines[i].indexOf(".prototype.getVersion = function() {") > -1) {
-      return lines[i + 1].replace("return", "").replaceAll("\"", "").replaceAll("'", "").replace(";", "").trim();
+      return lines[i + 1]
+        .replace("return", "")
+        .replaceAll('"', "")
+        .replaceAll("'", "")
+        .replace(";", "")
+        .trim();
     }
   }
   return "";
@@ -189,7 +267,12 @@ function getDescriptionFromPlugin(pluginText) {
   var lines = pluginText.split("\n");
   for (var i = 0; i < lines.length; i++) {
     if (lines[i].indexOf(".prototype.getDescription = function() {") > -1) {
-      return lines[i + 1].replace("return", "").replaceAll("\"", "").replaceAll("'", "").replace(";", "").trim();
+      return lines[i + 1]
+        .replace("return", "")
+        .replaceAll('"', "")
+        .replaceAll("'", "")
+        .replace(";", "")
+        .trim();
     }
   }
   return "";
@@ -201,7 +284,7 @@ function offset(elem) {
   var x = elem.offsetLeft;
   var y = elem.offsetTop;
 
-  while (elem = elem.offsetParent) {
+  while ((elem = elem.offsetParent)) {
     x += elem.offsetLeft;
     y += elem.offsetTop;
   }
@@ -212,11 +295,14 @@ function offset(elem) {
   };
 }
 
-$(window).bind('load', () => {
+$(window).bind("load", () => {
   // If the user has navigated to one of the plugins or themes, open the popup for it right away.
   if (window.location.search) {
     if (getQueryVariable("plugin") && getQueryVariable("version")) {
-      openDownloadPopup(getQueryVariable("plugin"), getQueryVariable("version"));
+      openDownloadPopup(
+        getQueryVariable("plugin"),
+        getQueryVariable("version")
+      );
     } else if (getQueryVariable("theme")) {
       openDownloadPopup(getQueryVariable("theme"), "theme");
     }
@@ -243,7 +329,9 @@ $(window).bind('load', () => {
     for (var i = 0; i < locations.length; i++) {
       var location = locations[i];
 
-      var distance = Math.abs(offset(document.getElementById(location)).top - document.body.scrollTop);
+      var distance = Math.abs(
+        offset(document.getElementById(location)).top - document.body.scrollTop
+      );
       if (distance < smallest.distance) {
         smallest = {
           location: location,
@@ -301,7 +389,8 @@ $(window).bind('load', () => {
     // If the hash exists as an element, scroll to it.
     if (document.getElementById(window.location.toString().split("#")[1])) {
       $("#body").animate({
-        scrollTop: $("#" + window.location.toString().split("#")[1]).offset().top
+        scrollTop: $("#" + window.location.toString().split("#")[1]).offset()
+          .top
       });
       // If the hash does not exist as an element, remove it.
     } else {
