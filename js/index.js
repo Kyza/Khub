@@ -69,7 +69,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
     setTimeout(() => {
       fadedBackground.style.opacity = "1";
     }, 10);
-    document.getElementById("div-body").style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
     fadedBackground.addEventListener("click", (e) => {
       e = e || window.event
       var target = e.target || e.srcElement;
@@ -88,7 +88,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
     popupInner.style.width = "80%";
     popupInner.style.overflow = "hidden";
     fadedBackground.appendChild(popupInner);
-    document.getElementById("div-body").appendChild(fadedBackground);
+    document.body.appendChild(fadedBackground);
     var downloadPath = "";
     if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
     if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
@@ -97,6 +97,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
       var popupInner = document.getElementById("popupInner");
       var downloadButton = document.createElement("div");
       downloadButton.id = "downloadButton";
+      downloadButton.className = "btn btn-primary";
       downloadButton.innerHTML = "DOWNLOAD";
       downloadButton.addEventListener("click", (e) => {
         var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
@@ -113,9 +114,9 @@ function openDownloadPopup(downloadName, downloadLocation) {
             element.setAttribute('download', downloadName + "." + type + ".js");
           }
           element.style.display = 'none';
-          document.getElementById("body").appendChild(element);
+          document.body.appendChild(element);
           element.click();
-          document.getElementById("body").removeChild(element);
+          document.body.removeChild(element);
         });
       });
       try {
@@ -162,7 +163,7 @@ setInterval(() => {
       }
     }, 1000);
   } else if (!window.location.search) {
-    document.getElementById("body").style.overflowY = "scroll";
+    document.body.style.overflowY = "scroll";
   }
 }, 100);
 
@@ -218,7 +219,7 @@ $(window).bind('load', () => {
   // I am using an interval here because onscroll events don't account for the scrollbar being dragged.
   setInterval(() => {
     // Reserve the first 300 pixels of the screen for no hash.
-    if (document.getElementById("div-body").scrollTop < 300) {
+    if (document.body.scrollTop < 300) {
       silentHash("");
       return;
     }
@@ -234,7 +235,7 @@ $(window).bind('load', () => {
     for (var i = 0; i < locations.length; i++) {
       var location = locations[i];
 
-      var distance = Math.abs(offset(document.getElementById(location)).top - document.getElementById("body").scrollTop);
+      var distance = Math.abs(offset(document.getElementById(location)).top - document.body.scrollTop);
       if (distance < smallest.distance) {
         smallest = {
           location: location,
