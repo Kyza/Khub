@@ -2,7 +2,6 @@
 
 * {
 	scroll-behavior: smooth;
-
 	transition-duration: 1s !important;
 }
 
@@ -36,9 +35,30 @@ body {
 	height: 100%;
 	max-height: 100%;
 	max-width: 100%;
-
 	display: table;
 	margin: 0 auto;
 }
 
-.card-header {}
+*::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+*::-webkit-scrollbar-button {
+	display: none;
+}
+
+*::-webkit-scrollbar-track {
+	background-color: @green;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: darken(@green, 10%);
+}
+
+*::-webkit-scrollbar-corner {
+	background-color: darken(@green, 10%);
+}
+
+*::-webkit-resizer {
+	background-color: darken(@green, 10%);
+}
