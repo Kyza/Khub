@@ -170,8 +170,8 @@ setInterval(() => {
     document.getElementById("navbar-toggle").style = "display: none;";
     document.getElementById("navbar-buttons").className = "";
   } else {
-    document.getElementById("navbar-toggle").style = "";
     document.getElementById("navbar-buttons").className = "collapse navbar-collapse";
+    document.getElementById("navbar-toggle").style = "";
   }
 }, 100);
 
