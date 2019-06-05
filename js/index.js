@@ -168,9 +168,9 @@ setInterval(() => {
 
   if (screen.width >= 680) {
     document.getElementById("navbar-toggle").style = "display: none;";
-    document.getElementById("navbar-buttons").className = "";
+    document.getElementById("navbarButtons").className = "";
   } else {
-    document.getElementById("navbar-buttons").className = "collapse navbar-collapse";
+    document.getElementById("navbarButtons").className = "collapse navbar-collapse";
     document.getElementById("navbar-toggle").style = "";
   }
 }, 100);
