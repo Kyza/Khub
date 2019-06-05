@@ -62,14 +62,14 @@ function openDownloadPopup(downloadName, downloadLocation) {
     fadedBackground.style.height = "100%";
     fadedBackground.style.overflowX = "hidden";
     fadedBackground.style.overflowY = "scroll";
-    fadedBackground.style.zIndex = "100000";
+    fadedBackground.style.zIndex = "999999999999999999999999";
     fadedBackground.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
     fadedBackground.style.opacity = "0";
     fadedBackground.style.transitionDuration = "1s";
     setTimeout(() => {
       fadedBackground.style.opacity = "1";
     }, 10);
-    document.getElementById("body").style.overflow = "hidden";
+    document.getElementById("div-body").style.overflow = "hidden";
     fadedBackground.addEventListener("click", (e) => {
       e = e || window.event
       var target = e.target || e.srcElement;
@@ -88,7 +88,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
     popupInner.style.width = "80%";
     popupInner.style.overflow = "hidden";
     fadedBackground.appendChild(popupInner);
-    document.getElementById("body").appendChild(fadedBackground);
+    document.getElementById("div-body").appendChild(fadedBackground);
     var downloadPath = "";
     if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
     if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
@@ -218,7 +218,7 @@ $(window).bind('load', () => {
   // I am using an interval here because onscroll events don't account for the scrollbar being dragged.
   setInterval(() => {
     // Reserve the first 300 pixels of the screen for no hash.
-    if (document.getElementById("body").scrollTop < 300) {
+    if (document.getElementById("div-body").scrollTop < 300) {
       silentHash("");
       return;
     }
@@ -251,41 +251,41 @@ $(window).bind('load', () => {
   }, 100);
 
   // Get the latest plugin and theme info.
-  $.get("https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
-    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-    var versionNumber = getVersionFromPlugin(response);
-    var description = getDescriptionFromPlugin(response);
-
-    document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
-    document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
-    document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
-    document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
-    document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
-  });
-  $.get("https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
-    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-    var versionNumber = getVersionFromPlugin(response);
-    var description = getDescriptionFromPlugin(response);
-
-    document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
-    document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
-    document.getElementById("GhostMessage-info").innerHTML += description;
-    document.getElementById("GhostMessage-info").style.backgroundImage = "none";
-    document.getElementById("GhostMessage-info").style.height = "auto";
-  });
-  $.get("https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
-    response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-    var versionNumber = getVersionFromPlugin(response);
-    var description = getDescriptionFromPlugin(response);
-
-    document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
-    document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
-    document.getElementById("CustomDiscordIcon-info").innerHTML += description;
-    document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
-    document.getElementById("CustomDiscordIcon-info").style.height = "auto";
-  });
-  document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
-  document.getElementById("DarkDarkTheme-info").style.height = "auto";
+  // $.get("https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
+  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
+  //   var versionNumber = getVersionFromPlugin(response);
+  //   var description = getDescriptionFromPlugin(response);
+  //
+  //   document.getElementById("SafeEmbedGenerator-info").innerHTML = "Version: " + versionNumber;
+  //   document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
+  //   document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
+  //   document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
+  //   document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
+  // });
+  // $.get("https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
+  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
+  //   var versionNumber = getVersionFromPlugin(response);
+  //   var description = getDescriptionFromPlugin(response);
+  //
+  //   document.getElementById("GhostMessage-info").innerHTML = "Version: " + versionNumber;
+  //   document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
+  //   document.getElementById("GhostMessage-info").innerHTML += description;
+  //   document.getElementById("GhostMessage-info").style.backgroundImage = "none";
+  //   document.getElementById("GhostMessage-info").style.height = "auto";
+  // });
+  // $.get("https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
+  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
+  //   var versionNumber = getVersionFromPlugin(response);
+  //   var description = getDescriptionFromPlugin(response);
+  //
+  //   document.getElementById("CustomDiscordIcon-info").innerHTML = "Version: " + versionNumber;
+  //   document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
+  //   document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+  //   document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
+  //   document.getElementById("CustomDiscordIcon-info").style.height = "auto";
+  // });
+  // document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
+  // document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
   // Make sure the user is scrolled to the right position.
   if (window.location.toString().split("#")[1]) {
