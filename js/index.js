@@ -165,6 +165,14 @@ setInterval(() => {
   } else if (!window.location.search) {
     document.body.style.overflowY = "scroll";
   }
+
+  if (screen.width >= 680) {
+    document.getElementById("navbar-toggle").style = "display: none;";
+    document.getElementById("navbar-buttons").className = "";
+  } else {
+    document.getElementById("navbar-toggle").style = "";
+    document.getElementById("navbar-buttons").className = "collapse navbar-collapse";
+  }
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
