@@ -51,20 +51,6 @@
 	}
 }
 
-body {
-	overflow: hidden !important;
-}
-
-#body {
-	background-color: #111;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow-x: hidden;
-}
-
 #transitionPanel1 {
 	z-index: 999999;
 	background-color: white;

@@ -2,155 +2,48 @@
 
 * {
 	scroll-behavior: smooth;
+	transition-duration: 0.5s !important;
 }
 
 body {
-	font-family: 'Comfortaa', cursive;
-	color: white;
-	overflow: hidden;
+	overflow-x: hidden;
+}
+
+#navbar {
+	position: sticky;
+	top: 0;
+	z-index: 999999 !important;
 }
 
 #logo {
-	filter: invert(100%);
 	width: 40%;
-	height: auto;
+	filter: invert(100%);
 }
 
-#pfp {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	z-index: 100;
-	border-radius: 10%;
-	width: 12%;
-	height: auto;
+#downloadButton {
+	user-select: none;
+	border-radius: 100em;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 10px;
 }
 
-hr {
-	border: none;
-	height: 1em;
-	background-color: #1f1f1f;
-}
-
-#content {
-	margin-left: 15%;
-	margin-right: 15%;
-	margin-bottom: 20px;
-	border-color: #1f1f1f;
-	border-style: solid;
-	border-top-width: 0;
-	border-bottom-width: 0;
-	border-left-width: 0.7em;
-	border-right-width: 0.7em;
-	padding: 0 10px 10px;
-}
-
-#faq {
-	padding-top: 10px;
-}
-
-a.link {
-	transition-duration: 0.5s;
-	padding-bottom: -0.05em;
-	border-radius: 3px;
-	border-width: 0;
-	border-bottom-width: 2px;
-	border-color: gray;
-	border-style: solid;
-	text-decoration: none;
-	color: gray;
-}
-/* unvisited link */
-
-a:link.link {
-	background-color: transparent;
-	color: gray;
-}
-/* visited link */
-
-a:visited.link {
-	background-color: transparent;
-	color: gray;
-}
-/* mouse over link */
-
-a:hover.link {
-	background-color: gray;
-	color: #242424;
-	border-bottom-width: 0;
-}
-/* selected link */
-
-a:active.link {
-	background-color: transparent;
-	color: gray;
+.main-jumbotron {
+	background-color: #212529 !important;
 }
 
 .shield-large {
-	width: auto;
-	height: 4%;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .shield-small {
 	width: auto;
-	height: 3%;
-}
-
-#downloadButton {
-	transition-duration: 0.5s;
-	user-select: none;
-	background-color: #7289da;
-	border-radius: 20px;
-	text-align: center;
-	width: auto;
-	padding: 10px;
-}
-
-#downloadButton:hover {
-	transition-duration: 1.25s;
-	filter: brightness(70%);
-}
-
-#downloadButton:active {
-	transition-duration: 0.25s;
-	transform: scale(0.9);
-}
-
-#plugins+div {}
-
-.plugin-card,
-.theme-card {
-	margin: 30px auto;
-	background-color: #333;
-	width: 60%;
-	height: auto;
-	border-top-right-radius: 20px;
-	border-bottom-right-radius: 20px;
-	border-bottom-left-radius: 20px;
-	filter: drop-shadow(0 0 10px #222);
-	user-select: none;
-	cursor: help;
-}
-
-.plugin-card > img,
-.theme-card > img {
-	border-color: #7289DA;
-	border-width: 0;
-	/* border-style: dotted; */
-	border-right-width: 2px;
-	border-bottom-width: 2px;
-	border-radius: 5px;
-	transform: translateY(-50%);
-}
-
-.card-info {
-	background-image: url("https://kyza.gq/svgs/goo-loader.svg");
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: contain;
-	height: 10vw;
-	padding: 10px;
-	filter: grayscale(100%);
+	height: 100%;
+	max-height: 100%;
+	max-width: 100%;
+	display: table;
+	margin: 0 auto;
 }
 
 *::-webkit-scrollbar {
