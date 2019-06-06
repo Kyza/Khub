@@ -106,9 +106,15 @@ function openDownloadPopup(downloadName, downloadLocation) {
         $.get(pluginThemeURL, function(response) {
           var pluginThemeRaw = response;
 
-					if (type == "plugin") pluginThemeRaw = js_beautify(pluginThemeRaw, { indent_size: 2, space_in_empty_paren: false });
-					if (type == "theme") pluginThemeRaw = css_beautify(pluginThemeRaw, { indent_size: 2, space_in_empty_paren: false });
-					console.log(pluginThemeRaw);
+          if (type == "plugin") pluginThemeRaw = js_beautify(pluginThemeRaw, {
+            indent_size: 2,
+            space_in_empty_paren: false
+          });
+          if (type == "theme") pluginThemeRaw = css_beautify(pluginThemeRaw, {
+            indent_size: 2,
+            space_in_empty_paren: false
+          });
+          console.log(pluginThemeRaw);
 
           var element = document.createElement('a');
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(pluginThemeRaw));
@@ -176,13 +182,13 @@ setInterval(() => {
     e = d.documentElement,
     g = d.getElementsByTagName('body')[0],
     x = w.innerWidth || e.clientWidth || g.clientWidth,
-    y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+    y = w.innerHeight || e.clientHeight || g.clientHeight;
 
   if (x >= 688) {
     document.getElementById("navbar-toggle").style = "display: none;";
     document.getElementById("navbarButtons").className = "";
   } else if (!(document.getElementById("navbarButtons").className.indexOf("navbar-collapse") > -1)) {
-		console.log("collapse navbar-collapse");
+    console.log("collapse navbar-collapse");
     document.getElementById("navbarButtons").className = "collapse navbar-collapse";
     document.getElementById("navbar-toggle").style = "";
   }
@@ -285,39 +291,63 @@ $(window).bind('load', () => {
   }, 100);
 
   // Get the latest plugin and theme info.
-  // $.get("https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js", function(response) {
-  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-  //   var versionNumber = getVersionFromPlugin(response);
-  //   var description = getDescriptionFromPlugin(response);
-  //
-  //   document.getElementById("SafeEmbedGenerator-info").innerHTML = "Latest Version: " + versionNumber;
-  //   // document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
-  //   // document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
-  //   document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
-  //   document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
-  // });
-  // $.get("https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js", function(response) {
-  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-  //   var versionNumber = getVersionFromPlugin(response);
-  //   var description = getDescriptionFromPlugin(response);
-  //
-  //   document.getElementById("GhostMessage-info").innerHTML = "Latest Version: " + versionNumber;
-  //   // document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
-  //   // document.getElementById("GhostMessage-info").innerHTML += description;
-  //   document.getElementById("GhostMessage-info").style.backgroundImage = "none";
-  //   document.getElementById("GhostMessage-info").style.height = "auto";
-  // });
-  // $.get("https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js", function(response) {
-  //   response = js_beautify(response, { indent_size: 2, space_in_empty_paren: false });
-  //   var versionNumber = getVersionFromPlugin(response);
-  //   var description = getDescriptionFromPlugin(response);
-  //
-  //   document.getElementById("CustomDiscordIcon-info").innerHTML = "Latest Version: " + versionNumber;
-  //   // document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
-  //   // document.getElementById("CustomDiscordIcon-info").innerHTML += description;
-  //   document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
-  //   document.getElementById("CustomDiscordIcon-info").style.height = "auto";
-  // });
+  $.ajax({
+    type: 'GET',
+    url: 'https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js',
+    dataType: 'text',
+    success: function(response) {
+      response = js_beautify(response, {
+        indent_size: 2,
+        space_in_empty_paren: false
+      });
+      var versionNumber = getVersionFromPlugin(response);
+      var description = getDescriptionFromPlugin(response);
+
+      document.getElementById("SafeEmbedGenerator-info").innerHTML = "Latest Version: " + versionNumber;
+      // document.getElementById("SafeEmbedGenerator-info").innerHTML += "<br><br>";
+      // document.getElementById("SafeEmbedGenerator-info").innerHTML += description;
+      document.getElementById("SafeEmbedGenerator-info").style.backgroundImage = "none";
+      document.getElementById("SafeEmbedGenerator-info").style.height = "auto";
+    }
+  });
+  $.ajax({
+    type: 'GET',
+    url: 'https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js',
+    dataType: 'text',
+    success: function(response) {
+      response = js_beautify(response, {
+        indent_size: 2,
+        space_in_empty_paren: false
+      });
+      var versionNumber = getVersionFromPlugin(response);
+      var description = getDescriptionFromPlugin(response);
+
+      document.getElementById("GhostMessage-info").innerHTML = "Latest Version: " + versionNumber;
+      // document.getElementById("GhostMessage-info").innerHTML += "<br><br>";
+      // document.getElementById("GhostMessage-info").innerHTML += description;
+      document.getElementById("GhostMessage-info").style.backgroundImage = "none";
+      document.getElementById("GhostMessage-info").style.height = "auto";
+    }
+  });
+  $.ajax({
+    type: 'GET',
+    url: 'https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js',
+    dataType: 'text',
+    success: function(response) {
+      response = js_beautify(response, {
+        indent_size: 2,
+        space_in_empty_paren: false
+      });
+      var versionNumber = getVersionFromPlugin(response);
+      var description = getDescriptionFromPlugin(response);
+
+      document.getElementById("CustomDiscordIcon-info").innerHTML = "Latest Version: " + versionNumber;
+      // document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
+      // document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+      document.getElementById("CustomDiscordIcon-info").style.backgroundImage = "none";
+      document.getElementById("CustomDiscordIcon-info").style.height = "auto";
+    }
+  });
   // document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
   // document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
