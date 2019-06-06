@@ -186,6 +186,16 @@ setInterval(() => {
     document.getElementById("navbarButtons").className = "collapse navbar-collapse";
     document.getElementById("navbar-toggle").style = "";
   }
+
+
+  // Make sure all images have alts.
+  var images = document.querySelectorAll("img");
+  for (var i = 0; i < images.length; i++) {
+    if (images[i].alt.toString().length < 1) {
+      images[i].alt = "image";
+      console.log(images[i]);
+    }
+  }
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
