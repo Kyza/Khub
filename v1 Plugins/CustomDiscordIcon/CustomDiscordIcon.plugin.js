@@ -1,4 +1,4 @@
-//META{"name":"CustomDiscordIcon","website":"https://kyza.gq/Khub/?plugin=CustomDiscordIcon&version=v1","source":"https://raw.githubusercontent.com/KyzaGitHub/CustomDiscordIcon/master/CustomDiscordIcon.plugin.js"}*//
+//META{"name":"CustomDiscordIcon","website":"https://khub.kyza.gq/?plugin=CustomDiscordIcon&version=v1","source":"https://raw.githubusercontent.com/KyzaGitHub/CustomDiscordIcon/master/CustomDiscordIcon.plugin.js"}*//
 
 var CustomDiscordIcon = function() {};
 

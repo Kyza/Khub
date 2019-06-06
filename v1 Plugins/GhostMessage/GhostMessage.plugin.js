@@ -1,4 +1,4 @@
-//META{"name":"GhostMessage","website":"https://kyza.gq/Khub/?plugin=GhostMessage&version=v1","source":"https://raw.githubusercontent.com/KyzaGitHub/GhostMessage/master/GhostMessage.plugin.js"}*//
+//META{"name":"GhostMessage","website":"https://khub.kyza.gq/?plugin=GhostMessage&version=v1","source":"https://raw.githubusercontent.com/KyzaGitHub/GhostMessage/master/GhostMessage.plugin.js"}*//
 
 var GhostMessage = function() {};
 
