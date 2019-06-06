@@ -1,5 +1,5 @@
-# Dark Dark Theme
+# Nickord
 
-## It's Discord's Dark Theme, but Dark.
+## The best theme in exist.
 
-<img src="https://i.imgur.com/wuTiO8t.webp">
+You don't need a preview. Just download it now.

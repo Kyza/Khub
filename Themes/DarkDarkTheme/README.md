@@ -1,4 +1,4 @@
-# Dark Dark Theme
+# DarkDarkTheme
 
 ## It's Discord's Dark Theme, but Dark.
 
