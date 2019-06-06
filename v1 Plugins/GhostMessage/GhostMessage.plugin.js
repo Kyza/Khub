@@ -3,9 +3,8 @@
 var GhostMessage = function() {};
 
 var updateInterval;
-var pluginEnabled;
-
 var getMessagePatch;
+var getUploadPatch;
 
 var enabled = false;
 
@@ -22,49 +21,64 @@ GhostMessage.prototype.start = function() {
     document.head.appendChild(libraryScript);
   }
 
-  libraryScript = document.querySelector('head script[src="https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.js"]');
-  if (!libraryScript || performance.now() - libraryScript.getAttribute("date") > 600000) {
-    if (libraryScript) libraryScript.remove();
-    libraryScript = document.createElement("script");
-    libraryScript.setAttribute("type", "text/javascript");
-    libraryScript.setAttribute("src", "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.js");
-    libraryScript.setAttribute("date", performance.now());
-    document.head.appendChild(libraryScript);
-  }
-
   updateInterval = setInterval(() => {
-    ZLibrary.PluginUpdater.checkForUpdate("GhostMessage", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/GhostMessage/master/GhostMessage.plugin.js");
+    ZLibrary.PluginUpdater.checkForUpdate("GhostMessage", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/GhostMessage/GhostMessage.plugin.js");
   }, 5000);
 
   addButton();
 
+  ZLibrary.Patcher.before(ZLibrary.DiscordModules.MessageActions, "sendMessage", (thisObject /*, methodArguments, returnValue*/ ) => {
+    console.log(thisObject);
+  });
+
+	patch();
+};
+
+function patch() {
+	try {
+    unpatch();
+  } catch (e) {}
+
   getMessagePatch = BdApi.monkeyPatch(BdApi.findModuleByProps("sendMessage"), "sendMessage", {
     after: e => {
       if (enabled) {
-				e.returnValue.then((result) => {
-					var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
-					e.thisObject.deleteMessage(channelId, result.body.id);
-				});
+        e.returnValue.then((result) => {
+          var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
+          e.thisObject.deleteMessage(channelId, result.body.id);
+        });
       }
     }
   });
+  getUploadPatch = BdApi.monkeyPatch(BdApi.findModuleByProps("instantBatchUpload"), "instantBatchUpload", {
+    before: e => {
+      console.log("eeee");
+      if (enabled) {
+        console.log(e);
+      }
+			return e;
+    }
+  });
+}
 
-  pluginEnabled = true;
-};
+function unpatch() {
+  getMessagePatch();
+  getUploadPatch();
+}
 
 GhostMessage.prototype.load = function() {
   addButton();
+  patch();
 };
 
 GhostMessage.prototype.unload = function() {
   removeButton();
+	unpatch();
 };
 
 GhostMessage.prototype.stop = function() {
   clearInterval(updateInterval);
   removeButton();
-	getMessagePatch();
-	// deleteMessagePatch();
+	unpatch();
 };
 
 GhostMessage.prototype.onMessage = function() {
@@ -84,7 +98,7 @@ function addButton() {
     // Only add the button if the user has permissions to send messages and embed links.
     if (hasPermission("textSendMessages") || channel.type != "GUILD_TEXT") {
       if (document.getElementsByClassName("ghost-button-wrapper").length == 0) {
-        var daButtons = document.getElementsByClassName("da-buttons")[0];
+        var daButtons = document.getElementsByClassName("buttons-205you")[0];
         var ghostButton = document.createElement("button");
         ghostButton.setAttribute("type", "button");
         ghostButton.setAttribute("class", "buttonWrapper-1ZmCpA da-buttonWrapper button-38aScr da-button lookBlank-3eh9lL da-lookBlank colorBrand-3pXr91 da-colorBrand grow-q77ONN da-grow normal ghost-button-wrapper");
@@ -219,7 +233,7 @@ GhostMessage.prototype.getDescription = function() {
 };
 
 GhostMessage.prototype.getVersion = function() {
-  return "1.0.0";
+  return "1.0.1";
 };
 
 GhostMessage.prototype.getAuthor = function() {

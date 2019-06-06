@@ -95,10 +95,10 @@ function addButton() {
     var permissions = channel.discordObject.permissions;
 
     // Only add the button if the user has permissions to send messages and embed links.
-		console.log("isAllowed()", isAllowed());
+    console.log("isAllowed()", isAllowed());
     if (isAllowed() && (hasPermission("textEmbedLinks") && hasPermission("textSendMessages")) || channel.type != "GUILD_TEXT") {
       if (document.getElementsByClassName("embed-button-wrapper").length == 0) {
-        var daButtons = document.getElementsByClassName("da-buttons")[0];
+        var daButtons = document.getElementsByClassName("buttons-205you")[0];
         var embedButton = document.createElement("button");
         embedButton.setAttribute("type", "button");
         embedButton.setAttribute("class", "buttonWrapper-1ZmCpA da-buttonWrapper button-38aScr da-button lookBlank-3eh9lL da-lookBlank colorBrand-3pXr91 da-colorBrand grow-q77ONN da-grow normal embed-button-wrapper");
@@ -161,8 +161,8 @@ function isAllowed() {
     return true;
   }
 
-	var currentUser1 = betterDiscordServer1.currentUser;
-	var currentUser2 = betterDiscordServer2.currentUser;
+  var currentUser1 = betterDiscordServer1.currentUser;
+  var currentUser2 = betterDiscordServer2.currentUser;
 
   if (guildId.toString() == "86004744966914048" || guildId.toString() == "280806472928198656") {
     if (!betterDiscordServer1) {
@@ -192,19 +192,19 @@ function isAllowed() {
         return false;
       }
     } else {
-			if (currentUser1.userId == "220584715265114113") {
+      if (currentUser1.userId == "220584715265114113") {
         // The user is Kyza, return true right away.
         return true;
       }
 
-			if (currentUser1.roles.length > 0 || currentUser2.roles.length > 0) {
-				// The user is in a BetterDiscord server but has a role.
-				return true;
-			} else {
-				// The user is in a BetterDiscord server but does not have a role.
-				return false;
-			}
-		}
+      if (currentUser1.roles.length > 0 || currentUser2.roles.length > 0) {
+        // The user is in a BetterDiscord server but has a role.
+        return true;
+      } else {
+        // The user is in a BetterDiscord server but does not have a role.
+        return false;
+      }
+    }
   }
 
   // The user doesn't have any of the BetterDiscord servers selected, so return true.
@@ -755,7 +755,7 @@ SafeEmbedGenerator.prototype.getDescription = function() {
 };
 
 SafeEmbedGenerator.prototype.getVersion = function() {
-  return "1.2.12";
+  return "1.2.13";
 };
 
 SafeEmbedGenerator.prototype.getAuthor = function() {
