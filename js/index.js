@@ -93,7 +93,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
     if (downloadLocation == "v1") downloadPath = "v1%20Plugins";
     if (downloadLocation == "v2") downloadPath = "v1%20Plugins";
     if (downloadLocation == "theme") downloadPath = "Themes";
-    addMarkdown("https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
+    addMarkdown("https://khub.kyza.gq/" + downloadPath + "/" + downloadName + "/README.md", popupInner, () => {
       var popupInner = document.getElementById("popupInner");
       var downloadButton = document.createElement("div");
       downloadButton.id = "downloadButton";
