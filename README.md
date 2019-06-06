@@ -1,1 +1,1 @@
-# [You are looking for this.](https://kyza.gq/Khub)
+# [You are looking for this.](https://kyza.gq/Khub/)
