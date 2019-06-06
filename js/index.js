@@ -181,7 +181,8 @@ setInterval(() => {
   if (x >= 688) {
     document.getElementById("navbar-toggle").style = "display: none;";
     document.getElementById("navbarButtons").className = "";
-  } else {
+  } else if (!(document.getElementById("navbarButtons").className.indexOf("navbar-collapse") > -1)) {
+		console.log("collapse navbar-collapse");
     document.getElementById("navbarButtons").className = "collapse navbar-collapse";
     document.getElementById("navbar-toggle").style = "";
   }
