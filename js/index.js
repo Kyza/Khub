@@ -109,7 +109,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
 					if (type == "plugin") pluginThemeRaw = js_beautify(pluginThemeRaw, { indent_size: 2, space_in_empty_paren: false })
 					if (type == "theme") pluginThemeRaw = css_beautify(pluginThemeRaw, { indent_size: 2, space_in_empty_paren: false })
           var element = document.createElement('a');
-          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeUriComponent(pluginThemeRaw));
+          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(pluginThemeRaw));
 
           if (getQueryVariable("theme")) {
             element.setAttribute('download', downloadName + "." + type + ".css");
