@@ -28,6 +28,10 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 
 ## Changelog
 
+### 1.2.13
+
+ * Fixed a major bug where the button doesn't show up for users with normalized classes disabled.
+
 ### 1.2.12
 
  * Fixed a major bug in the logic which made the plugin unusable in DMs.
