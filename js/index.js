@@ -197,7 +197,7 @@ setInterval(() => {
     }
   }
   // Make sure the iframe has a title.
-  cr8.querySelector("iframe").name = "crate";
+  cr8.querySelector("iframe").title = "DisWeb Crate";
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
