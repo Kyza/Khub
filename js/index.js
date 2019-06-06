@@ -106,6 +106,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
         $.get(pluginThemeURL, function(response) {
           var pluginThemeRaw = response;
           var element = document.createElement('a');
+					console.log(js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
 
           if (getQueryVariable("theme")) {
