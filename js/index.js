@@ -120,7 +120,6 @@ function openDownloadPopup(downloadName, downloadLocation) {
           element.style.display = 'none';
           document.body.appendChild(element);
           element.click();
-					console.log("e");
           document.body.removeChild(element);
         });
       });
