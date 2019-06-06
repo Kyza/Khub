@@ -108,7 +108,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
 					console.log(pluginThemeRaw);
           var element = document.createElement('a');
 					console.log(js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
-          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
+          element.setAttribute('href', 'data:text/plain;charset=utf-8,' + pluginThemeRaw);
 
           if (getQueryVariable("theme")) {
             element.setAttribute('download', downloadName + "." + type + ".css");
