@@ -39,7 +39,7 @@ CustomDiscordIcon.prototype.start = function() {
   }
 
   updateInterval = setInterval(() => {
-    ZLibrary.PluginUpdater.checkForUpdate("CustomDiscordIcon", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/CustomDiscordIcon/master/CustomDiscordIcon.plugin.js");
+    ZLibrary.PluginUpdater.checkForUpdate("CustomDiscordIcon", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js");
   }, 5000);
 
   iconSetInterval = setInterval(() => {
