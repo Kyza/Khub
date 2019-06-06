@@ -101,7 +101,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
       downloadButton.innerHTML = "DOWNLOAD";
       downloadButton.addEventListener("click", (e) => {
         var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
-        var pluginThemeURL = "https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
+        var pluginThemeURL = "https://khub.kyza.gq/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
         // Get the raw plugin/theme data and save it to a variable.
         $.ajax({
           type: 'GET',
