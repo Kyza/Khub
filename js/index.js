@@ -108,7 +108,6 @@ function openDownloadPopup(downloadName, downloadLocation) {
           var pluginThemeRaw = response;
 					console.log(pluginThemeRaw);
           var element = document.createElement('a');
-					console.log(js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + pluginThemeRaw);
 
           if (getQueryVariable("theme")) {
@@ -119,6 +118,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
           element.style.display = 'none';
           document.body.appendChild(element);
           element.click();
+					console.log("e");
           document.body.removeChild(element);
         });
       });
