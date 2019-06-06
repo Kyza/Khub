@@ -1,4 +1,4 @@
-//META{"name":"SafeEmbedGenerator","website":"https://github.com/KyzaGitHub/SafeEmbedGenerator","source":"https://raw.githubusercontent.com/KyzaGitHub/SafeEmbedGenerator/master/SafeEmbedGenerator.plugin.js"}*//
+//META{"name":"SafeEmbedGenerator","website":"https://kyza.gq/Khub/?plugin=SafeEmbedGenerator&version=v1","source":"https://raw.githubusercontent.com/KyzaGitHub/SafeEmbedGenerator/master/SafeEmbedGenerator.plugin.js"}*//
 
 var SafeEmbedGenerator = function() {};
 
