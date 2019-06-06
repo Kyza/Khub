@@ -191,13 +191,13 @@ setInterval(() => {
   // Make sure all notification images have alts.
   var cr8 = document.getElementsByTagName("crate")[0].childNodes[0].shadowRoot;
   var images = cr8.querySelector(".notifications").querySelectorAll("img");
-  console.log(images);
   for (var i = 0; i < images.length; i++) {
     if (images[i].alt.toString().length < 1) {
       images[i].alt = "image";
-      console.log(images[i]);
     }
   }
+  // Make sure the iframe has a title.
+  cr8.querySelector("iframe").name = "crate";
 }, 100);
 
 function getVersionFromPlugin(pluginText) {
