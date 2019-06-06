@@ -105,6 +105,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
         // Get the raw plugin/theme data and save it to a variable.
         $.get(pluginThemeURL, function(response) {
           var pluginThemeRaw = response;
+					console.log(pluginThemeRaw);
           var element = document.createElement('a');
 					console.log(js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
           element.setAttribute('href', 'data:text/plain;charset=utf-8,' + js_beautify(encodeURIComponent(pluginThemeRaw), { indent_size: 2, space_in_empty_paren: false }));
