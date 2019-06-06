@@ -103,6 +103,7 @@ function openDownloadPopup(downloadName, downloadLocation) {
         var type = downloadLocation.replace("v1", "plugin").replace("v2", "plugin");
         var pluginThemeURL = "https://kyza.gq/Khub/" + downloadPath + "/" + downloadName + "/" + downloadName + "." + type + "." + type.replace("plugin", "js").replace("theme", "css");
         // Get the raw plugin/theme data and save it to a variable.
+				console.log("eeeeeeeeeeeee");
         $.get(pluginThemeURL, function(response) {
           var pluginThemeRaw = response;
 					console.log(pluginThemeRaw);
