@@ -298,7 +298,7 @@ $(window).bind('load', () => {
   // Get the latest plugin and theme info.
   $.ajax({
     type: 'GET',
-    url: 'https://kyza.gq/Khub/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js',
+    url: 'https://khub.kyza.gq/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js',
     dataType: 'text',
     success: function(response) {
       response = js_beautify(response, {
@@ -317,7 +317,7 @@ $(window).bind('load', () => {
   });
   $.ajax({
     type: 'GET',
-    url: 'https://kyza.gq/Khub/v1%20Plugins/GhostMessage/GhostMessage.plugin.js',
+    url: 'https://khub.kyza.gq/v1%20Plugins/GhostMessage/GhostMessage.plugin.js',
     dataType: 'text',
     success: function(response) {
       response = js_beautify(response, {
@@ -336,7 +336,7 @@ $(window).bind('load', () => {
   });
   $.ajax({
     type: 'GET',
-    url: 'https://kyza.gq/Khub/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js',
+    url: 'https://khub.kyza.gq/v1%20Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js',
     dataType: 'text',
     success: function(response) {
       response = js_beautify(response, {
