@@ -26,3 +26,6 @@ assignees: ''
 
 **Add attachments or screenshots to help me reproduce the bug.**
 [Attachments/Screenshots]
+
+
+### Make sure you assign the correct plugin or theme flare.

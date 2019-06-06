@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+## This template is not for requesting whole plugins or themes.
+
 **What plugin or theme do you want to see this feature added to?**
 
 **Is your feature request related to a problem? Please describe.**
@@ -20,3 +22,6 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context.**
 Add any other context or screenshots about the feature request here.
+
+
+### Make sure you assign the correct plugin or theme flare.
