@@ -188,8 +188,10 @@ setInterval(() => {
   }
 
 
-  // Make sure all images have alts.
-  var images = document.querySelectorAll("img");
+  // Make sure all notification images have alts.
+  var cr8 = document.getElementsByTagName("crate")[0].childNodes[0].shadowRoot;
+  var images = cr8.querySelector(".notifications").querySelectorAll("img");
+  console.log(images);
   for (var i = 0; i < images.length; i++) {
     if (images[i].alt.toString().length < 1) {
       images[i].alt = "image";
