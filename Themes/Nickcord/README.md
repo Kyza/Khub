@@ -1,4 +1,4 @@
-# Nickord
+# Nickcord
 
 ## The best theme in exist.
 
