@@ -2,127 +2,119 @@
 @import url("https://kyza.gq/Khub/Themes/ThemeUtilities/KyzaPFP.css");
 
 .anchor-3Z-8Bb {
-  border-width: 5px;
-  border-style: dotted;
-  border-color: red;
-  transform: rotate(10deg);
+    border-width: 5px;
+    border-style: dotted;
+    border-color: red;
+    transform: rotate(10deg);
 }
-
 .embedPill-1Zntps {
-  border-color: pink;
-  border-width: 69px;
-  border-style: solid;
-  animation-name: animart;
-  animation-duration: 5s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+    border-color: pink;
+    border-width: 69px;
+    border-style: solid;
+    animation-name: animart;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
-
 @keyframes animart {
-  0% {
-    transform: translateY(0px);
-  }
-
-  33% {
-    transform: translateY(100%) rotate(120deg);
-  }
-
-  66% {
-    transform: translateY(-100%) rotate(2400deg);
-  }
-
-  100% {
-    transform: translateY(0px) rotate(360deg);
-  }
+    0% {
+        transform: translateY(0px);
+    }
+    33% {
+        transform: translateY(100%) rotate(120deg);
+    }
+    66% {
+        transform: translateY(-100%) rotate(2400deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(360deg);
+    }
 }
 
 @keyframes violent {
-  0% {
-    transform: translateX(-20px);
-  }
-
-  100% {
-    transform: translateX(20px);
-  }
+    0% {
+        transform: translateX(-20px);
+    }
+    100% {
+        transform: translateX(20px);
+    }
 }
 
 .selected-1HYmZZ {
-  animation-name: violent;
-  animation-duration: 0.1s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+    animation-name: violent;
+    animation-duration: 0.1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 code {
-  text-indent: 35px !important;
-  text-transform: capitalize;
-  text-decoration: overline;
-  transform: rotate(-1deg);
+    text-indent: 35px !important;
+    text-transform: capitalize;
+    text-decoration: overline;
+    transform: rotate(-1deg);
 }
 
 .channelTextArea-1LDbYG.channelTextArea-rNsIhG {
-  filter: contrast(20) invert(78);
+    filter: contrast(20) invert(78);
 }
 
 .item-2hkk8m {
-  transform: translateY(-10px) !important;
+    transform: translateY(-10px) !important;
 }
 
 @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(-360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
 }
-
 .wrapper-1BJsBx {
-  animation-name: rotate;
-  animation-duration: 3000s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+    animation-name: rotate;
+    animation-duration: 3000s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 @keyframes moreviolent {
-  0% {
-    transform: translate(-200%, -200%);
-  }
-
-  33% {
-    transform: translate(-200%, 200%);
-  }
-
-  66% {
-    transform: translate(200%, 200%);
-  }
-
-  100% {
-    transform: translate(200%, -200%);
-  }
+    0% {
+        transform: translate(-200%, -200%);
+    }
+    33% {
+        transform: translate(-200%, 200%);
+    }
+    66% {
+        transform: translate(200%, 200%);
+    }
+    100% {
+        transform: translate(200%, -200%);
+    }
 }
 
 @keyframes disappear {
-  0% {
-    transform: translateY(-100000%);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
+    0% {
+        transform: translateY(-100000%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 .exitButton-1DkWLl:hover {
-  animation-name: disappear;
-  animation-duration: 1s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+    animation-name: disappear;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 .userInfoViewingButton-2-jbH9 {
-  animation-name: moreviolent;
-  animation-duration: 0.1s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+    animation-name: moreviolent;
+    animation-duration: 0.1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.pictureInPictureVideo-20ZvXn {
+    transform: rotateZ(180deg);
 }
