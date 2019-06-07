@@ -2,7 +2,7 @@
 @import url("https://khub.kyza.gq/Themes/ThemeUtilities/KyzaPFP.css");
 
 /* Version */
-li[data-name="Nickcord"] > div > span > .bda-version::after {
+li[data-name="Nickcord"] .bda-version::after {
     content: "Yes";
 }
 
