@@ -48,6 +48,11 @@
 /*    background-color: #111;*/
 /*}*/
 
+/* Banner Image Mask */
+.bannerImage-1jOskm {
+    -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 00%, rgb(47, 49, 54, 0) 90%);
+}
+
 /* User Panel */
 .theme-dark .container-2Thooq {
     background-color: #111;
