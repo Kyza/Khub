@@ -3,7 +3,7 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-    content: "1.1.4";
+  content: "1.1.5";
 }
 
 /* Globals */
@@ -56,6 +56,11 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 /* Banner Image Mask */
 .bannerImage-1jOskm {
   -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 00%, rgb(47, 49, 54, 0) 90%);
+}
+
+/* Status Border */
+.theme-dark .status-oxiHuE {
+  border: 2px solid #111;
 }
 
 /* User Panel */
@@ -529,7 +534,7 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 /* Plugin Styles */
 /* Member Count */
 #MemberCount {
-  background-color: #161616 !important;
+  background-color: #00000000 !important;
 }
 
 /* Google Translate */
