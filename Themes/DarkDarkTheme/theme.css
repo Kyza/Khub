@@ -17,7 +17,9 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 }
 
 /* Globals */
-* {}
+* {
+	
+}
 
 /* Titlebar */
 #app-mount {
