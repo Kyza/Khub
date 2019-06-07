@@ -1,6 +1,12 @@
 /* Utilities */
 @import url("https://khub.kyza.gq/Themes/ThemeUtilities/KyzaPFP.css");
 
+/* Version */
+li[data-name="Nickcord"] > div > span > .bda-version::after {
+    content: "Yes";
+}
+
+/* Styles */
 .anchor-3Z-8Bb {
     border-width: 5px;
     border-style: dotted;
