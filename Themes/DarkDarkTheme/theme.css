@@ -64,13 +64,13 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 /*}*/
 /* Remove Banner Image Gradient */
 .channels-Ie2l6A .bannerImage-1jOskm {
-    background-size: 0, cover;
+  background-size: 0, cover;
 }
+
 /* Banner Image Mask */
 .bannerImage-1jOskm {
   -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 50%, rgb(47, 49, 54, 0) 100%);
 }
-
 
 /* Status Border */
 .theme-dark .status-oxiHuE {
