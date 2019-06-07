@@ -6,7 +6,29 @@ li[data-name="Nickcord"] .bda-version::after {
     content: "Yes";
 }
 
+/* Branding */
+.name-3_Dsmg:before {
+    content: "Nickcord " !important;
+}
+
+/* Advertisements */
+.channels-Ie2l6A .bannerImage-1jOskm {
+  background-image: none, url("http://3.bp.blogspot.com/-lzhQ0t7GbJA/UDtRW0x3VjI/AAAAAAAGBiU/1MmslsQYpD0/s1600/WENDY%27S+New+Dave%27s+Hot+%27n+Juicy+Cheeseburgers+Billboard+Ad+Sign,+Wendy%27s+Fast+Food+Hamburger+Restaurant+Here%27s+The+Beef+Advertisement.JPG") !important;
+}
+
+.membersGroup-v9BXpm {
+    background-image: url("https://static1.i4u.com/sites/default/files/imagecache/main_image_large/images/2018/02/wendys-superbowl-2018-ad.jpg");
+    background-size: cover, cover;
+    background-position: center, center;
+}
+
 /* Styles */
+svg[name="Gear"] {
+    transform: scaleY(300%) !important;
+    background-color: red;
+}
+
+
 .anchor-3Z-8Bb {
     border-width: 5px;
     border-style: dotted;
