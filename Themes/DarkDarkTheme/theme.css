@@ -10,7 +10,7 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 .titleBar-AC4pGV:after {
   content: "DarkDarkTheme v1.2.0 by Kyza#9994" !important;
   font-size: 14px !important;
-  color: white !important;
+  color: #999 !important;
   text-align: left !important;
   width: 100% !important;
   padding-left: 105px !important;
@@ -18,7 +18,7 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 
 /* Globals */
 * {
-	
+
 }
 
 /* Titlebar */
