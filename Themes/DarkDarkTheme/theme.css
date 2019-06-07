@@ -22,7 +22,7 @@
 }
 
 /* Channels Panel */
-.theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhostHairlineChannels-3G0x9_.scrollerFade-1Ijw5y {
+.channels-Ie2l6A > .container-PNkimc {
     background-color: #161616;
 }
 .theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhostHairlineChannels-3G0x9_.scrollerFade-1Ijw5y ::-webkit-scrollbar-thumb {
@@ -30,12 +30,12 @@
 }
 
 /* Conversation Panel */
-.theme-dark .channels-Ie2l6A.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr {
+.theme-dark .searchBar-6Kv8R2 {
     background-color: #111;
 }
 
 /* DMs Panel */
-.theme-dark .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl {
+.theme-dark .privateChannels-1nO12o {
     background-color: #161616;
 }
 .theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhostHairlineChannels-3G0x9_.scrollerFade-1Ijw5y ::-webkit-scrollbar-thumb {
@@ -114,7 +114,7 @@
     background-color: #131313;
 }
 
-/* Weird border-radius Fix */
+/* Border-radius Fix */
 .theme-dark .flex-1xMQg5.flex-1O1GKY.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz {
     border-radius: 0px !important;
 }
@@ -123,9 +123,13 @@
 .theme-dark .header-ykumBX.header-SsaQ8X.header-3LXPrb {
     background-color: #131313;
 }
-/* Ping Menu Bottom */
-.theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
+/* Ping Menu Middle */
+.theme-dark .messagesPopoutWrap-1MQ1bW > div:nth-child(2).scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
     background-color: #1a1a1a;
+}
+/* Ping Menu Bottom */
+.theme-dark .messagesPopoutWrap-1MQ1bW > div:nth-child(3) {
+    background-color: #131313;
 }
 /* Ping Menu Message */
 .theme-dark .messageGroupWrapper-o-Zw7G {
@@ -419,7 +423,7 @@
     background-color: #111;
 }
 /* Activity Panel */
-.theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
+.theme-dark .activityFeed-1C0EmJ > div:nth-child(2).scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
     background-color: #1a1a1a;
 }
 /* Activity Scrollbar */
