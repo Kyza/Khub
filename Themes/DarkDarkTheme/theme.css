@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.1";
+     content: "1.2.2";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "DarkDarkTheme v1.2.1 by Kyza#9994" !important;
+  content: "DarkDarkTheme v1.2.2 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -542,10 +542,10 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 
 /* ChannelHistoryButtons */
 .channelHistoryButtons {
-    width: calc(100% - 80px);
-    text-align: right;
-    position: absolute;
-    left: 0px;
+  width: calc(100% - 80px);
+  text-align: right;
+  position: absolute;
+  left: 0px;
 }
 
 /* Plugin Styles */
