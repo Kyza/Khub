@@ -11,9 +11,8 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
   content: "DarkDarkTheme v1.2.1 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
-  text-align: left !important;
+  text-align: center !important;
   width: 100% !important;
-  padding-left: 105px !important;
 }
 
 /* Globals */
@@ -539,6 +538,14 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 
 #bd-customcss-attach-controls {
   background-color: red;
+}
+
+/* ChannelHistoryButtons */
+.channelHistoryButtons {
+    width: calc(100% - 80px);
+    text-align: right;
+    position: absolute;
+    left: 0px;
 }
 
 /* Plugin Styles */
