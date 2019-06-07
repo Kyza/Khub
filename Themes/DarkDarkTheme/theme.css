@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.3";
+  content: "1.2.4";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "DarkDarkTheme v1.2.3 by Kyza#9994" !important;
+  content: "DarkDarkTheme v1.2.4 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -62,10 +62,15 @@ li[data-name="DarkDarkTheme"] .bda-version::after {
 /*.theme-dark .header-2o-2hj {*/
 /*    background-color: #111;*/
 /*}*/
+/* Remove Banner Image Gradient */
+.channels-Ie2l6A .bannerImage-1jOskm {
+    background-size: 0, cover;
+}
 /* Banner Image Mask */
 .bannerImage-1jOskm {
-  -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 00%, rgb(47, 49, 54, 0) 90%);
+  -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 50%, rgb(47, 49, 54, 0) 100%);
 }
+
 
 /* Status Border */
 .theme-dark .status-oxiHuE {
