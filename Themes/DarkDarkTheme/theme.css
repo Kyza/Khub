@@ -3,7 +3,7 @@
 @import url("https://khub.kyza.gq/Themes/ThemeUtilities/KyzaPFP.css");
 
 /* Version */
-li[data-name="DarkDarkTheme"] .bda-version:before {
+li[data-name="DarkDarkTheme"] .bda-version:after {
   content: "1.2.6";
 }
 
@@ -26,7 +26,7 @@ li[data-name="DarkDarkTheme"] .bda-version:before {
 }
 
 /* Channel Description Gradient */
-.theme-dark .children-19S4PO::after {
+.theme-dark .children-19S4PO:after {
   display: none;
 }
 
