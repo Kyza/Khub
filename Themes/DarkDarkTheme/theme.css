@@ -3,7 +3,7 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.5";
+  content: "1.2.5" !important;
 }
 
 /* Branding */
