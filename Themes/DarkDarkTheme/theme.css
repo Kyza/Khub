@@ -2,17 +2,30 @@
 @import url("https://khub.kyza.gq/Themes/ThemeUtilities/KyzaPFP.css");
 
 /* Version */
-li[data-name="DarkDarkTheme"] .bda-version:after {
-  content: "1.2.6";
+li[data-name="DarkDarkTheme"] .bda-version::after {
+  content: "1.2.7";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "DarkDarkTheme v1.2.6 by Kyza#9994" !important;
+  content: "v1.2.7 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
   width: 100% !important;
+}
+
+/* Remove Workmark */
+svg[name=DiscordWordmark] {
+	width: 250%;
+	transform: scale(0.9);
+	background-image: url("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkThemeLogo.png");
+	background-size: contain;
+	background-position: left;
+	background-repeat: no-repeat;
+}
+svg[name=DiscordWordmark] > path {
+	display: none;
 }
 
 /* Globals */
@@ -24,7 +37,7 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 }
 
 /* Channel Description Gradient */
-.theme-dark .children-19S4PO:after {
+.theme-dark .children-19S4PO::after {
   display: none;
 }
 
@@ -38,7 +51,6 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 .channels-Ie2l6A>.container-PNkimc {
   background-color: #161616;
 }
-
 .theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhostHairlineChannels-3G0x9_.scrollerFade-1Ijw5y ::-webkit-scrollbar-thumb {
   background-color: #1f1f1f;
 }
@@ -67,6 +79,25 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
   background-size: 0, cover;
 }
 
+/* Large Checkboxes */
+.theme-dark .cardPrimaryEditable-3KtE4g[style*="border-color: rgb(67, 181, 129); background-color: rgb(67, 181, 129);"] {
+        background: #153f12 !important;
+        border-color: #10470c !important;
+}
+.theme-dark .cardPrimaryEditable-3KtE4g[style*="border-color: rgb(250, 166, 26); background-color: rgb(250, 166, 26);"] {
+        background: #bc9d21 !important;
+        border-color: #d1aa0e !important;
+}
+.theme-dark .cardPrimaryEditable-3KtE4g[style*="border-color: rgb(240, 71, 71); background-color: rgb(240, 71, 71);"] {
+        background: #a02c1c !important;
+        border-color: #b2210e !important;
+}
+
+/* Link */
+.anchor-3Z-8Bb {
+	color: #00a0e0;
+}
+
 /* Banner Image Mask */
 .bannerImage-1jOskm {
   -webkit-mask-image: linear-gradient(rgba(54, 57, 63, 1) 50%, rgb(47, 49, 54, 0) 100%);
@@ -77,9 +108,27 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
   border: 2px solid #111;
 }
 
+/* Selected Settings/Channel */
+.theme-dark .item-PXvHYJ.selected-3s45Ha.themed-OHr7kt, .theme-dark .iconVisibility-1bOqu7.wrapper-1ucjTd.modeSelected-1zApJ_ > div {
+	background-color: #262626 !important;
+}
+
+/* Read Channel Name */
+.theme-dark .name-3_Dsmg {
+}
+/* Unread Channel Name */
+.theme-dark .unread-3zKkbm + div > div {
+	color: #ddd !important;
+}
+
 /* User Panel */
 .theme-dark .container-2Thooq {
   background-color: #111;
+}
+
+/* Code Blocks */
+code {
+	background-color: #161616 !important;
 }
 
 /* Textarea Background 1 */
@@ -98,13 +147,8 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 }
 
 /* Chat */
-#app-mount>div.app-19_DXt>div.app-2rEoOp.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.theme-dark>div.layers-3iHuyZ.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.spacer-1fA9zc>div>div>div.flex-1xMQg5.flex-1O1GKY.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz>div.flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix>div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix>div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix>div.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr>div.messagesWrapper-3lZDfY>div>div {
+#app-mount > div.app-19_DXt > div.app-2rEoOp.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.theme-dark>div.layers-3iHuyZ.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.spacer-1fA9zc > div > div > div.flex-1xMQg5.flex-1O1GKY.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.base-3dtUhz > div.flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.spacer-29U_x8.firefoxFixScrollFlex-cnI2ix > div.chat-3bRxxu.firefoxFixScrollFlex-cnI2ix > div.content-yTz4x3.firefoxFixScrollFlex-cnI2ix > div.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr > div.messagesWrapper-3lZDfY > div > div {
   background-color: #1a1a1a;
-}
-
-/* No Channels */
-.theme-dark .noChannel-Z1DQK7 {
-  background-color: #1a1a1a !important;
 }
 
 /* Chat Scrollbar */
@@ -118,6 +162,29 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
   background-color: #111;
   border-color: transparent;
 }
+
+/* Content Behind Chat */
+.content-yTz4x3.firefoxFixScrollFlex-cnI2ix {
+	background-color: #1a1a1a;
+}
+
+/* NSFW Gate */
+.theme-dark .gatedContent-3-B7qB {
+	background-color: #1a1a1a;
+}
+
+/* NSFW Gate Scrollbar */
+.theme-dark .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollWrap-qwpLpa ::-webkit-scrollbar-track-piece {
+  border-radius: 0px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+/* No Channels */
+.theme-dark .noChannel-Z1DQK7 {
+  background-color: #1a1a1a !important;
+}
+
 
 /* Textarea */
 .theme-dark .inner-zqa7da.flex-1O1GKY.innerNoAutocomplete-1WpcVO {
@@ -182,9 +249,8 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Search Channel Name */
 .theme-dark .channelSeparator-1X1FuH, .channelName-1QajIf {
-  background-color: #161616 !important;
+	background-color: #161616 !important;
 }
-
 .theme-dark .div-1QajIf {
   background-color: #131313;
 }
@@ -212,7 +278,7 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Search Result Gradients */
 .searchResult-3pzFAB:before, .searchResult-3pzFAB:after {
-  display: none;
+	display: none;
 }
 
 /* Search Dropdown */
@@ -229,37 +295,30 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Nitro Menu */
 .theme-dark .tierNoneContainer-3hhK3h {
-  background-color: #1f1f1f;
+	background-color: #1f1f1f;
 }
-
 .theme-dark .tierHeader---JJFb {
-  background-color: #161616;
+	background-color: #161616;
 }
-
 .theme-dark .tierBody-16Chc9 {
-  background-color: #1f1f1f;
+	background-color: #1f1f1f;
 }
-
 .theme-dark .tierNoneText-2OvCv7 {
-  font-size: 0px;
+	font-size: 0px;
 }
-
 .theme-dark .tierNoneText-2OvCv7:before {
-  content: "Boost my server or die";
-  font-size: 14px;
+	content: "Boost my server or die";
+	font-size: 14px;
 }
-
 .theme-dark .tierNoneText-2OvCv7:after {
-  content: "https://kyza.gq/discord/";
-  font-size: 14px;
+	content: "https://kyza.gq/discord/";
+	font-size: 14px;
 }
-
 .theme-dark .carouselLeftGradientEdge-3P4spl {
-  background-image: linear-gradient(90deg, #111, rgba(54, 57, 63, 0));
+	background-image: linear-gradient(90deg,#111,rgba(54,57,63,0));
 }
-
 .theme-dark .carouselRightGradientEdge-2Z3H8D {
-  background-image: linear-gradient(-90deg, #111, rgba(54, 57, 63, 0));
+	background-image: linear-gradient(-90deg,#111,rgba(54,57,63,0));
 }
 
 /* Context Menus */
@@ -280,6 +339,14 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 /* Slider Off */
 .theme-dark .valueUnchecked-2lU_20 {
   background-color: #111;
+}
+/* Slider On Blue */
+.theme-dark .valueChecked-m-4IJZ {
+	background-color: #667ac4;
+}
+/* Slider On Green */
+.theme-dark .valueChecked-m-4IJZ.themeDefault-24hCdX {
+	background-color: #30825d !important;
 }
 
 /* BetterDiscord Slider Off */
@@ -503,11 +570,10 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Emoji Center */
 .theme-dark .emojiPicker-3m1S-j {
-  background-color: #131313;
+    background-color: #131313;
 }
-
 .theme-dark .emojiPicker-3m1S-j .scroller-3vODG7 ::-webkit-scrollbar-track {
-  background-color: red !important;
+    background-color: red !important;
 }
 
 /* Emoji Category */
@@ -524,13 +590,11 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerWrap-PyxcLY.scrollerThemed-2oenus.themeLight-1_DWyY.scrollerFade-1Ijw5y.scrollerTrack-1ZIpsv ::-webkit-scrollbar-track {
   background-color: #1a1a1a;
 }
-
 .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerWrap-PyxcLY.scrollerThemed-2oenus.themeLight-1_DWyY.scrollerFade-1Ijw5y.scrollerTrack-1ZIpsv ::-webkit-scrollbar-track-piece {
   border-radius: 0px;
   background-color: transparent;
   border-color: transparent;
 }
-
 .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerWrap-PyxcLY.scrollerThemed-2oenus.themeLight-1_DWyY.scrollerFade-1Ijw5y.scrollerTrack-1ZIpsv ::-webkit-scrollbar-thumb {
   background-color: #111;
   border-color: transparent;
