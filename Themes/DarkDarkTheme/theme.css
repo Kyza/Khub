@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.7";
+  content: "1.2.8";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "v1.2.7 by Kyza#9994" !important;
+  content: "v1.2.8 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -122,7 +122,7 @@ svg[name=DiscordWordmark] > path {
 }
 
 /* User Panel */
-.theme-dark .container-2Thooq {
+.theme-dark .container-3baos1 {
   background-color: #111;
 }
 
