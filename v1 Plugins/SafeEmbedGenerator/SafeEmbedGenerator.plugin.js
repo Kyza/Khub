@@ -38,6 +38,26 @@ var SafeEmbedGenerator = (() => {
       "website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator&version=v1",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
     },
+    "changelog": [{
+        "title": "New Stuff",
+        "items": ["Changed the embed API to my own.", "Added this changelog."]
+      },
+      {
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["Large images no longer make the embed preview slow."]
+      },
+      {
+        "title": "Improvements",
+        "type": "improved",
+        "items": ["Rewrote the plugin to prepare for the BBD rewrite/BDv2."]
+      },
+      {
+        "title": "In Progress",
+        "type": "progress",
+        "items": ["Adding a recent embeds list for quick access."]
+      }
+    ],
     "main": "index.js"
   };
 
@@ -58,29 +78,15 @@ var SafeEmbedGenerator = (() => {
       return config.info.version;
     }
     load() {
-      const title = "Library Missing";
-      const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
-      const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-      const ConfirmationModal = BdApi.findModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");
-      if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing. Go to this link to download the library!\nhttps://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js`);
-      ModalStack.push(function(props) {
-        return BdApi.React.createElement(ConfirmationModal, Object.assign({
-          header: title,
-          children: [TextElement({
-            color: TextElement.Colors.PRIMARY,
-            children: [`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`]
-          })],
-          red: false,
-          confirmText: "Download Now",
-          cancelText: "Cancel",
-          onConfirm: () => {
-            require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
-              if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
-              await new Promise(r => require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r));
-            });
-          }
-        }, props));
-      });
+      let libraryScript = document.getElementById("ZLibraryScript");
+      if (!libraryScript || !window.ZLibrary) {
+        if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
+        libraryScript = document.createElement("script");
+        libraryScript.setAttribute("type", "text/javascript");
+        libraryScript.setAttribute("src", "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js");
+        libraryScript.setAttribute("id", "ZLibraryScript");
+        document.head.appendChild(libraryScript);
+      }
     }
     start() {}
     stop() {}
@@ -126,16 +132,6 @@ var SafeEmbedGenerator = (() => {
 
         onStart() {
           /* Start Libraries */
-
-          let libraryScript = document.getElementById("ZLibraryScript");
-          if (!libraryScript || !window.ZLibrary) {
-            if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
-            libraryScript = document.createElement("script");
-            libraryScript.setAttribute("type", "text/javascript");
-            libraryScript.setAttribute("src", "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js");
-            libraryScript.setAttribute("id", "ZLibraryScript");
-            document.head.appendChild(libraryScript);
-          }
 
           updateInterval = setInterval(() => {
             PluginUpdater.checkForUpdate("SafeEmbedGenerator", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js");
