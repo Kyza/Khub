@@ -62,7 +62,7 @@ var SafeEmbedGenerator = (() => {
       const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
       const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
       const ConfirmationModal = BdApi.findModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");
-      if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
+      if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing. Go to this link to download the library!\nhttps://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js`);
       ModalStack.push(function(props) {
         return BdApi.React.createElement(ConfirmationModal, Object.assign({
           header: title,
