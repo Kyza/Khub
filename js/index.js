@@ -15,8 +15,8 @@ function changeFavicon(src) {
   document.head.appendChild(link);
 }
 
-console.log(window.location + "/favicon.ico");
-changeFavicon(window.location + "/favicon.ico");
+console.log(window.location + "favicon.ico");
+changeFavicon(window.location + "favicon.ico");
 
 var converter = new showdown.Converter();
 
