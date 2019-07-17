@@ -189,7 +189,7 @@ setInterval(() => {
     x = w.innerWidth || e.clientWidth || g.clientWidth,
     y = w.innerHeight || e.clientHeight || g.clientHeight;
 
-  if (x >= 688) {
+  if (x >= 902) {
     document.getElementById("navbar-toggle").style = "display: none;";
     document.getElementById("navbarButtons").className = "";
   } else if (!(document.getElementById("navbarButtons").className.indexOf("navbar-collapse") > -1)) {
