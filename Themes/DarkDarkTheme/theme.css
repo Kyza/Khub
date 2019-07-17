@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.8";
+  content: "1.2.9";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "v1.2.8 by Kyza#9994" !important;
+  content: "v1.2.9 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -144,6 +144,11 @@ code {
 /* Voice Call  */
 .theme-dark .wrapper-1R9-_K.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.wrapper-2h3Puq.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr.alignEnd-1D6PQi.spacer-1fA9zc {
   background-color: transparent;
+}
+
+/* Voice Panel */
+.theme-dark .container-1giJp5 {
+	background-color: #131313;
 }
 
 /* Chat */
