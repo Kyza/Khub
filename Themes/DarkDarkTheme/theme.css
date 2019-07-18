@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.10";
+  content: "1.2.11";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "v1.2.10 by Kyza#9994" !important;
+  content: "v1.2.11 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -35,6 +35,21 @@ svg[name=DiscordWordmark]>path {
 /* Titlebar */
 #app-mount {
   background-color: #0d0d0d;
+}
+
+/* Expanded Server Folder Icon */
+.expandedFolderIconWrapper-1xLaU- {
+	background-color: #1f1f1f;
+}
+
+/* Expanded Server Folder Background */
+.expandedFolderBackground-2sPsd-.selected-2vZ0oV {
+	background-color: #2a2a2a !important;
+}
+
+/* Closed Server Folder */
+.folderIconWrapper-226oVY {
+	background-color: #2a2a2a !important;
 }
 
 /* Channel Description Gradient */
@@ -230,7 +245,7 @@ code {
 }
 
 /* Ping Menu Top */
-.theme-dark .header-ykumBX header-2Kf7Yu.header-3LXPrb {
+.theme-dark .header-ykumBX.header-2Kf7Yu.header-3LXPrb {
   background-color: #131313;
 }
 
