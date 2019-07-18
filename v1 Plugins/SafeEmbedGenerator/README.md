@@ -13,7 +13,7 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 - [ ] Includes general plugin settings.
 - [x] Displays live previews of embeds before you send them.
 - [ ] Embeds can be saved to use for later.
-- [ ] Recently used embeds save themselves temporaraly.
+- [ ] Recently used embeds save themselves temporarily.
 
 ## Usage
 

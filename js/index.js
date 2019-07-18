@@ -353,6 +353,25 @@ $(window).bind('load', () => {
       document.getElementById("CustomDiscordIcon-info").style.height = "auto";
     }
   });
+	$.ajax({
+		type: 'GET',
+		url: 'https://khub.kyza.gq/v1%20Plugins/AntiGhostPing/AntiGhostPing.plugin.js',
+		dataType: 'text',
+		success: function(response) {
+			response = js_beautify(response, {
+				indent_size: 2,
+				space_in_empty_paren: false
+			});
+			var versionNumber = getVersionFromPlugin(response);
+			var description = getDescriptionFromPlugin(response);
+
+			document.getElementById("AntiGhostPing-info").innerHTML = "Latest Version: " + versionNumber;
+			// document.getElementById("CustomDiscordIcon-info").innerHTML += "<br><br>";
+			// document.getElementById("CustomDiscordIcon-info").innerHTML += description;
+			document.getElementById("AntiGhostPing-info").style.backgroundImage = "none";
+			document.getElementById("AntiGhostPing-info").style.height = "auto";
+		}
+	});
   // document.getElementById("DarkDarkTheme-info").style.backgroundImage = "none";
   // document.getElementById("DarkDarkTheme-info").style.height = "auto";
 
