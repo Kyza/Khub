@@ -50,7 +50,7 @@ var AntiGhostPing = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["Fixed a but where the plugin would detect if you ghostpinged yourself."]
+        "items": ["Fixed a bug where the plugin would detect if you ghostpinged yourself."]
       },
       {
         "title": "Improvements",
