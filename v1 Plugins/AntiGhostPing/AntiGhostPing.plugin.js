@@ -38,11 +38,31 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.0.0",
+      "version": "1.0.1",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       "github": "",
       "github_raw": ""
     },
+    "changelog": [{
+        "title": "New Stuff",
+        "items": ["Added this changelog."]
+      },
+      {
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["Fixed a but where the plugin would detect if you ghostpinged yourself."]
+      },
+      {
+        "title": "Improvements",
+        "type": "improved",
+        "items": []
+      },
+      {
+        "title": "On-going",
+        "type": "progress",
+        "items": []
+      }
+    ],
     "main": "index.js"
   };
 
@@ -149,7 +169,7 @@ var AntiGhostPing = (() => {
           // Zerebos' godly fix for some strange bug.
           Patcher.before(Storer.prototype, "remove", (thisObject, [messageId]) => {
             const message = thisObject.get(messageId);
-            if (message.mentioned && !message.blocked) {
+            if (message.mentioned && !message.blocked && message.author.id != userID) {
               this.addGhostPing(message);
             }
           });
@@ -375,19 +395,19 @@ var AntiGhostPing = (() => {
                 userToBlock.unblock();
               }
 
-							var buttonQuery = "." + $(blockButton[0].children[0]).attr("class");
-							while (buttonQuery.indexOf(" ") > -1) {
-								buttonQuery = buttonQuery.replace(" ", ".");
-							}
-							console.log(buttonQuery);
+              var buttonQuery = "." + $(blockButton[0].children[0]).attr("class");
+              while (buttonQuery.indexOf(" ") > -1) {
+                buttonQuery = buttonQuery.replace(" ", ".");
+              }
+              console.log(buttonQuery);
 
-							// Update all the block buttons.
-							var buttonsToChange = $(buttonQuery);
-							console.log(buttonsToChange);
-							for (let i = 0; i < buttonsToChange.length; i++) {
-								console.log(buttonsToChange[i]);
-								$(buttonsToChange[i]).html(`<div class="contents-18-Yxp block-button id-` + message.author.id + `">` + (!userToBlock.isBlocked ? `Unblock` : `Block`) + `</div>`);
-							}
+              // Update all the block buttons.
+              var buttonsToChange = $(buttonQuery);
+              console.log(buttonsToChange);
+              for (let i = 0; i < buttonsToChange.length; i++) {
+                console.log(buttonsToChange[i]);
+                $(buttonsToChange[i]).html(`<div class="contents-18-Yxp block-button id-` + message.author.id + `">` + (!userToBlock.isBlocked ? `Unblock` : `Block`) + `</div>`);
+              }
             } catch (e) {
               console.error("Failed to block the user.\n" + user);
             }
