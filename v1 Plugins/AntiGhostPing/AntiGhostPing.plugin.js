@@ -38,30 +38,31 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.0.1",
+      "version": "1.1.0",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
-      "github": "",
-      "github_raw": ""
+      "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/AntiGhostPing",
+      "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
     },
     "changelog": [{
         "title": "New Stuff",
-        "items": ["Added this changelog."]
-      },
-      {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["Fixed a bug where the plugin would detect if you ghostpinged yourself."]
-      },
-      {
-        "title": "Improvements",
-        "type": "improved",
-        "items": []
-      },
-      {
-        "title": "On-going",
-        "type": "progress",
-        "items": []
+        "items": ["Changed the ghostping panel close button to the default Discord close button.", "Escape now closes the ghostping panel."]
       }
+			// ,
+      // {
+      //   "title": "Bugs Squashed",
+      //   "type": "fixed",
+      //   "items": [""]
+      // },
+      // {
+      //   "title": "Improvements",
+      //   "type": "improved",
+      //   "items": []
+      // },
+      // {
+      //   "title": "On-going",
+      //   "type": "progress",
+      //   "items": []
+      // }
     ],
     "main": "index.js"
   };
@@ -149,9 +150,12 @@ var AntiGhostPing = (() => {
 
           // console.log(Patcher._patches.find(p => p.name.includes("dispatch")));
 
+					BdApi.linkJS("KeyboardJS", "https://raw.githubusercontent.com/RobertWHurst/KeyboardJS/master/dist/keyboard.min.js");
+
           this.patch();
           this.addPanel();
           this.addButton();
+					this.bindKeyboard();
         }
 
         onStop() {
@@ -159,17 +163,36 @@ var AntiGhostPing = (() => {
           this.removePanel();
           this.unpatch();
           this.removeIntervals();
+					this.unbindKeyboard();
         }
 
         removeIntervals() {
           clearInterval(updateInterval);
         }
 
+
+				bindKeyboard() {
+				  keyboardJS.bind("esc", function(e) {
+						// TODO: For some reason this.togglePanel(false); is undefined.
+						panelOpen = false;
+						$("#ghostping-panel").hide();
+
+				    console.log("Closed ghostping panel.");
+				  });
+				}
+
+				unbindKeyboard() {
+				  keyboardJS.reset();
+					BdApi.unlinkJS("KeyboardJS");
+				}
+
         patch() {
           // Zerebos' godly fix for some strange bug.
           Patcher.before(Storer.prototype, "remove", (thisObject, [messageId]) => {
             const message = thisObject.get(messageId);
+            console.log("Might be a ghostping: ", message);
             if (message.mentioned && !message.blocked && message.author.id != userID) {
+              console.log("It is a ghostping!".toUpperCase());
               this.addGhostPing(message);
             }
           });
@@ -528,11 +551,11 @@ var AntiGhostPing = (() => {
               "position": "absolute",
               "top": "10px",
               "right": "10px",
-              "width": "25px",
-              "height": "25px",
-              "background-color": "red",
-              "border-radius": "5px"
+							"color": "white"
             });
+            ghostPingPanelCloseButton.html(`
+<div class="container-1sFeqf"><div tabindex="0" class="closeButton-1tv5uR" role="button"><svg name="Close" aria-hidden="false" width="18" height="18" viewBox="0 0 12 12"><g fill="none" fill-rule="evenodd"><path d="M0 0h12v12H0"></path><path class="fill" fill="#dcddde" d="M9.5 3.205L8.795 2.5 6 5.295 3.205 2.5l-.705.705L5.295 6 2.5 8.795l.705.705L6 6.705 8.795 9.5l.705-.705L6.705 6"></path></g></svg></div><div class="keybind-KpFkfr">ESC</div></div>
+							`);
             ghostPingPanelCloseButton.click(() => {
               this.togglePanel(false);
             });
