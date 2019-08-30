@@ -91,23 +91,9 @@ var SafeEmbedGenerator = (() => {
 		stop() {}
 	} : (([Plugin, Api]) => {
 		const plugin = (Plugin, Api) => {
-			const {
-				DiscordModules,
-				Logger,
-				Patcher,
-				WebpackModules,
-				PluginUpdater,
-				PluginUtilities,
-				DiscordAPI
-			} = Api;
+			const { DiscordModules, Logger, Patcher, WebpackModules, PluginUpdater, PluginUtilities, DiscordAPI } = Api;
 
-			const {
-				MessageStore,
-				UserStore,
-				ImageResolver,
-				ChannelStore,
-				Dispatcher
-			} = DiscordModules;
+			const { MessageStore, UserStore, ImageResolver, ChannelStore, Dispatcher } = DiscordModules;
 
 			var embedOpen = false;
 			var recentEmbeds = [];
@@ -238,7 +224,7 @@ var SafeEmbedGenerator = (() => {
 					var currentUser1 = betterDiscordServer1.currentUser;
 					var currentUser2 = betterDiscordServer2.currentUser;
 
-					if (guildId.toString() == "86004744966914048" || guildId.toString() == "280806472928198656") {
+					if (['86004744966914048','280806472928198656'].includes(guildId.toString())) {
 						if (!betterDiscordServer1) {
 							if (currentUser2.userId == "220584715265114113") {
 								// The user is Kyza, return true right away.
@@ -432,14 +418,14 @@ var SafeEmbedGenerator = (() => {
 						authorUrl.setAttribute("placeholder", "Author URL");
 						authorUrl.setAttribute("style", inputStyle + textInputStyle);
 						authorUrl.oninput = () => {
-							createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
+							this.createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
 						};
 
 						title.setAttribute("type", "text");
 						title.setAttribute("placeholder", "Title");
 						title.setAttribute("style", inputStyle + textInputStyle);
 						title.oninput = () => {
-							createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
+							this.createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
 						};
 
 						description.setAttribute("placeholder", "Description");
@@ -596,7 +582,7 @@ var SafeEmbedGenerator = (() => {
 								document.getElementById("imageType").setAttribute("checked", (recentEmbeds[elementIndex].isBanner ? "true" : "false"));
 								document.getElementById("colorPicker").value = "#" + recentEmbeds[elementIndex].color;
 
-								createEmbedPreviewPopup(popupWrapperWidth + 80, document.getElementById("providerName").value, document.getElementById("providerUrl").value, document.getElementById("authorName").value, document.getElementById("authorUrl").value, document.getElementById("description").value, document.getElementById("colorPicker").value, document.getElementById("authorUrl").getAttribute("checked"), document.getElementById("imageUrl").value);
+								this.createEmbedPreviewPopup(popupWrapperWidth + 80, document.getElementById("providerName").value, document.getElementById("providerUrl").value, document.getElementById("authorName").value, document.getElementById("authorUrl").value, document.getElementById("description").value, document.getElementById("colorPicker").value, document.getElementById("authorUrl").getAttribute("checked"), document.getElementById("imageUrl").value);
 							};
 
 							embedElement.innerHTML = `<div class="embedPill-1Zntps da-embedPill" style="background-color: ` + (embed.color == "000000" ? "#4f545c" : "#" + embed.color) + `;"></div><div class="embedInner-1-fpTo da-embedInner"><div class="embedContent-3fnYWm da-embedContent"><div class="embedContentInner-FBnk7v da-embedContentInner markup-2BOw-j da-markup" style="clear: right;">` + (embed.providerName.trim() != "" ? `<div class=""><` + (embed.providerUrl.trim() == "" ? "span" : "a") + ` tabindex="0" class="` + (embed.providerUrl.trim() == "" ? "embedProvider-3k5pfl da-embedProvider" : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedProviderLink-2Pq1Uw embedLink-1G1K1D embedProvider-3k5pfl da-embedProviderLink da-embedLink da-embedProvider`) + `" href=` + embed.providerUrl + `" rel="noreferrer noopener" target="_blank">` + embed.providerName + `</` + (embed.providerUrl.trim() == "" ? "span" : "a") + `></div>` : "") + `` + (embed.authorName.trim() != "" ? `<div class="embedAuthor-3l5luH da-embedAuthor embedMargin-UO5XwE da-embedMargin"><` + (embed.authorUrl.trim() == "" ? "span" : "a") + ` tabindex="0" class="` + (embed.authorUrl.trim() == "" ? "embedAuthorName-3mnTWj da-embedAuthorName" : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedAuthorNameLink-1gVryT embedLink-1G1K1D embedAuthorName-3mnTWj da-embedAuthorNameLink da-embedLink da-embedAuthorName`) + `" href="` + embed.authorUrl + `" rel="noreferrer noopener" target="_blank">` + embed.authorName + `</` + (embed.providerUrl.trim() == "" ? "span" : "a") + `></div>` : "") + `` + (embed.description.trim() != "" ? `<div class="embedDescription-1Cuq9a da-embedDescription embedMargin-UO5XwE da-embedMargin">` + embed.description + `</div>` : "") + `</div></div></div>`;
@@ -724,7 +710,7 @@ var SafeEmbedGenerator = (() => {
 							// Refresh the embed preview because it is already there.
 							var previewWrapper = document.getElementById("embedPreviewWrapper");
 							previewWrapper.innerHTML = htmlString;
-							return embedPreviewWrapper;
+							return previewWrapper;
 						}
 					};
 
@@ -844,5 +830,5 @@ var SafeEmbedGenerator = (() => {
 /*@end@*/
 
 SafeEmbedGenerator.prototype.onSwitch = function() {
-	addButton();
+	this.addButton();
 };
