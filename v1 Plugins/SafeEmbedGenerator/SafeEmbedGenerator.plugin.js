@@ -716,15 +716,15 @@ var SafeEmbedGenerator = (() => {
 
 					if (oldImageUrl != imageUrl) {
 						img.onload = function() {
-							this.create(true, false);
+							create(true, false);
 						};
 						img.onerror = function() {
-							this.create(false, false);
+							create(false, false);
 						};
 
 						img.src = imageUrl;
 					} else {
-						this.create(true, true);
+						create(true, true);
 					}
 				}
 
