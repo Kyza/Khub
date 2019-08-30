@@ -155,7 +155,9 @@ var SafeEmbedGenerator = (() => {
 				addButton() {
 					try {
 						var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
-						var channel = DiscordAPI.Channel.from(DiscordAPI.Channel.fromId(channelId));
+						var channelObject = DiscordAPI.Channel.fromId(channelId);
+						if (!channelObject) return;
+						var channel = DiscordAPI.Channel.from(channelObject);
 						var permissions = channel.discordObject.permissions;
 
 						// Only add the button if the user has permissions to send messages and embed links.
