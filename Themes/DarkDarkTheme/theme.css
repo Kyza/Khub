@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.11";
+  content: "1.2.12";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "v1.2.11 by Kyza#9994" !important;
+  content: "v1.2.12 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -43,7 +43,7 @@ svg[name=DiscordWordmark]>path {
 }
 
 /* Expanded Server Folder Background */
-.expandedFolderBackground-2sPsd-.selected-2vZ0oV {
+.expandedFolderBackground-2sPsd- {
 	background-color: #2a2a2a !important;
 }
 
@@ -64,7 +64,7 @@ svg[name=DiscordWordmark]>path {
 }
 
 /* Channels Panel */
-.channels-Ie2l6A>.container-PNkimc {
+.container-PNkimc {
   background-color: #161616;
 }
 
@@ -91,9 +91,9 @@ svg[name=DiscordWordmark]>path {
 /*.theme-dark .header-2o-2hj {*/
 /*    background-color: #111;*/
 /*}*/
-/* Remove Banner Image Gradient */
-.channels-Ie2l6A .bannerImage-1jOskm {
-  background-size: 0, cover;
+/* Banner Image Gradient */
+.bannerImage-1jOskm {
+  -webkit-mask-image: none !important;
 }
 
 /* Large Checkboxes */
@@ -225,8 +225,13 @@ code {
 }
 
 /* Channel Titlebar */
-.theme-dark .title-3qD0b-.container-1r6BKw {
+.theme-dark .container-2Rl01u.clickable-2ap7je {
   background-color: rgba(17, 17, 17, 1);
+}
+
+/* Channel Titlebar Banner */
+.theme-dark .container-2Rl01u.clickable-2ap7je.hasBanner-14PPlG.bannerVisible-14J9lQ {
+  background-color: rgba(17, 17, 17,0.21);
 }
 
 /* DMs Titlebar */
@@ -326,21 +331,32 @@ code {
 }
 
 /* Nitro Menu */
+/* Nitro Main */
+.applicationStore-1pNvnv {
+  background-color: #161616;
+}
+
+/* Nitro Teir */
+.tier1Banner-1B_WXY {
+  background-color: #161616 !important;
+}
+
 /* Nitro Top */
 .theme-dark .flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignCenter-1dQNNs.noWrap-3jynv6.header-2tA9Os {
-	background-color: #111;
+  background-color: #111;
 }
 
 /* Nitro Center */
 .theme-dark .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0.content-2qfHzC {
-	background-color: #1a1a1a;
+  background-color: #1a1a1a;
 }
 
 /* Nitro Bottom */
 .theme-dark .flex-1xMQg5.flex-1O1GKY.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-3rDWdC.footer-1o3nCu {
-	background-color: #161616;
+  background-color: #161616;
 }
 
+/* Boosting Tiers */
 .theme-dark .tierNoneContainer-3hhK3h {
   background-color: #1f1f1f;
 }
@@ -624,6 +640,23 @@ code {
   border-color: transparent;
 }
 
+/* Discover Quick Launcher */
+.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.container-1ordkf {
+  background-color: #131313;
+}
+/* Discover Now Playing */
+.wrapper-Lii66c.homepage-3LhjZt.outer-2IVh5n {
+  background-color: #1a1a1a;
+}
+/* Recently Played */
+.recentlyPlayedContainer-2F3MqS.homepage-3nzCdM {
+  background-color: #1a1a1a !important;
+}
+/* Xbox */
+.section-2VKIPC {
+  background-color: #1f1f1f;
+}
+
 /* Emoji Center */
 .theme-dark .emojiPicker-3m1S-j {
   background-color: #131313;
@@ -662,6 +695,11 @@ code {
 /* BetterDiscord Autocomplete */
 #bdea-autocomplete {
   background-color: #111;
+}
+
+/* BD Emoji's Top */
+#bda-qem, #bda-qem > * {
+  background-color: #1a1a1a !important;
 }
 
 /* Activity Top */
