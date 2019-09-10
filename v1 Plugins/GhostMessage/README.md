@@ -16,6 +16,10 @@ Click the new button in the text area to toggle sending ghost messages.
 
 ## Changelog
 
+### 1.0.2
+
+ * Fixed the button styling.
+
 ### 1.0.1
 
  * Fixed a major bug where the button doesn't show up for users with normalized classes disabled.
