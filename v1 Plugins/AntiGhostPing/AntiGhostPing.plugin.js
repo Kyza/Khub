@@ -38,21 +38,23 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.1.0",
+      "version": "1.1.1",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/AntiGhostPing",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
     },
-    "changelog": [{
-        "title": "New Stuff",
-        "items": ["Changed the ghostping panel close button to the default Discord close button.", "Escape now closes the ghostping panel."]
+    "changelog": [
+			// {
+      //   "title": "New Stuff",
+      //   "items": ["Fixed the visuals for the ghost button."]
+      // }
+			// ,
+      {
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["Fixed the visuals for the ghost button."]
       }
 			// ,
-      // {
-      //   "title": "Bugs Squashed",
-      //   "type": "fixed",
-      //   "items": [""]
-      // },
       // {
       //   "title": "Improvements",
       //   "type": "improved",
@@ -479,18 +481,18 @@ var AntiGhostPing = (() => {
               var ghostButton = document.createElement("button");
               var daButtons = document.querySelector("div.container-3baos1 > div.flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6");
               ghostButton.setAttribute("type", "button");
-              ghostButton.setAttribute("class", "button-2JbWXs button-38aScr lookBlank-3eh9lL colorBrand-3pXr91 grow-q77ONN ghostping-button-wrapper");
+              ghostButton.setAttribute("class", "button-14-BFJ enabled-2cQ-u7 button-38aScr lookBlank-3eh9lL colorBrand-3pXr91 grow-q77ONN ghostping-button-wrapper");
 
               var ghostButtonInner = document.createElement("div");
-              ghostButtonInner.setAttribute("class", "contents-18-Yxp da-contents ghostping-button-inner");
+              ghostButtonInner.setAttribute("class", "contents-18-Yxp button-3AYNKb button-2vd_v_ ghostping-button-inner");
 
               var ghostButtonMask = document.createElement("mask");
               ghostButtonMask.setAttribute("id", "ghostping-button-mask");
 
               var ghostButtonIcon = document.createElement("img");
               ghostButtonIcon.setAttribute("src", "https://image.flaticon.com/icons/svg/121/121202.svg");
-              ghostButtonIcon.setAttribute("class", "icon-3D60ES da-icon ghostping-button-icon");
-              ghostButtonIcon.setAttribute("style", "filter: invert(100%) !important;");
+              ghostButtonIcon.setAttribute("class", "icon-3D60ES ghostping-button-icon");
+              ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important; transform: scale(0.8);");
               ghostButtonIcon.setAttribute("width", "22");
               ghostButtonIcon.setAttribute("height", "22");
 
@@ -512,7 +514,7 @@ var AntiGhostPing = (() => {
         updateButton() {
           var ghostButton = document.getElementsByClassName("ghostping-button-wrapper")[0];
           if (ghostPings.length > 0) {
-            ghostButton.setAttribute("style", "filter: brightness(50%) sepia(100) saturate(100) hue-rotate(25deg);");
+            ghostButton.setAttribute("style", "filter: brightness(50%) sepia(100) saturate(100) hue-rotate(25deg); transform: scale(0.8);");
           } else {
             ghostButton.setAttribute("style", "");
           }

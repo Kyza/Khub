@@ -12,6 +12,10 @@ AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you t
 
 ## Changelog
 
+### 1.1.1
+
+ * Bunch of fixes and stuff.
+
 ### 1.0.0
 
  * Release.
