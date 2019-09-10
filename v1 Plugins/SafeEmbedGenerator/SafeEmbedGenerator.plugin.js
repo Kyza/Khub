@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
 				"discord_id": "220584715265114113",
 				"github_username": "KyzaGitHub"
 			}],
-			"version": "1.3.1",
+			"version": "1.3.2",
 			"description": "Adds a button which allows you to create non-bannable embeds with ease.",
 			"website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator&version=v1",
 			"github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -46,7 +46,7 @@ var SafeEmbedGenerator = (() => {
 			{
 				"title": "Bugs Squashed",
 				"type": "fixed",
-				"items": ["Fixed the visuals for the embed button."]
+				"items": ["Fixed the visuals for the image type checkbox."]
 			}
 			// ,
 			// {
@@ -456,19 +456,19 @@ var SafeEmbedGenerator = (() => {
 							this.createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
 						};
 
-						// Checked   = valueChecked-m-4IJZ
-						// Unchecked = valueUnchecked-2lU_20
-						imageType.setAttribute("class", "flexChild-faoVW3 da-flexChild switchEnabled-V2WDBB switch-3wwwcV da-switchEnabled da-switch valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
+						imageType.setAttribute("class", "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
 						imageType.setAttribute("tabindex", "0");
 						imageType.setAttribute("style", "flex: 0 0 auto;" + inputStyle);
 						imageType.onclick = () => {
-							if (imageType.getAttribute("class") == "flexChild-faoVW3 da-flexChild switchEnabled-V2WDBB switch-3wwwcV da-switchEnabled da-switch valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX") {
-								imageType.setAttribute("class", "flexChild-faoVW3 da-flexChild switchEnabled-V2WDBB switch-3wwwcV da-switchEnabled da-switch valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
+							if (imageType.getAttribute("class") == "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX") {
+								imageType.setAttribute("class", "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
+								imageTypeText.setAttribute("style", "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: white;");
 								imageTypeInput.setAttribute("checked", "false");
 
 								this.reenableNowUsableInputs(authorName, description, providerName);
 							} else {
-								imageType.setAttribute("class", "flexChild-faoVW3 da-flexChild switchEnabled-V2WDBB switch-3wwwcV da-switchEnabled da-switch valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
+								imageType.setAttribute("class", "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX");
+								imageTypeText.setAttribute("style", "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: black;");
 								imageTypeInput.setAttribute("checked", "true");
 
 								this.disableUnusableInputs(authorName, description, providerName);
@@ -477,8 +477,8 @@ var SafeEmbedGenerator = (() => {
 							this.createEmbedPreviewPopup(popupWrapperWidth + 100, providerName.value, providerUrl.value, authorName.value, authorUrl.value, description.value, colorPicker.value, imageTypeInput.getAttribute("checked"), imageUrl.value);
 						};
 						imageTypeText.innerHTML = "Banner Image Mode";
-						imageTypeText.setAttribute("style", "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px;");
-						imageTypeInput.setAttribute("class", "checkboxEnabled-CtinEn checkbox-2tyjJg da-checkboxEnabled da-checkbox");
+						imageTypeText.setAttribute("style", "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: white;");
+						imageTypeInput.setAttribute("class", "checkboxEnabled-CtinEn checkbox-2tyjJg");
 						imageTypeInput.setAttribute("type", "checkbox");
 						imageTypeInput.setAttribute("tabindex", "-1");
 						imageTypeInput.setAttribute("checked", "false");
