@@ -32,30 +32,34 @@ var SafeEmbedGenerator = (() => {
 				"discord_id": "220584715265114113",
 				"github_username": "KyzaGitHub"
 			}],
-			"version": "1.3.0",
+			"version": "1.3.1",
 			"description": "Adds a button which allows you to create non-bannable embeds with ease.",
 			"website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator&version=v1",
 			"github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
 		},
-		"changelog": [{
-				"title": "New Stuff",
-				"items": ["Changed the embed API to my own.", "Added this changelog."]
-			},
+		"changelog": [
+			// {
+			// 	"title": "New Stuff",
+			// 	"items": ["Changed the embed API to my own.", "Added this changelog."]
+			// }
+			// ,
 			{
 				"title": "Bugs Squashed",
 				"type": "fixed",
-				"items": ["Large images no longer make the embed preview slow."]
-			},
-			{
-				"title": "Improvements",
-				"type": "improved",
-				"items": ["Rewrote the plugin to prepare for the BBD rewrite/BDv2."]
-			},
-			{
-				"title": "In Progress",
-				"type": "progress",
-				"items": ["Adding a recent embeds list for quick access."]
+				"items": ["Fixed the visuals for the embed button."]
 			}
+			// ,
+			// {
+			// 	"title": "Improvements",
+			// 	"type": "improved",
+			// 	"items": ["Rewrote the plugin to prepare for the BBD rewrite/BDv2."]
+			// }
+			// ,
+			// {
+			// 	"title": "In Progress",
+			// 	"type": "progress",
+			// 	"items": ["Adding a recent embeds list for quick access."]
+			// }
 		],
 		"main": "index.js"
 	};
@@ -176,9 +180,16 @@ var SafeEmbedGenerator = (() => {
 								//version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"
 								embedButtonIcon.setAttribute("src", "https://image.flaticon.com/icons/svg/25/25463.svg");
 								embedButtonIcon.setAttribute("class", "icon-3D60ES da-icon");
-								embedButtonIcon.setAttribute("style", "filter: invert(100%) !important;");
+								embedButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
 								embedButtonIcon.setAttribute("width", "22");
 								embedButtonIcon.setAttribute("height", "22");
+
+								embedButtonIcon.onmouseover = () => {
+									embedButtonIcon.setAttribute("style", "filter: invert(100%) !important;");
+								};
+								embedButtonIcon.onmouseout = () => {
+									embedButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
+								};
 
 								embedButtonInner.appendChild(embedButtonIcon);
 								embedButton.appendChild(embedButtonInner);

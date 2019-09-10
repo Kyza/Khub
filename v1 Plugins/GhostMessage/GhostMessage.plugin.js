@@ -109,9 +109,22 @@ function addButton() {
         //version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"
         ghostButtonIcon.setAttribute("src", "https://image.flaticon.com/icons/svg/121/121202.svg");
         ghostButtonIcon.setAttribute("class", "icon-3D60ES");
-        ghostButtonIcon.setAttribute("style", "filter: invert(75%) !important;");
+        ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
         ghostButtonIcon.setAttribute("width", "22");
         ghostButtonIcon.setAttribute("height", "22");
+
+
+        ghostButtonIcon.onmouseover = () => {
+					if (!enabled) {
+						ghostButtonIcon.setAttribute("style", "filter: invert(100%) !important;");
+					}
+        };
+        ghostButtonIcon.onmouseout = () => {
+					if (!enabled) {
+						ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
+					}
+        };
+
 
         ghostButtonInner.appendChild(ghostButtonIcon);
         ghostButton.appendChild(ghostButtonInner);
@@ -156,7 +169,7 @@ function setEnabled(set) {
     ghostInner.children[0].setAttribute("style", "filter: invert(100%) !important; transform: scale(1.3);");
   } else if (ghostInner && ghostInner.children[0] && !enabled) {
     ghostInner.setAttribute("style", "");
-    ghostInner.children[0].setAttribute("style", "filter: invert(75%) !important;");
+    ghostInner.children[0].setAttribute("style", "filter: invert(70%) !important;");
   }
 }
 
