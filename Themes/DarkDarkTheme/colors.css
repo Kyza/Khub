@@ -157,11 +157,11 @@
 
 /* Search Menu Back */
 .theme-dark .searchResultsWrap-2DKFzt .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhost-28MSn0.scrollerTrack-1ZIpsv {
-    background-color: #161616;
+  background-color: #161616;
 }
 
 /* Search Channel Name */
-.theme-dark .channelSeparator-1X1FuH, .channelName-1QajIf {
+.theme-dark .channelSeparator-1X1FuH, .theme-dark .channelName-1QajIf {
   background-color: #161616 !important;
 }
 
@@ -216,8 +216,16 @@
   border-style: solid;
 }
 
-.theme-dark .option-96V44q.searchOption-zQ-1l6::after, .option-96V44q::after {
+.theme-dark .option-96V44q.searchOption-zQ-1l6::after, .theme-dark .option-96V44q::after {
   display: none;
 }
+
 /* STOP: Search */
+/* START: Pin Menu */
+/* Pin Menu Top */
+.theme-dark .header-ykumBX.header-2Kf7Yu {
+  background-color: #131313;
+}
+
+/* STOP: Pin Menu */
 /* STOP: Dark Theme */
