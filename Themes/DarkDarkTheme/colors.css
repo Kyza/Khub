@@ -437,6 +437,12 @@
 }
 
 /* STOP: Friends Tab */
+/* START: Server Folders */
+.expandedFolderBackground-2sPsd- {
+  background-color: var(--dark6);
+}
+
+/* STOP: Server Folders */
 /* START: BetterDiscord */
 .inner-3ErfOT {
   background-color: var(--dark6) !important;
