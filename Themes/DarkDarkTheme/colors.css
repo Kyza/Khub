@@ -37,7 +37,7 @@
   --elevation-high: 0 8px 16px rgba(0, 0, 0, 0.24);
   --guild-header-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   --channeltextarea-background: var(--dark2);
-  --activity-card-background: red;
+  --activity-card-background: var(--dark2);
   --deprecated-panel-background: var(--dark2);
   --deprecated-card-bg: rgba(32, 34, 37, 0.6);
   --deprecated-card-editable-bg: rgba(32, 34, 37, 0.3);
@@ -397,29 +397,39 @@
 }
 
 /* STOP: Rich Presence */
-/* START: Discover Tab */
-.searchBox-3Y2Vi7.searchBoxInput-uJ66lD {
+/* START: Discover/Activity Tab */
+.theme-dark .searchBox-3Y2Vi7.searchBoxInput-uJ66lD {
   background-color: var(--dark7);
 }
 
-.popoutContainer-3WC9HR.homepage-28Bghb.homepage-nMy8gk:hover {
+.theme-dark .popoutContainer-3WC9HR.homepage-28Bghb.homepage-nMy8gk:hover {
   background-color: var(--dark5);
 }
 
-/* STOP: Discover Tab */
+/* Activity Games */
+.theme-dark .section-2VKIPC {
+  background-color: var(--dark5);
+}
+
+/* Activity Recently Played */
+.theme-dark .card-GqTca8.recentlyPlayedContainer-2F3MqS {
+  background-color: var(--dark2);
+}
+
+/* STOP: Discover/Activity Tab */
 /* START: Library Tab */
 /* Top Buttons */
-.actionButton-4w4-EY.button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.sizeIcon-1-kvKI.grow-q77ONN {
+.theme-dark .actionButton-4w4-EY.button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.sizeIcon-1-kvKI.grow-q77ONN {
   background-color: var(--dark5);
 }
 
 /* Action Buttons */
-.button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.hoverGreen-1gjdJc.actionButtonSize-1Znp1q.grow-q77ONN.hasHover-3X1-zV {
+.theme-dark .button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.hoverGreen-1gjdJc.actionButtonSize-1Znp1q.grow-q77ONN.hasHover-3X1-zV {
   background-color: var(--dark7);
 }
 
 /* Gift Inventory */
-.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.scrollerStore-390omS.systemPad-3UxEGl {
+.theme-dark .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.scrollerStore-390omS.systemPad-3UxEGl {
   background-color: var(--dark4);
   padding-left: 20px;
   padding-right: 20px;
@@ -438,30 +448,30 @@
 
 /* STOP: Friends Tab */
 /* START: Server Folders */
-.expandedFolderBackground-2sPsd- {
+.theme-dark .expandedFolderBackground-2sPsd- {
   background-color: var(--dark6);
 }
 
 /* STOP: Server Folders */
 /* START: BetterDiscord */
-.inner-3ErfOT {
+.theme-dark .inner-3ErfOT {
   background-color: var(--dark6) !important;
 }
 
 /* START: SelectedSafeEmbedGenerator */
-#embedPopupWrapper {
+.theme-dark #embedPopupWrapper {
   background-color: var(--dark2) !important;
 }
 
-#embedPreviewWrapper,
-#providerName,
-#providerUrl,
-#authorName,
-#authorUrl,
-#description,
-#imageUrl,
-#colorPicker,
-#embedPopupWrapper>input[type="button"]:nth-child(9) {
+.theme-dark #embedPreviewWrapper,
+.theme-dark #providerName,
+.theme-dark #providerUrl,
+.theme-dark #authorName,
+.theme-dark #authorUrl,
+.theme-dark #description,
+.theme-dark #imageUrl,
+.theme-dark #colorPicker,
+.theme-dark #embedPopupWrapper>input[type="button"]:nth-child(9) {
   background-color: var(--dark4) !important;
   color: white !important;
 }
