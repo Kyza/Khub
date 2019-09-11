@@ -161,7 +161,7 @@
 }
 
 /* Search Channel Name */
-.theme-dark .channelSeparator-1X1FuH, .theme-dark .channelName-1QajIf {
+.theme-dark .channelSeparator-1X1FuH, .channelName-1QajIf {
   background-color: #161616 !important;
 }
 
@@ -216,7 +216,7 @@
   border-style: solid;
 }
 
-.theme-dark .option-96V44q.searchOption-zQ-1l6::after, .theme-dark .option-96V44q::after {
+.theme-dark .option-96V44q.searchOption-zQ-1l6::after, .option-96V44q::after {
   display: none;
 }
 
@@ -228,4 +228,88 @@
 }
 
 /* STOP: Pin Menu */
+/* START: Sliders */
+/* Slider Off */
+.theme-dark .valueUnchecked-2lU_20 {
+  background-color: #111;
+}
+
+/* Slider On Blue */
+.theme-dark .valueChecked-m-4IJZ {
+  background-color: #667ac4;
+}
+
+/* Slider On Green */
+.theme-dark .valueChecked-m-4IJZ.themeDefault-24hCdX {
+  background-color: #30825d !important;
+}
+
+/* BetterDiscord Slider Off */
+.theme-dark .ui-switch:not(.checked) {
+  background-color: #111 !important;
+}
+
+/* STOP: Sliders */
+/* START Nitro Boost Menu */
+/* Nitro Main */
+.applicationStore-1pNvnv {
+  background-color: #161616;
+}
+
+/* Nitro Teir */
+.tier1Banner-1B_WXY {
+  background-color: #161616 !important;
+}
+
+/* Nitro Top */
+.theme-dark .flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignCenter-1dQNNs.noWrap-3jynv6.header-2tA9Os {
+  background-color: #111;
+}
+
+/* Nitro Center */
+.theme-dark .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0.content-2qfHzC {
+  background-color: #1a1a1a;
+}
+
+/* Nitro Bottom */
+.theme-dark .flex-1xMQg5.flex-1O1GKY.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-3rDWdC.footer-1o3nCu {
+  background-color: #161616;
+}
+
+/* Boosting Tiers */
+.theme-dark .tierNoneContainer-3hhK3h {
+  background-color: #1f1f1f;
+}
+
+.theme-dark .tierHeader---JJFb {
+  background-color: #161616;
+}
+
+.theme-dark .tierBody-16Chc9 {
+  background-color: #1f1f1f;
+}
+
+.theme-dark .tierNoneText-2OvCv7 {
+  font-size: 0px;
+}
+
+.theme-dark .tierNoneText-2OvCv7:before {
+  content: "Boost my server or die";
+  font-size: 14px;
+}
+
+.theme-dark .tierNoneText-2OvCv7:after {
+  content: "https://kyza.gq/discord/";
+  font-size: 14px;
+}
+
+.theme-dark .carouselLeftGradientEdge-3P4spl {
+  background-image: linear-gradient(90deg, #111, rgba(54, 57, 63, 0));
+}
+
+.theme-dark .carouselRightGradientEdge-2Z3H8D {
+  background-image: linear-gradient(-90deg, #111, rgba(54, 57, 63, 0));
+}
+
+/* STOP: Nitro Boost Menu */
 /* STOP: Dark Theme */
