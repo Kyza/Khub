@@ -1,0 +1,121 @@
+.theme-dark {
+  --header-primary: #ccc;
+  --header-secondary: #b9bbbe;
+  --text-normal: #aaa;
+  --text-muted: #72767d;
+  --text-link: #00b0f4;
+  --channels-default: #8e9297;
+  --interactive-normal: #aaa;
+  --interactive-hover: #bbb;
+  --interactive-active: #ccc;
+  --interactive-muted: #4f545c;
+  --background-primary: #1a1a1a;
+  --background-secondary: #161616;
+  --background-tertiary: #111;
+  --background-accent: #2a2a2a;
+  --background-floating: #111;
+  --background-modifier-hover: rgba(79, 84, 92, 0.16);
+  --background-modifier-active: rgba(79, 84, 92, 0.24);
+  --background-modifier-selected: rgba(79, 84, 92, 0.32);
+  --background-modifier-accent: hsla(0, 0%, 100%, 0.06);
+  --elevation-low: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
+  --elevation-high: 0 8px 16px rgba(0, 0, 0, 0.24);
+  --guild-header-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  --channeltextarea-background: #131313;
+  --activity-card-background: red;
+  --deprecated-panel-background: #131313;
+  --deprecated-card-bg: rgba(32, 34, 37, 0.6);
+  --deprecated-card-editable-bg: rgba(32, 34, 37, 0.3);
+  --deprecated-store-bg: #1a1a1a;
+  --deprecated-quickswitcher-input-background: #111;
+  --deprecated-quickswitcher-input-placeholder: hsla(0, 0%, 100%, 0.3);
+  --deprecated-text-input-bg: rgba(0, 0, 0, 0.1);
+  --deprecated-text-input-border: rgba(0, 0, 0, 0.3);
+  --deprecated-text-input-border-hover: #040405;
+  --deprecated-text-input-border-disabled: #202225;
+  --deprecated-text-input-prefix: #dcddde;
+}
+
+/* Scrollbars */
+/* Most Scrollbars */
+.theme-dark #app-mount ::-webkit-scrollbar-track-piece {
+  border-radius: 0px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.theme-dark #app-mount ::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.theme-dark #app-mount ::-webkit-scrollbar-thumb {
+  background-color: #2a2a2a;
+  border-color: transparent;
+}
+
+/* Titlebars */
+/* Main Titlebar */
+#app-mount {
+  background-color: #0d0d0d;
+}
+
+/* Server Titlebar */
+.theme-dark .container-2Rl01u.clickable-2ap7je {
+  background-color: #131313;
+}
+
+/* Channel Titlebar */
+.theme-dark .title-3qD0b- {
+  background-color: #131313;
+}
+
+/* DMs Titlebar */
+.theme-dark .searchBar-6Kv8R2 {
+  background-color: #111;
+}
+
+/* Chat Box */
+/* Autocomplete Above Textarea */
+.theme-dark .autocomplete-1vrmpx.autocomplete-i9yVHs {
+  background-color: #111;
+}
+
+/* Autocomplete Selector */
+.autocompleteRow-2OthDa .selectorSelected-1_M1WV {
+  background-color: #1a1a1a;
+}
+
+/* Emoji Picker */
+/* Top Tabs */
+/* TODO: Fix white background. */
+#bda-qem, #bda-qem>* {
+  background-color: #131313 !important;
+  color: var(--header-primary) !important;
+}
+
+/* Main Panel */
+.emojiPicker-3m1S-j {
+  background-color: #161616;
+}
+
+/* Frequently Used */
+.category-2U57w6 {
+  background-color: #161616;
+}
+
+/* Search Bar */
+.inner-3ErfOT {
+  background-color: #1a1a1a;
+}
+
+/* Twitch Panel */
+#bda-qem-twitch-container {
+  background-color: #161616;
+}
+
+/* Favorite Panel */
+#bda-qem-favourite-container {
+  background-color: #161616;
+}

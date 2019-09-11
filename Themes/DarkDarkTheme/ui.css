@@ -97,3 +97,65 @@
 .container-3baos1 {
   height: 70px;
 }
+
+/* Text Channels */
+.content-3at_AU {
+  border-width: 0px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+  transition-duration: 0.1s;
+}
+
+.content-3at_AU:hover {
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+  transition-duration: 0.1s;
+}
+
+.selected-37j_iU .content-3at_AU {
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+  transition-duration: 0.1s;
+}
+
+.containerDefault-3GGEv_ {
+  text-align: center;
+}
+
+/* Members List */
+.membersGroup-v9BXpm {
+  text-align: center;
+}
+
+.member-3W1lQa {
+  border-width: 0px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+  transition-duration: 0.4s;
+}
+
+.member-3W1lQa:hover {
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+}
+
+.member-3W1lQa.selected-aXhQR6 {
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top: none;
+  border-bottom: none;
+}
