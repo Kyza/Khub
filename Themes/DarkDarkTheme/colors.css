@@ -2,15 +2,16 @@
 /* START: Variables */
 /* Theme Variables */
 * {
-	--dark0: #0d0d0d;
-	--dark1: #111;
-	--dark2: #131313;
-	--dark3: #161616;
-	--dark4: #1a1a1a;
-	--dark5: #1f1f1f;
-	--dark6: #222;
-	--dark7: #2a2a2a;
+  --dark0: #0d0d0d;
+  --dark1: #111;
+  --dark2: #131313;
+  --dark3: #161616;
+  --dark4: #1a1a1a;
+  --dark5: #1f1f1f;
+  --dark6: #222;
+  --dark7: #2a2a2a;
 }
+
 /* Dark Theme Variables */
 .theme-dark {
   --header-primary: #ccc;
@@ -86,6 +87,10 @@
   background-color: var(--dark2);
 }
 
+.searchBar-3dMhjb {
+  background-color: var(--dark4);
+}
+
 /* DMs Titlebar */
 .theme-dark .searchBar-6Kv8R2 {
   background-color: var(--dark1);
@@ -95,7 +100,7 @@
 /* START: Chat Box */
 /* Autocomplete Above Textarea */
 .theme-dark .autocomplete-1vrmpx.autocomplete-i9yVHs {
-  background-color: var(--dark1);
+  background-color: var(--dark2);
 }
 
 /* STOP: Chat Box */
@@ -324,4 +329,72 @@
 }
 
 /* STOP: Nitro Boost Menu */
+/* START: Popups */
+/* Channel Popup */
+.theme-dark .modal-yWgWj-.modal-1sor29 {
+  background-color: var(--dark4);
+}
+
+/* STOP: Popups */
+/* START: Rich Presence */
+/* Full Profile Top No Activity */
+.theme-dark .topSectionNormal-2-vo2m {
+  background-color: #111;
+}
+
+/* Full Profile Top Activity 1 */
+.theme-dark .topSectionPlaying-1J5E4n {
+  background-color: #36363f;
+}
+
+/* Full Profile Top Activity 2 */
+.theme-dark .topSectionPlaying-1J5E4n {
+  background-color: #26262f;
+}
+
+/* Full Profile Bottom */
+.theme-dark .body-3ND3kc {
+  background-color: #161616;
+}
+
+/* Full Profile Spotify */
+.theme-dark .topSectionSpotify-1lI0-P {
+  background-color: #363f36;
+}
+
+.theme-dark .topSectionSpotify-1lI0-P .actionButton-3W1xZa.button-38aScr.lookInverted-2D7oAl.colorGreen-29iAKY.sizeSmall-2cSMqn.grow-q77ONN {
+  background-color: #eee;
+}
+
+/* Mini Profile Top Shade */
+.theme-dark .activityUserPopout-2yItg2.activity-11LB_k {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Mini Profile Top Activity  */
+.theme-dark .headerPlaying-j0WQBV.header-2BwW8b.size16-14cGz5 {
+  background-color: #36363f;
+}
+
+/* Mini Profile Top Spotify */
+.theme-dark .headerSpotify-zpWxgT.header-2BwW8b.size16-14cGz5 {
+  background-color: #363f36;
+}
+
+/* Mini Profile Main */
+.theme-dark .body-3iLsc4 {
+  background-color: #1a1a1a;
+}
+
+/* Mini Profile Bottom */
+.theme-dark .footer-1fjuF6 {
+  background-color: #161616;
+}
+
+/* Mini Profile Chat */
+.theme-dark .footer-1fjuF6>input {
+  background-color: #111;
+}
+
+/* STOP: Rich Presence */
 /* STOP: Dark Theme */
