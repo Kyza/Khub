@@ -1,0 +1,29 @@
+/* Server Folder Shadow */
+.expandedFolderBackground-2sPsd- {
+  filter: drop-shadow(0px 0px 5px #070707);
+}
+
+/* User Panel */
+.panels-j1Uci_ {
+  box-shadow: 0px 20px 30px 20px black;
+}
+
+/* PFP Shadow */
+.avatar-17mtNa, .avatar-3uk_u9, .avatar-3EQepX, .avatarWrapperNormal-3wFMbf.avatarWrapper-3H_478 {
+  filter: drop-shadow(0px 0px 5px black);
+}
+
+/* Top Bar Shadow */
+.title-3qD0b-.container-1r6BKw.themed-ANHk51, .searchBar-6Kv8R2, .header-2o-2hj {
+  box-shadow: 0px -20px 30px 20px black;
+}
+
+/* Guild Shadow */
+.listItem-2P_4kh {
+  filter: drop-shadow(0px 0px 2px black);
+}
+
+/* Image Shadow */
+.anchor-3Z-8Bb.anchorUnderlineOnHover-2ESHQB.imageWrapper-2p5ogY.imageZoom-1n-ADA.clickable-3Ya1ho.embedWrapper-3AbfJJ {
+  filter: drop-shadow(0px 0px 5px black);
+}
