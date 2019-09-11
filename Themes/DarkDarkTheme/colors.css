@@ -1,5 +1,17 @@
 /* START: Dark Theme */
 /* START: Variables */
+/* Theme Variables */
+* {
+	--dark0: #0d0d0d;
+	--dark1: #111;
+	--dark2: #131313;
+	--dark3: #161616;
+	--dark4: #1a1a1a;
+	--dark5: #1f1f1f;
+	--dark6: #222;
+	--dark7: #2a2a2a;
+}
+/* Dark Theme Variables */
 .theme-dark {
   --header-primary: #ccc;
   --header-secondary: #b9bbbe;
@@ -11,11 +23,11 @@
   --interactive-hover: #bbb;
   --interactive-active: #ccc;
   --interactive-muted: #4f545c;
-  --background-primary: #1a1a1a;
-  --background-secondary: #161616;
-  --background-tertiary: #111;
-  --background-accent: #2a2a2a;
-  --background-floating: #111;
+  --background-primary: var(--dark4);
+  --background-secondary: var(--dark3);
+  --background-tertiary: var(--dark1);
+  --background-accent: var(--dark7);
+  --background-floating: var(--dark1);
   --background-modifier-hover: rgba(79, 84, 92, 0.16);
   --background-modifier-active: rgba(79, 84, 92, 0.24);
   --background-modifier-selected: rgba(79, 84, 92, 0.32);
@@ -23,13 +35,13 @@
   --elevation-low: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
   --elevation-high: 0 8px 16px rgba(0, 0, 0, 0.24);
   --guild-header-text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  --channeltextarea-background: #131313;
+  --channeltextarea-background: var(--dark2);
   --activity-card-background: red;
-  --deprecated-panel-background: #131313;
+  --deprecated-panel-background: var(--dark2);
   --deprecated-card-bg: rgba(32, 34, 37, 0.6);
   --deprecated-card-editable-bg: rgba(32, 34, 37, 0.3);
-  --deprecated-store-bg: #1a1a1a;
-  --deprecated-quickswitcher-input-background: #111;
+  --deprecated-store-bg: var(--dark4);
+  --deprecated-quickswitcher-input-background: var(--dark1);
   --deprecated-quickswitcher-input-placeholder: hsla(0, 0%, 100%, 0.3);
   --deprecated-text-input-bg: rgba(0, 0, 0, 0.1);
   --deprecated-text-input-border: rgba(0, 0, 0, 0.3);
@@ -61,112 +73,112 @@
 /* START: Titlebars */
 /* Main Titlebar */
 .theme-dark #app-mount {
-  background-color: #0d0d0d;
+  background-color: var(--dark0);
 }
 
 /* Server Titlebar */
 .theme-dark .container-2Rl01u.clickable-2ap7je {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* Channel Titlebar */
 .theme-dark .title-3qD0b- {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* DMs Titlebar */
 .theme-dark .searchBar-6Kv8R2 {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* STOP: Titlebars */
 /* START: Chat Box */
 /* Autocomplete Above Textarea */
 .theme-dark .autocomplete-1vrmpx.autocomplete-i9yVHs {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* STOP: Chat Box */
 /* Autocomplete Selector */
 .theme-dark .autocompleteRow-2OthDa .selectorSelected-1_M1WV {
-  background-color: #1a1a1a;
+  background-color: var(--dark4);
 }
 
 /* START: Emoji Picker */
 /* Top Tabs */
 /* TODO: Fix white background. */
 .theme-dark #bda-qem, .theme-dark #bda-qem>* {
-  background-color: #131313 !important;
+  background-color: var(--dark2) !important;
   color: var(--header-primary) !important;
 }
 
 /* Main Panel */
 .theme-dark .emojiPicker-3m1S-j {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Frequently Used */
 .theme-dark .category-2U57w6 {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Search Bar */
 .theme-dark .inner-3ErfOT {
-  background-color: #1a1a1a;
+  background-color: var(--dark4);
 }
 
 /* Twitch Panel */
 .theme-dark #bda-qem-twitch-container {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Favorite Panel */
 .theme-dark #bda-qem-favourite-container {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* STOP: Emoji Picker */
 /* START: Ping Menu */
 /* Ping Menu Top */
 .theme-dark .header-ykumBX.header-2Kf7Yu.header-3LXPrb {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* Ping Menu Middle */
 .theme-dark .messagesPopoutWrap-1MQ1bW>div:nth-child(2).scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
-  background-color: #1a1a1a;
+  background-color: var(--dark4);
 }
 
 /* Ping Menu Bottom */
 .theme-dark .messagesPopoutWrap-1MQ1bW>div:nth-child(3) {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* Ping Menu Message */
 .theme-dark .messageGroupWrapper-o-Zw7G {
-  background-color: #1a1a1a;
-  border-color: #111;
+  background-color: var(--dark4);
+  border-color: var(--dark1);
 }
 
 /* STOP: Ping Menu */
 /* START: Search */
 /* Search Menu */
 .theme-dark .resultsWrapper-hoiXCY {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Search Menu Back */
 .theme-dark .searchResultsWrap-2DKFzt .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhost-28MSn0.scrollerTrack-1ZIpsv {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Search Channel Name */
 .theme-dark .channelSeparator-1X1FuH, .channelName-1QajIf {
-  background-color: #161616 !important;
+  background-color: var(--dark3) !important;
 }
 
 .theme-dark .div-1QajIf {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* Search Channel Separator */
@@ -176,18 +188,18 @@
 
 /* Search Results Info */
 .theme-dark .searchHeader-1l-wpR {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* Highlighted Search Result */
 .theme-dark .searchResultMessage-2VxO12.hit-NLlWXA {
-  background-color: #1f1f1f !important;
-  border-color: #111;
+  background-color: var(--dark5) !important;
+  border-color: var(--dark1);
 }
 
 /* Expanded Search Result */
 .theme-dark .searchResult-3pzFAB.expanded-v2Szsz {
-  border-color: #111;
+  border-color: var(--dark1);
 }
 
 /* Search Result Gradients 1 */
@@ -210,8 +222,8 @@
 
 /* Search Dropdown */
 .theme-dark .container-3ayLPN.elevationBorderHigh-2WYJ09 {
-  background-color: #131313;
-  border-color: #1f1f1f;
+  background-color: var(--dark2);
+  border-color: var(--dark5);
   border-width: 2px;
   border-style: solid;
 }
@@ -224,14 +236,14 @@
 /* START: Pin Menu */
 /* Pin Menu Top */
 .theme-dark .header-ykumBX.header-2Kf7Yu {
-  background-color: #131313;
+  background-color: var(--dark2);
 }
 
 /* STOP: Pin Menu */
 /* START: Sliders */
 /* Slider Off */
 .theme-dark .valueUnchecked-2lU_20 {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* Slider On Blue */
@@ -246,47 +258,47 @@
 
 /* BetterDiscord Slider Off */
 .theme-dark .ui-switch:not(.checked) {
-  background-color: #111 !important;
+  background-color: var(--dark1) !important;
 }
 
 /* STOP: Sliders */
 /* START Nitro Boost Menu */
 /* Nitro Main */
 .applicationStore-1pNvnv {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Nitro Tier */
 .tier1Banner-1B_WXY {
-  background-color: #161616 !important;
+  background-color: var(--dark3) !important;
 }
 
 /* Nitro Top */
 .theme-dark .flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignCenter-1dQNNs.noWrap-3jynv6.header-2tA9Os {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* Nitro Center */
 .theme-dark .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0.content-2qfHzC {
-  background-color: #1a1a1a;
+  background-color: var(--dark5);
 }
 
 /* Nitro Bottom */
 .theme-dark .flex-1xMQg5.flex-1O1GKY.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-3rDWdC.footer-1o3nCu {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Boosting Tiers */
 .theme-dark .tierNoneContainer-3hhK3h {
-  background-color: #1f1f1f;
+  background-color: var(--dark5);
 }
 
 .theme-dark .tierHeader---JJFb {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 .theme-dark .tierBody-16Chc9 {
-  background-color: #1f1f1f;
+  background-color: var(--dark5);
 }
 
 .theme-dark .tierNoneText-2OvCv7 {
@@ -304,11 +316,11 @@
 }
 
 .theme-dark .carouselLeftGradientEdge-3P4spl {
-  background-image: linear-gradient(90deg, #111, rgba(54, 57, 63, 0));
+  background-image: linear-gradient(90deg, var(--dark1), rgba(54, 57, 63, 0));
 }
 
 .theme-dark .carouselRightGradientEdge-2Z3H8D {
-  background-image: linear-gradient(-90deg, #111, rgba(54, 57, 63, 0));
+  background-image: linear-gradient(-90deg, var(--dark1), rgba(54, 57, 63, 0));
 }
 
 /* STOP: Nitro Boost Menu */
