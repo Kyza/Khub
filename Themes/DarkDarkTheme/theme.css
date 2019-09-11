@@ -3,12 +3,12 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "1.2.12";
+  content: "1.2.13";
 }
 
 /* Branding */
 .titleBar-AC4pGV:after {
-  content: "v1.2.12 by Kyza#9994" !important;
+  content: "v1.2.13 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
@@ -701,6 +701,12 @@ code {
 #bda-qem, #bda-qem > * {
   background-color: #1a1a1a !important;
 }
+
+/* BD Plugin Update Center */
+.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0.container-2zArDx.content-8biNdB.selectable {
+  background-color: #161616;
+}
+
 
 /* Activity Top */
 .theme-dark .container-1r6BKw {
