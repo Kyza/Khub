@@ -397,4 +397,29 @@
 }
 
 /* STOP: Rich Presence */
+/* START: BetterDiscord */
+.inner-3ErfOT {
+  background-color: var(--dark6) !important;
+}
+
+/* START: SelectedSafeEmbedGenerator */
+#embedPopupWrapper {
+  background-color: var(--dark2) !important;
+}
+
+#embedPreviewWrapper,
+#providerName,
+#providerUrl,
+#authorName,
+#authorUrl,
+#description,
+#imageUrl,
+#colorPicker,
+#embedPopupWrapper>input[type="button"]:nth-child(9) {
+  background-color: var(--dark4) !important;
+  color: white !important;
+}
+
+/* STOP: SelectedSafeEmbedGenerator */
+/* STOP: BetterDiscord */
 /* STOP: Dark Theme */
