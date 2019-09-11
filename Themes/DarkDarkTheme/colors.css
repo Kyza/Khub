@@ -1,3 +1,5 @@
+/* START: Dark Theme */
+/* START: Variables */
 .theme-dark {
   --header-primary: #ccc;
   --header-secondary: #b9bbbe;
@@ -36,8 +38,8 @@
   --deprecated-text-input-prefix: #dcddde;
 }
 
-/* Scrollbars */
-/* Most Scrollbars */
+/* STOP: Variables */
+/* START: Scrollbars */
 .theme-dark #app-mount ::-webkit-scrollbar-track-piece {
   border-radius: 0px;
   background-color: transparent;
@@ -55,7 +57,8 @@
   border-color: transparent;
 }
 
-/* Titlebars */
+/* STOP: Scrollbars */
+/* START: Titlebars */
 /* Main Titlebar */
 #app-mount {
   background-color: #0d0d0d;
@@ -76,18 +79,20 @@
   background-color: #111;
 }
 
-/* Chat Box */
+/* STOP: Titlebars */
+/* START: Chat Box */
 /* Autocomplete Above Textarea */
 .theme-dark .autocomplete-1vrmpx.autocomplete-i9yVHs {
   background-color: #111;
 }
 
+/* STOP: Chat Box */
 /* Autocomplete Selector */
 .autocompleteRow-2OthDa .selectorSelected-1_M1WV {
   background-color: #1a1a1a;
 }
 
-/* Emoji Picker */
+/* START: Emoji Picker */
 /* Top Tabs */
 /* TODO: Fix white background. */
 #bda-qem, #bda-qem>* {
@@ -119,3 +124,29 @@
 #bda-qem-favourite-container {
   background-color: #161616;
 }
+
+/* STOP: Emoji Picker */
+/* START: Ping Menu */
+/* Ping Menu Top */
+.theme-dark .header-ykumBX.header-2Kf7Yu.header-3LXPrb {
+  background-color: #131313;
+}
+
+/* Ping Menu Middle */
+.theme-dark .messagesPopoutWrap-1MQ1bW>div:nth-child(2).scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix {
+  background-color: #1a1a1a;
+}
+
+/* Ping Menu Bottom */
+.theme-dark .messagesPopoutWrap-1MQ1bW>div:nth-child(3) {
+  background-color: #131313;
+}
+
+/* Ping Menu Message */
+.theme-dark .messageGroupWrapper-o-Zw7G {
+  background-color: #1a1a1a;
+  border-color: #111;
+}
+
+/* STOP: Ping Menu */
+/* STOP: Dark Theme */
