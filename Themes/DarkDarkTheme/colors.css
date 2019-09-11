@@ -79,7 +79,7 @@
 
 /* Server Titlebar */
 .theme-dark .container-2Rl01u.clickable-2ap7je {
-  background-color: var(--dark2);
+  background-color: var(--dark1);
 }
 
 /* Channel Titlebar */
@@ -401,15 +401,12 @@
 .searchBox-3Y2Vi7.searchBoxInput-uJ66lD {
   background-color: var(--dark7);
 }
-
 .popoutContainer-3WC9HR.homepage-28Bghb.homepage-nMy8gk {
-  background-color: var(--dark4);
+    background-color: var(--dark4);
 }
-
 .popoutContainer-3WC9HR.homepage-28Bghb.homepage-nMy8gk:hover {
-  background-color: var(--dark5);
+    background-color: var(--dark5);
 }
-
 /* STOP: Discover Tab */
 /* START: Library Tab */
 /* Top Buttons */
