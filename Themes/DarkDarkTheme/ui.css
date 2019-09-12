@@ -2,6 +2,7 @@
 /* Chat over members list */
 .spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr {
   z-index: 2 !important;
+  overflow: visible;
 }
 
 .membersWrap-2h-GB4 {
@@ -9,7 +10,7 @@
 }
 
 .theme-dark .inner-zqa7da.flex-1O1GKY {
-  margin-right: -240px;
+  margin-right: -222px;
   height: 70px;
   border-radius: 0px;
 }
