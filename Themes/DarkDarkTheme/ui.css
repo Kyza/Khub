@@ -9,9 +9,13 @@
   z-index: 1 !important;
 }
 
+.membersWrap-2h-GB4 .members-1998pB, .membersWrap-2h-GB4 .member-3W1lQa {
+    max-width: 100% !important;
+}
+
 .inner-zqa7da.flex-1O1GKY {
   min-height: 70px;
-  width: calc(100% + 240px);
+  width: calc(100% + 357px);
   border-radius: 0px;
 }
 
@@ -150,8 +154,12 @@
   border-bottom: none;
 }
 
-.containerDefault-3GGEv_ {
+.containerDefault-3GGEv_>div {
+    height: 35px;
+}
+.containerDefault-3GGEv_ .name-IbjUBS {
   text-align: center;
+  font-size: 16px !important;
 }
 
 .iconVisibility-1yaA_k {
@@ -183,6 +191,18 @@
 /* Members List */
 .membersGroup-v9BXpm {
   text-align: center;
+  font-size: 14px;
+  padding-top: 10px;
+  height: 35px;
+  border-radius: 5px;
+  margin: 7px;
+  margin-right: 0px;
+  background-color: var(--dark6);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--dark4);
+  border-top: none;
+  border-bottom: none;
 }
 
 .member-3W1lQa .layout-2DM8Md {
@@ -226,4 +246,5 @@
 
 .membersWrap-2h-GB4, .searchResultsWrap-2DKFzt {
   margin-bottom: 70px;
+  width: 357px;
 }
