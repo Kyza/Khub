@@ -9,14 +9,14 @@
   z-index: 1 !important;
 }
 
-.theme-dark .inner-zqa7da.flex-1O1GKY {
-  margin-right: -222px;
+.inner-zqa7da.flex-1O1GKY {
   height: 70px;
+  width: calc(100% + 240px);
   border-radius: 0px;
 }
 
 .uploadModal-2ifh8j .inner-zqa7da.flex-1O1GKY.innerNoAutocomplete-1WpcVO {
-  margin-right: 0px;
+  width: 100%;
   border-radius: 10px;
 }
 
