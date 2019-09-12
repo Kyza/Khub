@@ -28,7 +28,7 @@ This BetterDiscord plugin adds a button to the right of your text box which allo
 
 ## Changelog
 
-### 1.3.1
+### 1.3.2
 
  * Fixed some visual bugs.
 
