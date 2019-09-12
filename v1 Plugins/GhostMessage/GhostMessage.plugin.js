@@ -62,7 +62,7 @@ function unpatch() {
 }
 
 GhostMessage.prototype.load = function() {
-  addButton();
+//   addButton();
   patch();
 };
 
@@ -147,7 +147,7 @@ function addButton() {
       removeButton();
     }
   } catch (e) {
-    console.log(e);
+//     console.log(e);
   }
   setEnabled(enabled);
 }
@@ -242,7 +242,7 @@ GhostMessage.prototype.getDescription = function() {
 };
 
 GhostMessage.prototype.getVersion = function() {
-  return "1.0.2";
+  return "1.0.3";
 };
 
 GhostMessage.prototype.getAuthor = function() {
