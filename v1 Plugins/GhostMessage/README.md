@@ -16,6 +16,11 @@ Click the new button in the text area to toggle sending ghost messages.
 
 ## Changelog
 
+# 1.0.3
+
+ * Fixed the plugin adding the button on load even if it is disabled.
+ * Removed an error that occurs when switching to something that isn't a channel.
+
 ### 1.0.2
 
  * Fixed the button styling.
