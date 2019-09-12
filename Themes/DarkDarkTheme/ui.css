@@ -10,7 +10,7 @@
 }
 
 .inner-zqa7da.flex-1O1GKY {
-  height: 70px;
+  min-height: 70px;
   width: calc(100% + 240px);
   border-radius: 0px;
 }
@@ -34,7 +34,7 @@
 
 .form-2fGMdU {
   margin: 0px;
-  height: 70px;
+  min-height: 70px;
 }
 
 .channelTextArea-1LDbYG.channelTextArea-rNsIhG {
@@ -51,7 +51,7 @@
 
 .textArea-2Spzkt.textArea-2Spzkt.scrollbarGhostHairline-1mSOM1.scrollbar-3dvm_9 {
   margin: auto;
-  height: 0px !important;
+  /*height: 0px !important;*/
 }
 
 #charcounter {
