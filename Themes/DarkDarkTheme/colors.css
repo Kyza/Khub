@@ -87,7 +87,7 @@
   background-color: var(--dark2) !important;
 }
 
-.searchBar-3dMhjb {
+.theme-dark .searchBar-3dMhjb {
   background-color: var(--dark4);
 }
 
@@ -269,12 +269,12 @@
 /* STOP: Sliders */
 /* START Nitro Boost Menu */
 /* Nitro Main */
-.applicationStore-1pNvnv {
+.theme-dark .applicationStore-1pNvnv {
   background-color: var(--dark3);
 }
 
 /* Nitro Tier */
-.tier1Banner-1B_WXY {
+.theme-dark .tier1Banner-1B_WXY {
   background-color: var(--dark3) !important;
 }
 
@@ -455,23 +455,23 @@
 /* STOP: Server Folders */
 /* START: Delete Message Dialog */
 /* Center */
-.modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy {
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy {
   background-color: var(--dark4);
 }
 
 /* Message */
-.modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .message-2qRu38 {
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .message-2qRu38 {
   background-color: var(--dark3);
 }
 
 /* Footer */
-.modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .footer-3rDWdC {
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .footer-3rDWdC {
   background-color: var(--dark2);
 }
 
 /* STOP: Delete Message Dialog */
 /* START: Add Friends To Group */
-.modal-yWgWj-.popout-103y-5.sizeSmall-1jtLQy {
+.theme-dark .modal-yWgWj-.popout-103y-5.sizeSmall-1jtLQy {
     background-color: var(--dark1);
 }
 /* STOP: Add Friends To Group */
