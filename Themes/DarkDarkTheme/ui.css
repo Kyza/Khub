@@ -136,6 +136,15 @@
   border-bottom: none;
 }
 
+.selected-37j_iU .content-3at_AU:hover {
+  background-color: var(--dark7);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--dark4);
+  border-top: none;
+  border-bottom: none;
+}
+
 .containerDefault-3GGEv_ {
   text-align: center;
 }
@@ -174,7 +183,7 @@
 .member-3W1lQa .layout-2DM8Md {
   border-width: 0px;
   border-style: solid;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: transparent;
   border-top: none;
   border-bottom: none;
   transition-duration: 0.2s;
@@ -189,6 +198,16 @@
 }
 
 .member-3W1lQa.selected-aXhQR6 .layout-2DM8Md {
+  background-color: var(--dark6);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--dark4);
+  border-top: none;
+  border-bottom: none;
+}
+
+.member-3W1lQa.selected-aXhQR6 .layout-2DM8Md:hover {
+  background-color: var(--dark7);
   border-width: 10px;
   border-style: solid;
   border-color: var(--dark4);
