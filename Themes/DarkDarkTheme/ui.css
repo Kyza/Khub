@@ -5,7 +5,7 @@
   overflow: visible;
 }
 
-.membersWrap-2h-GB4 {
+.membersWrap-2h-GB4, .searchResultsWrap-2DKFzt {
   z-index: 1 !important;
 }
 
@@ -224,6 +224,6 @@
   padding-top: 20px;
 }
 
-.membersWrap-2h-GB4 {
+.membersWrap-2h-GB4, .searchResultsWrap-2DKFzt {
   margin-bottom: 70px;
 }
