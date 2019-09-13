@@ -117,7 +117,18 @@
 
 /* START: Emoji Picker */
 /* Top Tabs */
-/* TODO: Fix white background. */
+/* Fixing BD's screwed up CSS. */
+.theme-dark #bda-qem button {
+  margin: 0px !important;
+  box-shadow: none;
+  border: 1px solid hsla(0, 0%, 74.9%, .2);
+}
+
+.theme-dark #bda-qem {
+  border: none !important;
+  padding: 0px !important;
+}
+
 .theme-dark #bda-qem, .theme-dark #bda-qem>* {
   background-color: var(--dark2) !important;
   color: var(--header-primary) !important;
@@ -146,6 +157,14 @@
 /* Favorite Panel */
 .theme-dark #bda-qem-favourite-container {
   background-color: var(--dark3);
+}
+
+.theme-dark .emojiItem-109bjA.selected-39BZ4S {
+  background-color: var(--dark7) !important;
+}
+
+.theme-dark .categories-1feg4n .item-16cXuq {
+  filter: brightness(60%);
 }
 
 /* STOP: Emoji Picker */
