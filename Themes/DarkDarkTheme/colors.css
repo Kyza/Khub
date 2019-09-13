@@ -252,8 +252,8 @@
 }
 
 /* Slider On Blue */
-.theme-dark .valueChecked-m-4IJZ {
-  background-color: #667ac4;
+.theme-dark .valueChecked-m-4IJZ, .theme-dark .ui-switch.checked {
+  background-color: #667ac4 !important;
 }
 
 /* Slider On Green */
@@ -511,6 +511,59 @@
 }
 
 /* STOP: Settings Modals */
+/* START: Buttons */
+/* Buttons */
+.lookFilled-1Gx00P.colorBrand-3pXr91 {
+  background-color: transparent;
+  border: 1px solid #7289da;
+}
+/* Large Checkboxes */
+/* Blue */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"] {
+    background: transparent !important;
+    border-color: rgb(114, 137, 218) !important;
+    transition-duration: 0.4s;
+}
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"]:hover {
+    background-color: rgb(114, 137, 218) !important;
+}
+/* Green */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"] {
+    background: transparent !important;
+    border-color: rgb(67, 181, 129) !important;
+    transition-duration: 0.4s;
+}
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"]:hover {
+    background-color: rgb(67, 181, 129) !important;
+}
+/* Yellow */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"] {
+    background: transparent !important;
+    border-color: rgb(250, 166, 26) !important;
+    transition-duration: 0.4s;
+}
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"]:hover {
+    background-color: rgb(250, 166, 26) !important;
+}
+/* Orange */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"] {
+    background: transparent !important;
+    border-color: rgb(245, 119, 49) !important;
+    transition-duration: 0.4s;
+}
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"]:hover {
+    background-color: rgb(245, 119, 49) !important;
+}
+/* Red */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"] {
+    background: transparent !important;
+    border-color: rgb(240, 71, 71) !important;
+    transition-duration: 0.4s;
+}
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"]:hover {
+    background-color: rgb(240, 71, 71) !important;
+}
+/* STOP: Buttons */
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
   background-color: var(--dark6) !important;
