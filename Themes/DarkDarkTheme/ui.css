@@ -1,3 +1,31 @@
+@keyframes transitionIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+
+  50% {
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf, .containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf>div {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-name: transitionIn;
+  animation-fill-mode: forwards;
+}
+
+.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.messages-3amgkR {
+  width: 100px !important;
+}
+
 /* Textarea */
 /* Chat over members list */
 .spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr {
