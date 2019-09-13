@@ -472,20 +472,45 @@
 /* STOP: Delete Message Dialog */
 /* START: Add Friends To Group */
 .theme-dark .modal-yWgWj-.popout-103y-5.sizeSmall-1jtLQy {
-    background-color: var(--dark1);
+  background-color: var(--dark1);
 }
+
 /* STOP: Add Friends To Group */
 /* START: User Panel */
 .theme-dark .container-1giJp5 {
   background-color: var(--dark2);
 }
+
 .theme-dark .panels-j1Uci_ {
   background-color: transparent;
 }
+
 .theme-dark .container-3baos1 {
   background-color: var(--dark2);
 }
+
 /* STOP: User Panel */
+/* START: Date Picker */
+.calendarPicker-2yf6Ci, .react-datepicker, .react-datepicker__header {
+  background-color: var(--dark5) !important;
+}
+
+.react-datepicker__day, .react-datepicker__navigation {
+  background-color: var(--dark7) !important;
+}
+
+/* STOP: Date Picker */
+/* START: Settings Modals */
+.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0 {
+  padding-top: 20px;
+  background-color: var(--dark4);
+}
+
+.footer-3rDWdC {
+  background-color: var(--dark3) !important;
+}
+
+/* STOP: Settings Modals */
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
   background-color: var(--dark6) !important;
