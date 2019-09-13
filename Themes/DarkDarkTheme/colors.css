@@ -2,6 +2,7 @@
 /* START: Variables */
 /* Theme Variables */
 * {
+  --dark-1: #070707;
   --dark0: #0d0d0d;
   --dark1: #111;
   --dark2: #131313;
@@ -10,6 +11,11 @@
   --dark5: #1f1f1f;
   --dark6: #222;
   --dark7: #2a2a2a;
+  --dark-blue: #53639e;
+  --dark-green: #30825d;
+  --dark-yellow: #b58900;
+  --dark-orange: #cb4b16;
+  --dark-red: #c63f3f;
 }
 
 /* Dark Theme Variables */
@@ -222,7 +228,7 @@
 
 /* Search Result Gradients 3 */
 .theme-dark .searchResults-2J8dju .searchResultMessage-2VxO12.hit-NLlWXA {
-  -webkit-box-shadow: 0px 0px 10px #070707;
+  -webkit-box-shadow: 0px 0px 10px var(--dark-1);
 }
 
 /* Search Dropdown */
@@ -253,12 +259,12 @@
 
 /* Slider On Blue */
 .theme-dark .valueChecked-m-4IJZ, .theme-dark .ui-switch.checked {
-  background-color: #667ac4 !important;
+  background-color: var(--dark-blue) !important;
 }
 
 /* Slider On Green */
 .theme-dark .valueChecked-m-4IJZ.themeDefault-24hCdX {
-  background-color: #30825d !important;
+  background-color: var(--dark-green) !important;
 }
 
 /* BetterDiscord Slider Off */
@@ -339,7 +345,7 @@
 /* START: Rich Presence */
 /* Full Profile Top No Activity */
 .theme-dark .topSectionNormal-2-vo2m {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* Full Profile Top Activity 1 */
@@ -354,7 +360,7 @@
 
 /* Full Profile Bottom */
 .theme-dark .body-3ND3kc {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Full Profile Spotify */
@@ -388,12 +394,12 @@
 
 /* Mini Profile Bottom */
 .theme-dark .footer-1fjuF6 {
-  background-color: #161616;
+  background-color: var(--dark3);
 }
 
 /* Mini Profile Chat */
 .theme-dark .footer-1fjuF6>input {
-  background-color: #111;
+  background-color: var(--dark1);
 }
 
 /* STOP: Rich Presence */
@@ -515,54 +521,67 @@
 /* Buttons */
 .lookFilled-1Gx00P.colorBrand-3pXr91 {
   background-color: transparent;
-  border: 1px solid #7289da;
+  border: 1px solid var(--dark-blue);
 }
+
+.lookFilled-1Gx00P.colorGreen-29iAKY {}
+
 /* Large Checkboxes */
 /* Blue */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"] {
-    background: transparent !important;
-    border-color: rgb(114, 137, 218) !important;
-    transition-duration: 0.4s;
+  background: transparent !important;
+  border-color: var(--dark-blue) !important;
+  transition-duration: 0.4s;
 }
+
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"]:hover {
-    background-color: rgb(114, 137, 218) !important;
+  background-color: var(--dark-blue) !important;
 }
+
 /* Green */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"] {
-    background: transparent !important;
-    border-color: rgb(67, 181, 129) !important;
-    transition-duration: 0.4s;
+  background: transparent !important;
+  border-color: var(--dark-green) !important;
+  transition-duration: 0.4s;
 }
+
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"]:hover {
-    background-color: rgb(67, 181, 129) !important;
+  background-color: var(--dark-green) !important;
 }
+
 /* Yellow */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"] {
-    background: transparent !important;
-    border-color: rgb(250, 166, 26) !important;
-    transition-duration: 0.4s;
+  background: transparent !important;
+  border-color: var(--dark-yellow) !important;
+  transition-duration: 0.4s;
 }
+
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"]:hover {
-    background-color: rgb(250, 166, 26) !important;
+  background-color: var(--dark-yellow) !important;
 }
+
 /* Orange */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"] {
-    background: transparent !important;
-    border-color: rgb(245, 119, 49) !important;
-    transition-duration: 0.4s;
+  background: transparent !important;
+  border-color: var(--dark-orange) !important;
+  transition-duration: 0.4s;
 }
+
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"]:hover {
-    background-color: rgb(245, 119, 49) !important;
+  background-color: var(--dark-orange) !important;
 }
+
 /* Red */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"] {
-    background: transparent !important;
-    border-color: rgb(240, 71, 71) !important;
-    transition-duration: 0.4s;
+  background: transparent !important;
+  border-color: var(--dark-red) !important;
+  transition-duration: 0.4s;
 }
+
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"]:hover {
-    background-color: rgb(240, 71, 71) !important;
+  background-color: var(--dark-red) !important;
 }
+
 /* STOP: Buttons */
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
