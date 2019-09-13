@@ -517,7 +517,22 @@
 }
 
 /* STOP: Settings Modals */
-/* START: Buttons */
+/* START: Controls */
+/* Dropdown Selected */
+.css-12o7ek3-option {
+  background-color: var(--dark2);
+}
+
+/* Dropdown Unselected */
+.css-1aymab5-option {
+  background-color: var(--dark3);
+}
+
+/* Dropdown Hovered */
+.css-1gnr91b-option {
+  background-color: var(--dark4);
+}
+
 /* Buttons */
 .lookFilled-1Gx00P.colorBrand-3pXr91 {
   background-color: transparent;
@@ -526,7 +541,31 @@
 
 .lookFilled-1Gx00P.colorGreen-29iAKY {}
 
+/* Slider */
+.barFill-23-gu- {
+  background-color: var(--dark-blue);
+}
+
+/* Microphone Slider */
+[style*="background: rgb(105, 196, 154);"] {
+  background-color: var(--dark-green) !important;
+}
+
+.sliderBar-3DezvM.microphone-2rtdHw .barFill-23-gu- {
+  background-color: var(--dark-yellow) !important;
+  filter: brighten(-0.1);
+}
+
+.sliderBar-3DezvM.microphone-2rtdHw .grow {
+  background-color: var(--dark-yellow) !important;
+}
+
 /* Large Checkboxes */
+/* Check Mark */
+.checkbox-1ix_J3.checked-3_4uQ9 {
+  background-color: var(--dark7);
+}
+
 /* Blue */
 .cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"] {
   background: transparent !important;
@@ -582,7 +621,18 @@
   background-color: var(--dark-red) !important;
 }
 
-/* STOP: Buttons */
+/* STOP: Controls */
+/* START: Settings */
+.activeGame-14JI7o.notDetected-33MY4s {
+  background-color: var(--dark2);
+}
+
+/* Search Games */
+.searchBox-3Y2Vi7.search-MFQ5bU {
+  background-color: var(--dark2);
+}
+
+/* STOP: Settings */
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
   background-color: var(--dark6) !important;
