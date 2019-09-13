@@ -111,7 +111,12 @@
 
 /* User Panel */
 .panels-j1Uci_ {
-  height: 70px;
+  min-height: 70px;
+  max-height: 122px;
+}
+
+.container-1giJp5 {
+  border-top-right-radius: 20px !important;
 }
 
 .container-3baos1 {
@@ -283,10 +288,3 @@
 .theme-dark .sidebar-2K8pFh {
   background-color: var(--dark3);
 }
-
-.panels-j1Uci_ {
-  height: 122px;
-  border-top-right-radius: 20px !important;
-}
-
-.container-1giJp5 {}
