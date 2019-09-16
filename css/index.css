@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+:root {
+  --titlebar-height: 60px;
+  --primary: #ca3e47;
+  --secondary-dark: #111;
+  --tertiary-dark: #333;
+  --secondary-light: #aaa;
+  --tertiary-light: #ddd;
+  --hamburger-distance: 11px;
+}
+
+body, #body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: "Open Sans";
+}
+
+#titlebar {
+  width: 100%;
+  height: var(--titlebar-height);
+  background-color: var(--secondary-dark);
+}
+
+#content {
+  height: 100%;
+  transition-duration: 3s;
+}
+
+#content.theme-dark {
+  color: var(--secondary-dark);
+  background-color: var(--tertiary-dark);
+}
+
+#content.theme-light {
+  color: var(--secondary-light);
+  background-color: var(--tertiary-light);
+}
+
+#hamburger {
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-left: 8px;
+  padding-right: 8px;
+  width: var(--titlebar-height);
+  height: var(--titlebar-height);
+  line-height: 0px;
+}
+
+.meat {
+  position: absolute;
+	height: 5px;
+	width: 60px;
+	background-color: white;
+	border-radius: 5px;
+
+	transition-duration: 0.4s;
+}
+
+.meat:nth-of-type(1) {
+  top: calc(0px + var(--hamburger-distance) * 1);
+}
+
+.meat:nth-of-type(2) {
+  top: calc(var(--hamburger-distance) * 2);
+}
+
+.meat:nth-of-type(3) {
+  top: calc(var(--hamburger-distance) * 3);
+}
+
+.meat:nth-of-type(4) {
+  top: calc(var(--hamburger-distance) * 4);
+}
+
+@keyframes topX {
+	0% {
+		transform: none;
+	}
+	40% {
+		transform: translateY(5px);
+	}
+	60% {
+		transform: translateY(5px);
+	}
+	100% {
+		transform: translateX(5.5px) rotateZ(45deg) translateY(8px);
+	}
+}
+@keyframes bottomX {
+	0% {
+		transform: none;
+	}
+	40% {
+		transform: translateY(-5px);
+	}
+	60% {
+		transform: translateY(-5px);
+	}
+	100% {
+		transform: translateX(5.5px) rotateZ(-45deg) translateY(-8px);
+	}
+}
+
+#hamburger[open] .meat:nth-of-type(1) {
+  opacity: 0;
+	transform: translateY(-300%);
+}
+#hamburger[open] .meat:nth-of-type(2) {
+	animation-name: topX;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+	animation-delay: 0s;
+	animation-play-state: running;
+}
+#hamburger[closed] .meat:nth-of-type(2) {
+	animation-name: topX;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-direction: reverse;
+	animation-delay: 0s;
+	animation-play-state: running;
+}
+#hamburger[open] .meat:nth-of-type(3) {
+	animation-name: bottomX;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-direction: normal;
+	animation-delay: 0s;
+	animation-play-state: running;
+}
+#hamburger[closed] .meat:nth-of-type(3) {
+	animation-name: bottomX;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+	animation-direction: reverse;
+	animation-delay: 0s;
+	animation-play-state: running;
+}
+#hamburger[open] .meat:nth-of-type(4) {
+  opacity: 0;
+	transform: translateY(300%);
+}
