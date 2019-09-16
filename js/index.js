@@ -27,8 +27,7 @@ class Hamburger extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      closed: true
+      open: false
     };
   }
 
@@ -36,11 +35,9 @@ class Hamburger extends React.Component {
     return (
       <div id="hamburger" open={this.state.open} onClick={() => {
         if (this.state.open) {
-          this.setState({ open: false, closed: true });
-        } else if (this.state.closed) {
-          this.setState({ open: true, closed: false });
+          this.setState({ open: false });
         } else {
-          this.setState({ open: true, closed: false });
+          this.setState({ open: true });
         }
         console.log(this);
       }}>

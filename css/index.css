@@ -7,7 +7,7 @@
   --tertiary-dark: #333;
   --secondary-light: #aaa;
   --tertiary-light: #ddd;
-  --hamburger-distance: 11px;
+  --hamburger-distance: 13px;
 }
 
 body, #body {
@@ -61,7 +61,7 @@ body, #body {
 }
 
 .meat:nth-of-type(1) {
-  top: calc(0px + var(--hamburger-distance) * 1);
+  top: calc(var(--hamburger-distance) * 1);
 }
 
 .meat:nth-of-type(2) {
@@ -69,85 +69,23 @@ body, #body {
 }
 
 .meat:nth-of-type(3) {
-  top: calc(var(--hamburger-distance) * 3);
+  top: calc(var(--hamburger-distance) * 2);
 }
 
 .meat:nth-of-type(4) {
-  top: calc(var(--hamburger-distance) * 4);
+  top: calc(var(--hamburger-distance) * 3);
 }
 
-@keyframes topX {
-	0% {
-		transform: none;
-	}
-	40% {
-		transform: translateY(5px);
-	}
-	60% {
-		transform: translateY(5px);
-	}
-	100% {
-		transform: translateX(5.5px) rotateZ(45deg) translateY(8px);
-	}
-}
-@keyframes bottomX {
-	0% {
-		transform: none;
-	}
-	40% {
-		transform: translateY(-5px);
-	}
-	60% {
-		transform: translateY(-5px);
-	}
-	100% {
-		transform: translateX(5.5px) rotateZ(-45deg) translateY(-8px);
-	}
-}
 
 #hamburger[open] .meat:nth-of-type(1) {
   opacity: 0;
 	transform: translateY(-300%);
 }
 #hamburger[open] .meat:nth-of-type(2) {
-	animation-name: topX;
-	animation-fill-mode: forwards;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: 1;
-	animation-direction: normal;
-	animation-delay: 0s;
-	animation-play-state: running;
-}
-#hamburger[closed] .meat:nth-of-type(2) {
-	animation-name: topX;
-	animation-fill-mode: forwards;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: 1;
-	animation-direction: reverse;
-	animation-delay: 0s;
-	animation-play-state: running;
+	transform: translateX(0px) rotateZ(45deg) translateY(0px);
 }
 #hamburger[open] .meat:nth-of-type(3) {
-	animation-name: bottomX;
-	animation-fill-mode: forwards;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: 1;
-	animation-direction: normal;
-	animation-delay: 0s;
-	animation-play-state: running;
-}
-#hamburger[closed] .meat:nth-of-type(3) {
-	animation-name: bottomX;
-	animation-fill-mode: forwards;
-	animation-duration: 1s;
-	animation-timing-function: ease-in-out;
-	animation-iteration-count: 1;
-	animation-direction: reverse;
-	animation-delay: 0s;
-	animation-play-state: running;
+	transform: translateX(0px) rotateZ(-45deg) translateY(-0px);
 }
 #hamburger[open] .meat:nth-of-type(4) {
   opacity: 0;
