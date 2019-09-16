@@ -18,6 +18,7 @@ class Titlebar extends React.Component {
     return (
       <div id="titlebar">
         <Hamburger />
+        <Hiddenbar id="hiddenbar" />
       </div>
     );
   }
@@ -50,11 +51,33 @@ class Hamburger extends React.Component {
   }
 }
 
+class Hiddenbar extends React.Component {
+  render() {
+    return (
+      <div id={this.props.id}>
+        <TitlebarButton id="home" text="Home" onClick={() => {
+          navigate("https://kyza.gq/");
+        }} />
+        <TitlebarButton id="khub" text="Khub • BetterDiscord" onClick={() => {
+          navigate("https://kyza.gq/discord/");
+        }} />
+        <TitlebarButton id="discord" text="Discord" onClick={() => {
+          navigate("https://kyza.gq/discord/");
+        }} />
+      </div>
+    );
+  }
+}
+
 class TitlebarButton extends React.Component {
   render() {
     return (
       <div id={this.props.id} class="titlebarButton" onClick={this.props.onClick}>
-        <div class="titlebarText">{this.props.text}</div>
+        <span class="ghostSpan"></span>
+        <span class="ghostSpan"></span>
+        <span class="ghostSpan"></span>
+        <span class="ghostSpan"></span>
+        {this.props.text}
       </div>
     );
   }

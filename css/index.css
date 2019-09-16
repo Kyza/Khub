@@ -23,6 +23,52 @@ body, #body {
   background-color: var(--secondary-dark);
 }
 
+.titlebarButton {
+	width: 100vw;
+	height: auto;
+	text-align: center;
+
+	font-size: 36px;
+	color: var(--tertiary-dark);
+}
+
+.ghostSpan {
+	left: 0px;
+	right: 0px;
+	height: 49px;
+  background: var(--bg);
+  -webkit-clip-path: var(--clip);
+  clip-path: var(--clip);
+  opacity: 0.5;
+  position: absolute;
+  z-index: 1;
+}
+.ghostSpan:nth-of-type(1) {
+  --bg: #00f;
+  --clip: polygon(0 0, 100% 0, 50% 50%, 50% 50%);
+}
+.ghostSpan:nth-of-type(2) {
+  --bg: #f00;
+  --clip: polygon(100% 0, 100% 100%, 50% 50%);
+}
+.ghostSpan:nth-of-type(3) {
+  --bg: #008000;
+  --clip: polygon(0 100%, 100% 100%, 50% 50%);
+}
+.ghostSpann:nth-of-type(4) {
+  --bg: #800080;
+  --clip: polygon(0 0, 0 100%, 50% 50%);
+}
+.ghostSpan:nth-of-type(1):hover,
+.ghostSpan:nth-of-type(2):hover,
+.ghostSpan:nth-of-type(3):hover,
+.ghostSpan:nth-of-type(4):hover {
+	transition-duration: 0.4s;
+	--clip: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  opacity: 1;
+  z-index: 2;
+}
+
 #content {
   height: 100%;
   transition-duration: 3s;
@@ -39,19 +85,15 @@ body, #body {
 }
 
 #hamburger {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding-left: 8px;
-  padding-right: 8px;
-  width: var(--titlebar-height);
+  width: 100%;
   height: var(--titlebar-height);
   line-height: 0px;
 }
 
 .meat {
   position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	height: 5px;
 	width: 60px;
 	background-color: white;
@@ -79,15 +121,29 @@ body, #body {
 
 #hamburger[open] .meat:nth-of-type(1) {
   opacity: 0;
-	transform: translateY(-300%);
+	transform: translateX(-50%) translateY(-300%);
 }
 #hamburger[open] .meat:nth-of-type(2) {
-	transform: translateX(0px) rotateZ(45deg) translateY(0px);
+	transform: translateX(-50%) rotateZ(45deg) translateY(0px);
 }
 #hamburger[open] .meat:nth-of-type(3) {
-	transform: translateX(0px) rotateZ(-45deg) translateY(-0px);
+	transform: translateX(-50%) rotateZ(-45deg) translateY(-0px);
 }
 #hamburger[open] .meat:nth-of-type(4) {
   opacity: 0;
-	transform: translateY(300%);
+	transform: translateX(-50%) translateY(300%);
+}
+
+#hiddenbar {
+	position: absolute;
+	top: var(--titlebar-height);
+	left: 0px;
+	height: 0px;
+	width: 100vw;
+	overflow: hidden;
+	background-color: var(--primary);
+	transition-duration: 0.5s;
+}
+#hamburger[open] ~ #hiddenbar {
+	height: 100vh;
 }
