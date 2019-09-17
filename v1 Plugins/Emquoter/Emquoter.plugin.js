@@ -827,7 +827,7 @@ var Emquoter = (() => {
             obj.description = finalMessage;
             obj.banner = false; // Photo is a banner, nothing is a small image on the right.
             obj.image = message.author.avatarUrl; // The image displayed on the right.
-            obj.color = "#ff0000"; // The color on the left of the embed.
+            obj.color = "#000000"; // The color on the left of the embed.
 
             var request = require("request");
 
