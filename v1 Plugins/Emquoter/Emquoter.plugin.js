@@ -38,21 +38,22 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.0.0",
+      "version": "0.0.2",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/Emquoter/Emquoter.plugin.js"
     },
-    "changelog": [{
-        "title": "New Stuff",
-        "items": ["Made the plugin exist."]
-      }
-      // ,
-      // {
-      //   "title": "Bugs Squashed",
-      //   "type": "fixed",
-      //   "items": ["Fixed more visuals for the ghost button."]
+    "changelog": [
+			// {
+      //   "title": "New Stuff",
+      //   "items": ["Made the plugin exist."]
       // }
+      // ,
+      {
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["It no longer breaks SafeEmbedGenerator.", "It actually removes the second embed in quotes now."]
+      }
       // ,
       // {
       //   "title": "Improvements",
@@ -393,16 +394,15 @@ var Emquoter = (() => {
               var embedLinkRegex = /^https:\/\/discord-embed-api.herokuapp.com\/embed\/(?:(\d{20}|\w{20}))$/g;
               var embedLinks = messageLinkHTML.match(embedLinkRegex);
 
+							var shouldRemoveEmbed = false;
+
               if (embedLinks) {
                 // Will never loop more than once, but better to be safe than sorry.
                 for (let k = 0; k < embedLinks.length; k++) {
                   messageLinks[j].innerHTML = "";
                   // Remove the embed quote, the jump links will take care of it.
-                  var quoteEmbeds = messages[i].querySelectorAll(`[class*="embedWrapper"]`);
-                  for (let l = 0; l < quoteEmbeds.length; l++) {
-                    quoteEmbeds[l].remove();
-                  }
-                }
+									shouldRemoveEmbed = true;
+                 }
               }
 
               // any character that is not a word character or whitespace
@@ -412,6 +412,11 @@ var Emquoter = (() => {
               if (jumpLinks) {
                 // Will never loop more than once, but better to be safe than sorry.
                 for (let k = 0; k < jumpLinks.length; k++) {
+									var quoteEmbeds = messages[i].querySelectorAll(`[class*="embedWrapper"]`);
+									for (let l = 0; l < quoteEmbeds.length; l++) {
+										quoteEmbeds[l].remove();
+									}
+
                   messageLinks[j].innerHTML = "Click To Jump";
                   if (messageLinks[j].nextSibling) {
                     messageLinks[j].nextSibling.textContent = messageLinks[j].nextSibling.textContent.trim();
@@ -727,48 +732,6 @@ var Emquoter = (() => {
           for (let i = 0; i < buttons.length; i++) {
             buttons[i].remove();
           }
-        }
-
-        hasPermission(permission) {
-          var channel = DiscordAPI.currentChannel;
-          var permissions = channel.discordObject.permissions;
-
-          var hexCode;
-
-          // General
-          if (permission == "generalCreateInstantInvite") hexCode = 0x1;
-          if (permission == "generalKickMembers") hexCode = 0x2;
-          if (permission == "generalBanMembers") hexCode = 0x4;
-          if (permission == "generalAdministrator") hexCode = 0x8;
-          if (permission == "generalManageChannels") hexCode = 0x10;
-          if (permission == "generalManageServer") hexCode = 0x20;
-          if (permission == "generalChangeNickname") hexCode = 0x4000000;
-          if (permission == "generalManageNicknames") hexCode = 0x8000000;
-          if (permission == "generalManageRoles") hexCode = 0x10000000;
-          if (permission == "generalManageWebhooks") hexCode = 0x20000000;
-          if (permission == "generalManageEmojis") hexCode = 0x40000000;
-          if (permission == "generalViewAuditLog") hexCode = 0x80;
-          // Text
-          if (permission == "textAddReactions") hexCode = 0x40;
-          if (permission == "textReadMessages") hexCode = 0x400;
-          if (permission == "textSendMessages") hexCode = 0x800;
-          if (permission == "textSendTTSMessages") hexCode = 0x1000;
-          if (permission == "textManageMessages") hexCode = 0x2000;
-          if (permission == "textEmbedLinks") hexCode = 0x4000;
-          if (permission == "textAttachFiles") hexCode = 0x8000;
-          if (permission == "textReadMessageHistory") hexCode = 0x10000;
-          if (permission == "textMentionEveryone") hexCode = 0x20000;
-          if (permission == "textUseExternalEmojis") hexCode = 0x40000;
-          // Voice
-          if (permission == "voiceViewChannel") hexCode = 0x400;
-          if (permission == "voiceConnect") hexCode = 0x100000;
-          if (permission == "voiceSpeak") hexCode = 0x200000;
-          if (permission == "voiceMuteMembers") hexCode = 0x400000;
-          if (permission == "voiceDeafenMembers") hexCode = 0x800000;
-          if (permission == "voiceMoveMembers") hexCode = 0x1000000;
-          if (permission == "voiceUseVAD") hexCode = 0x2000000;
-
-          return (permissions & hexCode) != 0;
         }
 
         sendTextQuotes(userMessage) {
