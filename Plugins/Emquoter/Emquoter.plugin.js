@@ -38,16 +38,16 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.0.7",
+      "version": "0.0.8",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/Emquoter/Emquoter.plugin.js"
     },
     "changelog": [
-      // {
-      //   "title": "New Stuff",
-      //   "items": ["Made the plugin exist."]
-      // }
+      {
+        "title": "New Stuff",
+        "items": ["Added most of the support for markdown in quotes.", "Made sure the jump link was removed from error quotes."]
+      }
       // ,
       // {
       //   "title": "Bugs Squashed",
@@ -222,7 +222,8 @@ var Emquoter = (() => {
         MessageActions,
         Dispatcher,
         DiscordPermissions,
-        ChannelStore
+        ChannelStore,
+				SimpleMarkdown
       } = DiscordModules;
 
       var updateInterval;
@@ -295,8 +296,8 @@ var Emquoter = (() => {
           }, 5000);
 
 
-					removeInterval = setInterval(() => {
-						this.removeEmbeds();
+          removeInterval = setInterval(() => {
+            this.removeEmbeds();
           }, 100);
 
           this.addButtons();
@@ -440,7 +441,7 @@ var Emquoter = (() => {
             for (let j = 0; j < embeds.length; j++) {
               if (embeds[j].querySelector(`a[href*="https://discord-embed-api.herokuapp.com/embed/"]`)) {
                 embeds[j].remove();
-								embedMessage.removeAttribute("emquoter-remove-embeds");
+                embedMessage.removeAttribute("emquoter-remove-embeds");
               }
             }
           }
@@ -500,14 +501,10 @@ var Emquoter = (() => {
 
         buildQuoteEmbed(messageLink, messageObject) {
           try {
-            if (!messageObject.guild) {
-              messageObject.guild = DiscordAPI.Guild.fromId(messageObject.guild_id);
-            }
+            messageObject.channel = DiscordAPI.Channel.fromId(messageObject.channel_id);
           } catch (e) {}
           try {
-            if (!messageObject.channel) {
-              messageObject.channel = DiscordAPI.Channel.fromId(messageObject.channel_id);
-            }
+            messageObject.guild = messageObject.channel.guild;
           } catch (e) {}
           try {
             messageObject.author = DiscordAPI.User.fromId(messageObject.author.id);
@@ -518,12 +515,12 @@ var Emquoter = (() => {
 
           var wrapper = document.createElement("div");
           wrapper.className = `${embed.embed} ${embed.embedMargin} emquoter-embed`;
-					// messageLink.remove();
-					// wrapper.insertAfter(messageLink.parentNode.parentNode);
-					messageLink.parentNode.insertBefore(wrapper, messageLink.nextSibling);
-					if (!messageLink.parentNode.parentNode.querySelector(`a[href*="https://discord-embed-api.herokuapp.com/embed/"]`)) {
-						// messageLink.parentNode.parentNode.remove();
-					}
+          // messageLink.remove();
+          // wrapper.insertAfter(messageLink.parentNode.parentNode);
+          messageLink.parentNode.insertBefore(wrapper, messageLink.nextSibling);
+          if (!messageLink.parentNode.parentNode.querySelector(`a[href*="https://discord-embed-api.herokuapp.com/embed/"]`)) {
+            // messageLink.parentNode.parentNode.remove();
+          }
 
           var pill = document.createElement("div");
           pill.className = embed.embedPill;
@@ -545,6 +542,7 @@ var Emquoter = (() => {
           providerIcon.style = "margin-right: 5px; width: 16px; height: 16px; transform: translateY(3px); border-radius: 100%;";
           if (messageObject) {
             contentInner.appendChild(providerIcon);
+            console.log(messageObject);
             if (messageObject.guild) {
               if (messageObject.guild.icon) {
                 var tried = false;
@@ -564,7 +562,7 @@ var Emquoter = (() => {
               } else {
                 providerIcon.remove();
               }
-            } else if (messageObject.channel.recipient) {
+            } else if (messageObject.channel) {
               if (messageObject.channel.recipient) {
                 providerIcon.src = messageObject.channel.recipient.avatarUrl;
               } else {
@@ -621,24 +619,33 @@ var Emquoter = (() => {
           if (messageObject) {
             providerName.innerHTML = `${new Date(messageObject.timestamp.toString()).toLocaleDateString()} ${new Date(messageObject.timestamp.toString()).toLocaleTimeString()}`;
             authorName.innerHTML = `@${messageObject.author.tag}`;
-            description.innerHTML = `${messageObject.content}`;
-            imageInner.src = `${messageObject.author.avatarUrl}`;
 
-            // if (shouldRemoveEmbed) {
-            //   console.log("THINGS TO REMOVE", messageLink, messageLink.querySelectorAll(`[class*="embedWrapper"]`));
-            //   var quoteEmbeds = messageLink.querySelectorAll(`[class*="embedWrapper"]`);
-            //   for (let i = 0; i < quoteEmbeds.length; i++) {
-            //     console.log(quoteEmbeds[i]);
-            //     quoteEmbeds[i].remove();
-            //   }
-            // }
+            // console.log(this.parseMarkdown(messageObject.content));
+            description.innerHTML = `${this.parseMarkdown(messageObject.content)}`;
+
+            imageInner.src = `${messageObject.author.avatarUrl}`;
           } else {
             providerName.remove();
             authorWrapper.remove();
             description.innerHTML = `Unable to fetch the message.\nYou don't have permission to view it.`;
             image.remove();
+						messageLink.remove();
           }
           this.removeEmbeds();
+        }
+
+        escapeHtml(unsafe) {
+          return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        parseMarkdown(content) {
+					console.log(DiscordModules.SimpleMarkdown);
+          return DiscordModules.SimpleMarkdown.markdownToHtml(content, false);
         }
 
         clearQuotes() {
