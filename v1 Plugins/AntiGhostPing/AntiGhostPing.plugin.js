@@ -38,22 +38,22 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.1.2",
+      "version": "1.1.3",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/AntiGhostPing",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
     },
     "changelog": [
-			// {
-      //   "title": "New Stuff",
-      //   "items": ["Fixed the visuals for the ghost button."]
-      // }
-			// ,
-      {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["Fixed more visuals for the ghost button."]
+			{
+        "title": "New Stuff",
+        "items": ["Removed the Revenge Ping button."]
       }
+			// ,
+      // {
+      //   "title": "Bugs Squashed",
+      //   "type": "fixed",
+      //   "items": ["Fixed more visuals for the ghost button."]
+      // }
 			// ,
       // {
       //   "title": "Improvements",
@@ -369,34 +369,6 @@ var AntiGhostPing = (() => {
 
           askButton.appendTo(ghostPingWrapper);
 
-          // The button to ghostping in pure revenge.
-          var revengePingButton = $(document.createElement("button"));
-
-          revengePingButton.attr("type", "button");
-          revengePingButton.css({
-            "display": "inline",
-            "margin-right": "5px"
-          });
-          revengePingButton.attr("class", "button-38aScr lookFilled-1Gx00P colorBrand-3pXr91 sizeSmall-2cSMqn grow-q77ONN");
-
-          revengePingButton.html(`<div class="contents-18-Yxp">Revenge Ping</div>`);
-
-          revengePingButton.click(() => {
-            try {
-              revengePingButton.prop("disabled", true);
-              // Send a ghostping to the user in the same channel.
-              var discordChannel = DiscordAPI.Channel.fromId(message.channel_id);
-              discordChannel.sendMessage("<@" + message.author.id + ">", true).then((sentMessage) => {
-                sentMessage.delete();
-              });
-            } catch (e) {
-              console.error("Failed to jump to the channel.\n" + channel);
-            }
-          });
-
-          revengePingButton.appendTo(ghostPingWrapper);
-
-          // The button to ghostping in pure revenge.
           var blockButton = $(document.createElement("button"));
 
           blockButton.attr("type", "button");
