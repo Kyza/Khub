@@ -38,7 +38,7 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.0.8",
+      "version": "0.0.9",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/Emquoter/Emquoter.plugin.js"
@@ -46,7 +46,7 @@ var Emquoter = (() => {
     "changelog": [
       {
         "title": "New Stuff",
-        "items": ["Added most of the support for markdown in quotes.", "Made sure the jump link was removed from error quotes."]
+        "items": ["I unbroke cached messages."]
       }
       // ,
       // {
@@ -462,7 +462,7 @@ var Emquoter = (() => {
             });
             if (messageObject) {
               console.log("Using manually cached messages.");
-              this.buildQuoteEmbed(messageLink, messageLink, messageObject);
+              this.buildQuoteEmbed(messageLink, messageObject);
             } else {
               DiscordModules.APIModule.get({
                 url: DiscordModules.DiscordConstants.Endpoints.MESSAGES(channelID),
@@ -542,7 +542,6 @@ var Emquoter = (() => {
           providerIcon.style = "margin-right: 5px; width: 16px; height: 16px; transform: translateY(3px); border-radius: 100%;";
           if (messageObject) {
             contentInner.appendChild(providerIcon);
-            console.log(messageObject);
             if (messageObject.guild) {
               if (messageObject.guild.icon) {
                 var tried = false;
@@ -584,6 +583,7 @@ var Emquoter = (() => {
           var authorIcon = document.createElement("img");
           authorIcon.style = "margin-right: 5px; width: 16px; height: 16px; border-radius: 100%;";
           if (messageObject) {
+						console.log("Message object", messageObject);
             authorIcon.src = `${messageObject.author.avatarUrl}`;
             authorIcon.onerror = () => {
               authorIcon.remove();
