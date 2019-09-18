@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
 				"discord_id": "220584715265114113",
 				"github_username": "KyzaGitHub"
 			}],
-			"version": "1.3.3",
+			"version": "1.3.4",
 			"description": "Adds a button which allows you to create non-bannable embeds with ease.",
 			"website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator",
 			"github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"

@@ -273,7 +273,7 @@ CustomDiscordIcon.prototype.getDescription = function() {
 };
 
 CustomDiscordIcon.prototype.getVersion = function() {
-  return "1.1.2";
+  return "1.1.3";
 };
 
 CustomDiscordIcon.prototype.getAuthor = function() {
