@@ -38,7 +38,7 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.0.2",
+      "version": "0.0.3",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/Emquoter/Emquoter.plugin.js"
@@ -52,7 +52,7 @@ var Emquoter = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["It no longer breaks SafeEmbedGenerator.", "It actually removes the second embed in quotes now."]
+        "items": ["Error embeds now show up."]
       }
       // ,
       // {
@@ -412,9 +412,11 @@ var Emquoter = (() => {
               if (jumpLinks) {
                 // Will never loop more than once, but better to be safe than sorry.
                 for (let k = 0; k < jumpLinks.length; k++) {
-									var quoteEmbeds = messages[i].querySelectorAll(`[class*="embedWrapper"]`);
-									for (let l = 0; l < quoteEmbeds.length; l++) {
-										quoteEmbeds[l].remove();
+									if (shouldRemoveEmbed) {
+										var quoteEmbeds = messages[i].querySelectorAll(`[class*="embedWrapper"]`);
+										for (let l = 0; l < quoteEmbeds.length; l++) {
+											quoteEmbeds[l].remove();
+										}
 									}
 
                   messageLinks[j].innerHTML = "Click To Jump";
@@ -428,11 +430,11 @@ var Emquoter = (() => {
                   if (jumpLinks.length > 5) {
                     // Use a slight timeout so it doesn't get ratelimited.
                     setTimeout(() => {
-                      this.addArtificialQuote(messageLinks[j], channelID, messageID);
+                      this.addArtificialQuote(messageLinks[j], channelID, messageID, shouldRemoveEmbed);
                     }, k * 350);
                   } else {
                     // Go fast, there aren't enough to be ratelimited for.
-                    this.addArtificialQuote(messageLinks[j], channelID, messageID);
+                    this.addArtificialQuote(messageLinks[j], channelID, messageID, shouldRemoveEmbed);
                   }
                 }
               }
@@ -440,7 +442,7 @@ var Emquoter = (() => {
           }
         }
 
-        addArtificialQuote(message, channelID, messageID) {
+        addArtificialQuote(message, channelID, messageID, isQuote) {
           var messageObject;
           try {
             var channelObject = DiscordAPI.Channel.fromId(channelID);
@@ -455,7 +457,7 @@ var Emquoter = (() => {
             });
             if (messageObject) {
               console.log("Using manually cached messages.");
-              this.buildQuoteEmbed(message, messageObject);
+              this.buildQuoteEmbed(message, messageObject, isQuote);
             } else {
               DiscordModules.APIModule.get({
                 url: DiscordModules.DiscordConstants.Endpoints.MESSAGES(channelID),
@@ -477,18 +479,22 @@ var Emquoter = (() => {
                   cachedMessages.push(res.body[i]);
                 }
 
-                this.buildQuoteEmbed(message, messageObject);
-              }).catch(err => {
-                console.error(err);
-              });
+                this.buildQuoteEmbed(message, messageObject, isQuote);
+              }).catch(res => {
+								console.log("Using requested messages.");
+
+                if (res.status != 403) return;
+
+								this.buildQuoteEmbed(message, messageObject, isQuote);
+							});
             }
           } else {
             console.log("Using Discord cached messages.");
-            this.buildQuoteEmbed(message, messageObject);
+            this.buildQuoteEmbed(message, messageObject, isQuote);
           }
         }
 
-        buildQuoteEmbed(messageElement, messageObject) {
+        buildQuoteEmbed(messageElement, messageObject, isQuote) {
           try {
             if (!messageObject.guild) {
               messageObject.guild = DiscordAPI.Guild.fromId(messageObject.guild_id);
@@ -510,9 +516,15 @@ var Emquoter = (() => {
 
           var wrapper = document.createElement("div");
           wrapper.className = `${embed.embed} ${embed.embedMargin} emquoter-embed`;
-
-          wrapper.insertAfter(messageElement);
-          messageElement.remove();
+					if (isQuote) {
+						console.log("doing good");
+						wrapper.insertAfter(messageElement.parentNode.parentNode);
+						messageElement.parentNode.parentNode.remove();
+						messageElement.remove();
+					} else {
+						wrapper.insertAfter(messageElement);
+						messageElement.remove();
+					}
 
           var pill = document.createElement("div");
           pill.className = embed.embedPill;
