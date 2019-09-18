@@ -38,13 +38,13 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.0.3",
+      "version": "0.0.5",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/v1%20Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/Emquoter/Emquoter.plugin.js"
     },
     "changelog": [
-			// {
+      // {
       //   "title": "New Stuff",
       //   "items": ["Made the plugin exist."]
       // }
@@ -52,7 +52,7 @@ var Emquoter = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["Error embeds now show up."]
+        "items": ["Quotes should now display correctly."]
       }
       // ,
       // {
@@ -67,7 +67,7 @@ var Emquoter = (() => {
       // }
     ],
     "main": "index.js"
-		// ,
+    // ,
     // "defaultConfig": [{
     //   "type": "category",
     //   "id": "timeAppearance",
@@ -225,16 +225,8 @@ var Emquoter = (() => {
         ChannelStore
       } = DiscordModules;
 
-      const Storer = WebpackModules.getByProps("commit");
-
-      var ghostPings = [];
-
       var updateInterval;
-      var buttonInterval;
-
-      var panelOpen = false;
-
-      var userID = DiscordAPI.currentUser.id;
+      var removeInterval;
 
       const selectors = {
         "buttonList": new DOMTools.Selector(WebpackModules.getByProps('buttonContainer', 'clickOverride').buttonContainer).value.trim(),
@@ -302,6 +294,11 @@ var Emquoter = (() => {
             PluginUpdater.checkForUpdate("emquoter", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/v1%20Plugins/emquoter/emquoter.plugin.js");
           }, 5000);
 
+
+					removeInterval = setInterval(() => {
+						this.removeEmbeds();
+          }, 100);
+
           this.addButtons();
           this.addMessageIDs();
           this.highlightMessages();
@@ -320,7 +317,7 @@ var Emquoter = (() => {
 
         removeIntervals() {
           clearInterval(updateInterval);
-          clearInterval(buttonInterval);
+          clearInterval(removeInterval);
         }
 
         onSwitch() {
@@ -391,50 +388,42 @@ var Emquoter = (() => {
             for (let j = 0; j < messageLinks.length; j++) {
               let messageLinkHTML = messageLinks[j].innerHTML;
 
-              var embedLinkRegex = /^https:\/\/discord-embed-api.herokuapp.com\/embed\/(?:(\d{20}|\w{20}))$/g;
-              var embedLinks = messageLinkHTML.match(embedLinkRegex);
-
-							var shouldRemoveEmbed = false;
+              let embedLinkRegex = /^https:\/\/discord-embed-api.herokuapp.com\/embed\/(?:(\d{20}|\w{20}))$/g;
+              let embedLinks = messageLinkHTML.match(embedLinkRegex);
 
               if (embedLinks) {
                 // Will never loop more than once, but better to be safe than sorry.
-                for (let k = 0; k < embedLinks.length; k++) {
+                for (var k = 0; k < embedLinks.length; k++) {
                   messageLinks[j].innerHTML = "";
                   // Remove the embed quote, the jump links will take care of it.
-									shouldRemoveEmbed = true;
-                 }
+                  messages[i].setAttribute("emquoter-remove-embeds", "");
+                  this.removeEmbeds();
+                }
               }
 
               // any character that is not a word character or whitespace
-              var jumpLinkRegex = /^https:\/\/discordapp.com\/channels\/(?:(?:\d+)|@me)\/(?:\d+)\/(?:\d+)$/g;
-              var jumpLinks = messageLinkHTML.match(jumpLinkRegex);
+              let jumpLinkRegex = /^https:\/\/discordapp.com\/channels\/(?:(?:\d+)|@me)\/(?:\d+)\/(?:\d+)$/g;
+              let jumpLinks = messageLinkHTML.match(jumpLinkRegex);
 
               if (jumpLinks) {
                 // Will never loop more than once, but better to be safe than sorry.
                 for (let k = 0; k < jumpLinks.length; k++) {
-									if (shouldRemoveEmbed) {
-										var quoteEmbeds = messages[i].querySelectorAll(`[class*="embedWrapper"]`);
-										for (let l = 0; l < quoteEmbeds.length; l++) {
-											quoteEmbeds[l].remove();
-										}
-									}
-
                   messageLinks[j].innerHTML = "Click To Jump";
                   if (messageLinks[j].nextSibling) {
                     messageLinks[j].nextSibling.textContent = messageLinks[j].nextSibling.textContent.trim();
                   }
 
-                  var channelID = jumpLinks[k].split("/")[jumpLinks[k].split("/").length - 2];
-                  var messageID = jumpLinks[k].split("/")[jumpLinks[k].split("/").length - 1];
+                  let channelID = jumpLinks[k].split("/")[jumpLinks[k].split("/").length - 2];
+                  let messageID = jumpLinks[k].split("/")[jumpLinks[k].split("/").length - 1];
 
                   if (jumpLinks.length > 5) {
                     // Use a slight timeout so it doesn't get ratelimited.
                     setTimeout(() => {
-                      this.addArtificialQuote(messageLinks[j], channelID, messageID, shouldRemoveEmbed);
+                      this.addArtificialQuote(messageLinks[j], channelID, messageID);
                     }, k * 350);
                   } else {
                     // Go fast, there aren't enough to be ratelimited for.
-                    this.addArtificialQuote(messageLinks[j], channelID, messageID, shouldRemoveEmbed);
+                    this.addArtificialQuote(messageLinks[j], channelID, messageID);
                   }
                 }
               }
@@ -442,7 +431,22 @@ var Emquoter = (() => {
           }
         }
 
-        addArtificialQuote(message, channelID, messageID, isQuote) {
+        removeEmbeds() {
+          var embedMessages = document.querySelectorAll("[emquoter-remove-embeds]");
+          for (let i = 0; i < embedMessages.length; i++) {
+            var embedMessage = embedMessages[i];
+            var embeds = embedMessage.querySelectorAll(`[class*="embedWrapper"]:not(.emquoter-embed)`);
+
+            for (let j = 0; j < embeds.length; j++) {
+              if (embeds[j].querySelector(`a[href*="https://discord-embed-api.herokuapp.com/embed/"]`)) {
+                embeds[j].remove();
+								embedMessage.removeAttribute("emquoter-remove-embeds");
+              }
+            }
+          }
+        }
+
+        addArtificialQuote(messageLink, channelID, messageID) {
           var messageObject;
           try {
             var channelObject = DiscordAPI.Channel.fromId(channelID);
@@ -457,7 +461,7 @@ var Emquoter = (() => {
             });
             if (messageObject) {
               console.log("Using manually cached messages.");
-              this.buildQuoteEmbed(message, messageObject, isQuote);
+              this.buildQuoteEmbed(messageLink, messageLink, messageObject);
             } else {
               DiscordModules.APIModule.get({
                 url: DiscordModules.DiscordConstants.Endpoints.MESSAGES(channelID),
@@ -479,22 +483,22 @@ var Emquoter = (() => {
                   cachedMessages.push(res.body[i]);
                 }
 
-                this.buildQuoteEmbed(message, messageObject, isQuote);
+                this.buildQuoteEmbed(messageLink, messageObject);
               }).catch(res => {
-								console.log("Using requested messages.");
+                console.log("Using requested messages.");
 
                 if (res.status != 403) return;
 
-								this.buildQuoteEmbed(message, messageObject, isQuote);
-							});
+                this.buildQuoteEmbed(messageLink, messageObject);
+              });
             }
           } else {
             console.log("Using Discord cached messages.");
-            this.buildQuoteEmbed(message, messageObject, isQuote);
+            this.buildQuoteEmbed(messageLink, messageObject);
           }
         }
 
-        buildQuoteEmbed(messageElement, messageObject, isQuote) {
+        buildQuoteEmbed(messageLink, messageObject) {
           try {
             if (!messageObject.guild) {
               messageObject.guild = DiscordAPI.Guild.fromId(messageObject.guild_id);
@@ -509,21 +513,16 @@ var Emquoter = (() => {
             messageObject.author = DiscordAPI.User.fromId(messageObject.author.id);
           } catch (e) {}
 
-          // var messageObject = DiscordAPI.Message.from(messageObj);
-
           // Everything that has an embed pill in it.
           var embed = WebpackModules.getByProps('embedPill');
 
           var wrapper = document.createElement("div");
           wrapper.className = `${embed.embed} ${embed.embedMargin} emquoter-embed`;
-					if (isQuote) {
-						console.log("doing good");
-						wrapper.insertAfter(messageElement.parentNode.parentNode);
-						messageElement.parentNode.parentNode.remove();
-						messageElement.remove();
-					} else {
-						wrapper.insertAfter(messageElement);
-						messageElement.remove();
+					// messageLink.remove();
+					// wrapper.insertAfter(messageLink.parentNode.parentNode);
+					messageLink.parentNode.insertBefore(wrapper, messageLink.nextSibling);
+					if (!messageLink.parentNode.parentNode.querySelector(`a[href*="https://discord-embed-api.herokuapp.com/embed/"]`)) {
+						// messageLink.parentNode.parentNode.remove();
 					}
 
           var pill = document.createElement("div");
@@ -602,14 +601,15 @@ var Emquoter = (() => {
           description.className = `${embed.embedDescription} ${embed.embedMargin}`;
           contentInner.appendChild(description);
 
-          var footer = document.createElement("div");
-          footer.className = `${embed.embedFooter} ${embed.embedMargin}`;
-          contentInner.appendChild(footer);
+          if (messageObject) {
+            var footer = document.createElement("div");
+            footer.className = `${embed.embedFooter} ${embed.embedMargin}`;
+            contentInner.appendChild(footer);
 
-          footer.appendChild(messageElement);
-          messageElement.style = "text-align: center; width: 100vw;";
+            footer.appendChild(messageLink);
+            messageLink.style = "text-align: center; width: 100%;";
+          }
 
-          //https://images-ext-1.discordapp.net/external/rg92Zio_j52oUXSuSVlchaNqDMrcfgzS-G3NCX1_67g/%3Fsize%3D128/https/cdn.discordapp.com/avatars/220584715265114113/1ff5cda803fa294b18a6a7dc4a7ba9d7.png?width=80&height=80
           var image = document.createElement("a");
           image.className = embed.embedThumbnail;
           content.appendChild(image);
@@ -623,12 +623,22 @@ var Emquoter = (() => {
             authorName.innerHTML = `@${messageObject.author.tag}`;
             description.innerHTML = `${messageObject.content}`;
             imageInner.src = `${messageObject.author.avatarUrl}`;
+
+            // if (shouldRemoveEmbed) {
+            //   console.log("THINGS TO REMOVE", messageLink, messageLink.querySelectorAll(`[class*="embedWrapper"]`));
+            //   var quoteEmbeds = messageLink.querySelectorAll(`[class*="embedWrapper"]`);
+            //   for (let i = 0; i < quoteEmbeds.length; i++) {
+            //     console.log(quoteEmbeds[i]);
+            //     quoteEmbeds[i].remove();
+            //   }
+            // }
           } else {
             providerName.remove();
             authorWrapper.remove();
             description.innerHTML = `Unable to fetch the message.\nYou don't have permission to view it.`;
             image.remove();
           }
+          this.removeEmbeds();
         }
 
         clearQuotes() {
