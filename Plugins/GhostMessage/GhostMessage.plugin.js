@@ -157,8 +157,8 @@ function setEnabled(set) {
   // Make the ghost button stay selected if it is clicked on.
   var ghostInner = document.getElementsByClassName("ghost-button-inner")[0];
   if (ghostInner && ghostInner.children[0] && enabled) {
-    ghostInner.setAttribute("style", "opacity: 1");
-    ghostInner.children[0].setAttribute("style", "transform: scale(1.3)");
+    ghostInner.setAttribute("style", "opacity: 1; filter: contrast(2);");
+    ghostInner.children[0].setAttribute("style", "transform: scale(1.2)");
   } else if (ghostInner && ghostInner.children[0] && !enabled) {
     ghostInner.setAttribute("style", "opacity: 0.5");
     ghostInner.children[0].setAttribute("style", "");
