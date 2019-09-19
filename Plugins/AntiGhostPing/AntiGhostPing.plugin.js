@@ -458,15 +458,19 @@ var AntiGhostPing = (() => {
               var ghostButtonInner = document.createElement("div");
               ghostButtonInner.setAttribute("class", "contents-18-Yxp button-3AYNKb button-2vd_v_ ghostping-button-inner");
 
-              var ghostButtonMask = document.createElement("mask");
+              var ghostButtonMask = document.createElementNS("http://www.w3.org/2000/svg", "svg");
               ghostButtonMask.setAttribute("id", "ghostping-button-mask");
+              ghostButtonMask.setAttribute("width", "18");
+              ghostButtonMask.setAttribute("height", "18");
+              ghostButtonMask.setAttribute("viewBox", "0 0 450.002 450.002");
+              ghostButtonMask.setAttribute("style", "filter: invert(70%) !important;");
 
-              var ghostButtonIcon = document.createElement("img");
-              ghostButtonIcon.setAttribute("src", "https://image.flaticon.com/icons/svg/121/121202.svg");
+              var ghostButtonIcon = document.createElementNS("http://www.w3.org/2000/svg", "path");
+              ghostButtonIcon.setAttribute("fill-rule", "evenodd");
+              ghostButtonIcon.setAttribute("clip-rule", "evenodd");
+              ghostButtonIcon.setAttribute("d", "M411.972,204.367c0-118.248-83.808-204.777-186.943-204.365C121.896-0.41,38.001,86.119,38.001,204.367L38.373,441  l62.386-29.716l62.382,38.717l62.212-38.716l62.215,38.718l62.213-38.714l62.221,29.722L411.972,204.367z M143.727,258.801  c-27.585-6.457-44.713-34.053-38.256-61.638l99.894,23.383C198.908,248.13,171.312,265.258,143.727,258.801z M306.276,258.801  c-27.585,6.457-55.181-10.671-61.638-38.256l99.894-23.383C350.988,224.748,333.861,252.344,306.276,258.801z");
+              ghostButtonIcon.setAttribute("fill", "currentColor");
               ghostButtonIcon.setAttribute("class", "icon-3D60ES ghostping-button-icon");
-              ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important; transform: scale(0.8);");
-              ghostButtonIcon.setAttribute("width", "22");
-              ghostButtonIcon.setAttribute("height", "22");
 
               ghostButtonMask.appendChild(ghostButtonIcon);
               ghostButtonInner.appendChild(ghostButtonMask);
