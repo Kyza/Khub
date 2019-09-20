@@ -157,10 +157,10 @@ function setEnabled(set) {
   // Make the ghost button stay selected if it is clicked on.
   var ghostInner = document.getElementsByClassName("ghost-button-inner")[0];
   if (ghostInner && ghostInner.children[0] && enabled) {
-    ghostInner.setAttribute("style", "opacity: 1; filter: contrast(2);");
+    ghostInner.setAttribute("style", "filter: contrast(2);");
     ghostInner.children[0].setAttribute("style", "transform: scale(1.2)");
   } else if (ghostInner && ghostInner.children[0] && !enabled) {
-    ghostInner.setAttribute("style", "opacity: 0.9");
+    ghostInner.setAttribute("style", "");
     ghostInner.children[0].setAttribute("style", "");
   }
 }
@@ -234,7 +234,7 @@ GhostMessage.prototype.getDescription = function() {
 };
 
 GhostMessage.prototype.getVersion = function() {
-  return "1.0.7";
+  return "1.0.8";
 };
 
 GhostMessage.prototype.getAuthor = function() {
