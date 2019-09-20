@@ -105,28 +105,20 @@ function addButton() {
         //<img src="https://image.flaticon.com/icons/svg/24/24207.svg" width="224" height="224" alt="Embed free icon" title="Embed free icon">
         //<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"><path d="M 19.794, 3.299 H 9.765 L 8.797, 0 h -6.598 C 0.99, 0, 0, 0.99, 0, 2.199 V 16.495 c 0, 1.21, 0.99, 2.199, 2.199, 2.199 H 9.897 l 1.1, 3.299 H 19.794 c 1.21, 0, 2.199 -0.99, 2.199 -2.199 V 5.498 C 21.993, 4.289, 21.003, 3.299, 19.794, 3.299 z M 5.68, 13.839 c -2.48, 0 -4.492 -2.018 -4.492 -4.492 s 2.018 -4.492, 4.492 -4.492 c 1.144, 0, 2.183, 0.407, 3.008, 1.171 l 0.071, 0.071 l -1.342, 1.298 l -0.066 -0.06 c -0.313 -0.297 -0.858 -0.643 -1.671 -0.643 c -1.441, 0 -2.612, 1.193 -2.612, 2.661 c 0, 1.468, 1.171, 2.661, 2.612, 2.661 c 1.507, 0, 2.161 -0.962, 2.337 -1.606 h -2.43 v -1.704 h 4.344 l 0.016, 0.077 c 0.044, 0.231, 0.06, 0.434, 0.06, 0.665 C 10.001, 12.036, 8.225, 13.839, 5.68, 13.839 z M 11.739, 9.979 h 4.393 c 0, 0 -0.374, 1.446 -1.715, 3.008 c -0.588 -0.676 -0.995 -1.336 -1.254 -1.864 h -1.089 L 11.739, 9.979 z M 13.625, 13.839 l -0.588, 0.583 l -0.72 -2.452 C 12.685, 12.63, 13.13, 13.262, 13.625, 13.839 z M 20.893, 19.794 c 0, 0.605 -0.495, 1.1 -1.1, 1.1 H 12.096 l 2.199 -2.199 l -0.896 -3.041 l 1.012 -1.012 l 2.953, 2.953 l 0.803 -0.803 l -2.975 -2.953 c 0.99 -1.138, 1.759 -2.474, 2.106 -3.854 h 1.397 V 8.841 H 14.697 v -1.144 h -1.144 v 1.144 H 11.398 l -1.309 -4.443 H 19.794 c 0.605, 0, 1.1, 0.495, 1.1, 1.1 V 19.794 z"></path></svg>
 
-        var ghostButtonIcon = document.createElement("img");
-        //version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"
-        ghostButtonIcon.setAttribute("src", "https://image.flaticon.com/icons/svg/121/121202.svg");
-        ghostButtonIcon.setAttribute("class", "icon-3D60ES");
-        ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
-        ghostButtonIcon.setAttribute("width", "22");
-        ghostButtonIcon.setAttribute("height", "22");
+        var ghostButtonMask = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        ghostButtonMask.setAttribute("width", "18");
+        ghostButtonMask.setAttribute("height", "18");
+        ghostButtonMask.setAttribute("viewBox", "0 0 450.002 450.002");
+        ghostButtonMask.setAttribute("class", "icon-3D60ES");
 
+        var ghostButtonIcon = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        ghostButtonIcon.setAttribute("fill", "currentColor");
+        ghostButtonIcon.setAttribute("fill-rule", "evenodd");
+        ghostButtonIcon.setAttribute("clip-rule", "evenodd");
+        ghostButtonIcon.setAttribute("d", "M411.972,204.367c0-118.248-83.808-204.777-186.943-204.365C121.896-0.41,38.001,86.119,38.001,204.367L38.373,441  l62.386-29.716l62.382,38.717l62.212-38.716l62.215,38.718l62.213-38.714l62.221,29.722L411.972,204.367z M143.727,258.801  c-27.585-6.457-44.713-34.053-38.256-61.638l99.894,23.383C198.908,248.13,171.312,265.258,143.727,258.801z M306.276,258.801  c-27.585,6.457-55.181-10.671-61.638-38.256l99.894-23.383C350.988,224.748,333.861,252.344,306.276,258.801z");
 
-        ghostButtonIcon.onmouseover = () => {
-					if (!enabled) {
-						ghostButtonIcon.setAttribute("style", "filter: invert(100%) !important;");
-					}
-        };
-        ghostButtonIcon.onmouseout = () => {
-					if (!enabled) {
-						ghostButtonIcon.setAttribute("style", "filter: invert(70%) !important;");
-					}
-        };
-
-
-        ghostButtonInner.appendChild(ghostButtonIcon);
+        ghostButtonMask.appendChild(ghostButtonIcon);
+        ghostButtonInner.appendChild(ghostButtonMask);
         ghostButton.appendChild(ghostButtonInner);
         daButtons.insertBefore(ghostButton, daButtons.firstChild);
 
@@ -165,11 +157,11 @@ function setEnabled(set) {
   // Make the ghost button stay selected if it is clicked on.
   var ghostInner = document.getElementsByClassName("ghost-button-inner")[0];
   if (ghostInner && ghostInner.children[0] && enabled) {
-    ghostInner.setAttribute("style", "opacity: 1; transform: none;");
-    ghostInner.children[0].setAttribute("style", "filter: invert(100%) !important; transform: scale(1.3);");
+    ghostInner.setAttribute("style", "opacity: 1; filter: contrast(2);");
+    ghostInner.children[0].setAttribute("style", "transform: scale(1.2)");
   } else if (ghostInner && ghostInner.children[0] && !enabled) {
-    ghostInner.setAttribute("style", "");
-    ghostInner.children[0].setAttribute("style", "filter: invert(70%) !important;");
+    ghostInner.setAttribute("style", "opacity: 0.5");
+    ghostInner.children[0].setAttribute("style", "");
   }
 }
 
