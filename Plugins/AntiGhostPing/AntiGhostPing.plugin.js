@@ -38,7 +38,7 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.1.6",
+      "version": "1.1.7",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/AntiGhostPing",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
@@ -464,7 +464,6 @@ var AntiGhostPing = (() => {
               ghostButtonMask.setAttribute("width", "18");
               ghostButtonMask.setAttribute("height", "18");
               ghostButtonMask.setAttribute("viewBox", "0 0 450.002 450.002");
-              ghostButtonMask.setAttribute("style", "filter: invert(70%) !important;");
 
               var ghostButtonIcon = document.createElementNS("http://www.w3.org/2000/svg", "path");
               ghostButtonIcon.setAttribute("fill-rule", "evenodd");
