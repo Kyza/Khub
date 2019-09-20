@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
 				"discord_id": "220584715265114113",
 				"github_username": "KyzaGitHub"
 			}],
-			"version": "1.3.4",
+			"version": "1.3.5",
 			"description": "Adds a button which allows you to create non-bannable embeds with ease.",
 			"website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator",
 			"github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -43,11 +43,11 @@ var SafeEmbedGenerator = (() => {
 			// 	"items": ["Changed the embed API to my own.", "Added this changelog."]
 			// }
 			// ,
-			// {
-			// 	"title": "Bugs Squashed",
-			// 	"type": "fixed",
-			// 	"items": ["Fixed the visuals for the image type checkbox."]
-			// }
+			{
+				"title": "Bugs Squashed",
+				"type": "fixed",
+				"items": ["Fixed a problem with blacklisting the BD servers."]
+			}
 			// ,
 			// {
 			// 	"title": "Improvements",
@@ -226,7 +226,7 @@ var SafeEmbedGenerator = (() => {
 					} catch (e) {}
 					var betterDiscordServer2;
 					try {
-						betterDiscordServer2 = DiscordAPI.Guild.fromId("86004744966914048")
+						betterDiscordServer2 = DiscordAPI.Guild.fromId("280806472928198656")
 					} catch (e) {}
 
 					if (!betterDiscordServer1 || !betterDiscordServer2) {
