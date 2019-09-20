@@ -38,7 +38,7 @@ var AntiGhostPing = (() => {
         "github_username": "rauenzi",
         "twitter_username": "ZackRauen"
       }],
-      "version": "1.1.5",
+      "version": "1.1.6",
       "description": "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/AntiGhostPing",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
@@ -55,11 +55,12 @@ var AntiGhostPing = (() => {
       //   "items": ["Fixed more visuals for the ghost button."]
       // }
 			// ,
-      // {
-      //   "title": "Improvements",
-      //   "type": "improved",
-      //   "items": []
-      // },
+      {
+        "title": "Improvements",
+        "type": "improved",
+        "items": ["Contributor ZEBAS204 changed the SVG styles. Thank you!"]
+      }
+//	    ,
       // {
       //   "title": "On-going",
       //   "type": "progress",
