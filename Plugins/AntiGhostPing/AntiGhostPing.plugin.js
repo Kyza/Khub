@@ -464,7 +464,6 @@ var AntiGhostPing = (() => {
               ghostButtonMask.setAttribute("width", "18");
               ghostButtonMask.setAttribute("height", "18");
               ghostButtonMask.setAttribute("viewBox", "0 0 450.002 450.002");
-              ghostButtonMask.setAttribute("style", "filter: invert(70%) !important;");
 
               var ghostButtonIcon = document.createElementNS("http://www.w3.org/2000/svg", "path");
               ghostButtonIcon.setAttribute("fill-rule", "evenodd");
