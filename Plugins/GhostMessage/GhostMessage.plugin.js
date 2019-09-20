@@ -234,7 +234,7 @@ GhostMessage.prototype.getDescription = function() {
 };
 
 GhostMessage.prototype.getVersion = function() {
-  return "1.0.5";
+  return "1.0.6";
 };
 
 GhostMessage.prototype.getAuthor = function() {
