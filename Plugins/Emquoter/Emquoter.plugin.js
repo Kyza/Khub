@@ -47,7 +47,7 @@ var Emquoter = (() => {
         "title": "New Stuff",
         "items": ["Quotes now send in the order you select them. Choose wisely!"]
       }
-      // ,
+      ,
       // {
       //   "title": "Bugs Squashed",
       //   "type": "fixed",
