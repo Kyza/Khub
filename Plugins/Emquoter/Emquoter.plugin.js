@@ -38,14 +38,15 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/Emquoter/Emquoter.plugin.js"
     },
-    "changelog": [{
+    "changelog": [
+			{
         "title": "New Stuff",
-        "items": ["Quotes now send in the order you select them. Choose wisely!"]
+        "items": ["Blacklisted embedded quotes on the BetterDiscord servers at BetterDiscord staff request."]
       }
       ,
       // {
@@ -54,17 +55,17 @@ var Emquoter = (() => {
       //   "items": ["Quotes should now display correctly."]
       // }
       // ,
-      {
-        "title": "Improvements",
-        "type": "improved",
-        "items": ["Some minor improvements to quote message generation."]
-      }
-			// ,
       // {
-      //   "title": "On-going",
-      //   "type": "progress",
-      //   "items": []
+      //   "title": "Improvements",
+      //   "type": "improved",
+      //   "items": ["Some minor improvements to quote message generation."]
       // }
+			// ,
+      {
+        "title": "On-going",
+        "type": "progress",
+        "items": ["Early version of text-based quotes. They activate when you do not have permission to use embedded links."]
+      }
     ],
     "main": "index.js"
     // ,
@@ -337,6 +338,32 @@ var Emquoter = (() => {
           return panel.getElement();
         }
 
+				hasPermission() {
+					let whitelist = ["220584715265114113"];
+
+					// If you can't, you simply can't.
+					if (!DiscordAPI.currentChannel.checkPermissions(DiscordPermissions.EMBED_LINKS)) return false;
+
+					// If the user is on the whitelist, return true.
+					if (whitelist.indexOf(DiscordAPI.currentUser.id) > -1) {
+						return true;
+					}
+
+					// If the server is one of the BD servers...
+					if (DiscordAPI.currentGuild.id == "86004744966914048" || DiscordAPI.currentGuild.id == "280806472928198656") {
+						// and the user has no roles, return false.
+						var guildMember = DiscordAPI.currentGuild.members.find((member) => {
+							return member.user.id == DiscordAPI.currentUser.id;
+						});
+						if (guildMember.roles.length == 0) {
+							return false;
+						}
+					}
+
+					// There's no problem with it, return true.
+					return true;
+				}
+
         patch() {
           Patcher.before(MessageActions, "_sendMessage", (thisObject, methodArguments, returnValue) => {
             if (!sendingQuotes) {
@@ -344,7 +371,7 @@ var Emquoter = (() => {
                 if (DiscordAPI.currentChannel.type == "DM") {
                   this.sendEmbedQuotes(methodArguments[1].content);
                 } else {
-                  if (DiscordAPI.currentChannel.checkPermissions(DiscordPermissions.EMBED_LINKS)) {
+                  if (this.hasPermission()) {
                     this.sendEmbedQuotes(methodArguments[1].content);
                   } else {
                     this.sendTextQuotes(methodArguments[1].content);
@@ -823,8 +850,34 @@ var Emquoter = (() => {
         }
 
         sendTextQuotes(userMessage) {
+					sendingQuotes = true;
+
+					console.log("eeeeeee");
           var channel = DiscordAPI.currentChannel;
-          channel.sendBotMessage("Your message hasn't been sent. You do not have permission to embed links, and the backup quote system has not been created yet.\n\nHere's your message back:\n" + userMessage);
+          // channel.sendBotMessage("Your message hasn't been sent. You do not have permission to embed links, and the backup quote system has not been created yet.\n\nHere's your message back:\n" + userMessage);
+					let fullMessage = userMessage + "\n";
+
+					for (let i = 0; i < quotes.length; i++) {
+						let message = quotes[i].message;
+
+						let messageContent = message.content.replaceAll("\n", "\n> ");
+
+						// TODO: Change quotes to names.
+						// let jumpLinkRegex = //g;
+						// let jumpLinks = messageLinks[j].href.match(jumpLinkRegex);
+
+						fullMessage += `> https://discordapp.com/channels/${(message.guild ? message.guild.id : "@me")}/${message.channelId}/${message.id}
+> **@${message.author.tag}** - \`${message.timestamp.toString()}\`
+> ${messageContent}
+
+`;
+					}
+
+					this.clearQuotes();
+
+					channel.sendMessage(fullMessage, false);
+
+					sendingQuotes = false;
         }
 
         sendEmbedQuotes(userMessage) {
