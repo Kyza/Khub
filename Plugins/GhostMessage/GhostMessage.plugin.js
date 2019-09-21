@@ -38,8 +38,8 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.0",
-      "description": "Ever wanted to quote other people's messages using embeds, but without the risk of being banned?",
+      "version": "1.2.1",
+      "description": "Send messages that instantly themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
     },
