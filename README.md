@@ -4,7 +4,7 @@
 
 You are always welcome to contribute to any of my plugins.
 
-Don't know what to do? Visit the projects for each plugin for things needed and in progress fixes.
+Don't know what to do? Visit the projects for each plugin for things needed and in progress fixes by clicking any of the links below.
 
 ## Contributors By Plugin
 
