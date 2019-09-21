@@ -1,9 +1,15 @@
-# [You are looking for this.](https://khub.kyza.gq/)
+# [The Website](https://khub.kyza.gq/)
 
 # Contributors
 
-| SafeEmbedGenerator | GhostMessage | CustomDiscordIcon | AntiGhostPing | Emquoter |
-|:-:|:-:|:-:|:-:|:-:|
-| <a href="https://github.com/BannerBomb/"><img src="https://avatars3.githubusercontent.com/u/11788894?s=128&v=4" /><br><b>BannerBomb</b></a> | <a href="https://github.com/ZEBAS204/"><img src="https://avatars0.githubusercontent.com/u/36385457?s=128&v=4" /><br><b>ZEBAS204</b></a> || <a href="https://github.com/rauenzi/"><img src="https://avatars2.githubusercontent.com/u/6865942?s=128&v=4" /><br><b>rauenzi (Zerebos)</b></a> ||
-|||| <a href="https://github.com/ZEBAS204/"><img src="https://avatars0.githubusercontent.com/u/36385457?s=128&v=4" /><br><b>ZEBAS204</b></a> ||
-|||| <a href="https://github.com/MasicoreLord/"><img src="https://avatars2.githubusercontent.com/u/11468845?s=128&v=4" /><br><b>MasicoreLord</b></a> ||
+You are always welcome to contribute to any of my plugins.
+
+## Contributors By Plugin
+
+<p align="center">
+  <a href="https://github.com/KyzaGitHub/Khub/projects/2#column-6566127">Emquoter</a> - 
+  <a href="https://github.com/KyzaGitHub/Khub/projects/3#column-6566129">SafeEmbedGenerator</a> - 
+  <a href="https://github.com/KyzaGitHub/Khub/projects/5#column-6566248">GhostMessage</a> - 
+  <a href="https://github.com/KyzaGitHub/Khub/projects/4#column-6566147">AntiGhostPing</a> - 
+  <a href="https://github.com/KyzaGitHub/Khub/projects/6#column-6566258">CustomDiscordIcon</a>
+</p>
