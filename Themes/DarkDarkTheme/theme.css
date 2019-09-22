@@ -10,16 +10,22 @@
 
 /* Version */
 li[data-name="DarkDarkTheme"] .bda-version::after {
-  content: "2.0.0";
+  content: "2.0.1";
 }
 
 /* Branding */
-.titleBar-AC4pGV:after {
-  content: "v2.0.0 by Kyza#9994" !important;
+.platform-win .titleBar-AC4pGV:after {
+  content: "v2.0.1 by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
   width: 100% !important;
+}
+
+/* Changelog */
+li[data-name="DarkDarkTheme"] .bda-description:after {
+  content: "\A\AWhat's new in 2.0.1?\A\A Added this changelog.\A Fixed branding on macOS.\A Fixed some broken styles.";
+  white-space: pre;
 }
 
 /* Remove Workmark */
