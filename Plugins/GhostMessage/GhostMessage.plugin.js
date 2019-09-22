@@ -38,24 +38,27 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.1",
-      "description": "Send messages that instantly themselves.",
+      "version": "1.2.2",
+      "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
     },
-    "changelog": [{
-        "title": "New Stuff",
-        "items": ["It now works with messages that have attachments."]
-      },
+    "changelog": [
+      // {
+      //   "title": "New Stuff",
+      //   "items": [""]
+      // }
+      // ,
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["Switching channels before sending the message now still deletes it."]
-      },
+        "items": ["Fixed a bug that occured with EnhancedDiscord."]
+      }
+      ,
       {
         "title": "Improvements",
         "type": "improved",
-        "items": ["Rewrote the plugin to be in the BDv2 style."]
+        "items": ["The button now loads faster."]
       }
       // ,
       // {
@@ -139,6 +142,10 @@ var GhostMessage = (() => {
         ChannelStore,
         SimpleMarkdown
       } = DiscordModules;
+
+			const selectors = {
+				"chat": WebpackModules.getByProps('chat').chat
+			};
 
       var updateInterval;
 
@@ -237,17 +244,23 @@ var GhostMessage = (() => {
         };
 
         onSwitch() {
-          this.addButton();
+          // this.addButton();
         };
+
+        observer({
+          addedNodes
+        }) {
+					for (const node of addedNodes) {
+						if (node.className == selectors.chat) {
+							this.addButton();
+						}
+					}
+        }
 
         addButton() {
           try {
-            var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
-            var channel = DiscordAPI.Channel.from(DiscordAPI.Channel.fromId(channelId));
-            var permissions = channel.discordObject.permissions;
-
             // Only add the button if the user has permissions to send messages and embed links.
-            if (this.hasPermission("textSendMessages") || channel.type != "GUILD_TEXT") {
+            if (DiscordAPI.currentChannel.checkPermissions(DiscordPermissions.SEND_MESSAGES) || channel.type != "GUILD_TEXT") {
               if (document.getElementsByClassName("ghost-button-wrapper").length == 0) {
                 var daButtons = document.getElementsByClassName("buttons-205you")[0];
                 var ghostButton = document.createElement("button");
@@ -278,11 +291,10 @@ var GhostMessage = (() => {
                 daButtons.insertBefore(ghostButton, daButtons.firstChild);
 
                 ghostButton.onclick = () => {
-                  var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
-                  var channel = DiscordAPI.Channel.from(DiscordAPI.Channel.fromId(channelId));
+                  var channel = DiscordAPI.currentChannel;
 
                   // Only send the embed if the user has permissions to embed links.
-                  if (this.hasPermission("textSendMessages") || channel.type != "GUILD_TEXT") {
+                  if (channel.checkPermissions(DiscordPermissions.SEND_MESSAGES) || channel.type != "GUILD_TEXT") {
                     this.setEnabled(!enabled);
                   } else {
                     BdApi.alert("GhostMessage", `You do not have permission to send messages in this channel.<br><br>This is <strong><u>not</u></strong> a problem with the plugin, it is a <strong><u>server setting</u></strong>.`);
@@ -326,49 +338,6 @@ var GhostMessage = (() => {
             const mouseoverEvent = new Event(eventName);
             element.dispatchEvent(mouseoverEvent);
           }
-        }
-
-        hasPermission(permission) {
-          var channelId = window.location.toString().split("/")[window.location.toString().split("/").length - 1];
-          var channel = DiscordAPI.Channel.from(DiscordAPI.Channel.fromId(channelId));
-          var permissions = channel.discordObject.permissions;
-
-          var hexCode;
-
-          // General
-          if (permission == "generalCreateInstantInvite") hexCode = 0x1;
-          if (permission == "generalKickMembers") hexCode = 0x2;
-          if (permission == "generalBanMembers") hexCode = 0x4;
-          if (permission == "generalAdministrator") hexCode = 0x8;
-          if (permission == "generalManageChannels") hexCode = 0x10;
-          if (permission == "generalManageServer") hexCode = 0x20;
-          if (permission == "generalChangeNickname") hexCode = 0x4000000;
-          if (permission == "generalManageNicknames") hexCode = 0x8000000;
-          if (permission == "generalManageRoles") hexCode = 0x10000000;
-          if (permission == "generalManageWebhooks") hexCode = 0x20000000;
-          if (permission == "generalManageEmojis") hexCode = 0x40000000;
-          if (permission == "generalViewAuditLog") hexCode = 0x80;
-          // Text
-          if (permission == "textAddReactions") hexCode = 0x40;
-          if (permission == "textReadMessages") hexCode = 0x400;
-          if (permission == "textSendMessages") hexCode = 0x800;
-          if (permission == "textSendTTSMessages") hexCode = 0x1000;
-          if (permission == "textManageMessages") hexCode = 0x2000;
-          if (permission == "textEmbedLinks") hexCode = 0x4000;
-          if (permission == "textAttachFiles") hexCode = 0x8000;
-          if (permission == "textReadMessageHistory") hexCode = 0x10000;
-          if (permission == "textMentionEveryone") hexCode = 0x20000;
-          if (permission == "textUseExternalEmojis") hexCode = 0x40000;
-          // Voice
-          if (permission == "voiceViewChannel") hexCode = 0x400;
-          if (permission == "voiceConnect") hexCode = 0x100000;
-          if (permission == "voiceSpeak") hexCode = 0x200000;
-          if (permission == "voiceMuteMembers") hexCode = 0x400000;
-          if (permission == "voiceDeafenMembers") hexCode = 0x800000;
-          if (permission == "voiceMoveMembers") hexCode = 0x1000000;
-          if (permission == "voiceUseVAD") hexCode = 0x2000000;
-
-          return (permissions & hexCode) != 0;
         }
       };
     };
