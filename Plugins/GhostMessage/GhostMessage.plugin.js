@@ -38,7 +38,7 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.2",
+      "version": "1.2.3",
       "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
@@ -52,14 +52,14 @@ var GhostMessage = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["Fixed a bug that occured with EnhancedDiscord."]
+        "items": ["The button appears in DMs again."]
       }
-      ,
-      {
-        "title": "Improvements",
-        "type": "improved",
-        "items": ["The button now loads faster."]
-      }
+      // ,
+      // {
+      //   "title": "Improvements",
+      //   "type": "improved",
+      //   "items": ["The button now loads faster."]
+      // }
       // ,
       // {
       //   "title": "On-going",
@@ -258,9 +258,11 @@ var GhostMessage = (() => {
         }
 
         addButton() {
+					let channel = DiscordAPI.currentChannel;
           try {
             // Only add the button if the user has permissions to send messages and embed links.
-            if (DiscordAPI.currentChannel.checkPermissions(DiscordPermissions.SEND_MESSAGES) || channel.type != "GUILD_TEXT") {
+						// DM check should go first so that the .checkPermissions() is not called.
+            if (channel.type == "DM" || channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)) {
               if (document.getElementsByClassName("ghost-button-wrapper").length == 0) {
                 var daButtons = document.getElementsByClassName("buttons-205you")[0];
                 var ghostButton = document.createElement("button");
@@ -306,7 +308,7 @@ var GhostMessage = (() => {
               this.removeButton();
             }
           } catch (e) {
-            //     console.log(e);
+                console.log(e);
           }
           this.setEnabled(enabled);
         }
