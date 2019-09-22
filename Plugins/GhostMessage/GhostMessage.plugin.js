@@ -38,7 +38,7 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.3",
+      "version": "1.2.4",
       "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
@@ -52,7 +52,7 @@ var GhostMessage = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["The button appears in DMs again."]
+        "items": ["The button works in DMs again."]
       }
       // ,
       // {
@@ -259,10 +259,11 @@ var GhostMessage = (() => {
 
         addButton() {
 					let channel = DiscordAPI.currentChannel;
+					// console.log(channel);
           try {
             // Only add the button if the user has permissions to send messages and embed links.
 						// DM check should go first so that the .checkPermissions() is not called.
-            if (channel.type == "DM" || channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)) {
+            if (channel.type == "DM" || channel.type == "GROUP_DM" || channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)) {
               if (document.getElementsByClassName("ghost-button-wrapper").length == 0) {
                 var daButtons = document.getElementsByClassName("buttons-205you")[0];
                 var ghostButton = document.createElement("button");
@@ -296,7 +297,7 @@ var GhostMessage = (() => {
                   var channel = DiscordAPI.currentChannel;
 
                   // Only send the embed if the user has permissions to embed links.
-                  if (channel.checkPermissions(DiscordPermissions.SEND_MESSAGES) || channel.type != "GUILD_TEXT") {
+                  if (channel.type === "DM" || channel.type == "GROUP_DM" || channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)) {
                     this.setEnabled(!enabled);
                   } else {
                     BdApi.alert("GhostMessage", `You do not have permission to send messages in this channel.<br><br>This is <strong><u>not</u></strong> a problem with the plugin, it is a <strong><u>server setting</u></strong>.`);
@@ -308,7 +309,7 @@ var GhostMessage = (() => {
               this.removeButton();
             }
           } catch (e) {
-                console.log(e);
+            console.log(e);
           }
           this.setEnabled(enabled);
         }
