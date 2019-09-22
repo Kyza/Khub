@@ -9,7 +9,7 @@
 @import url("https://khub.kyza.gq/Themes/ThemeUtilities/KyzaPFP.css");
 
 /* Version */
-li[data-name="DarkDarkTheme"] .bda-version::after {
+li[data-name="DarkDarkTheme"] .bda-version:after {
   content: "2.0.1";
 }
 
