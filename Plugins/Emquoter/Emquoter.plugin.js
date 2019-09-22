@@ -38,7 +38,7 @@ var Emquoter = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/Emquoter/Emquoter.plugin.js"
@@ -242,31 +242,21 @@ var Emquoter = (() => {
       };
 
       const css = `
-.theme-light .emquoter-image {
-	filter: invert(30%);
-	margin-top: 2px;
-	width: 14px;
-	height: 14px;
-	background-color: var(--interactive-normal);
-	cursor: pointer;
-	-webkit-mask-image: url('https://image.flaticon.com/icons/svg/565/565703.svg');
-	mask-image: url('https://image.flaticon.com/icons/svg/565/565703.svg');
+.emquoter-button {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.theme-light .emquoter-image:hover {
-	filter: invert(20%);
+.emquoter-icon {
+	width: .875rem; /* Like 14px but will still blend in if chat scale is bumped up or down */
+	height: .875rem;
+    fill: var(--interactive-normal);
 }
-.theme-dark .emquoter-image {
-	filter: invert(70%);
-	margin-top: 2px;
-	width: 14px;
-	height: 14px;
-	background-color: var(--interactive-normal);
-	cursor: pointer;
-	-webkit-mask-image: url('https://image.flaticon.com/icons/svg/565/565703.svg');
-	mask-image: url('https://image.flaticon.com/icons/svg/565/565703.svg');
-}
-.theme-dark .emquoter-image:hover {
-	filter: invert(80%);
+.emquoter-icon:hover {
+	fill: var(--interactive-hover);
 }
 
 [message-id] {
@@ -752,12 +742,47 @@ var Emquoter = (() => {
           button.setAttribute("class", "emquoter-button");
           button.setAttribute("aria-label", "emquoter");
           button.setAttribute("role", "Button");
-
-          let buttonImage = document.createElement("img");
-          buttonImage.setAttribute("class", "emquoter-image");
-          buttonImage.setAttribute("src", "https://image.flaticon.com/icons/svg/565/565703.svg");
-
-          button.appendChild(buttonImage);
+          // Icon from flaticons.com
+          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="emquoter-icon" id="Capa_1" x="0px" y="0px" viewBox="0 0 298.667 298.667" style="enable-background:new 0 0 298.667 298.667;" xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<polygon points="0,170.667 64,170.667 21.333,256 85.333,256 128,170.667 128,42.667 0,42.667    "/>
+			<polygon points="170.667,42.667 170.667,170.667 234.667,170.667 192,256 256,256 298.667,170.667 298.667,42.667    "/>
+		</g>
+	</g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>`
 
           return button;
         }
