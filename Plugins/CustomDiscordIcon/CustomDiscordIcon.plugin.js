@@ -161,7 +161,7 @@ CustomDiscordIcon.prototype.getSettingsPanel = function() {
   iconPath.setAttribute("type", "text");
   iconPath.setAttribute("style", "width: 100%; height: 30px; border-width: 0px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.7); padding-left: 10px; margin-bottom: 10px;");
 
-  var errorHTML = "<br>Your image must use a standard format such as <strong>PNG or JPG</strong>.<br>Animated GIFs are not supported and never will be.<br>Your image can't be a URL to something online, it has to ba saved somewhere.";
+  var errorHTML = "<br>Your image must use a standard format such as <strong>PNG or JPG</strong>.<br>Animated GIFs are not supported and never will be.<br>Your image can't be a URL to something online, it has to be saved somewhere.";
   iconPath.oninput = () => {
     saveSettings();
 
