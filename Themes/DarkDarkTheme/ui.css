@@ -347,3 +347,10 @@ code,
 .platform-osx .unreadMentionsIndicatorTop-gA6RCh {
   transform: translateY(75%);
 }
+
+/* MemberCount Fix */
+#MemberCount {
+  background-color: transparent !important;
+  border: none !important;
+  padding-top: 13px !important;
+}
