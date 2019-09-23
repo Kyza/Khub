@@ -24,7 +24,7 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Changelog */
 li[data-name="DarkDarkTheme"] .bda-description:after {
-  content: "\A\AWhat's new in 2.1.0?\A\A Enabled the UI changes.\A@me if you find something broken!";
+  content: "\A\AWhat's new in 2.1.0?\A\A Enabled the UI changes.\A@me if you find something broken!\A By the way, codeblocks now have a special font made just for code!";
   white-space: pre;
 }
 
