@@ -1,13 +1,13 @@
-# Tyler Cahill's Open Source License
+# Kyza's Open Source License
 
-Copyright (c) 2019 Tyler Cahill
+Copyright (c) 2019 Kyza
 
 
 ## Terms and Conditions
 
 ### Definitions
 
-"This License" refers to Tyler Cahill's Open Source License.
+"This License" refers to Kyza's Open Source License.
 
 "The program", "the source", "the source code", "these
 files", "this file" refers to any and all copyrighted
