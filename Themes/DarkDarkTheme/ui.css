@@ -178,6 +178,12 @@
   border-bottom: none;
 }
 
+/* Edit Box */
+.containerCozy-jafyvG.container-1YxwTf
+  .inner-zqa7da.flex-1O1GKY.innerNoAutocomplete-1WpcVO {
+  width: 100%;
+}
+
 .theme-dark .selected-37j_iU .content-3at_AU {
   background-color: var(--dark6);
 }
