@@ -13,7 +13,8 @@
   }
 }
 
-.containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf, .containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf>div {
+.containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf,
+.containerCozyBounded-1rKFAn.containerCozy-jafyvG.container-1YxwTf > div {
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-delay: 0s;
@@ -33,11 +34,13 @@
   overflow: visible;
 }
 
-.membersWrap-2h-GB4, .searchResultsWrap-2DKFzt {
+.membersWrap-2h-GB4,
+.searchResultsWrap-2DKFzt {
   z-index: 1 !important;
 }
 
-.membersWrap-2h-GB4 .members-1998pB, .membersWrap-2h-GB4 .member-3W1lQa {
+.membersWrap-2h-GB4 .members-1998pB,
+.membersWrap-2h-GB4 .member-3W1lQa {
   max-width: 100% !important;
 }
 
@@ -47,7 +50,8 @@
   border-radius: 0px;
 }
 
-.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr:only-child .inner-zqa7da.flex-1O1GKY {
+.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr:only-child
+  .inner-zqa7da.flex-1O1GKY {
   width: 100%;
 }
 
@@ -133,7 +137,8 @@
 }
 
 /* Fix Horizontal Scrolling */
-.privateChannels-1nO12o .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl {
+.privateChannels-1nO12o
+  .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl {
   overflow-x: hidden !important;
 }
 
@@ -144,7 +149,7 @@
 }
 
 .members-1998pB {
-    width: 100%;
+  width: 100%;
 }
 
 .container-1giJp5 {
@@ -198,7 +203,7 @@
   border-bottom: none;
 }
 
-.containerDefault-3GGEv_>div {
+.containerDefault-3GGEv_ > div {
   height: 35px;
 }
 
@@ -303,16 +308,18 @@
   border-bottom: none;
 }
 
-.modal-yWgWj-.modal-1sor29 .content-38qMG0.medium-zmzTW-.primary-jw0I4K.selectable-x8iAUj {
+.modal-yWgWj-.modal-1sor29
+  .content-38qMG0.medium-zmzTW-.primary-jw0I4K.selectable-x8iAUj {
   padding-top: 20px;
 }
 
-.membersWrap-2h-GB4, .searchResultsWrap-2DKFzt {
+.membersWrap-2h-GB4,
+.searchResultsWrap-2DKFzt {
   margin-bottom: 70px;
   width: 357px;
 }
 
-.membersWrap-2h-GB4>* {
+.membersWrap-2h-GB4 > * {
   width: 100% !important;
 }
 
@@ -324,6 +331,13 @@
 /* Code Font */
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css);
 
-code, #bd-customcss-editor, #bd-customcss-editor-detached {
-    font-family: "Fira Code" !important;
+code,
+#bd-customcss-editor,
+#bd-customcss-editor-detached {
+  font-family: "Fira Code" !important;
+}
+
+/* macOS Unread Mention Top */
+.platform-osx .unreadMentionsIndicatorTop-gA6RCh {
+  transform: translateY(75%);
 }
