@@ -14,7 +14,7 @@ li[data-name="DarkDarkTheme"] .bda-version:after {
 
 /* Changelog */
 li[data-name="DarkDarkTheme"] .bda-description:after {
-  content: "\A\AWhat's new in 2.1.2?\A\A Enabled the UI changes.\A@me if you find something broken!\A By the way, codeblocks now have a special font made just for code!\A Fixed the message edit box width.\A Added an icon to my profile picture.\A Fixed MemberCount.";
+  content: "\A\AWhat's new in 2.1.2?\A\A Moved some code to make it more customisable.\A@me if you find something broken!\A By the way, codeblocks now have a special font made just for code!\A Fixed the message edit box width.\A Added an icon to my profile picture.\A Fixed MemberCount.";
   white-space: pre;
 }
 
