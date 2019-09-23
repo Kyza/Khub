@@ -89,12 +89,12 @@
 #charcounter {
   position: absolute;
   left: 2px !important;
-  top: 6px;
+  top: 4px;
   font-size: 12px;
 }
 
 .uploadModal-2ifh8j #charcounter {
-  left: 5px !important;
+  left: 3px !important;
 }
 
 /* Fancy Buttons */
@@ -141,6 +141,10 @@
 .panels-j1Uci_ {
   min-height: 70px;
   max-height: 122px;
+}
+
+.members-1998pB {
+    width: 100%;
 }
 
 .container-1giJp5 {
