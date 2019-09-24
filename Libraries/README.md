@@ -18,7 +18,7 @@ It's easier than you think with KSS, even if you don't know much JavaScript!
 
 Using KSS/a plugin to style Discord gives you many advantages over pure CSS.
 
-Here is a list of some of them.
+Here is a list of just some of them.
 
  * Automatic updating like plugins with easy changelogs.
  * More complex theme settings.
