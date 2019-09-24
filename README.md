@@ -15,3 +15,9 @@ Don't know what to do? Visit the projects for each plugin for things needed and 
   <a href="https://github.com/KyzaGitHub/Khub/projects/4#column-6566147">AntiGhostPing</a> - 
   <a href="https://github.com/KyzaGitHub/Khub/projects/6#column-6566258">CustomDiscordIcon</a>
 </p>
+
+## Contributors By Theme
+
+<p align="center">
+  <a href="https://github.com/KyzaGitHub/Khub/projects/7#column-6597769">DarkDarkTheme</a>
+</p>
