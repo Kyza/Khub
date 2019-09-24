@@ -29,9 +29,12 @@ function KSS() {
     chat: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("chat").chat
     ),
-    channelTextArea: `${new ZLibrary.DOMTools.Selector(
+    channelTextArea: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("channelTextArea").channelTextArea
-    )} > [class*="inner"]`,
+    ),
+    channelTextAreaInner: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("channelTextArea").inner
+    ),
     titleBar: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("titleBar").titleBar
     ),
@@ -93,6 +96,22 @@ function KSS() {
 
   this.getSelector = (name) => {
     return this.selectors[name];
+  };
+
+  this.selectDarkTheme = () => {
+    console.log("This function has not been created yet.");
+  };
+
+  this.selectLightTheme = () => {
+    console.log("This function has not been created yet.");
+  };
+
+  this.selectCozyMode = () => {
+    console.log("This function has not been created yet.");
+  };
+
+  this.selectCompactMode = () => {
+    console.log("This function has not been created yet.");
   };
 }
 /* STOP: Library */
