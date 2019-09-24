@@ -33,11 +33,7 @@ Here is a list of just some of them.
 
 ## Getting Started
 
-### WIP
-
-Include this JavaScript in your plugin file.
-
-### Still WIP going to make this ask first later.
+Include this JavaScript in the `start()` function of your plugin file.
 
 ```
 if (!document.querySelector("#KSSLibrary")) {
@@ -86,3 +82,5 @@ if (!document.querySelector("#KSSLibrary")) {
   this.init();
 }
 ```
+
+This block of code will ask your users if they are fine with using the library.
