@@ -24,273 +24,273 @@ WScript.Quit();
 
 @else@*/
 
-String.prototype.replaceAll = function (find, replace) {
-	var str = this;
-	return str.replace(
-		new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
-		replace
-	);
+String.prototype.replaceAll = function(find, replace) {
+  var str = this;
+  return str.replace(
+    new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
+    replace
+  );
 };
 
 var DarkDarkTheme = (() => {
-const config = {
-  info: {
-    name: "DarkDarkTheme",
-    authors: [
-      {
-        name: "Kyza",
-        discord_id: "220584715265114113",
-        github_username: "KyzaGitHub"
-      }
+  const config = {
+    info: {
+      name: "DarkDarkTheme",
+      authors: [
+        {
+          name: "Kyza",
+          discord_id: "220584715265114113",
+          github_username: "KyzaGitHub"
+        }
+      ],
+      version: "3.0.0-beta-2",
+      description: "DarkDarkTheme v3. A theme in plugin form.",
+      github:
+        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
+      github_raw:
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+    },
+    changelog: [
+      // {
+      //   "title": "New Stuff",
+      //   "items": ["Removed the Revenge Ping button."]
+      // }
+      // ,
+      // {
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: [
+      //     "The ghostping panel now shows up correctly on macOS and Linux."
+      //   ]
+      // },
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: [
+      //     "Moved the icon to the top right.",
+      //     "Added an animation to the ghostping panel."
+      //   ]
+      // }
+      //	,
+      // {
+      //   "title": "On-going",
+      //   "type": "progress",
+      //   "items": []
+      // }
     ],
-    version: "3.0.0-beta-1",
-    description: "DarkDarkTheme v3. A theme in plugin form.",
-    github:
-      "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
-    github_raw:
-      "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
-  },
-  changelog: [
-    // {
-    //   "title": "New Stuff",
-    //   "items": ["Removed the Revenge Ping button."]
-    // }
-    // ,
-    // {
-    //   title: "Bugs Squashed",
-    //   type: "fixed",
-    //   items: [
-    //     "The ghostping panel now shows up correctly on macOS and Linux."
-    //   ]
-    // },
-    // {
-    //   title: "Improvements",
-    //   type: "improved",
-    //   items: [
-    //     "Moved the icon to the top right.",
-    //     "Added an animation to the ghostping panel."
-    //   ]
-    // }
-    //	,
-    // {
-    //   "title": "On-going",
-    //   "type": "progress",
-    //   "items": []
-    // }
-  ],
-  main: "index.js"
-};
+    main: "index.js"
+  };
 
-return !global.ZeresPluginLibrary
-  ? class {
-      constructor() {
-        this._config = config;
-      }
-      getName() {
-        return config.info.name;
-      }
-      getAuthor() {
-        return config.info.authors.map((a) => a.name).join(", ");
-      }
-      getDescription() {
-        return config.info.description;
-      }
-      getVersion() {
-        return config.info.version;
-      }
-      load() {
-        const title = "Library Missing";
-        const ModalStack = BdApi.findModuleByProps(
-          "push",
-          "update",
-          "pop",
-          "popWithKey"
-        );
-        const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-        const ConfirmationModal = BdApi.findModule(
-          (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
-        );
-        if (!ModalStack || !ConfirmationModal || !TextElement)
-          return BdApi.alert(
-            title,
-            `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+  return !global.ZeresPluginLibrary
+    ? class {
+        constructor() {
+          this._config = config;
+        }
+        getName() {
+          return config.info.name;
+        }
+        getAuthor() {
+          return config.info.authors.map((a) => a.name).join(", ");
+        }
+        getDescription() {
+          return config.info.description;
+        }
+        getVersion() {
+          return config.info.version;
+        }
+        load() {
+          const title = "Library Missing";
+          const ModalStack = BdApi.findModuleByProps(
+            "push",
+            "update",
+            "pop",
+            "popWithKey"
           );
-        ModalStack.push(function(props) {
-          return BdApi.React.createElement(
-            ConfirmationModal,
-            Object.assign(
-              {
-                header: title,
-                children: [
-                  TextElement({
-                    color: TextElement.Colors.PRIMARY,
-                    children: [
-                      `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
-                    ]
-                  })
-                ],
-                red: false,
-                confirmText: "Download Now",
-                cancelText: "Cancel",
-                onConfirm: () => {
-                  require("request").get(
-                    "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
-                    async (error, response, body) => {
-                      if (error)
-                        return require("electron").shell.openExternal(
-                          "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+          const ConfirmationModal = BdApi.findModule(
+            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+          );
+          if (!ModalStack || !ConfirmationModal || !TextElement)
+            return BdApi.alert(
+              title,
+              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+            );
+          ModalStack.push(function(props) {
+            return BdApi.React.createElement(
+              ConfirmationModal,
+              Object.assign(
+                {
+                  header: title,
+                  children: [
+                    TextElement({
+                      color: TextElement.Colors.PRIMARY,
+                      children: [
+                        `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
+                      ]
+                    })
+                  ],
+                  red: false,
+                  confirmText: "Download Now",
+                  cancelText: "Cancel",
+                  onConfirm: () => {
+                    require("request").get(
+                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                      async (error, response, body) => {
+                        if (error)
+                          return require("electron").shell.openExternal(
+                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                          );
+                        await new Promise((r) =>
+                          require("fs").writeFile(
+                            require("path").join(
+                              ContentManager.pluginsFolder,
+                              "0PluginLibrary.plugin.js"
+                            ),
+                            body,
+                            r
+                          )
                         );
-                      await new Promise((r) =>
-                        require("fs").writeFile(
-                          require("path").join(
-                            ContentManager.pluginsFolder,
-                            "0PluginLibrary.plugin.js"
-                          ),
-                          body,
-                          r
-                        )
-                      );
-                    }
-                  );
-                }
-              },
-              props
-            )
-          );
-        });
+                      }
+                    );
+                  }
+                },
+                props
+              )
+            );
+          });
+        }
+        start() {}
+        stop() {}
       }
-      start() {}
-      stop() {}
-    }
-  : (([Plugin, Api]) => {
-      const plugin = (Plugin, Api) => {
-        const {
-          DiscordModules,
-          Patcher,
-          Logger,
-          PluginUpdater,
-          WebpackModules,
-          DiscordAPI,
-          DOMTools,
-          Toasts
-        } = Api;
+    : (([Plugin, Api]) => {
+        const plugin = (Plugin, Api) => {
+          const {
+            DiscordModules,
+            Patcher,
+            Logger,
+            PluginUpdater,
+            WebpackModules,
+            DiscordAPI,
+            DOMTools,
+            Toasts
+          } = Api;
 
-        const {
-          MessageStore,
-          UserStore,
-          ImageResolver,
-          ChannelStore,
-          GuildStore,
-          Dispatcher
-        } = DiscordModules;
+          const {
+            MessageStore,
+            UserStore,
+            ImageResolver,
+            ChannelStore,
+            GuildStore,
+            Dispatcher
+          } = DiscordModules;
 
-        var updateInterval;
+          var updateInterval;
 
-        const selectors = {
-          chat: new DOMTools.Selector(WebpackModules.getByProps("chat").chat),
-          channelTextArea: `${new DOMTools.Selector(
-            WebpackModules.getByProps("channelTextArea").channelTextArea
-          )} > [class*="inner"]`,
-          titleBar: new DOMTools.Selector(
-            WebpackModules.getByProps("titleBar").titleBar
-          ),
-          searchBar: new DOMTools.Selector(
-            WebpackModules.getByProps("searchBar").searchBar
-          ),
-          autocomplete: new DOMTools.Selector(
-            ZLibrary.WebpackModules.getByProps("autocomplete").autocomplete
-          ),
-          autocompleteRow: new DOMTools.Selector(
-            ZLibrary.WebpackModules.getByProps(
-              "autocompleteRow"
-            ).autocompleteRow
-          ),
-          autocompleteSelectorSelected: new DOMTools.Selector(
-            ZLibrary.WebpackModules.getByProps(
-              "autocomplete"
-            ).selectorSelected
-          ),
-          channelTitleBar: `.title-3qD0b-`,
-          serverTitleBar: `.container-2Rl01u.clickable-2ap7je`,
-          emojiPicker: new DOMTools.Selector(
-            WebpackModules.getByProps("emojiPicker").emojiPicker
-          ),
-          category: new DOMTools.Selector(
-            WebpackModules.getByProps("category").category
-          ),
-          emojiSearchBar: `.inner-3ErfOT`,
-          emojiItem: new DOMTools.Selector(
-            WebpackModules.getByProps("emojiItem").emojiItem
-          ),
-          emojiItemSelected: new DOMTools.Selector(
-            WebpackModules.getByProps("emojiItem").selected
-          ),
-          emojiItemCategories: new DOMTools.Selector(
-            WebpackModules.getByProps("emojiItem").categories
-          ),
-          emojiItemItem: new DOMTools.Selector(
-            WebpackModules.getByProps("emojiItem").item
-          )
-        };
+          const selectors = {
+            chat: new DOMTools.Selector(WebpackModules.getByProps("chat").chat),
+            channelTextArea: `${new DOMTools.Selector(
+              WebpackModules.getByProps("channelTextArea").channelTextArea
+            )} > [class*="inner"]`,
+            titleBar: new DOMTools.Selector(
+              WebpackModules.getByProps("titleBar").titleBar
+            ),
+            searchBar: new DOMTools.Selector(
+              WebpackModules.getByProps("searchBar").searchBar
+            ),
+            autocomplete: new DOMTools.Selector(
+              ZLibrary.WebpackModules.getByProps("autocomplete").autocomplete
+            ),
+            autocompleteRow: new DOMTools.Selector(
+              ZLibrary.WebpackModules.getByProps(
+                "autocompleteRow"
+              ).autocompleteRow
+            ),
+            autocompleteSelectorSelected: new DOMTools.Selector(
+              ZLibrary.WebpackModules.getByProps(
+                "autocomplete"
+              ).selectorSelected
+            ),
+            channelTitleBar: `.title-3qD0b-`,
+            serverTitleBar: `.container-2Rl01u.clickable-2ap7je`,
+            emojiPicker: new DOMTools.Selector(
+              WebpackModules.getByProps("emojiPicker").emojiPicker
+            ),
+            category: new DOMTools.Selector(
+              WebpackModules.getByProps("category").category
+            ),
+            emojiSearchBar: `.inner-3ErfOT`,
+            emojiItem: new DOMTools.Selector(
+              WebpackModules.getByProps("emojiItem").emojiItem
+            ),
+            emojiItemSelected: new DOMTools.Selector(
+              WebpackModules.getByProps("emojiItem").selected
+            ),
+            emojiItemCategories: new DOMTools.Selector(
+              WebpackModules.getByProps("emojiItem").categories
+            ),
+            emojiItemItem: new DOMTools.Selector(
+              WebpackModules.getByProps("emojiItem").item
+            )
+          };
 
-        return class DarkDarkTheme extends Plugin {
-          onStart() {
-            updateInterval = setInterval(() => {
-              PluginUpdater.checkForUpdate(
-                "DarkDarkTheme",
-                this.getVersion(),
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
-              );
-            }, 5000);
+          return class DarkDarkTheme extends Plugin {
+            onStart() {
+              updateInterval = setInterval(() => {
+                PluginUpdater.checkForUpdate(
+                  "DarkDarkTheme",
+                  this.getVersion(),
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+                );
+              }, 5000);
 
-            this.patch();
-            this.updateCSS();
-          }
+              this.patch();
+              this.updateCSS();
+            }
 
-          onStop() {
-            this.unpatch();
-            this.removeIntervals();
-            this.removeCSS();
-          }
+            onStop() {
+              this.unpatch();
+              this.removeIntervals();
+              this.removeCSS();
+            }
 
-          removeIntervals() {
-            clearInterval(updateInterval);
-          }
+            removeIntervals() {
+              clearInterval(updateInterval);
+            }
 
-          observer({ addedNodes }) {
-            for (const node of addedNodes) {
-              if (node.className == selectors.chat) {
+            observer({ addedNodes }) {
+              for (const node of addedNodes) {
+                if (node.className == selectors.chat) {
+                }
               }
             }
-          }
 
-          patch() {
-            // // Zerebos' godly fix for some strange bug.
-            // Patcher.before(
-            //   Storer.prototype,
-            //   "remove",
-            //   (thisObject, [messageId]) => {
-            //     const message = thisObject.get(messageId);
-            //     console.log("Might be a ghostping: ", message);
-            //     if (
-            //       message.mentioned &&
-            //       !message.blocked &&
-            //       message.author.id != userID
-            //     ) {
-            //       console.log("It is a ghostping!".toUpperCase());
-            //       this.addGhostPing(message);
-            //     }
-            //   }
-            // );
-          }
+            patch() {
+              // // Zerebos' godly fix for some strange bug.
+              // Patcher.before(
+              //   Storer.prototype,
+              //   "remove",
+              //   (thisObject, [messageId]) => {
+              //     const message = thisObject.get(messageId);
+              //     console.log("Might be a ghostping: ", message);
+              //     if (
+              //       message.mentioned &&
+              //       !message.blocked &&
+              //       message.author.id != userID
+              //     ) {
+              //       console.log("It is a ghostping!".toUpperCase());
+              //       this.addGhostPing(message);
+              //     }
+              //   }
+              // );
+            }
 
-          unpatch() {
-            Patcher.unpatchAll();
-          }
+            unpatch() {
+              Patcher.unpatchAll();
+            }
 
-          updateCSS() {
-            // Later in onStart().
-            var colors = `
+            updateCSS() {
+              // Later in onStart().
+              var colors = `
 /* START: Variables */
 /* Theme Variables */
 * {
@@ -354,23 +354,13 @@ return !global.ZeresPluginLibrary
 
 
 /* START: Branding */
-li[data-name="DarkDarkTheme"] .bda-version:after {
-  content: "2.1.2";
-}
-
 /* Titlebar */
 .platform-win |titleBar|:after {
-  content: "v2.1.2 by Kyza#9994" !important;
+  content: "v${this.getVersion()} by Kyza#9994" !important;
   font-size: 14px !important;
   color: #999 !important;
   text-align: center !important;
   width: 100% !important;
-}
-
-/* Changelog */
-li[data-name="DarkDarkTheme"] .bda-description:after {
-  content: "\A\AWhat's new in 2.1.2?\A\A Enabled the UI changes.\A@me if you find something broken!\A By the way, codeblocks now have a special font made just for code!\A Fixed the message edit box width.\A Added an icon to my profile picture.\A Fixed MemberCount.";
-  white-space: pre;
 }
 
 /* Remove Workmark */
@@ -502,36 +492,35 @@ svg[name="DiscordWordmark"] > path {
   filter: brightness(60%);
 }
 /* STOP: Emoji Picker */
-
               `.trim();
 
-            for (const selector in selectors) {
-              colors = colors.replaceAll(
-                `|${selector}|`,
-                (selectors[selector].value
-                  ? selectors[selector].value
-                  : selectors[selector]
-                ).trim()
-              );
-              console.log(
-                (selectors[selector].value
-                  ? selectors[selector].value
-                  : selectors[selector]
-                ).trim()
-              );
+              for (const selector in selectors) {
+                colors = colors.replaceAll(
+                  `|${selector}|`,
+                  (selectors[selector].value
+                    ? selectors[selector].value
+                    : selectors[selector]
+                  ).trim()
+                );
+                console.log(
+                  (selectors[selector].value
+                    ? selectors[selector].value
+                    : selectors[selector]
+                  ).trim()
+                );
+              }
+
+              console.log(colors);
+
+              BdApi.injectCSS("DarkDarkTheme-colors", colors);
             }
 
-            console.log(colors);
-
-            BdApi.injectCSS("DarkDarkTheme-colors", colors);
-          }
-
-          removeCSS() {
-            BdApi.clearCSS("DarkDarkTheme-colors");
-          }
+            removeCSS() {
+              BdApi.clearCSS("DarkDarkTheme-colors");
+            }
+          };
         };
-      };
-      return plugin(Plugin, Api);
-    })(global.ZeresPluginLibrary.buildPlugin(config));
+        return plugin(Plugin, Api);
+      })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/
