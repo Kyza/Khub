@@ -1,3 +1,18 @@
+/* START: Include ZLibrary */
+let libraryScript = document.getElementById("ZLibraryScript");
+if (!libraryScript || !window.ZLibrary) {
+  if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
+  libraryScript = document.createElement("script");
+  libraryScript.setAttribute("type", "text/javascript");
+  libraryScript.setAttribute(
+    "src",
+    "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js"
+  );
+  libraryScript.setAttribute("id", "ZLibraryScript");
+  document.head.appendChild(libraryScript);
+}
+/* STOP: Include ZLibrary */
+
 /* START: Utility Functions */
 String.prototype.replaceAll = function(find, replace) {
   var str = this;
@@ -79,10 +94,8 @@ function KSS() {
   this.getSelector = (name) => {
     return this.selectors[name];
   };
-};
+}
 /* STOP: Library */
-
-
 
 /* START: Test Cases */
 // var kiss = new KSS();
