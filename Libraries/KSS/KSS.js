@@ -1,3 +1,4 @@
+/* START: Utility Functions */
 String.prototype.replaceAll = function(find, replace) {
   var str = this;
   return str.replace(
@@ -5,7 +6,9 @@ String.prototype.replaceAll = function(find, replace) {
     replace
   );
 };
+/* STOP: Utility Functions */
 
+/* START: Library */
 function KSS() {
   this.selectors = {
     chat: new ZLibrary.DOMTools.Selector(
@@ -77,11 +80,13 @@ function KSS() {
     return this.selectors[name];
   };
 };
+/* STOP: Library */
 
 
-/* Start Test Cases */
+
+/* START: Test Cases */
 // var kiss = new KSS();
 
 // kiss.addSelector("heck", "what");
 // kiss.getSelector("heck");
-/* End Test Cases */
+/* STOP: Test Cases */
