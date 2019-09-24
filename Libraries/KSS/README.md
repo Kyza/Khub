@@ -12,7 +12,7 @@ KSS is a JavaScript library and a form of CSS made for BetterDiscord theme devel
 
 Have you ever tried styling Discord using a plugin?
 
-It's easier than you think with KSS, even if you don't know much JavaScript!
+It's easier than you think with KSS, even if you don't know much JavaScript as a theme developer!
 
 ## Why not just use pure CSS? Why a plugin?
 
