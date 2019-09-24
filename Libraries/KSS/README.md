@@ -41,6 +41,48 @@ Include this JavaScript in your plugin file.
 
 ```
 if (!document.querySelector("#KSSLibrary")) {
-  BdApi.linkJS("KSSLibrary", "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.js");
+  BdApi.showConfirmationModal(
+    "Just a minute, there!",
+    [
+      `By clicking "I Agree" you agree to allow this plugin to include an external library called `,
+      BdApi.React.createElement(
+        "a",
+        {
+          href:
+            "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+          target: "_blank"
+        },
+        "KSS"
+      ),
+      "."
+    ],
+    {
+      danger: false,
+      confirmText: "I Agree",
+      cancelText: "No! Disable this plugin!",
+      onConfirm: () => {
+        this.init();
+      },
+      onCancel: () => {
+        var pluginName = this.getName();
+        var pluginInfo = bdplugins[pluginName];
+        var bIsPluginEnabled = pluginCookie[pluginName];
+        try {
+          if (
+            bIsPluginEnabled &&
+            pluginInfo.plugin &&
+            pluginInfo.plugin.stop
+          ) {
+            pluginCookie[pluginName] = false;
+            pluginInfo.plugin.stop();
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+  );
+} else {
+  this.init();
 }
 ```
