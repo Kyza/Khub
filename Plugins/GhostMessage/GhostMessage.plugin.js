@@ -38,22 +38,22 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.4",
+      "version": "1.2.5",
       "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
     },
     "changelog": [
-      // {
-      //   "title": "New Stuff",
-      //   "items": [""]
-      // }
-      // ,
       {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["The button works in DMs again."]
+        "title": "New Stuff",
+        "items": ["The button now disables when you switch channels."]
       }
+      // ,
+      // {
+      //  "title": "Bugs Squashed",
+      //  "type": "fixed",
+      //  "items": ["The button works in DMs again."]
+      // }
       // ,
       // {
       //   "title": "Improvements",
@@ -252,9 +252,10 @@ var GhostMessage = (() => {
         }) {
 					for (const node of addedNodes) {
 						if (node.className == selectors.chat) {
+							this.setEnabled(false);
 							this.addButton();
 						}
-					}
+				}
         }
 
         addButton() {
