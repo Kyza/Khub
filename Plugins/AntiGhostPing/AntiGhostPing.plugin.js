@@ -212,7 +212,7 @@ var AntiGhostPing = (() => {
               this.addPanel();
               this.addButton();
               this.bindKeyboard();
-              BdApi.injectCSS('antighostping-css', `
+              BdApi.injectCSS('AntiGhostPing-css', `
               .ghostping-button-unread .ghostping-button-icon {
               color: #D51400;
               };
@@ -225,7 +225,7 @@ var AntiGhostPing = (() => {
               this.removePanel();
               this.unpatch();
               this.removeIntervals();
-              BdApi.clearCSS('antighostping-css');
+              BdApi.clearCSS('AntiGhostPing-css');
             }
 
             removeIntervals() {
