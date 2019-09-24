@@ -1,4 +1,4 @@
-//META{"name":"KSS","displayName":"KSS","website":"","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.plugin.js"}*//
+//META{"name":"KSSLibrary","displayName":"KSSLibrary","website":"","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"}*//
 
 /*@cc_on
 @if (@_jscript)
@@ -24,18 +24,10 @@
 
 @else@*/
 
-String.prototype.replaceAll = function(find, replace) {
-  var str = this;
-  return str.replace(
-    new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
-    replace
-  );
-};
-
-var KSS = (() => {
+var KSSLibrary = (() => {
   const config = {
     info: {
-      name: "KSS",
+      name: "KSSLibrary",
       authors: [
         {
           name: "Kyza",
@@ -45,9 +37,9 @@ var KSS = (() => {
       ],
       version: "0.0.1",
       description: "Easy CSS for BetterDiscord.",
-      github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+      github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.plugin.js"
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
     changelog: [
       // {
@@ -185,85 +177,39 @@ var KSS = (() => {
 
           var updateInterval;
 
-          const selectors = {
-            chat: new DOMTools.Selector(WebpackModules.getByProps("chat").chat),
-            channelTextArea: `${new DOMTools.Selector(
-              WebpackModules.getByProps("channelTextArea").channelTextArea
-            )} > [class*="inner"]`,
-            titleBar: new DOMTools.Selector(
-              WebpackModules.getByProps("titleBar").titleBar
-            ),
-            searchBar: new DOMTools.Selector(
-              WebpackModules.getByProps("searchBar").searchBar
-            ),
-            autocomplete: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps("autocomplete").autocomplete
-            ),
-            autocompleteRow: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps(
-                "autocompleteRow"
-              ).autocompleteRow
-            ),
-            autocompleteSelectorSelected: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps(
-                "autocomplete"
-              ).selectorSelected
-            ),
-            channelTitleBar: `.title-3qD0b-`,
-            serverTitleBar: `.container-2Rl01u.clickable-2ap7je`,
-            emojiPicker: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiPicker").emojiPicker
-            ),
-            category: new DOMTools.Selector(
-              WebpackModules.getByProps("category").category
-            ),
-            emojiSearchBar: `.inner-3ErfOT`,
-            emojiItem: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").emojiItem
-            ),
-            emojiItemSelected: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").selected
-            ),
-            emojiItemCategories: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").categories
-            ),
-            emojiItemItem: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").item
-            )
-          };
-
-          return class KSS extends Plugin {
+          return class KSSLibrary extends Plugin {
             onStart() {
               updateInterval = setInterval(() => {
                 PluginUpdater.checkForUpdate(
-                  "KSS",
+                  "KSSLibrary",
                   this.getVersion(),
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.plugin.js"
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
                 );
               }, 5000);
+
+              this.addLibrary();
             }
 
             onStop() {
               this.removeIntervals();
+
+              this.removeLibrary();
+            }
+
+            addLibrary() {
+              if (document.querySelector("#KSSLibrary")) BdApi.unlinkJS("KSSLibrary");
+              BdApi.linkJS(
+                "KSSLibrary",
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.js"
+              );
+            }
+
+            removeLibrary() {
+              BdApi.unlinkJS("KSSLibrary");
             }
 
             removeIntervals() {
               clearInterval(updateInterval);
-            }
-
-
-
-            parse(kss) {
-              for (const selector in selectors) {
-                kss = kss.replaceAll(
-                  `|${selector}|`,
-                  (selectors[selector].value
-                    ? selectors[selector].value
-                    : selectors[selector]
-                  ).trim()
-                );
-              }
-              return kss;
             }
           };
         };
