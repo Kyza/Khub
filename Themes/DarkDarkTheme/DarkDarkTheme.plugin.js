@@ -43,7 +43,7 @@ const config = {
         github_username: "KyzaGitHub"
       }
     ],
-    version: "3.0.0-beta",
+    version: "3.0.0-beta-1",
     description: "DarkDarkTheme v3. A theme in plugin form.",
     github:
       "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
