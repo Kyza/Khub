@@ -212,7 +212,6 @@ var AntiGhostPing = (() => {
               this.addPanel();
               this.addButton();
               this.bindKeyboard();
-
               BdApi.injectCSS('antighostping-css', `
               .ghostping-button-unread .ghostping-button-icon {
               color: #D51400;
