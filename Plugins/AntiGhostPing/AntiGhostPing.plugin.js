@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.0",
+      version: "1.2.1",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -53,17 +53,18 @@ var AntiGhostPing = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "The ghostping panel now shows up correctly on macOS and Linux."
-        ]
-      },
-      {
-        title: "Improvements",
-        type: "improved",
-        items: [
-          "Moved the icon to the top right.",
-          "Added an animation to the ghostping panel."
+          "Fixed a loading error on EnhancedDiscord."
         ]
       }
+// 	    ,
+//       {
+//         title: "Improvements",
+//         type: "improved",
+//         items: [
+//           "Moved the icon to the top right.",
+//           "Added an animation to the ghostping panel."
+//         ]
+//       }
       //	,
       // {
       //   "title": "On-going",
@@ -190,8 +191,6 @@ var AntiGhostPing = (() => {
             chat: WebpackModules.getByProps("chat").chat
           };
 
-          var userID = DiscordAPI.currentUser.id;
-
           return class AntiGhostPing extends Plugin {
             onStart() {
               updateInterval = setInterval(() => {
@@ -266,7 +265,7 @@ var AntiGhostPing = (() => {
                   if (
                     message.mentioned &&
                     !message.blocked &&
-                    message.author.id != userID
+                    message.author.id != DiscordAPI.currentUser.id
                   ) {
                     console.log("It is a ghostping!".toUpperCase());
                     this.addGhostPing(message);
@@ -314,7 +313,7 @@ var AntiGhostPing = (() => {
               //
               //           var mention = message.mentions[j];
               //
-              //           if (mention.id == userID) {
+              //           if (mention.id == DiscordAPI.currentUser.id) {
               //             this.addGhostPing(message);
               //             isAdded = true;
               //           }
