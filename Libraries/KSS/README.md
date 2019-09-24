@@ -33,4 +33,12 @@ Here is a list of just some of them.
 
 ## Getting Started
 
-WIP
+### WIP
+
+Include this JavaScript in your plugin file.
+
+```
+if (!document.querySelector("#KSSLibrary")) {
+  BdApi.linkJS("KSSLibrary", "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.js");
+}
+```
