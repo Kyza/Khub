@@ -1,13 +1,16 @@
 String.prototype.replaceAll = function(find, replace) {
-    var str = this;
-    return str.replace(
-      new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
-      replace
-    );
-  };
-  
-  KSS.selectors = {
-    chat: new ZLibrary.DOMTools.Selector(ZLibrary.WebpackModules.getByProps("chat").chat),
+  var str = this;
+  return str.replace(
+    new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
+    replace
+  );
+};
+
+function KSS() {
+  this.selectors = {
+    chat: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("chat").chat
+    ),
     channelTextArea: `${new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("channelTextArea").channelTextArea
     )} > [class*="inner"]`,
@@ -48,19 +51,37 @@ String.prototype.replaceAll = function(find, replace) {
       ZLibrary.WebpackModules.getByProps("emojiItem").item
     )
   };
-  
-  KSS.parse = (kss) => {
-    for (const selector in KSS.selectors) {
+
+  this.parse = (kss) => {
+    for (let selector in this.selectors) {
       kss = kss.replaceAll(
         `|${selector}|`,
-        (KSS.selectors[selector].value
-          ? KSS.selectors[selector].value
-          : KSS.selectors[selector]
+        (this.selectors[selector].value
+          ? this.selectors[selector].value
+          : this.selectors[selector]
         ).trim()
       );
     }
     return kss;
   };
-  
-  KSS.parse("what");
-  
+
+  this.addSelector = (name, selector) => {
+    this.selectors[name] = selector;
+  };
+
+  this.removeSelector = (name) => {
+    this.selectors[name] = null;
+  };
+
+  this.getSelector = (name) => {
+    return this.selectors[name];
+  };
+};
+
+
+/* Start Test Cases */
+// var kiss = new KSS();
+
+// kiss.addSelector("heck", "what");
+// kiss.getSelector("heck");
+/* End Test Cases */
