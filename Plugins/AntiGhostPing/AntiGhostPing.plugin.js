@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.1",
+      version: "1.2.2",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -212,6 +212,11 @@ var AntiGhostPing = (() => {
               this.addPanel();
               this.addButton();
               this.bindKeyboard();
+              BdApi.injectCSS('AntiGhostPing-css', `
+              .ghostping-button-unread .ghostping-button-icon {
+              color: #D51400;
+              };
+              `);
             }
 
             onStop() {
@@ -220,6 +225,7 @@ var AntiGhostPing = (() => {
               this.removePanel();
               this.unpatch();
               this.removeIntervals();
+              BdApi.clearCSS('AntiGhostPing-css');
             }
 
             removeIntervals() {
@@ -630,15 +636,16 @@ var AntiGhostPing = (() => {
 
             updateButton() {
               var ghostButton = document.getElementsByClassName(
-                "ghostping-button-wrapper"
+                "ghostping-button-inner"
               )[0];
               if (ghostPings.length > 0) {
-                ghostButton.setAttribute(
-                  "style",
-                  "filter: brightness(50%) sepia(100) saturate(100) hue-rotate(25deg);"
+                ghostButton.classList.add(
+                  "ghostping-button-unread"
                 );
               } else {
-                ghostButton.setAttribute("style", "");
+                ghostButton.classList.remove(
+                  "ghostping-button-unread"
+                );
               }
             }
 
