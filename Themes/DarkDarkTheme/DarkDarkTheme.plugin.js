@@ -36,19 +36,15 @@ var DarkDarkTheme = (() => {
   const config = {
     info: {
       name: "DarkDarkTheme",
-      authors: [
-        {
-          name: "Kyza",
-          discord_id: "220584715265114113",
-          github_username: "KyzaGitHub"
-        }
-      ],
-      version: "3.0.1",
+      authors: [{
+        name: "Kyza",
+        discord_id: "220584715265114113",
+        github_username: "KyzaGitHub"
+      }],
+      version: "3.0.2",
       description: "DarkDarkTheme v3. A theme in plugin form.",
-      github:
-        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
-      github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+      github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
+      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
       // {
@@ -81,218 +77,145 @@ var DarkDarkTheme = (() => {
     main: "index.js"
   };
 
-  return !global.ZeresPluginLibrary
-    ? class {
-        constructor() {
-          this._config = config;
-        }
-        getName() {
-          return config.info.name;
-        }
-        getAuthor() {
-          return config.info.authors.map((a) => a.name).join(", ");
-        }
-        getDescription() {
-          return config.info.description;
-        }
-        getVersion() {
-          return config.info.version;
-        }
-        load() {
-          const title = "Library Missing";
-          const ModalStack = BdApi.findModuleByProps(
-            "push",
-            "update",
-            "pop",
-            "popWithKey"
-          );
-          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-          const ConfirmationModal = BdApi.findModule(
-            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
-          );
-          if (!ModalStack || !ConfirmationModal || !TextElement)
-            return BdApi.alert(
-              title,
-              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
-            );
-          ModalStack.push(function(props) {
-            return BdApi.React.createElement(
-              ConfirmationModal,
-              Object.assign(
-                {
-                  header: title,
-                  children: [
-                    TextElement({
-                      color: TextElement.Colors.PRIMARY,
-                      children: [
-                        `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
-                      ]
-                    })
-                  ],
-                  red: false,
-                  confirmText: "Download Now",
-                  cancelText: "Cancel",
-                  onConfirm: () => {
+  return !global.ZeresPluginLibrary ?
+    class {
+      constructor() {
+        this._config = config;
+      }
+      getName() {
+        return config.info.name;
+      }
+      getAuthor() {
+        return config.info.authors.map((a) => a.name).join(", ");
+      }
+      getDescription() {
+        return config.info.description;
+      }
+      getVersion() {
+        return config.info.version;
+      }
+      load() {
+        if (!window.ZLibrary || !window.KSSLibrary) {
+          BdApi.showConfirmationModal("Libraries Required",
+            [
+              `By clicking "I Agree", you agree to allow ${config.info.name} to download the two libraries `,
+              BdApi.React.createElement("a", {
+                href: "https://github.com/rauenzi/BDPluginLibrary/",
+                target: "_blank"
+              }, "ZeresPluginLibrary"),
+              " and ",
+              BdApi.React.createElement("a", {
+                href: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+                target: "_blank"
+              }, "KSS"),
+              "."
+            ], {
+              danger: false,
+              confirmText: "I Agree",
+              cancelText: "No! Disable this plugin!",
+              onConfirm: () => {
+                // Install ZLibrary first.
+                require("request").get(
+                  "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                  async (error, response, body) => {
+                    if (error)
+                      return require("electron").shell.openExternal(
+                        "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                      );
+                    await new Promise((r) =>
+                      require("fs").writeFile(
+                        require("path").join(
+                          ContentManager.pluginsFolder,
+                          "0PluginLibrary.plugin.js"
+                        ),
+                        body,
+                        r
+                      )
+                    );
+                    // Install KSS last.
                     require("request").get(
-                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                      "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSSLibrary.plugin.js",
                       async (error, response, body) => {
                         if (error)
                           return require("electron").shell.openExternal(
-                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSSLibrary.plugin.js"
                           );
                         await new Promise((r) =>
                           require("fs").writeFile(
                             require("path").join(
                               ContentManager.pluginsFolder,
-                              "0PluginLibrary.plugin.js"
+                              "KSSLibrary.plugin.js"
                             ),
                             body,
                             r
                           )
                         );
+                        // Doing this because it won't work unless it is reoladed.
+                        pluginModule.reloadPlugin(this.getName());
                       }
                     );
                   }
-                },
-                props
-              )
-            );
-          });
+                );
+              },
+              onCancel: () => {
+                pluginModule.disablePlugin(this.getName());
+              }
+            }
+          );
         }
-        start() {}
-        stop() {}
       }
-    : (([Plugin, Api]) => {
-        const plugin = (Plugin, Api) => {
-          const {
-            DiscordModules,
-            Patcher,
-            Logger,
-            PluginUpdater,
-            WebpackModules,
-            DiscordAPI,
-            DOMTools,
-            Toasts
-          } = Api;
+      start() {}
+      stop() {}
+    } :
+    (([Plugin, Api]) => {
+      const plugin = (Plugin, Api) => {
+        const {
+          Patcher,
+          PluginUpdater
+        } = Api;
 
-          const {
-            MessageStore,
-            UserStore,
-            ImageResolver,
-            ChannelStore,
-            GuildStore,
-            Dispatcher
-          } = DiscordModules;
+        var KSS = null;
 
-          var updateInterval;
+        return class DarkDarkTheme extends Plugin {
+          onStart() {
+            PluginUpdater.checkForUpdate(
+              "DarkDarkTheme",
+              this.getVersion(),
+              "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
+            );
 
-          var KSSLibrary = null;
+            KSS = new KSSLibrary(this.getName());
 
-          return class DarkDarkTheme extends Plugin {
-            onStart() {
-              updateInterval = setInterval(() => {
-                PluginUpdater.checkForUpdate(
-                  "DarkDarkTheme",
-                  this.getVersion(),
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
-                );
-              }, 5000);
+            this.patch();
+            this.updateCSS();
+          }
 
-              if (!document.querySelector("#KSSLibrary")) {
-                BdApi.showConfirmationModal(
-                  "Just a minute, there!",
-                  [
-                    `By clicking "I Agree" you agree to allow this plugin to include an external library called `,
-                    BdApi.React.createElement(
-                      "a",
-                      {
-                        href:
-                          "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-                        target: "_blank"
-                      },
-                      "KSS"
-                    ),
-                    "."
-                  ],
-                  {
-                    danger: false,
-                    confirmText: "I Agree",
-                    cancelText: "No! Disable this plugin!",
-                    onConfirm: () => {
-                      this.init();
-                    },
-                    onCancel: () => {
-                      // Stop the plugin.
-                      pluginModule.disablePlugin(this.getName());
-                    }
-                  }
-                );
-              } else {
-                this.init();
+          onStop() {
+            this.unpatch();
+            this.removeCSS();
+          }
+
+          observer({
+            addedNodes
+          }) {
+            if (KSS) {
+              for (const node of addedNodes) {
+                if (node.className == KSS.getSelector("chat")) {}
               }
             }
+          }
 
-            init() {
-              if (document.querySelector("#KSSLibrary"))
-                BdApi.unlinkJS("KSSLibrary");
+          patch() {
 
-              BdApi.linkJS(
-                "KSSLibrary",
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.js"
-              );
+          }
 
-              KSSLibrary = new KSS();
+          unpatch() {
+            Patcher.unpatchAll();
+          }
 
-              this.patch();
-              this.updateCSS();
-            }
-
-            onStop() {
-              this.unpatch();
-              this.removeIntervals();
-              this.removeCSS();
-            }
-
-            removeIntervals() {
-              clearInterval(updateInterval);
-            }
-
-            observer({ addedNodes }) {
-              if (KSSLibrary) {
-                for (const node of addedNodes) {
-                  if (node.className == KSSLibrary.getSelector("chat")) {
-                  }
-                }
-              }
-            }
-
-            patch() {
-              // // Zerebos' godly fix for some strange bug.
-              // Patcher.before(
-              //   Storer.prototype,
-              //   "remove",
-              //   (thisObject, [messageId]) => {
-              //     const message = thisObject.get(messageId);
-              //     console.log("Might be a ghostping: ", message);
-              //     if (
-              //       message.mentioned &&
-              //       !message.blocked &&
-              //       message.author.id != userID
-              //     ) {
-              //       console.log("It is a ghostping!".toUpperCase());
-              //       this.addGhostPing(message);
-              //     }
-              //   }
-              // );
-            }
-
-            unpatch() {
-              Patcher.unpatchAll();
-            }
-
-            updateCSS() {
-              // Later in onStart().
-              var colors = `
+          updateCSS() {
+            // Later in onStart().
+            KSS.setModule("colors", `
 /* START: Variables */
 /* Theme Variables */
 * {
@@ -1084,21 +1007,15 @@ svg[name="DiscordWordmark"] > path {
 }
 /* STOP: dateViewer */
 /* STOP: BetterDiscord */
-              `.trim();
+              `.trim(), true);
+          }
 
-              colors = KSSLibrary.parse(colors);
-
-              console.log(colors);
-
-              BdApi.injectCSS("DarkDarkTheme-colors", colors);
-            }
-
-            removeCSS() {
-              BdApi.clearCSS("DarkDarkTheme-colors");
-            }
-          };
+          removeCSS() {
+            KSS.disableModule("colors");
+          }
         };
-        return plugin(Plugin, Api);
-      })(global.ZeresPluginLibrary.buildPlugin(config));
+      };
+      return plugin(Plugin, Api);
+    })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/
