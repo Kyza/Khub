@@ -37,7 +37,9 @@ String.prototype.replaceAll = function(find, replace) {
 /* STOP: Utility Functions */
 
 /* START: Library */
-function KSSLibrary() {
+function KSSLibrary(pluginName) {
+  this.pluginName = pluginName;
+
   this.selectors = {
     chat: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("chat").chat
@@ -102,10 +104,12 @@ function KSSLibrary() {
   };
 
   this.addSelector = (name, selector) => {
+    if (this.selectors[name]) throw "Selector already exists.";
     this.selectors[name] = selector;
   };
 
   this.removeSelector = (name) => {
+    if (!this.selectors[name]) throw "Selector does not exist.";
     this.selectors[name] = null;
   };
 
@@ -142,6 +146,31 @@ function KSSLibrary() {
       displayCompact: true
     });
   };
+
+  this.modules = {};
+
+  this.setModule = (moduleName, kss, enabled = true) => {
+    this.modules[moduleName] = {
+      enabled: enabled,
+      kss: kss
+    };
+    if (enabled) {
+      this.enableModule(moduleName);
+    }
+  };
+
+  this.enableModule = (moduleName) => {
+    if (this.modules[moduleName].enabled) {
+      BdApi.clearCSS(`${this.pluginName}-${moduleName}`);
+    }
+    this.modules[moduleName].enabled = true;
+    BdApi.injectCSS(`${this.pluginName}-${moduleName}`, this.parse(this.modules[moduleName].kss));
+  }
+
+  this.disableModule = (moduleName) => {
+    this.modules[moduleName].enabled = false;
+    BdApi.clearCSS(`${this.pluginName}-${moduleName}`);
+  }
 }
 /* STOP: Library */
 
