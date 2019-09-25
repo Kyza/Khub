@@ -43,7 +43,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.0",
+      version: "3.0.1",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
@@ -1072,7 +1072,15 @@ svg[name="DiscordWordmark"] > path {
 
 /* START: dateViewer */
 #dv-mount {
-  background-color: transparent;
+  background-color: transparent !important;
+}
+/* STOP: dateViewer */
+
+
+
+/* START: MemberCount */
+#MemberCount {
+  background-color: transparent !important;
 }
 /* STOP: dateViewer */
 /* STOP: BetterDiscord */
