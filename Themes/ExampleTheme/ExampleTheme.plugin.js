@@ -173,11 +173,11 @@ var ExampleTheme = (() => {
 
           return class ExampleTheme extends Plugin {
             onStart() {
-PluginUpdater.checkForUpdate(
-  this.getName(),
-  this.getVersion(),
-  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
-);
+              PluginUpdater.checkForUpdate(
+                this.getName(),
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
+              );
 
               KSS = new KSSLibrary(this.getName());
 
@@ -190,13 +190,13 @@ PluginUpdater.checkForUpdate(
 
             updateCSS() {
               // Later in onStart().
-              var colors = `
-|channelTextAreaInner| {
-  background-color: red;
-}
-`.trim();
-
-              KSS.setModule("colors", colors);
+              KSS.downloadStylesheet("https://khub.kyza.gq/Themes/ExampleTheme/colors.kss").then((kss) => {
+                KSS.setModule(
+                  "colors",
+                  kss,
+                  true
+                );
+              });
             }
 
             removeCSS() {
