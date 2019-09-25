@@ -71,4 +71,4 @@ if (!document.querySelector("#KSSLibrary")) {
 
 This block of code will ask your users if they are fine with using the library.
 
-`this.init()` is what you'll use to handle 
+`this.init()` is what you'll use to handle... WIP
