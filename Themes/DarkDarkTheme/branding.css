@@ -1,7 +1,7 @@
 /* START: Branding */
 /* Titlebar */
 .platform-win |titleBar|:after {
-    content: "v${this.getVersion()} by Kyza#9994" !important;
+    content: "v|pluginVersion| by Kyza#9994" !important;
     font-size: 14px !important;
     color: #999 !important;
     text-align: center !important;
