@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.6",
+      version: "3.0.7",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
@@ -138,27 +138,25 @@ var DarkDarkTheme = (() => {
                         r
                       )
                     );
-                    // Install KSS last.
-                    require("request").get(
-                      "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSSLibrary.plugin.js",
-                      async (error, response, body) => {
-                        if (error)
-                          return require("electron").shell.openExternal(
-                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSSLibrary.plugin.js"
-                          );
-                        await new Promise((r) =>
-                          require("fs").writeFile(
-                            require("path").join(
-                              ContentManager.pluginsFolder,
-                              "KSSLibrary.plugin.js"
-                            ),
-                            body,
-                            r
-                          )
-                        );
-                        // Doing this because it won't work unless it is reoladed.
-                        pluginModule.reloadPlugin(this.getName());
-                      }
+                  }
+                );
+                // Install KSS last.
+                require("request").get(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
+                  async (error, response, body) => {
+                    if (error)
+                      return require("electron").shell.openExternal(
+                        "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
+                      );
+                    await new Promise((r) =>
+                      require("fs").writeFile(
+                        require("path").join(
+                          ContentManager.pluginsFolder,
+                          "1KSSLibrary.plugin.js"
+                        ),
+                        body,
+                        r
+                      )
                     );
                   }
                 );
@@ -213,32 +211,27 @@ var DarkDarkTheme = (() => {
             }
 
             updateCSS() {
-              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss").then((kss) => {
-                KSS.setModule(
-                  "branding",
-                  kss,
-                  true
-                );
+              KSS.downloadStylesheet(
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
+              ).then((kss) => {
+                KSS.setModule("branding", kss, true);
               });
-              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss").then((kss) => {
-                KSS.setModule(
-                  "colors",
-                  kss,
-                  true
-                );
+              KSS.downloadStylesheet(
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+              ).then((kss) => {
+                KSS.setModule("colors", kss, true);
               });
-              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss").then((kss) => {
-                KSS.setModule(
-                  "ui",
-                  kss,
-                  true
-                );
+              KSS.downloadStylesheet(
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
+              ).then((kss) => {
+                KSS.setModule("ui", kss, true);
               });
             }
 
             removeCSS() {
               KSS.disableModule("branding");
               KSS.disableModule("colors");
+              KSS.disableModule("ui");
             }
           };
         };
