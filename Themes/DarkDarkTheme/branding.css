@@ -6,19 +6,19 @@
     color: #999 !important;
     text-align: center !important;
     width: 100% !important;
-  }
+}
   
-  /* Remove Workmark */
-  svg[name="DiscordWordmark"] {
+/* Remove Workmark */
+svg[name="DiscordWordmark"] {
     width: 250%;
     transform: scale(0.9);
     background-image: url("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkThemeLogo.png");
     background-size: contain;
     background-position: left;
     background-repeat: no-repeat;
-  }
-  
-  svg[name="DiscordWordmark"] > path {
+}
+
+svg[name="DiscordWordmark"] > path {
     display: none;
-  }
-  /* STOP: Branding */  
+}
+/* STOP: Branding */  

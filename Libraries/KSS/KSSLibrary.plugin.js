@@ -37,10 +37,13 @@ String.prototype.replaceAll = function(find, replace) {
 /* STOP: Utility Functions */
 
 /* START: Library */
-function KSSLibrary(pluginName) {
-  this.pluginName = pluginName;
+function KSSLibrary(plugin) {
+  if (!plugin) throw `Pass the plugin instance as an argument.`;
+  this.plugin = plugin;
 
   this.selectors = {
+    pluginVersion: this.plugin.getVersion(),
+    pluginName: this.plugin.getName(),
     chat: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("chat").chat
     ),
@@ -91,6 +94,7 @@ function KSSLibrary(pluginName) {
   };
 
   this.parse = (kss) => {
+    if (!kss) kss = "";
     for (let selector in this.selectors) {
       kss = kss.replaceAll(
         `|${selector}|`,
@@ -159,34 +163,42 @@ function KSSLibrary(pluginName) {
     }
   };
 
+  this.getModule = (moduleName) => {
+    return this.modules[moduleName];
+  };
+
   this.enableModule = (moduleName) => {
     if (this.modules[moduleName].enabled) {
-      BdApi.clearCSS(`${this.pluginName}-${moduleName}`);
+      BdApi.clearCSS(`${this.plugin.getName()}-${moduleName}`);
     }
     this.modules[moduleName].enabled = true;
-    BdApi.injectCSS(`${this.pluginName}-${moduleName}`, this.parse(this.modules[moduleName].kss));
+    BdApi.injectCSS(`${this.plugin.getName()}-${moduleName}`, this.parse(this.modules[moduleName].kss));
   }
 
   this.disableModule = (moduleName) => {
     this.modules[moduleName].enabled = false;
-    BdApi.clearCSS(`${this.pluginName}-${moduleName}`);
+    BdApi.clearCSS(`${this.plugin.getName()}-${moduleName}`);
   }
+
+  this.downloadStylesheet = (url) => {
+    return new Promise(function(resolve, reject) {
+      // Get file name from url.
+      var xhr = new XMLHttpRequest();
+      // xhr.responseType = 'blob';
+      xhr.onload = function() {
+        resolve(xhr);
+      };
+      xhr.onerror = reject;
+      xhr.open('GET', url);
+      xhr.send();
+    }).then(function(xhr) {
+      return xhr.response;
+    });
+  };
 }
 /* STOP: Library */
 
 window.KSSLibrary = KSSLibrary;
-
-/* START: Test Cases */
-// var KSS = new KSSLibrary();
-// KSS.selectDarkTheme();
-//
-// console.log(KSS.selectors);
-// KSS.addSelector("heck", "what");
-// console.log(KSS.selectors);
-/* STOP: Test Cases */
-
-
-
 
 var KSSLibrary = (() => {
   const config = {
@@ -197,7 +209,7 @@ var KSSLibrary = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "0.0.1",
+      "version": "0.0.3",
       "description": "Easy CSS for BetterDiscord.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"

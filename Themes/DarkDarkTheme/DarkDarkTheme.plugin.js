@@ -24,14 +24,6 @@ WScript.Quit();
 
 @else@*/
 
-String.prototype.replaceAll = function(find, replace) {
-  var str = this;
-  return str.replace(
-    new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
-    replace
-  );
-};
-
 var DarkDarkTheme = (() => {
   const config = {
     info: {
@@ -43,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.3",
+      version: "3.0.5",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
@@ -194,7 +186,7 @@ var DarkDarkTheme = (() => {
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
               );
 
-              KSS = new KSSLibrary(this.getName());
+              KSS = new KSSLibrary(this);
 
               this.patch();
               this.updateCSS();
@@ -221,15 +213,24 @@ var DarkDarkTheme = (() => {
             }
 
             updateCSS() {
-              // Later in onStart().
-              KSS.setModule(
-                "colors",
-                ``.trim(),
-                true
-              );
+              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.css").then((kss) => {
+                KSS.setModule(
+                  "branding",
+                  kss,
+                  true
+                );
+              });
+              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.css").then((kss) => {
+                KSS.setModule(
+                  "colors",
+                  kss,
+                  true
+                );
+              });
             }
 
             removeCSS() {
+              KSS.disableModule("branding");
               KSS.disableModule("colors");
             }
           };
