@@ -25,9 +25,26 @@ String.prototype.replaceAll = function(find, replace) {
 
 /* START: Library */
 function KSS() {
+  /* START: Reloading and updating... */
+  //   var pluginName = this.getName();
+  //   var pluginInfo = bdplugins[pluginName];
+  //   var bIsPluginEnabled = pluginCookie[pluginName];
+  //   try {
+  //     if (bIsPluginEnabled && pluginInfo.plugin && pluginInfo.plugin.stop) {
+  //       pluginCookie[pluginName] = false;
+  //       pluginInfo.plugin.stop();
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  /* STOP: Reloading and updating... */
+
   this.selectors = {
     chat: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("chat").chat
+    ),
+    chatTitle: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("chat").title
     ),
     channelTextArea: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("channelTextArea").channelTextArea
@@ -50,8 +67,7 @@ function KSS() {
     autocompleteSelectorSelected: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("autocomplete").selectorSelected
     ),
-    channelTitleBar: `.title-3qD0b-`,
-    serverTitleBar: `.container-2Rl01u.clickable-2ap7je`,
+    serverTitle: `.container-2Rl01u.clickable-2ap7je`,
     emojiPicker: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("emojiPicker").emojiPicker
     ),
@@ -99,19 +115,33 @@ function KSS() {
   };
 
   this.selectDarkTheme = () => {
-    console.log("This function has not been created yet.");
+    ZLibrary.DiscordModules.UserSettingsUpdater.updateLocalSettings({
+      theme: "dark"
+    });
   };
 
   this.selectLightTheme = () => {
-    console.log("This function has not been created yet.");
+    ZLibrary.DiscordModules.UserSettingsUpdater.updateLocalSettings({
+      theme: "light"
+    });
+  };
+
+  this.selectShitTheme = () => {
+    ZLibrary.DiscordModules.UserSettingsUpdater.updateLocalSettings({
+      theme: "shit"
+    });
   };
 
   this.selectCozyMode = () => {
-    console.log("This function has not been created yet.");
+    ZLibrary.DiscordModules.UserSettingsUpdater.updateLocalSettings({
+      displayCompact: false
+    });
   };
 
   this.selectCompactMode = () => {
-    console.log("This function has not been created yet.");
+    ZLibrary.DiscordModules.UserSettingsUpdater.updateLocalSettings({
+      displayCompact: true
+    });
   };
 }
 /* STOP: Library */
