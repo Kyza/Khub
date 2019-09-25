@@ -173,11 +173,11 @@ var ExampleTheme = (() => {
 
           return class ExampleTheme extends Plugin {
             onStart() {
-              PluginUpdater.checkForUpdate(
-                "ExampleTheme",
-                this.getVersion(),
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
-              );
+PluginUpdater.checkForUpdate(
+  this.getName(),
+  this.getVersion(),
+  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
+);
 
               KSS = new KSSLibrary(this.getName());
 
