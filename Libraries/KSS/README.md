@@ -60,21 +60,7 @@ if (!document.querySelector("#KSSLibrary")) {
         this.init();
       },
       onCancel: () => {
-        var pluginName = this.getName();
-        var pluginInfo = bdplugins[pluginName];
-        var bIsPluginEnabled = pluginCookie[pluginName];
-        try {
-          if (
-            bIsPluginEnabled &&
-            pluginInfo.plugin &&
-            pluginInfo.plugin.stop
-          ) {
-            pluginCookie[pluginName] = false;
-            pluginInfo.plugin.stop();
-          }
-        } catch (err) {
-          console.error(err);
-        }
+        pluginModule.disablePlugin(this.getName());
       }
     }
   );
