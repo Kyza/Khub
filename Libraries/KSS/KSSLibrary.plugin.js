@@ -26,21 +26,6 @@
 
 
 
-/* START: Include ZLibrary */
-// let libraryScript = document.getElementById("ZLibraryScript");
-// if (!libraryScript || !window.ZLibrary) {
-//   if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
-//   libraryScript = document.createElement("script");
-//   libraryScript.setAttribute("type", "text/javascript");
-//   libraryScript.setAttribute(
-//     "src",
-//     "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js"
-//   );
-//   libraryScript.setAttribute("id", "ZLibraryScript");
-//   document.head.appendChild(libraryScript);
-// }
-/* STOP: Include ZLibrary */
-
 /* START: Utility Functions */
 String.prototype.replaceAll = function(find, replace) {
   var str = this;
@@ -166,6 +151,7 @@ if (libraryScript) {
   libraryScript.remove();
 }
 libraryScript = document.createElement("script");
+libraryScript.id = "KSSLibrary";
 libraryScript.type = "text/javascript";
 libraryScript.innerHTML = KSSLibrary.toString();
 document.head.appendChild(libraryScript);
@@ -191,7 +177,7 @@ var KSSLibrary = (() => {
         "github_username": "KyzaGitHub"
       }],
       "version": "0.0.1",
-      "description": "KSSLibrary is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
+      "description": "Easy CSS for BetterDiscord.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
@@ -238,11 +224,28 @@ var KSSLibrary = (() => {
       return config.info.version;
     }
     load() {
-      require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
-        if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
-        await new Promise(r => {
-          require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r);
-        });
+      const title = "Library Missing";
+      const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
+      const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+      const ConfirmationModal = BdApi.findModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");
+      if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
+      ModalStack.push(function(props) {
+        return BdApi.React.createElement(ConfirmationModal, Object.assign({
+          header: title,
+          children: [TextElement({
+            color: TextElement.Colors.PRIMARY,
+            children: [`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`]
+          })],
+          red: false,
+          confirmText: "Download Now",
+          cancelText: "Cancel",
+          onConfirm: () => {
+            require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
+              if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
+              await new Promise(r => require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r));
+            });
+          }
+        }, props));
       });
       ZLibrary.PluginUpdater.checkForUpdate("KSSLibrary", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js");
     }
