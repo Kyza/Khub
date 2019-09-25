@@ -6,7 +6,7 @@
 // Offer to self-install for clueless users that try to run this directly.
 var shell = WScript.CreateObject("WScript.Shell");
 var fs = new ActiveXObject("Scripting.FileSystemObject");
-var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\BetterDiscord\plugins");
+var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%/BetterDiscord/plugins");
 var pathSelf = WScript.ScriptFullName;
 // Put the user at ease by addressing them in the first person
 shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.5",
+      version: "3.0.6",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
@@ -213,16 +213,23 @@ var DarkDarkTheme = (() => {
             }
 
             updateCSS() {
-              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.css").then((kss) => {
+              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss").then((kss) => {
                 KSS.setModule(
                   "branding",
                   kss,
                   true
                 );
               });
-              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.css").then((kss) => {
+              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss").then((kss) => {
                 KSS.setModule(
                   "colors",
+                  kss,
+                  true
+                );
+              });
+              KSS.downloadStylesheet("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss").then((kss) => {
+                KSS.setModule(
+                  "ui",
                   kss,
                   true
                 );
