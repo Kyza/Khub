@@ -33,42 +33,18 @@ Here is a list of just some of them.
 
 ## Getting Started
 
-Include this JavaScript in the `start()` function of your plugin file.
+First off, here is your plugin skeleton.
+
+This starts you off with a BDv2 style plugin that handles all the dirty stuff such as including both ZeresPluginLibrary and KSS.
 
 ```
-if (!document.querySelector("#KSSLibrary")) {
-  BdApi.showConfirmationModal(
-    "Just a minute, there!",
-    [
-      `By clicking "I Agree" you agree to allow this plugin to include an external library called `,
-      BdApi.React.createElement(
-        "a",
-        {
-          href:
-            "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-          target: "_blank"
-        },
-        "KSS"
-      ),
-      "."
-    ],
-    {
-      danger: false,
-      confirmText: "I Agree",
-      cancelText: "No! Disable this plugin!",
-      onConfirm: () => {
-        this.init();
-      },
-      onCancel: () => {
-        pluginModule.disablePlugin(this.getName());
-      }
-    }
-  );
-} else {
-  this.init();
-}
+
 ```
 
-This block of code will ask your users if they are fine with using the library.
+That combination is perfect for easily making your theme plugin.
 
-`this.init()` is what you'll use to handle... WIP
+Simply make a new file titled `ThemeName.plugin.js` and paste this code inside.
+
+Next, `Ctrl+F` and replace `ThemeName` with your actual theme name.
+
+Finally, fill in all the metadata and you're all set!
