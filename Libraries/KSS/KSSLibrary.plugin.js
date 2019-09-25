@@ -145,23 +145,15 @@ function KSSLibrary() {
 }
 /* STOP: Library */
 
-/* START: Add Library */
-let libraryScript = document.querySelector("#KSSLibrary");
-if (libraryScript) {
-  libraryScript.remove();
-}
-libraryScript = document.createElement("script");
-libraryScript.id = "KSSLibrary";
-libraryScript.type = "text/javascript";
-libraryScript.innerHTML = KSSLibrary.toString();
-document.head.appendChild(libraryScript);
-/* STOP: Add Library */
+window.KSSLibrary = KSSLibrary;
 
 /* START: Test Cases */
 // var KSS = new KSSLibrary();
-// KSS.selectShitTheme();
-// kiss.addSelector("heck", "what");
-// console.log(kiss.getSelector("heck"));
+// KSS.selectDarkTheme();
+//
+// console.log(KSS.selectors);
+// KSS.addSelector("heck", "what");
+// console.log(KSS.selectors);
 /* STOP: Test Cases */
 
 
@@ -244,6 +236,11 @@ var KSSLibrary = (() => {
               if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
               await new Promise(r => require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r));
             });
+          },
+          onCancel: () => {
+            if (document.querySelector("#KSSLibrary")) {
+              document.querySelector("#KSSLibrary").remove();
+            }
           }
         }, props));
       });
