@@ -43,7 +43,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.0-beta-2",
+      version: "3.0.0",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
@@ -186,52 +186,7 @@ var DarkDarkTheme = (() => {
 
           var updateInterval;
 
-          const selectors = {
-            chat: new DOMTools.Selector(WebpackModules.getByProps("chat").chat),
-            channelTextArea: `${new DOMTools.Selector(
-              WebpackModules.getByProps("channelTextArea").channelTextArea
-            )} > [class*="inner"]`,
-            titleBar: new DOMTools.Selector(
-              WebpackModules.getByProps("titleBar").titleBar
-            ),
-            searchBar: new DOMTools.Selector(
-              WebpackModules.getByProps("searchBar").searchBar
-            ),
-            autocomplete: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps("autocomplete").autocomplete
-            ),
-            autocompleteRow: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps(
-                "autocompleteRow"
-              ).autocompleteRow
-            ),
-            autocompleteSelectorSelected: new DOMTools.Selector(
-              ZLibrary.WebpackModules.getByProps(
-                "autocomplete"
-              ).selectorSelected
-            ),
-            channelTitleBar: `.title-3qD0b-`,
-            serverTitleBar: `.container-2Rl01u.clickable-2ap7je`,
-            emojiPicker: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiPicker").emojiPicker
-            ),
-            category: new DOMTools.Selector(
-              WebpackModules.getByProps("category").category
-            ),
-            emojiSearchBar: `.inner-3ErfOT`,
-            emojiItem: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").emojiItem
-            ),
-            emojiItemSelected: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").selected
-            ),
-            emojiItemCategories: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").categories
-            ),
-            emojiItemItem: new DOMTools.Selector(
-              WebpackModules.getByProps("emojiItem").item
-            )
-          };
+          var KSSLibrary = null;
 
           return class DarkDarkTheme extends Plugin {
             onStart() {
@@ -242,6 +197,51 @@ var DarkDarkTheme = (() => {
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
                 );
               }, 5000);
+
+              if (!document.querySelector("#KSSLibrary")) {
+                BdApi.showConfirmationModal(
+                  "Just a minute, there!",
+                  [
+                    `By clicking "I Agree" you agree to allow this plugin to include an external library called `,
+                    BdApi.React.createElement(
+                      "a",
+                      {
+                        href:
+                          "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+                        target: "_blank"
+                      },
+                      "KSS"
+                    ),
+                    "."
+                  ],
+                  {
+                    danger: false,
+                    confirmText: "I Agree",
+                    cancelText: "No! Disable this plugin!",
+                    onConfirm: () => {
+                      this.init();
+                    },
+                    onCancel: () => {
+                      // Stop the plugin.
+                      pluginModule.disablePlugin(this.getName());
+                    }
+                  }
+                );
+              } else {
+                this.init();
+              }
+            }
+
+            init() {
+              if (document.querySelector("#KSSLibrary"))
+                BdApi.unlinkJS("KSSLibrary");
+
+              BdApi.linkJS(
+                "KSSLibrary",
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/KSS.js"
+              );
+
+              KSSLibrary = new KSS();
 
               this.patch();
               this.updateCSS();
@@ -258,8 +258,10 @@ var DarkDarkTheme = (() => {
             }
 
             observer({ addedNodes }) {
-              for (const node of addedNodes) {
-                if (node.className == selectors.chat) {
+              if (KSSLibrary) {
+                for (const node of addedNodes) {
+                  if (node.className == KSSLibrary.getSelector("chat")) {
+                  }
                 }
               }
             }
@@ -408,12 +410,12 @@ svg[name="DiscordWordmark"] > path {
 }
 
 /* Server Titlebar */
-.theme-dark |serverTitleBar| {
+.theme-dark |serverTitle| {
   background-color: var(--dark2);
 }
 
 /* Channel Titlebar */
-.theme-dark |channelTitleBar| {
+.theme-dark |channelTitle| {
   background-color: var(--dark2) !important;
 }
 
@@ -492,23 +494,591 @@ svg[name="DiscordWordmark"] > path {
   filter: brightness(60%);
 }
 /* STOP: Emoji Picker */
+
+
+
+/* START: Ping Menu */
+/* Ping Menu Top */
+.theme-dark .header-ykumBX.header-2Kf7Yu.header-3LXPrb {
+  background-color: var(--dark2);
+}
+
+/* Ping Menu Middle */
+.theme-dark .messagesPopout-24nkyi {
+  background-color: var(--dark4) !important;
+}
+
+/* Ping Menu Jump Button */
+.jumpButton-3DTcS_ {
+  background-color: var(--dark6) !important;
+}
+
+/* Ping Menu Bottom */
+.theme-dark .messagesPopoutWrap-1MQ1bW > div:nth-child(3) {
+  background-color: var(--dark2);
+}
+
+/* Ping Menu Message */
+.theme-dark .messageGroupWrapper-o-Zw7G {
+  background-color: var(--dark4);
+  border-color: var(--dark1);
+}
+/* STOP: Ping Menu */
+
+
+
+/* START: Search */
+/* Search Menu */
+.theme-dark .resultsWrapper-hoiXCY {
+  background-color: var(--dark3);
+}
+
+/* Search Menu Back */
+.theme-dark
+  .searchResultsWrap-2DKFzt
+  .scrollerWrap-2lJEkd.firefoxFixScrollFlex-cnI2ix.scrollerThemed-2oenus.themeGhost-28MSn0.scrollerTrack-1ZIpsv {
+  background-color: var(--dark3);
+}
+
+/* Search Channel Name */
+.theme-dark .channelSeparator-1X1FuH,
+.channelName-1QajIf {
+  background-color: var(--dark3) !important;
+}
+
+.theme-dark .div-1QajIf {
+  background-color: var(--dark2);
+}
+
+/* Search Channel Separator */
+.theme-dark .channelSeparator-1X1FuH {
+  background-color: #2f3136;
+}
+
+/* Search Results Info */
+.theme-dark .searchHeader-1l-wpR {
+  background-color: var(--dark1);
+}
+
+/* Highlighted Search Result */
+.theme-dark .searchResultMessage-2VxO12.hit-NLlWXA {
+  background-color: var(--dark5) !important;
+  border-color: var(--dark1);
+}
+
+/* Expanded Search Result */
+.theme-dark .searchResult-3pzFAB.expanded-v2Szsz {
+  border-color: var(--dark1);
+}
+
+/* Search Result Gradients 1 */
+.theme-dark .searchResult-3pzFAB:before,
+.theme-dark .searchResult-3pzFAB:after {
+  display: none;
+}
+
+/* Search Result Gradients 2 */
+.theme-dark
+  .searchResult-3pzFAB.expanded-v2Szsz
+  .searchResultMessage-2VxO12.hit-NLlWXA {
+  border-top: 2px solid rgba(28, 36, 43, 0.6);
+  border-bottom: 2px solid rgba(28, 36, 43, 0.6);
+  box-sizing: border-box;
+  background-color: rgb(54, 57, 63);
+}
+
+/* Search Result Gradients 3 */
+.theme-dark .searchResults-2J8dju .searchResultMessage-2VxO12.hit-NLlWXA {
+  -webkit-box-shadow: 0px 0px 10px var(--dark-1);
+}
+
+/* Search Dropdown */
+.theme-dark .container-3ayLPN.elevationBorderHigh-2WYJ09 {
+  background-color: var(--dark2);
+  border-color: var(--dark5);
+  border-width: 2px;
+  border-style: solid;
+}
+
+.theme-dark .option-96V44q.searchOption-zQ-1l6::after,
+.option-96V44q::after {
+  display: none;
+}
+/* STOP: Search */
+
+
+
+/* START: Pin Menu */
+/* Pin Menu Top */
+.theme-dark .header-ykumBX.header-2Kf7Yu {
+  background-color: var(--dark2);
+}
+/* STOP: Pin Menu */
+
+
+
+/* START: Sliders */
+/* Slider Off */
+.theme-dark .valueUnchecked-2lU_20 {
+  background-color: var(--dark1);
+}
+
+/* Slider On Blue */
+.theme-dark .valueChecked-m-4IJZ,
+.theme-dark .ui-switch.checked {
+  background-color: var(--dark-blue) !important;
+}
+
+/* Slider On Green */
+.theme-dark .valueChecked-m-4IJZ.themeDefault-24hCdX {
+  background-color: var(--dark-green) !important;
+}
+
+/* BetterDiscord Slider Off */
+.theme-dark .ui-switch:not(.checked) {
+  background-color: var(--dark1) !important;
+}
+/* STOP: Sliders */
+
+
+
+/* START Nitro Boost Menu */
+/* Nitro Main */
+.theme-dark .applicationStore-1pNvnv {
+  background-color: var(--dark3);
+}
+
+/* Nitro Tier */
+.theme-dark .tier1Banner-1B_WXY {
+  background-color: var(--dark3) !important;
+}
+
+/* Nitro Top */
+.theme-dark
+  .flex-1xMQg5.flex-1O1GKY.horizontal-1ae9ci.horizontal-2EEEnY.flex-1O1GKY.directionRow-3v3tfG.justifyStart-2NDFzi.alignCenter-1dQNNs.noWrap-3jynv6.header-2tA9Os {
+  background-color: var(--dark1);
+}
+
+/* Nitro Center */
+.theme-dark
+  .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0.content-2qfHzC {
+  background-color: var(--dark5);
+}
+
+/* Nitro Bottom */
+.theme-dark
+  .flex-1xMQg5.flex-1O1GKY.horizontalReverse-2eTKWD.horizontalReverse-3tRjY7.flex-1O1GKY.directionRowReverse-m8IjIq.justifyStart-2NDFzi.alignStretch-DpGPf3.noWrap-3jynv6.footer-3rDWdC.footer-1o3nCu {
+  background-color: var(--dark3);
+}
+
+/* Boosting Tiers */
+.theme-dark .tierNoneContainer-3hhK3h {
+  background-color: var(--dark5);
+}
+
+.theme-dark .tierHeader---JJFb {
+  background-color: var(--dark3);
+}
+
+.theme-dark .tierBody-16Chc9 {
+  background-color: var(--dark5);
+}
+
+.theme-dark .tierNoneText-2OvCv7 {
+  font-size: 0px;
+}
+
+.theme-dark .tierNoneText-2OvCv7:before {
+  content: "Boost my server or die";
+  font-size: 14px;
+}
+
+.theme-dark .tierNoneText-2OvCv7:after {
+  content: "https://kyza.gq/discord/";
+  font-size: 14px;
+}
+
+.theme-dark .carouselLeftGradientEdge-3P4spl {
+  background-image: linear-gradient(90deg, var(--dark1), rgba(54, 57, 63, 0));
+}
+
+.theme-dark .carouselRightGradientEdge-2Z3H8D {
+  background-image: linear-gradient(-90deg, var(--dark1), rgba(54, 57, 63, 0));
+}
+/* STOP: Nitro Boost Menu */
+
+
+
+/* START: Popups */
+/* Channel Popup */
+.theme-dark .modal-yWgWj-.modal-1sor29 {
+  background-color: var(--dark4);
+}
+/* STOP: Popups */
+
+
+
+/* START: Rich Presence */
+/* Full Profile Top No Activity */
+.theme-dark .topSectionNormal-2-vo2m {
+  background-color: var(--dark1);
+}
+
+/* Full Profile Top Activity 1 */
+.theme-dark .topSectionPlaying-1J5E4n {
+  background-color: #36363f;
+}
+
+/* Full Profile Top Activity 2 */
+.theme-dark .topSectionPlaying-1J5E4n {
+  background-color: #26262f;
+}
+
+/* Full Profile Bottom */
+.theme-dark .body-3ND3kc {
+  background-color: var(--dark3);
+}
+
+/* Full Profile Spotify */
+.theme-dark .topSectionSpotify-1lI0-P {
+  background-color: #363f36;
+}
+
+.theme-dark
+  .topSectionSpotify-1lI0-P
+  .actionButton-3W1xZa.button-38aScr.lookInverted-2D7oAl.colorGreen-29iAKY.sizeSmall-2cSMqn.grow-q77ONN {
+  background-color: #eee;
+}
+
+/* Mini Profile Top Shade */
+.theme-dark .activityUserPopout-2yItg2.activity-11LB_k {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Mini Profile Top Activity  */
+.theme-dark .headerPlaying-j0WQBV.header-2BwW8b.size16-14cGz5 {
+  background-color: #36363f;
+}
+
+/* Mini Profile Top Spotify */
+.theme-dark .headerSpotify-zpWxgT.header-2BwW8b.size16-14cGz5 {
+  background-color: #363f36;
+}
+
+/* Mini Profile Main */
+.theme-dark .bodyInner-245q0L {
+  background-color: #1a1a1a !important;
+}
+
+/* Mini Profile Bottom */
+.theme-dark .footer-1fjuF6 {
+  background-color: var(--dark3);
+}
+
+/* Mini Profile Chat */
+.theme-dark .footer-1fjuF6 > input {
+  background-color: var(--dark1);
+}
+/* STOP: Rich Presence */
+
+
+
+/* START: Discover/Activity Tab */
+.theme-dark .searchBox-3Y2Vi7.searchBoxInput-uJ66lD {
+  background-color: var(--dark7);
+}
+
+.theme-dark .popoutContainer-3WC9HR.homepage-28Bghb.homepage-nMy8gk:hover {
+  background-color: var(--dark5);
+}
+
+/* Activity Games */
+.theme-dark .section-2VKIPC {
+  background-color: var(--dark5);
+}
+
+/* Activity Recently Played */
+.theme-dark .card-GqTca8.recentlyPlayedContainer-2F3MqS {
+  background-color: var(--dark2);
+}
+/* STOP: Discover/Activity Tab */
+
+
+
+/* START: Library Tab */
+/* Top Buttons */
+.theme-dark
+  .actionButton-4w4-EY.button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.sizeIcon-1-kvKI.grow-q77ONN {
+  background-color: var(--dark5);
+}
+
+/* Action Buttons */
+.theme-dark
+  .button-38aScr.lookFilled-1Gx00P.colorPrimary-3b3xI6.hoverGreen-1gjdJc.actionButtonSize-1Znp1q.grow-q77ONN.hasHover-3X1-zV {
+  background-color: var(--dark7);
+}
+
+/* Gift Inventory */
+.theme-dark
+  .scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.scrollerStore-390omS.systemPad-3UxEGl {
+  background-color: var(--dark4);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+/* STOP: Library Tab */
+
+
+
+/* START: Friends Tab */
+.theme-dark .friendsTable-133bsv {
+  background-color: var(--dark4);
+  margin-top: 0px;
+}
+
+.theme-dark .container-1r6BKw.themed-ANHk51 {
+  background-color: var(--dark1);
+}
+/* STOP: Friends Tab */
+
+
+
+/* START: Server Folders */
+.theme-dark .expandedFolderBackground-2sPsd- {
+  background-color: var(--dark6);
+}
+/* STOP: Server Folders */
+
+
+
+/* START: Delete Message Dialog */
+/* Center */
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy {
+  background-color: var(--dark4);
+}
+
+/* Message */
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .message-2qRu38 {
+  background-color: var(--dark3);
+}
+
+/* Footer */
+.theme-dark .modal-yWgWj-.container-SaXBYZ.sizeSmall-1jtLQy .footer-3rDWdC {
+  background-color: var(--dark2);
+}
+/* STOP: Delete Message Dialog */
+
+
+
+/* START: Add Friends To Group */
+.theme-dark .modal-yWgWj-.popout-103y-5.sizeSmall-1jtLQy {
+  background-color: var(--dark1);
+}
+/* STOP: Add Friends To Group */
+
+
+
+/* START: User Panel */
+.theme-dark .container-1giJp5 {
+  background-color: var(--dark2);
+}
+
+.theme-dark .panels-j1Uci_ {
+  background-color: transparent;
+}
+
+.theme-dark .container-3baos1 {
+  background-color: var(--dark2);
+}
+/* STOP: User Panel */
+
+
+
+/* START: Date Picker */
+.calendarPicker-2yf6Ci,
+.react-datepicker,
+.react-datepicker__header {
+  background-color: var(--dark5) !important;
+}
+
+.react-datepicker__day,
+.react-datepicker__navigation {
+  background-color: var(--dark7) !important;
+}
+/* STOP: Date Picker */
+
+
+
+/* START: Settings Modals */
+.scroller-2FKFPG.firefoxFixScrollFlex-cnI2ix.systemPad-3UxEGl.inner-ZyuQk0 {
+  padding-top: 20px;
+  background-color: var(--dark4);
+}
+
+.footer-3rDWdC {
+  background-color: var(--dark3) !important;
+}
+/* STOP: Settings Modals */
+
+
+
+/* START: Controls */
+/* Dropdown Selected */
+.css-12o7ek3-option {
+  background-color: var(--dark2);
+}
+
+/* Dropdown Unselected */
+.css-1aymab5-option {
+  background-color: var(--dark3);
+}
+
+/* Dropdown Hovered */
+.css-1gnr91b-option {
+  background-color: var(--dark4);
+}
+
+/* Buttons */
+.lookFilled-1Gx00P.colorBrand-3pXr91 {
+  background-color: transparent;
+  border: 1px solid var(--dark-blue);
+}
+
+.lookFilled-1Gx00P.colorGreen-29iAKY {
+}
+
+/* Slider */
+.barFill-23-gu- {
+  background-color: var(--dark-blue);
+}
+
+/* Microphone Slider */
+[style*="background: rgb(105, 196, 154);"] {
+  background-color: var(--dark-green) !important;
+}
+
+.sliderBar-3DezvM.microphone-2rtdHw .barFill-23-gu- {
+  background-color: var(--dark-yellow) !important;
+  filter: brighten(-0.1);
+}
+
+.sliderBar-3DezvM.microphone-2rtdHw .grow {
+  background-color: var(--dark-yellow) !important;
+}
+
+/* Large Checkboxes */
+/* Check Mark */
+.checkbox-1ix_J3.checked-3_4uQ9 {
+  background-color: var(--dark7);
+}
+
+/* Blue */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"] {
+  background: transparent !important;
+  border-color: var(--dark-blue) !important;
+  transition-duration: 0.4s;
+}
+
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(114, 137, 218)"]:hover {
+  background-color: var(--dark-blue) !important;
+}
+
+/* Green */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"] {
+  background: transparent !important;
+  border-color: var(--dark-green) !important;
+  transition-duration: 0.4s;
+}
+
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(67, 181, 129)"]:hover {
+  background-color: var(--dark-green) !important;
+}
+
+/* Yellow */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"] {
+  background: transparent !important;
+  border-color: var(--dark-yellow) !important;
+  transition-duration: 0.4s;
+}
+
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(250, 166, 26)"]:hover {
+  background-color: var(--dark-yellow) !important;
+}
+
+/* Orange */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"] {
+  background: transparent !important;
+  border-color: var(--dark-orange) !important;
+  transition-duration: 0.4s;
+}
+
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(245, 119, 49)"]:hover {
+  background-color: var(--dark-orange) !important;
+}
+
+/* Red */
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"] {
+  background: transparent !important;
+  border-color: var(--dark-red) !important;
+  transition-duration: 0.4s;
+}
+
+.cardPrimaryEditable-3KtE4g.card-3Qj_Yx[style*="background-color: rgb(240, 71, 71)"]:hover {
+  background-color: var(--dark-red) !important;
+}
+/* STOP: Controls */
+
+
+
+/* START: Settings */
+.activeGame-14JI7o.notDetected-33MY4s {
+  background-color: var(--dark2);
+}
+
+/* Search Games */
+.searchBox-3Y2Vi7.search-MFQ5bU {
+  background-color: var(--dark2);
+}
+/* STOP: Settings */
+
+
+
+/* START: BetterDiscord */
+.theme-dark .inner-3ErfOT {
+  background-color: var(--dark6) !important;
+}
+
+
+
+/* START: SafeEmbedGenerator */
+.theme-dark #embedPopupWrapper {
+  background-color: var(--dark2) !important;
+}
+
+.theme-dark #embedPreviewWrapper,
+.theme-dark #providerName,
+.theme-dark #providerUrl,
+.theme-dark #authorName,
+.theme-dark #authorUrl,
+.theme-dark #description,
+.theme-dark #imageUrl,
+.theme-dark #colorPicker,
+.theme-dark #embedPopupWrapper > input[type="button"]:nth-child(9) {
+  background-color: var(--dark4) !important;
+  color: white !important;
+}
+/* STOP: SafeEmbedGenerator */
+
+
+
+/* START: dateViewer */
+#dv-mount {
+  background-color: transparent;
+}
+/* STOP: dateViewer */
+/* STOP: BetterDiscord */
               `.trim();
 
-              for (const selector in selectors) {
-                colors = colors.replaceAll(
-                  `|${selector}|`,
-                  (selectors[selector].value
-                    ? selectors[selector].value
-                    : selectors[selector]
-                  ).trim()
-                );
-                console.log(
-                  (selectors[selector].value
-                    ? selectors[selector].value
-                    : selectors[selector]
-                  ).trim()
-                );
-              }
+              colors = KSSLibrary.parse(colors);
 
               console.log(colors);
 
