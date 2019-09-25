@@ -28,78 +28,87 @@ var ExampleTheme = (() => {
   const config = {
     info: {
       name: "ExampleTheme",
-      authors: [{
-        name: "Kyza",
-        discord_id: "220584715265114113",
-        github_username: "KyzaGitHub"
-      }],
+      authors: [
+        {
+          name: "Kyza",
+          discord_id: "220584715265114113",
+          github_username: "KyzaGitHub"
+        }
+      ],
       version: "1.0.0",
       description: "ExampleTheme",
-      github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/ExampleTheme",
-      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
+      github:
+        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/ExampleTheme",
+      github_raw:
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
     },
-    changelog: [{
-        "title": "New Stuff",
-        "items": ["Changelog!"]
+    changelog: [
+      {
+        title: "New Stuff",
+        items: ["Changelog!"]
       },
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: [
-          "Bugs fixed.",
-          "Bugs fixed!!"
-        ]
+        items: ["Bugs fixed.", "Bugs fixed!!"]
       },
       {
         title: "Improvements",
         type: "improved",
-        items: [
-          "Improved!",
-          "Improvements."
-        ]
+        items: ["Improved!", "Improvements."]
       },
       {
-        "title": "On-going",
-        "type": "progress",
-        "items": ["On going..."]
+        title: "On-going",
+        type: "progress",
+        items: ["On going..."]
       }
     ],
     main: "index.js"
   };
 
-  return !global.ZeresPluginLibrary ?
-    class {
-      constructor() {
-        this._config = config;
-      }
-      getName() {
-        return config.info.name;
-      }
-      getAuthor() {
-        return config.info.authors.map((a) => a.name).join(", ");
-      }
-      getDescription() {
-        return config.info.description;
-      }
-      getVersion() {
-        return config.info.version;
-      }
-      load() {
-        if (!window.ZLibrary || !window.KSSLibrary) {
-          BdApi.showConfirmationModal("Libraries Required",
+  return !global.ZeresPluginLibrary || !window.KSSLibrary
+    ? class {
+        constructor() {
+          this._config = config;
+        }
+        getName() {
+          return config.info.name;
+        }
+        getAuthor() {
+          return config.info.authors.map((a) => a.name).join(", ");
+        }
+        getDescription() {
+          return config.info.description;
+        }
+        getVersion() {
+          return config.info.version;
+        }
+        load() {
+          BdApi.showConfirmationModal(
+            "Libraries Required",
             [
               `By clicking "I Agree", you agree to allow ${config.info.name} to download the two libraries `,
-              BdApi.React.createElement("a", {
-                href: "https://github.com/rauenzi/BDPluginLibrary/",
-                target: "_blank"
-              }, "ZeresPluginLibrary"),
+              BdApi.React.createElement(
+                "a",
+                {
+                  href: "https://github.com/rauenzi/BDPluginLibrary/",
+                  target: "_blank"
+                },
+                "ZeresPluginLibrary"
+              ),
               " and ",
-              BdApi.React.createElement("a", {
-                href: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-                target: "_blank"
-              }, "KSS"),
+              BdApi.React.createElement(
+                "a",
+                {
+                  href:
+                    "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+                  target: "_blank"
+                },
+                "KSS"
+              ),
               "."
-            ], {
+            ],
+            {
               danger: false,
               confirmText: "I Agree",
               cancelText: "No! Disable this plugin!",
@@ -153,52 +162,49 @@ var ExampleTheme = (() => {
             }
           );
         }
+        start() {}
+        stop() {}
       }
-      start() {}
-      stop() {}
-    } :
-    (([Plugin, Api]) => {
-      const plugin = (Plugin, Api) => {
-        const {
-          PluginUpdater
-        } = Api;
+    : (([Plugin, Api]) => {
+        const plugin = (Plugin, Api) => {
+          const { PluginUpdater } = Api;
 
-        var KSS = null;
+          var KSS = null;
 
-        return class ExampleTheme extends Plugin {
-          onStart() {
-            PluginUpdater.checkForUpdate(
-              "ExampleTheme",
-              this.getVersion(),
-              "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
-            );
+          return class ExampleTheme extends Plugin {
+            onStart() {
+              PluginUpdater.checkForUpdate(
+                "ExampleTheme",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
+              );
 
-            KSS = new KSSLibrary(this.getName());
+              KSS = new KSSLibrary(this.getName());
 
-            this.updateCSS();
-          }
+              this.updateCSS();
+            }
 
-          onStop() {
-            this.removeCSS();
-          }
+            onStop() {
+              this.removeCSS();
+            }
 
-          updateCSS() {
-            // Later in onStart().
-            var colors = `
+            updateCSS() {
+              // Later in onStart().
+              var colors = `
 |channelTextAreaInner| {
   background-color: red;
 }
 `.trim();
 
-            KSS.setModule("colors", colors);
-          }
+              KSS.setModule("colors", colors);
+            }
 
-          removeCSS() {
-            KSS.disableModule("colors");
-          }
+            removeCSS() {
+              KSS.disableModule("colors");
+            }
+          };
         };
-      };
-      return plugin(Plugin, Api);
-    })(global.ZeresPluginLibrary.buildPlugin(config));
+        return plugin(Plugin, Api);
+      })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/

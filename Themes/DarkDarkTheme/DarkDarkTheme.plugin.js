@@ -36,15 +36,19 @@ var DarkDarkTheme = (() => {
   const config = {
     info: {
       name: "DarkDarkTheme",
-      authors: [{
-        name: "Kyza",
-        discord_id: "220584715265114113",
-        github_username: "KyzaGitHub"
-      }],
-      version: "3.0.2",
+      authors: [
+        {
+          name: "Kyza",
+          discord_id: "220584715265114113",
+          github_username: "KyzaGitHub"
+        }
+      ],
+      version: "3.0.3",
       description: "DarkDarkTheme v3. A theme in plugin form.",
-      github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
-      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+      github:
+        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
+      github_raw:
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
       // {
@@ -77,39 +81,49 @@ var DarkDarkTheme = (() => {
     main: "index.js"
   };
 
-  return !global.ZeresPluginLibrary ?
-    class {
-      constructor() {
-        this._config = config;
-      }
-      getName() {
-        return config.info.name;
-      }
-      getAuthor() {
-        return config.info.authors.map((a) => a.name).join(", ");
-      }
-      getDescription() {
-        return config.info.description;
-      }
-      getVersion() {
-        return config.info.version;
-      }
-      load() {
-        if (!window.ZLibrary || !window.KSSLibrary) {
-          BdApi.showConfirmationModal("Libraries Required",
+  return !global.ZeresPluginLibrary || !window.KSSLibrary
+    ? class {
+        constructor() {
+          this._config = config;
+        }
+        getName() {
+          return config.info.name;
+        }
+        getAuthor() {
+          return config.info.authors.map((a) => a.name).join(", ");
+        }
+        getDescription() {
+          return config.info.description;
+        }
+        getVersion() {
+          return config.info.version;
+        }
+        load() {
+          BdApi.showConfirmationModal(
+            "Libraries Required",
             [
               `By clicking "I Agree", you agree to allow ${config.info.name} to download the two libraries `,
-              BdApi.React.createElement("a", {
-                href: "https://github.com/rauenzi/BDPluginLibrary/",
-                target: "_blank"
-              }, "ZeresPluginLibrary"),
+              BdApi.React.createElement(
+                "a",
+                {
+                  href: "https://github.com/rauenzi/BDPluginLibrary/",
+                  target: "_blank"
+                },
+                "ZeresPluginLibrary"
+              ),
               " and ",
-              BdApi.React.createElement("a", {
-                href: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-                target: "_blank"
-              }, "KSS"),
+              BdApi.React.createElement(
+                "a",
+                {
+                  href:
+                    "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+                  target: "_blank"
+                },
+                "KSS"
+              ),
               "."
-            ], {
+            ],
+            {
               danger: false,
               confirmText: "I Agree",
               cancelText: "No! Disable this plugin!",
@@ -163,59 +177,54 @@ var DarkDarkTheme = (() => {
             }
           );
         }
+        start() {}
+        stop() {}
       }
-      start() {}
-      stop() {}
-    } :
-    (([Plugin, Api]) => {
-      const plugin = (Plugin, Api) => {
-        const {
-          Patcher,
-          PluginUpdater
-        } = Api;
+    : (([Plugin, Api]) => {
+        const plugin = (Plugin, Api) => {
+          const { Patcher, PluginUpdater } = Api;
 
-        var KSS = null;
+          var KSS = null;
 
-        return class DarkDarkTheme extends Plugin {
-          onStart() {
-            PluginUpdater.checkForUpdate(
-              "DarkDarkTheme",
-              this.getVersion(),
-              "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
-            );
+          return class DarkDarkTheme extends Plugin {
+            onStart() {
+              PluginUpdater.checkForUpdate(
+                "DarkDarkTheme",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
+              );
 
-            KSS = new KSSLibrary(this.getName());
+              KSS = new KSSLibrary(this.getName());
 
-            this.patch();
-            this.updateCSS();
-          }
+              this.patch();
+              this.updateCSS();
+            }
 
-          onStop() {
-            this.unpatch();
-            this.removeCSS();
-          }
+            onStop() {
+              this.unpatch();
+              this.removeCSS();
+            }
 
-          observer({
-            addedNodes
-          }) {
-            if (KSS) {
-              for (const node of addedNodes) {
-                if (node.className == KSS.getSelector("chat")) {}
+            observer({ addedNodes }) {
+              if (KSS) {
+                for (const node of addedNodes) {
+                  if (node.className == KSS.getSelector("chat")) {
+                  }
+                }
               }
             }
-          }
 
-          patch() {
+            patch() {}
 
-          }
+            unpatch() {
+              Patcher.unpatchAll();
+            }
 
-          unpatch() {
-            Patcher.unpatchAll();
-          }
-
-          updateCSS() {
-            // Later in onStart().
-            KSS.setModule("colors", `
+            updateCSS() {
+              // Later in onStart().
+              KSS.setModule(
+                "colors",
+                `
 /* START: Variables */
 /* Theme Variables */
 * {
@@ -1007,15 +1016,17 @@ svg[name="DiscordWordmark"] > path {
 }
 /* STOP: dateViewer */
 /* STOP: BetterDiscord */
-              `.trim(), true);
-          }
+              `.trim(),
+                true
+              );
+            }
 
-          removeCSS() {
-            KSS.disableModule("colors");
-          }
+            removeCSS() {
+              KSS.disableModule("colors");
+            }
+          };
         };
-      };
-      return plugin(Plugin, Api);
-    })(global.ZeresPluginLibrary.buildPlugin(config));
+        return plugin(Plugin, Api);
+      })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/
