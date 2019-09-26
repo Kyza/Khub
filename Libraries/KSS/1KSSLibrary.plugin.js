@@ -344,7 +344,7 @@ var KSSLibrary = (() => {
           ZLibrary.PluginUpdater.checkForUpdate(
             "KSSLibrary",
             this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
           );
         }
         start() {}
