@@ -1,4 +1,4 @@
-//META{"name":"DarkDarkTheme","displayName":"DarkDarkTheme","website":"https://khub.kyza.gq/?plugin=DarkDarkTheme","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"}*//
+//META{"name":"CustomKSSEditor","displayName":"CustomKSSEditor","website":"https://khub.kyza.gq/?plugin=CustomKSSEditor","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"}*//
 
 /*@cc_on
 @if (@_jscript)
@@ -24,10 +24,10 @@ WScript.Quit();
 
 @else@*/
 
-var DarkDarkTheme = (() => {
+var CustomKSSEditor = (() => {
   const config = {
     info: {
-      name: "DarkDarkTheme",
+      name: "CustomKSSEditor",
       authors: [
         {
           name: "Kyza",
@@ -35,12 +35,12 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.9",
-      description: "DarkDarkTheme v3. A theme in plugin form.",
+      version: "1.0.0",
+      description: "Easily create and test your KSS.",
       github:
-        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
+        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/CustomKSSEditor",
       github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"
     },
     changelog: [
       // {
@@ -204,22 +204,24 @@ var DarkDarkTheme = (() => {
 
           var KSS = null;
 
-          return class DarkDarkTheme extends Plugin {
+          return class CustomKSSEditor extends Plugin {
             onStart() {
               PluginUpdater.checkForUpdate(
-                "DarkDarkTheme",
+                "CustomKSSEditor",
                 this.getVersion(),
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"
               );
 
               KSS = new KSSLibrary(this);
 
               this.patch();
+              this.addOverlay();
               this.updateCSS();
             }
 
             onStop() {
               this.unpatch();
+              this.removeOverlay();
               this.removeCSS();
             }
 
@@ -239,27 +241,74 @@ var DarkDarkTheme = (() => {
             }
 
             updateCSS() {
-              KSS.downloadStylesheet(
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
-              ).then((kss) => {
-                KSS.setModule("branding", kss, true);
-              });
-              KSS.downloadStylesheet(
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
-              ).then((kss) => {
-                KSS.setModule("colors", kss, true);
-              });
-              KSS.downloadStylesheet(
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
-              ).then((kss) => {
-                KSS.setModule("ui", kss, true);
-              });
+              KSS.setModule("userKSS", "");
+              KSS.setModule("overlay-styles", `
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css);
+
+#CustomKSSEditorOverlay {
+  font-family: "Fira Code";
+
+  top: ${KSS.currentPlatform() == "win" ? "22" : "0"}px;
+  left: 0px;
+  width: 100%;
+  height: calc(100% - ${KSS.currentPlatform() == "win" ? "22" : "0"}px);
+
+  background-color: black;
+
+  opacity: 0.6;
+
+  position: absolute;
+  z-index: 999;
+}
+
+#CustomKSSEditorTextarea {
+  position: absolute;
+  top: 44px;
+  left: 0px;
+  width: 100%;
+  height: calc(100% - 45px);
+
+  background-color: rgba(255, 255, 255, 0.0);
+  border: none;
+  border-top: 1px white dotted;
+  padding: 0px;
+  color: white;
+
+  font-size: 24px;
+  font-family: "Fira Code";
+  overflow-x: auto;
+  white-space: nowrap;
+
+  resize: none;
+}
+              `);
             }
 
             removeCSS() {
-              KSS.disableModule("branding");
-              KSS.disableModule("colors");
-              KSS.disableModule("ui");
+              KSS.disableModule("userKSS");
+              KSS.disableModule("overlay-styles");
+            }
+
+            addOverlay() {
+              var overlay = document.createElement("div");
+              overlay.id = "CustomKSSEditorOverlay";
+
+              var textarea = document.createElement("textarea");
+              textarea.id = "CustomKSSEditorTextarea";
+
+              textarea.oninput = () => {
+                setTimeout(() => {
+                  KSS.setModule("userKSS", textarea.value);
+                }, 1e2);
+              };
+
+              overlay.appendChild(textarea);
+
+              document.body.appendChild(overlay);
+            }
+
+            removeOverlay() {
+              document.querySelector("#CustomKSSEditorOverlay").remove();
             }
           };
         };
