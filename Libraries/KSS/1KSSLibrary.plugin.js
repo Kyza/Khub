@@ -88,6 +88,45 @@ function KSSLibrary(plugin) {
     ),
     emojiItemItem: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("emojiItem").item
+    ),
+    notice: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").notice
+    ),
+    noticeBrand: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeBrand
+    ),
+    noticeDanger: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeDanger
+    ),
+    noticeDefault: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeDefault
+    ),
+    noticeFacebook: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeFacebook
+    ),
+    noticeInfo: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeInfo
+    ),
+    noticePremium: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticePremium
+    ),
+    noticePremiumGrandfathered: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticePremiumGrandfathered
+    ),
+    noticeRichPresence: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeRichPresence
+    ),
+    noticeSpotify: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeSpotify
+    ),
+    noticeStreamerMode: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeStreamerMode
+    ),
+    noticeSuccess: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeSuccess
+    ),
+    noticeSurvey: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("notice").noticeSurvey
     )
   };
 
@@ -327,22 +366,22 @@ var KSSLibrary = (() => {
         discord_id: "220584715265114113",
         github_username: "KyzaGitHub"
       }],
-      version: "0.0.6",
+      version: "0.0.7",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
     changelog: [
-      // {
-      //   "title": "New Stuff",
-      //   "items": ["Added the KSS theme loader."]
-      // }
-      // ,
       {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["Fixed downloadStylesheet()."]
+        "title": "New Stuff",
+        "items": ["Added all notice banner selectors."]
       }
+      // ,
+      // {
+      //   "title": "Bugs Squashed",
+      //   "type": "fixed",
+      //   "items": ["Fixed downloadStylesheet()."]
+      // }
       // ,
       // {
       //   "title": "Improvements",
