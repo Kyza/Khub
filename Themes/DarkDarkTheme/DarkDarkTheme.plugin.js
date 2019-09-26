@@ -43,33 +43,13 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      // {
-      //   "title": "New Stuff",
-      //   "items": ["Removed the Revenge Ping button."]
-      // }
-      // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: [
-      //     "Updated the plugin to use ZLibrary more instead of BdApi."
-      //   ]
-      // }
-      // ,
-      // {
-      //   title: "Improvements",
-      //   type: "improved",
-      //   items: [
-      //     "Moved the icon to the top right.",
-      //     "Added an animation to the ghostping panel."
-      //   ]
-      // }
-      //	,
-      // {
-      //   "title": "On-going",
-      //   "type": "progress",
-      //   "items": []
-      // }
+      {
+         "title": "On-going",
+         "type": "progress",
+         "items": [
+           "Moving V2 elements to V3"
+         ]
+      }
     ],
     main: "index.js"
   };
