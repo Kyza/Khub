@@ -52,7 +52,7 @@ var DarkDarkTheme = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "Updated the plugin to use ZLibrary instead of BdApi."
+          "Updated the plugin to use ZLibrary more instead of BdApi."
         ]
       }
       // ,
