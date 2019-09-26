@@ -166,11 +166,13 @@ function KSSLibrary(plugin) {
   };
 
   this.reloadModule = (moduleName) => {
+    if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     this.disableModule(moduleName);
     this.enableModule(moduleName);
   };
 
   this.enableModule = (moduleName) => {
+    if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     if (this.modules[moduleName].enabled) {
       this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
     }
@@ -182,12 +184,13 @@ function KSSLibrary(plugin) {
   };
 
   this.disableModule = (moduleName) => {
+    if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     this.modules[moduleName].enabled = false;
     this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
   };
 
   this.downloadStylesheet = (url) => {
-    if (!url.endsWith(".css") || !url.endsWith(".kss")) throw "You can only download CSS or KSS stylesheets.";
+    if (!url.endsWith(".css") && !url.endsWith(".kss")) throw "You can only download CSS or KSS stylesheets.";
 
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
@@ -324,21 +327,22 @@ var KSSLibrary = (() => {
         discord_id: "220584715265114113",
         github_username: "KyzaGitHub"
       }],
-      version: "0.0.5",
+      version: "0.0.6",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
-    changelog: [{
-        "title": "New Stuff",
-        "items": ["Added more helper functions."]
-      }
-      // ,
+    changelog: [
       // {
-      //   "title": "Bugs Squashed",
-      //   "type": "fixed",
-      //   "items": ["Fixed more visuals for the ghost button."]
+      //   "title": "New Stuff",
+      //   "items": ["Added the KSS theme loader."]
       // }
+      // ,
+      {
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["Fixed downloadStylesheet()."]
+      }
       // ,
       // {
       //   "title": "Improvements",
