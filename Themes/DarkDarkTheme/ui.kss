@@ -148,16 +148,16 @@
   max-height: 175px;
 }
 
+.panels-j1Uci_ > :first-child:not(.container-3baos1) {
+  border-top-right-radius: 20px !important;
+}
+
 .activityPanel-28dQGo {
   background-color: var(--dark2);
 }
 
 .members-1998pB {
   width: 100%;
-}
-
-.container-1giJp5 {
-  border-top-right-radius: 20px !important;
 }
 
 .container-3baos1 {
