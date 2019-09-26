@@ -145,7 +145,11 @@
 /* User Panel */
 .panels-j1Uci_ {
   min-height: 70px;
-  max-height: 122px;
+  max-height: 175px;
+}
+
+.activityPanel-28dQGo {
+  background-color: var(--dark2);
 }
 
 .members-1998pB {
