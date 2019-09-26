@@ -721,9 +721,7 @@
 
 
 /* START: Notice Banners */
-|noticeDanger| {
-  filter: brightness(80%);
-}
+
 /* STOP: Notice Banners */
 
 
