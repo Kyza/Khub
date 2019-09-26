@@ -102,7 +102,7 @@
 }
 
 /* Fancy Buttons */
-*[href="/activity"] {
+.|channel|[href="/activity"] {
   margin-left: 5px !important;
 }
 

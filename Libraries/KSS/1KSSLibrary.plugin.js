@@ -48,6 +48,9 @@ function KSSLibrary(plugin) {
     chatTitle: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("chat").title
     ),
+    channel: new ZLibrary.DOMTools.Selector(
+      ZLibrary.WebpackModules.getByProps("channel").channel
+    ),
     channelTextArea: new ZLibrary.DOMTools.Selector(
       ZLibrary.WebpackModules.getByProps("channelTextArea").channelTextArea
     ),
@@ -366,7 +369,7 @@ var KSSLibrary = (() => {
         discord_id: "220584715265114113",
         github_username: "KyzaGitHub"
       }],
-      version: "0.0.7",
+      version: "0.0.8",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"

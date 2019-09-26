@@ -69,7 +69,7 @@ var DarkDarkTheme = (() => {
          "title": "On-going",
          "type": "progress",
          "items": [
-           "Moving V2 elements to V3"
+           "Moving V2 elements to V3."
          ]
       }
     ],
