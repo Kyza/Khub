@@ -720,6 +720,14 @@
 
 
 
+/* START: Notice Banners */
+|notice| {
+  filter: brightness(80%);
+}
+/* STOP: Notice Banners */
+
+
+
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
   background-color: var(--dark6) !important;
