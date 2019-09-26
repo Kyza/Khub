@@ -183,9 +183,7 @@ function KSSLibrary(plugin) {
 
   this.downloadStylesheet = (url) => {
     return new Promise(function(resolve, reject) {
-      // Get file name from url.
       var xhr = new XMLHttpRequest();
-      // xhr.responseType = 'blob';
       xhr.onload = function() {
         resolve(xhr);
       };
