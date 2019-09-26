@@ -24,8 +24,6 @@
 
 @else@*/
 
-
-
 /* START: Utility Functions */
 String.prototype.replaceAll = function(find, replace) {
   var str = this;
@@ -98,9 +96,9 @@ function KSSLibrary(plugin) {
     for (let selector in this.selectors) {
       kss = kss.replaceAll(
         `|${selector}|`,
-        (this.selectors[selector].value ?
-          this.selectors[selector].value :
-          this.selectors[selector]
+        (this.selectors[selector].value
+          ? this.selectors[selector].value
+          : this.selectors[selector]
         ).trim()
       );
     }
@@ -169,16 +167,19 @@ function KSSLibrary(plugin) {
 
   this.enableModule = (moduleName) => {
     if (this.modules[moduleName].enabled) {
-      BdApi.clearCSS(`${this.plugin.getName()}-${moduleName}`);
+      this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
     }
     this.modules[moduleName].enabled = true;
-    BdApi.injectCSS(`${this.plugin.getName()}-${moduleName}`, this.parse(this.modules[moduleName].kss));
-  }
+    this.injectCSS(
+      `${this.plugin.getName()}-${moduleName}`,
+      this.parse(this.modules[moduleName].kss)
+    );
+  };
 
   this.disableModule = (moduleName) => {
     this.modules[moduleName].enabled = false;
-    BdApi.clearCSS(`${this.plugin.getName()}-${moduleName}`);
-  }
+    this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
+  };
 
   this.downloadStylesheet = (url) => {
     return new Promise(function(resolve, reject) {
@@ -189,11 +190,27 @@ function KSSLibrary(plugin) {
         resolve(xhr);
       };
       xhr.onerror = reject;
-      xhr.open('GET', url);
+      xhr.open("GET", url);
       xhr.send();
     }).then(function(xhr) {
       return xhr.response;
     });
+  };
+
+  this.injectCSS = (id, css) => {
+    if (!document.querySelector(`#${id}`)) {
+      let element = document.createElement("style");
+      element.id = id;
+      element.innerHTML = css;
+      document.head.appendChild(element);
+    }
+  };
+
+  this.clearCSS = (id) => {
+    let elements = document.querySelectorAll(`#${id}`);
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].remove();
+    }
   };
 }
 /* STOP: Library */
@@ -202,19 +219,23 @@ window.KSSLibrary = KSSLibrary;
 
 var KSSLibrary = (() => {
   const config = {
-    "info": {
-      "name": "KSSLibrary",
-      "authors": [{
-        "name": "Kyza",
-        "discord_id": "220584715265114113",
-        "github_username": "KyzaGitHub"
-      }],
-      "version": "0.0.3",
-      "description": "Easy CSS for BetterDiscord.",
-      "github": "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
-      "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
+    info: {
+      name: "KSSLibrary",
+      authors: [
+        {
+          name: "Kyza",
+          discord_id: "220584715265114113",
+          github_username: "KyzaGitHub"
+        }
+      ],
+      version: "0.0.4",
+      description: "Easy CSS for BetterDiscord.",
+      github:
+        "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
+      github_raw:
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
-    "changelog": [
+    changelog: [
       // {
       //   "title": "New Stuff",
       //   "items": ["Removed the Revenge Ping button."]
@@ -237,77 +258,117 @@ var KSSLibrary = (() => {
       //   "items": []
       // }
     ],
-    "main": "index.js"
+    main: "index.js"
   };
 
-  return !global.ZeresPluginLibrary ? class {
-    constructor() {
-      this._config = config;
-    }
-    getName() {
-      return config.info.name;
-    }
-    getAuthor() {
-      return config.info.authors.map(a => a.name).join(", ");
-    }
-    getDescription() {
-      return config.info.description;
-    }
-    getVersion() {
-      return config.info.version;
-    }
-    load() {
-      const title = "Library Missing";
-      const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
-      const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-      const ConfirmationModal = BdApi.findModule(m => m.defaultProps && m.key && m.key() == "confirm-modal");
-      if (!ModalStack || !ConfirmationModal || !TextElement) return BdApi.alert(title, `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);
-      ModalStack.push(function(props) {
-        return BdApi.React.createElement(ConfirmationModal, Object.assign({
-          header: title,
-          children: [TextElement({
-            color: TextElement.Colors.PRIMARY,
-            children: [`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`]
-          })],
-          red: false,
-          confirmText: "Download Now",
-          cancelText: "Cancel",
-          onConfirm: () => {
-            require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, response, body) => {
-              if (error) return require("electron").shell.openExternal("https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js");
-              await new Promise(r => require("fs").writeFile(require("path").join(ContentManager.pluginsFolder, "0PluginLibrary.plugin.js"), body, r));
-            });
-          },
-          onCancel: () => {
-            if (document.querySelector("#KSSLibrary")) {
-              document.querySelector("#KSSLibrary").remove();
-            }
-          }
-        }, props));
-      });
-      ZLibrary.PluginUpdater.checkForUpdate("KSSLibrary", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js");
-    }
-    start() {}
-    stop() {}
-  } : (([Plugin, Api]) => {
-    const plugin = (Plugin, Api) => {
-      const {
-        Modals
-      } = Api;
-
-      return class KSSLibrary extends Plugin {
-
-        onStart() {
-          Modals.showAlertModal("You don't need to enable this plugin.", "It has been disabled for you automatically.");
-          pluginModule.disablePlugin(this.getName());
+  return !global.ZeresPluginLibrary
+    ? class {
+        constructor() {
+          this._config = config;
         }
+        getName() {
+          return config.info.name;
+        }
+        getAuthor() {
+          return config.info.authors.map((a) => a.name).join(", ");
+        }
+        getDescription() {
+          return config.info.description;
+        }
+        getVersion() {
+          return config.info.version;
+        }
+        load() {
+          const title = "Library Missing";
+          const ModalStack = BdApi.findModuleByProps(
+            "push",
+            "update",
+            "pop",
+            "popWithKey"
+          );
+          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+          const ConfirmationModal = BdApi.findModule(
+            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+          );
+          if (!ModalStack || !ConfirmationModal || !TextElement)
+            return BdApi.alert(
+              title,
+              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+            );
+          ModalStack.push(function(props) {
+            return BdApi.React.createElement(
+              ConfirmationModal,
+              Object.assign(
+                {
+                  header: title,
+                  children: [
+                    TextElement({
+                      color: TextElement.Colors.PRIMARY,
+                      children: [
+                        `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
+                      ]
+                    })
+                  ],
+                  red: false,
+                  confirmText: "Download Now",
+                  cancelText: "Cancel",
+                  onConfirm: () => {
+                    require("request").get(
+                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                      async (error, response, body) => {
+                        if (error)
+                          return require("electron").shell.openExternal(
+                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                          );
+                        await new Promise((r) =>
+                          require("fs").writeFile(
+                            require("path").join(
+                              ContentManager.pluginsFolder,
+                              "0PluginLibrary.plugin.js"
+                            ),
+                            body,
+                            r
+                          )
+                        );
+                      }
+                    );
+                  },
+                  onCancel: () => {
+                    if (document.querySelector("#KSSLibrary")) {
+                      document.querySelector("#KSSLibrary").remove();
+                    }
+                  }
+                },
+                props
+              )
+            );
+          });
+          ZLibrary.PluginUpdater.checkForUpdate(
+            "KSSLibrary",
+            this.getVersion(),
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
+          );
+        }
+        start() {}
+        stop() {}
+      }
+    : (([Plugin, Api]) => {
+        const plugin = (Plugin, Api) => {
+          const { Modals } = Api;
 
-        onStop() {}
+          return class KSSLibrary extends Plugin {
+            onStart() {
+              Modals.showAlertModal(
+                "You don't need to enable this plugin.",
+                "It has been disabled for you automatically."
+              );
+              pluginModule.disablePlugin(this.getName());
+            }
 
-      };
-
-    };
-    return plugin(Plugin, Api);
-  })(global.ZeresPluginLibrary.buildPlugin(config));
+            onStop() {}
+          };
+        };
+        return plugin(Plugin, Api);
+      })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/
