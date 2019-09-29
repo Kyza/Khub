@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.12",
+      version: "3.0.13",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -51,8 +51,11 @@ var DarkDarkTheme = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed some chat box issues."]
-      },
+        items: [
+          "Fixed some members list issues."
+        ]
+      }
+      ,
       // {
       //   title: "Improvements",
       //   type: "improved",
@@ -203,11 +206,13 @@ var DarkDarkTheme = (() => {
 
           return class DarkDarkTheme extends Plugin {
             onStart() {
-              PluginUpdater.checkForUpdate(
-                "DarkDarkTheme",
-                this.getVersion(),
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
-              );
+              setInterval(() => {
+                PluginUpdater.checkForUpdate(
+                  "DarkDarkTheme",
+                  this.getVersion(),
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
+                );
+              }, 5000);
 
               KSS = new KSSLibrary(this);
 
