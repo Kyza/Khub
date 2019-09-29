@@ -392,9 +392,9 @@ var KSSLibrary = (() => {
       // }
       // ,
       {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["Fixed themes not loading."]
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Fixed themes not loading."]
       }
       // ,
       // {
@@ -492,13 +492,11 @@ var KSSLibrary = (() => {
               )
             );
           });
-          setInterval(() => {
-            ZLibrary.PluginUpdater.checkForUpdate(
-              "KSSLibrary",
-              this.getVersion(),
-              "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
-            );
-          }, 5000);
+          ZLibrary.PluginUpdater.checkForUpdate(
+            "KSSLibrary",
+            this.getVersion(),
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
+          );
         }
         start() {}
         stop() {}

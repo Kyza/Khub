@@ -39,9 +39,11 @@
   z-index: 1 !important;
 }
 
-.membersWrap-2h-GB4 .members-1998pB,
+.membersWrap-2h-GB4 .members-1998pB {
+  max-width: 100% !important;
+}
 .membersWrap-2h-GB4 .member-3W1lQa {
-  width: 100% !important;
+  max-width: calc(100% - 8px) !important;
 }
 
 .inner-zqa7da.flex-1O1GKY {
