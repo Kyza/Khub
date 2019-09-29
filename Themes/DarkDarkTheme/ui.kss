@@ -29,7 +29,7 @@
 
 /* Textarea */
 /* Chat over members list */
-.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr {
+.chatContent-a9vAAp {
   z-index: 2 !important;
   overflow: visible;
 }
@@ -41,7 +41,7 @@
 
 .membersWrap-2h-GB4 .members-1998pB,
 .membersWrap-2h-GB4 .member-3W1lQa {
-  max-width: 100% !important;
+  width: 100% !important;
 }
 
 .inner-zqa7da.flex-1O1GKY {
@@ -50,7 +50,7 @@
   border-radius: 0px;
 }
 
-.spacer-1fA9zc.vertical-V37hAW.flex-1O1GKY.directionColumn-35P_nr:only-child
+.chatContent-a9vAAp:only-child
   .inner-zqa7da.flex-1O1GKY {
   width: 100%;
 }

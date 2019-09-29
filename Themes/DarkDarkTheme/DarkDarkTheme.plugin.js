@@ -35,12 +35,12 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.11",
+      version: "3.0.12",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
-        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/DarkDarkTheme",
+        "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
       github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/DarkDarkTheme/DarkDarkTheme.plugin.js"
+        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
       // {
@@ -48,14 +48,14 @@ var DarkDarkTheme = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: [
-      //     "Updated the plugin to use ZLibrary more instead of BdApi."
-      //   ]
-      // }
-      // ,
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: [
+          "Fixed some chat box issues."
+        ]
+      }
+      ,
       // {
       //   title: "Improvements",
       //   type: "improved",
