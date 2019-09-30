@@ -35,7 +35,7 @@ var CustomKSSEditor = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.1",
+      version: "1.0.2",
       description: "Easily create and test your KSS.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/CustomKSSEditor",
@@ -92,7 +92,7 @@ var CustomKSSEditor = (() => {
           return config.info.version;
         }
         load() {
-          PluginUpdater.checkForUpdate(
+          ZLibrary.PluginUpdater.checkForUpdate(
             "CustomKSSEditor",
             this.getVersion(),
             "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"
