@@ -43,7 +43,7 @@ var Emquoter = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.1.4",
+			version: "0.1.5",
 			description:
 				"Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
@@ -56,19 +56,19 @@ var Emquoter = (() => {
 			//   "items": ["Blacklisted embedded quotes on the BetterDiscord servers at BetterDiscord staff request."]
 			// }
 			// ,
-			// {
-			// 	title: "Bugs Squashed",
-			// 	type: "fixed",
-			// 	items: [
-			// 		"Quotes now work for Canary and PTB jump links.",
-			// 		"The quote icon is now inline SVG."
-			// 	]
-			// },
 			{
-				title: "Improvements",
-				type: "improved",
-				items: ["The plugin runs more smoothly now."]
-			},
+				title: "Bugs Squashed",
+				type: "fixed",
+				items: [
+					"Fixed the repeating update banner."
+				]
+			}
+			// ,
+// 			{
+// 				title: "Improvements",
+// 				type: "improved",
+// 				items: ["The plugin runs more smoothly now."]
+// 			},
 			{
 				title: "On-going",
 				type: "progress",
@@ -182,6 +182,12 @@ var Emquoter = (() => {
 				return config.info.version;
 			}
 			load() {
+				PluginUpdater.checkForUpdate(
+					"emquoter",
+					this.getVersion(),
+					"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/emquoter/emquoter.plugin.js"
+				);
+
 				const title = "Library Missing";
 				const ModalStack = BdApi.findModuleByProps(
 					"push",
@@ -360,14 +366,6 @@ var Emquoter = (() => {
 				return class Emquoter extends Plugin {
 					onStart() {
 						BdApi.injectCSS("emquoter-css", css);
-
-						updateInterval = setInterval(() => {
-							PluginUpdater.checkForUpdate(
-								"emquoter",
-								this.getVersion(),
-								"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/emquoter/emquoter.plugin.js"
-							);
-						}, 5000);
 
 						removeInterval = setInterval(() => {
 							this.updateQuoteAppearances();
