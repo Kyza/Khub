@@ -8,10 +8,10 @@
 .platform-win |titleBar|:after {
     content: "v|pluginVersion| by Kyza#9994" !important;
     font-size: 14px !important;
-    font-family: UniSansHeavy;
-    position: absolute;
-    white-space: nowrap;
-    transform: translateY(4px);
+    font-family: UniSansHeavy !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    transform: translateY(4px) !important;
     color: #999 !important;
     text-align: center !important;
     width: 100% !important;
@@ -19,15 +19,15 @@
   
 /* Remove Workmark */
 .wordmark-2iDDfm > svg {
-    display: none;
+    display: none !important;
 }
 .wordmark-2iDDfm:after {
-    content: "DISCORD - DarkDarkTheme";
-    font-family: UniSansHeavy;
-    font-size: 14px;
-    position: absolute;
-    white-space: nowrap;
-    transform: translateY(4px);
+    content: "DISCORD - DarkDarkTheme" !important;
+    font-family: UniSansHeavy !important;
+    font-size: 14px !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    transform: translateY(4px) !important;
 }
 
 /* STOP: Branding */  
