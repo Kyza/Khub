@@ -62,7 +62,7 @@ var Emquoter = (() => {
 				items: [
 					"Fixed the repeating update banner."
 				]
-			}
+			},
 			// ,
 // 			{
 // 				title: "Improvements",
