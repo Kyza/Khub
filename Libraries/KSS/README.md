@@ -2,7 +2,7 @@
 
 # This README.md is not up to date.
 # While it still gives the basic purpose of KSS,
-# it is not finished and does not cover the extent of what KSS will be.
+# it is not finished and does not cover the full extent of what KSS will be.
 
 ## Easy CSS for BetterDiscord.
 
