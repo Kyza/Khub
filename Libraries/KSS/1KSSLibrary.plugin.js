@@ -378,7 +378,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.0.9",
+      version: "0.0.10",
       description: "Easy CSS for BetterDiscord.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
@@ -429,6 +429,11 @@ var KSSLibrary = (() => {
           return config.info.version;
         }
         load() {
+          ZLibrary.PluginUpdater.checkForUpdate(
+            "KSSLibrary",
+            this.getVersion(),
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
+          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -492,11 +497,6 @@ var KSSLibrary = (() => {
               )
             );
           });
-          ZLibrary.PluginUpdater.checkForUpdate(
-            "KSSLibrary",
-            this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
-          );
         }
         start() {}
         stop() {}
