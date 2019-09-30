@@ -281,8 +281,8 @@ function KSSLibrary(plugin) {
 
   this.currentTheme = () => {
     var theme = "shit";
-    if (document.querySelector(".theme-dark")) platform = "dark";
-    if (document.querySelector(".theme-light")) platform = "light";
+    if (document.querySelector(".theme-dark")) theme = "dark";
+    if (document.querySelector(".theme-light")) theme = "light";
     return theme;
   };
 }
@@ -378,7 +378,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.0.10",
+      version: "0.0.11",
       description: "Easy CSS for BetterDiscord.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
@@ -394,7 +394,7 @@ var KSSLibrary = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed updating issues."]
+        items: ["Fixed currentTheme()."]
       }
       // ,
       // {
