@@ -52,7 +52,7 @@ var CustomKSSEditor = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "Fixed the repeating update banner."
+          "Fixed updating issues."
         ]
       }
       // ,
