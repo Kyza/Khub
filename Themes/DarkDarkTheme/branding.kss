@@ -19,15 +19,15 @@
   
 /* Remove Workmark */
 .wordmark-2iDDfm > svg {
-    display: none !important;
+    /*display: none !important;*/
 }
 .wordmark-2iDDfm:after {
-    content: "DISCORD - DarkDarkTheme" !important;
+    content: "- DarkDarkTheme" !important;
     font-family: UniSansHeavy !important;
     font-size: 14px !important;
     position: absolute !important;
     white-space: nowrap !important;
-    transform: translateY(4px) !important;
+    transform: translateX(4px) translateY(4px) !important;
 }
 
-/* STOP: Branding */  
+/* STOP: Branding */
