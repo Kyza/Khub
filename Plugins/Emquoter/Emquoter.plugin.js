@@ -43,7 +43,7 @@ var Emquoter = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.1.5",
+			version: "0.1.6",
 			description:
 				"Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
