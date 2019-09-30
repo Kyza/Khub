@@ -11,7 +11,7 @@
     font-family: UniSansHeavy !important;
     position: absolute !important;
     white-space: nowrap !important;
-    transform: translateY(3px) !important;
+    transform: translateY(2px) !important;
     color: #999 !important;
     text-align: center !important;
     width: 100% !important;
@@ -27,7 +27,7 @@
     font-size: 14px !important;
     position: absolute !important;
     white-space: nowrap !important;
-    transform: translateX(4px) translateY(3px) !important;
+    transform: translateX(4px) translateY(2px) !important;
 }
 
 /* STOP: Branding */
