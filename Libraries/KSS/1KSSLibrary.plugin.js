@@ -394,7 +394,7 @@ var KSSLibrary = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed themes not loading."]
+        items: ["Fixed updating issues."]
       }
       // ,
       // {
