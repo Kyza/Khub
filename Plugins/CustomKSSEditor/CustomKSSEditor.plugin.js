@@ -35,7 +35,7 @@ var CustomKSSEditor = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.0",
+      version: "1.0.1",
       description: "Easily create and test your KSS.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/CustomKSSEditor",
@@ -48,13 +48,13 @@ var CustomKSSEditor = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: [
-      //     "Updated the plugin to use ZLibrary more instead of BdApi."
-      //   ]
-      // }
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: [
+          "Fixed the repeating update banner."
+        ]
+      }
       // ,
       // {
       //   title: "Improvements",
@@ -92,6 +92,12 @@ var CustomKSSEditor = (() => {
           return config.info.version;
         }
         load() {
+          PluginUpdater.checkForUpdate(
+            "CustomKSSEditor",
+            this.getVersion(),
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"
+          );
+
           const title = "Libraries Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -206,12 +212,6 @@ var CustomKSSEditor = (() => {
 
           return class CustomKSSEditor extends Plugin {
             onStart() {
-              PluginUpdater.checkForUpdate(
-                "CustomKSSEditor",
-                this.getVersion(),
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomKSSEditor/CustomKSSEditor.plugin.js"
-              );
-
               KSS = new KSSLibrary(this);
 
               this.patch();
