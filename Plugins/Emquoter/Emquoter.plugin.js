@@ -43,7 +43,7 @@ var Emquoter = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.1.6",
+			version: "0.1.7",
 			description:
 				"Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
@@ -60,7 +60,7 @@ var Emquoter = (() => {
 				title: "Bugs Squashed",
 				type: "fixed",
 				items: [
-					"Fixed the repeating update banner."
+					"The quote buttons now show up when switching channels."
 				]
 			},
 			// ,
@@ -314,6 +314,9 @@ var Emquoter = (() => {
 					chat: new DOMTools.Selector(
 						WebpackModules.getByProps("chat").chat
 					).value.trim(),
+					chatContent: new DOMTools.Selector(
+						WebpackModules.getByProps("chatContent").chatContent
+					).value.trim(),
 					loadingMore: new DOMTools.Selector(
 						WebpackModules.getByProps("loadingMore").loadingMore
 					).value.trim(),
@@ -368,6 +371,7 @@ var Emquoter = (() => {
 						BdApi.injectCSS("emquoter-css", css);
 
 						removeInterval = setInterval(() => {
+							this.addButtons();
 							this.updateQuoteAppearances();
 							this.removeEmbeds();
 							this.removeEmptyLinks();
