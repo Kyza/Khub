@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.3.6",
+      "version": "1.3.7",
       "description": "Adds a button which allows you to create non-bannable embeds with ease.",
       "website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -43,17 +43,17 @@ var SafeEmbedGenerator = (() => {
       // 	"items": ["Changed the embed API to my own.", "Added this changelog."]
       // }
       // ,
-      // {
-      //   "title": "Bugs Squashed",
-      //   "type": "fixed",
-      //   "items": ["The button now displays faster."]
-      // }
-      // ,
       {
-      	"title": "Improvements",
-      	"type": "improved",
-      	"items": ["The button now loads faster."]
+        "title": "Bugs Squashed",
+        "type": "fixed",
+        "items": ["Fixed the repeating update banner."]
       }
+      // ,
+//       {
+//       	"title": "Improvements",
+//       	"type": "improved",
+//       	"items": ["The button now loads faster."]
+//       }
       // ,
       // {
       // 	"title": "In Progress",
@@ -81,7 +81,9 @@ var SafeEmbedGenerator = (() => {
       return config.info.version;
     }
     load() {
-      let libraryScript = document.getElementById("ZLibraryScript");
+    PluginUpdater.checkForUpdate("SafeEmbedGenerator", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js");
+
+    let libraryScript = document.getElementById("ZLibraryScript");
       if (!libraryScript || !window.ZLibrary) {
         if (libraryScript) libraryScript.parentElement.removeChild(libraryScript);
         libraryScript = document.createElement("script");
@@ -139,10 +141,6 @@ var SafeEmbedGenerator = (() => {
 
         onStart() {
           /* Start Libraries */
-
-          updateInterval = setInterval(() => {
-            PluginUpdater.checkForUpdate("SafeEmbedGenerator", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js");
-          }, 5000);
 
           makeSureClosedInterval = setInterval(() => {
             if (!embedOpen) {
