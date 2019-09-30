@@ -9,16 +9,21 @@
 }
   
 /* Remove Workmark */
-svg[name="DiscordWordmark"] {
-    width: 250%;
-    transform: scale(0.9);
-    background-image: url("https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkThemeLogo.png");
-    background-size: contain;
-    background-position: left;
-    background-repeat: no-repeat;
+@font-face {
+    font-family: 'UniSansHeavy';
+    src: url("https://khub.kyza.gq/Fonts/Uni%20Sans%20Heavy.ttf")
 }
 
-svg[name="DiscordWordmark"] > path {
+.wordmark-2iDDfm > svg {
     display: none;
 }
+.wordmark-2iDDfm:after {
+    content: "DISCORD - DarkDarkTheme";
+    font-family: UniSansHeavy;
+    font-size: 14px;
+    position: absolute;
+    white-space:nowrap;
+    transform: translateY(4px);
+}
+
 /* STOP: Branding */  
