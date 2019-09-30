@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.3.7",
+      "version": "1.3.8",
       "description": "Adds a button which allows you to create non-bannable embeds with ease.",
       "website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -46,7 +46,7 @@ var SafeEmbedGenerator = (() => {
       {
         "title": "Bugs Squashed",
         "type": "fixed",
-        "items": ["Fixed the repeating update banner."]
+        "items": ["The button now shows up when switching channels."]
       }
       // ,
 //       {
@@ -116,7 +116,8 @@ var SafeEmbedGenerator = (() => {
       } = DiscordModules;
 
       const selectors = {
-        "chat": WebpackModules.getByProps('chat').chat
+        "chat": WebpackModules.getByProps('chat').chat,
+        "chatContent": WebpackModules.getByProps('chatContent').chatContent
       };
 
       var embedOpen = false;
@@ -170,12 +171,17 @@ var SafeEmbedGenerator = (() => {
             recentEmbeds = [];
           }
         }
+	      
+	onSwitch() {
+	  // Use this as a backup.
+	  this.addButton();
+	}
 
         observer({
           addedNodes
         }) {
           for (const node of addedNodes) {
-            if (node.className == selectors.chat) {
+            if (node.className == selectors.chat || node.className == selectors.chatContent) {
               this.addButton();
             }
           }
