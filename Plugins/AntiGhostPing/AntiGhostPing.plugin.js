@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.3",
+      version: "1.2.4",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -53,7 +53,7 @@ var AntiGhostPing = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "Fixed the repeating update banner."
+          "The button shows up when switching channels now."
         ]
       }
 // 	    ,
@@ -193,7 +193,8 @@ var AntiGhostPing = (() => {
           var bound = false;
 
           const selectors = {
-            chat: WebpackModules.getByProps("chat").chat
+            chat: WebpackModules.getByProps("chat").chat,
+            chatContent: WebpackModules.getByProps("chatContent").chatContent
           };
 
           return class AntiGhostPing extends Plugin {
@@ -226,10 +227,15 @@ var AntiGhostPing = (() => {
             removeIntervals() {
               clearInterval(updateInterval);
             }
+		  
+	    onSwitch() {
+		// Use this as a backup.
+		this.addButton();    
+	    }
 
             observer({ addedNodes }) {
               for (const node of addedNodes) {
-                if (node.className == selectors.chat) {
+                if (node.className == selectors.chat || node.className == selectors.chatContent) {
                   this.addButton();
                 }
               }
