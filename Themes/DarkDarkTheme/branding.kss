@@ -27,7 +27,7 @@
     font-size: 14px !important;
     position: absolute !important;
     white-space: nowrap !important;
-    transform: translateX(4px) translateY(2px) !important;
+    transform: translateX(3px) translateY(2px) !important;
 }
 
 /* STOP: Branding */
