@@ -32,11 +32,7 @@ var SafeEmbedGenerator = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-<<<<<<< Updated upstream
-      "version": "1.3.8",
-=======
       "version": "1.3.9",
->>>>>>> Stashed changes
       "description": "Adds a button which allows you to create non-bannable embeds with ease.",
       "website": "https://khub.kyza.gq/?plugin=SafeEmbedGenerator",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -47,12 +43,6 @@ var SafeEmbedGenerator = (() => {
       // 	"items": ["Changed the embed API to my own.", "Added this changelog."]
       // }
       // ,
-<<<<<<< Updated upstream
-      {
-        "title": "Bugs Squashed",
-        "type": "fixed",
-        "items": ["The button now shows up when switching channels."]
-=======
       // {
       //   "title": "Bugs Squashed",
       //   "type": "fixed",
@@ -63,14 +53,7 @@ var SafeEmbedGenerator = (() => {
       	"title": "Improvements",
       	"type": "improved",
       	"items": ["The embed API is now back up permanently.", "The embed API has a custom domain now."]
->>>>>>> Stashed changes
       }
-      // ,
-//       {
-//       	"title": "Improvements",
-//       	"type": "improved",
-//       	"items": ["The button now loads faster."]
-//       }
       // ,
       // {
       // 	"title": "In Progress",
