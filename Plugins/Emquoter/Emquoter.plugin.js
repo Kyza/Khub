@@ -43,7 +43,7 @@ String.prototype.replaceAll = function(find, replace) {
 			github_username: "KyzaGitHub"
 		  }
 		],
-		version: "0.1.8",
+		version: "0.1.9",
 		description:
 		  "Every wanted to quote other people's messages using embeds, but without the risk of being banned?",
 		github: "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/Emquoter",
@@ -56,12 +56,11 @@ String.prototype.replaceAll = function(find, replace) {
 		//   "items": ["Blacklisted embedded quotes on the BetterDiscord servers at BetterDiscord staff request."]
 		// }
 		// ,
-		// {
-		//   title: "Bugs Squashed",
-		//   type: "fixed",
-		//   items: ["The quote buttons now show up when switching channels."]
-		// },
-		// ,
+		{
+		  title: "Bugs Squashed",
+		  type: "fixed",
+		  items: ["Fixed double embedding."]
+		},
 		{
 		  title: "Improvements",
 		  type: "improved",
@@ -523,7 +522,7 @@ String.prototype.replaceAll = function(find, replace) {
 				  for (let j = 0; j < messageLinks.length; j++) {
 					let messageLinkHTML = messageLinks[j].innerHTML;
   
-					let embedLinkRegex = /^http:\/\/em.kyza.gq\/embed\/(?:(\d{20}|\w{20}))$/g;
+					let embedLinkRegex = /^http:\/\/em.kyza.gq\/embed\/(?:(\d{10}|\w{10}))$/g;
 					let embedLinks = messageLinkHTML.match(embedLinkRegex);
   
 					if (embedLinks) {
