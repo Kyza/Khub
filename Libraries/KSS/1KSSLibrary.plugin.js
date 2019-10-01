@@ -40,103 +40,8 @@ function KSSLibrary(plugin) {
   this.plugin = plugin;
 
   this.selectors = {
-    pluginVersion: this.plugin.getVersion(),
-    pluginName: this.plugin.getName(),
-    chat: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("chat").chat
-    ),
-    chatTitle: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("chat").title
-    ),
-    channel: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("channel").channel
-    ),
-    channelTextArea: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("channelTextArea").channelTextArea
-    ),
-    channelTextAreaInner: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("channelTextArea").inner
-    ),
-    titleBar: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("titleBar").titleBar
-    ),
-    searchBar: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("searchBar").searchBar
-    ),
-    autocomplete: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("autocomplete").autocomplete
-    ),
-    autocompleteRow: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("autocompleteRow").autocompleteRow
-    ),
-    autocompleteSelectorSelected: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("autocomplete").selectorSelected
-    ),
-    serverTitle: `.container-2Rl01u.clickable-2ap7je`,
-    emojiPicker: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("emojiPicker").emojiPicker
-    ),
-    category: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("category").category
-    ),
-    emojiSearchBar: `.inner-3ErfOT`,
-    emojiItem: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("emojiItem").emojiItem
-    ),
-    emojiItemSelected: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("emojiItem").selected
-    ),
-    emojiItemCategories: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("emojiItem").categories
-    ),
-    emojiItemItem: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("emojiItem").item
-    ),
-    notice: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("notice").notice
-    ),
-    noticeBrand: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeBrand").noticeBrand
-    ),
-    noticeDanger: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeDanger").noticeDanger
-    ),
-    noticeDefault: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeDefault").noticeDefault
-    ),
-    noticeFacebook: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeFacebook").noticeFacebook
-    ),
-    noticeInfo: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeInfo").noticeInfo
-    ),
-    noticePremium: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticePremium").noticePremium
-    ),
-    noticePremiumGrandfathered: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps(
-        "noticePremiumGrandfathered"
-      ).noticePremiumGrandfathered
-    ),
-    noticeRichPresence: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps(
-        "noticeRichPresence"
-      ).noticeRichPresence
-    ),
-    noticeSpotify: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeSpotify").noticeSpotify
-    ),
-    noticeStreamerMode: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps(
-        "noticeStreamerMode"
-      ).noticeStreamerMode
-    ),
-    noticeSuccess: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeSuccess").noticeSuccess
-    ),
-    noticeSurvey: new ZLibrary.DOMTools.Selector(
-      ZLibrary.WebpackModules.getByProps("noticeSurvey").noticeSurvey
-    )
+    pluginVersion: plugin.getVersion(),
+    pluginName: plugin.getName()
   };
 
   this.parse = (kss) => {
@@ -144,12 +49,30 @@ function KSSLibrary(plugin) {
     for (let selector in this.selectors) {
       kss = kss.replaceAll(
         `|${selector}|`,
-        (this.selectors[selector].value
-          ? this.selectors[selector].value
-          : this.selectors[selector]
+        (this.selectors[selector].value ?
+          this.selectors[selector].value :
+          this.selectors[selector]
         ).trim()
       );
     }
+
+    // Lighty
+    const parsed = kss.match(/\|.*?\|/g);
+    for (const i of parsed) {
+      const search = i.substr(1, i.length - 2).split(' ');
+      const res = ZLibrary.WebpackModules.getByProps(...search);
+      if (!res || !res[search[search.length - 1]]) {
+        ZLibrary.Logger.warn(plugin.getName(), `Could not find selector for "${search.join(', ')}"!`);
+        ZLibrary.Toasts.error(`${plugin.getName()}: Could not find selector for "${search.join(', ')}"!`);
+      } else {
+        try {
+          const result = '.' + res[search[search.length - 1]].split(' ')[0];
+          const escaped = i.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          kss = kss.replace(new RegExp(escaped, 'g'), result);
+        } catch (e) {}
+      }
+    }
+
     return kss;
   };
 
@@ -285,6 +208,89 @@ function KSSLibrary(plugin) {
     if (document.querySelector(".theme-light")) theme = "light";
     return theme;
   };
+
+  // Lighty
+  this.findSelectorsAccurate = (sel) => {
+    let ret = '';
+    const selector = sel.split('-')[0];
+    ZLibrary.WebpackModules.find(m => {
+      if (ret || !m[selector] || typeof m[selector] !== 'string') return false;
+      if (m[selector].split(' ')[0] !== sel) return false;
+
+      const keys = Object.keys(m);
+      let numArgs = 1;
+      let args = [];
+      const baseIdx = keys.indexOf(selector);
+      goNegative = baseIdx + 1 >= keys.length;
+      const getNextIdx = idx => {
+        let rr = idx - 1;
+        if (rr === baseIdx) rr--;
+        return rr;
+      };
+      args.push(getNextIdx(keys.length));
+      const constructKeysFromArgs = () => {
+        const result = [selector];
+        for (let i = 0; i < numArgs; i++) result.push(keys[args[i]]);
+        return result;
+      };
+      while (1) {
+        const rargs = constructKeysFromArgs();
+        const module = ZLibrary.WebpackModules.getByProps(...rargs);
+        if (module && module[selector] && typeof module[selector] === 'string' && module[selector].split(' ')[0] === sel) {
+          const result = [];
+          for (let i = 0; i < numArgs; i++) result.push(keys[args[i]]);
+          result.push(selector);
+          ret = result.join(' ');
+          break;
+        }
+        const incrementNext = cur => {
+          let newVar = getNextIdx(args[cur]);
+          if (newVar < 0 || newVar >= keys.length) {
+            if (cur === numArgs - 1) {
+              numArgs++;
+              let nextNewVar = getNextIdx(keys.length);
+              args.push(nextNewVar);
+              newVar = getNextIdx(nextNewVar);
+            } else {
+              incrementNext(cur + 1);
+              newVar = getNextIdx(args[cur + 1]);
+            }
+            if (newVar < 0 || newVar >= keys.length) throw "The selector most likely doesn't exist.";
+          }
+          args[cur] = newVar;
+        };
+        try {
+          incrementNext(0);
+        } catch (e) {
+          if (numArgs >= keys.length) break;
+        }
+      }
+      return true;
+    });
+    return ret;
+  }
+
+  // Kyza
+  this.findSelectorsFast = (sel) => {
+    let ret = "";
+
+    ZLibrary.WebpackModules.find(mod => {
+      if (typeof mod[sel.split("-")[0]] === "string") {
+        if (mod[sel.split("-")[0]].indexOf(sel) > -1) {
+          let modKeys = Object.keys(mod);
+          for (const modKey of modKeys) {
+            if (ZLibrary.WebpackModules.getByProps(modKey, sel.split("-")[0])[sel.split("-")[0]].indexOf(sel) > -1) {
+              ret = modKey + " " + sel.split("-")[0];
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    });
+
+    return ret;
+  }
 }
 /* STOP: Library */
 
@@ -371,37 +377,34 @@ var KSSLibrary = (() => {
   const config = {
     info: {
       name: "KSSLibrary",
-      authors: [
-        {
-          name: "Kyza",
-          discord_id: "220584715265114113",
-          github_username: "KyzaGitHub"
-        }
-      ],
-      version: "0.0.11",
+      authors: [{
+        name: "Kyza",
+        discord_id: "220584715265114113",
+        github_username: "KyzaGitHub"
+      }],
+      version: "0.1.0",
       description: "Easy CSS for BetterDiscord.",
-      github:
-        "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
-      github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
+      github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
+      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
     changelog: [
-      // {
-      //   title: "New Stuff",
-      //   items: ["Added all notice banner selectors."]
-      // }
-      // ,
       {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: ["Fixed currentTheme()."]
+        title: "New Stuff",
+        items: ["Added findSelectorsFast() and findSelectorsAccurate()."]
       }
       // ,
       // {
-      //   "title": "Improvements",
-      //   "type": "improved",
-      //   "items": []
-      // },
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: ["Fixed currentTheme()."]
+      // }
+      ,
+      {
+        "title": "Improvements",
+        "type": "improved",
+        "items": ["Changed the way KSS parses KSS."]
+      }
+      // ,
       // {
       //   "title": "On-going",
       //   "type": "progress",
@@ -411,113 +414,114 @@ var KSSLibrary = (() => {
     main: "index.js"
   };
 
-  return !global.ZeresPluginLibrary
-    ? class {
-        constructor() {
-          this._config = config;
-        }
-        getName() {
-          return config.info.name;
-        }
-        getAuthor() {
-          return config.info.authors.map((a) => a.name).join(", ");
-        }
-        getDescription() {
-          return config.info.description;
-        }
-        getVersion() {
-          return config.info.version;
-        }
-        load() {
-          ZLibrary.PluginUpdater.checkForUpdate(
-            "KSSLibrary",
-            this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
-          );
-          const title = "Library Missing";
-          const ModalStack = BdApi.findModuleByProps(
-            "push",
-            "update",
-            "pop",
-            "popWithKey"
-          );
-          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-          const ConfirmationModal = BdApi.findModule(
-            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
-          );
-          if (!ModalStack || !ConfirmationModal || !TextElement)
-            return BdApi.alert(
-              title,
-              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
-            );
-          ModalStack.push(function(props) {
-            return BdApi.React.createElement(
-              ConfirmationModal,
-              Object.assign(
-                {
-                  header: title,
-                  children: [
-                    TextElement({
-                      color: TextElement.Colors.PRIMARY,
-                      children: [
-                        `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
-                      ]
-                    })
-                  ],
-                  red: false,
-                  confirmText: "Download Now",
-                  cancelText: "Cancel",
-                  onConfirm: () => {
-                    require("request").get(
-                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
-                      async (error, response, body) => {
-                        if (error)
-                          return require("electron").shell.openExternal(
-                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
-                          );
-                        await new Promise((r) =>
-                          require("fs").writeFile(
-                            require("path").join(
-                              ContentManager.pluginsFolder,
-                              "0PluginLibrary.plugin.js"
-                            ),
-                            body,
-                            r
-                          )
-                        );
-                      }
-                    );
-                  }
-                  // ,
-                  // onCancel: () => {
-                  //   window.KSSLibrary = null;
-                  // }
-                },
-                props
-              )
-            );
-          });
-        }
-        start() {}
-        stop() {}
+  return !global.ZeresPluginLibrary ?
+    class {
+      constructor() {
+        this._config = config;
       }
-    : (([Plugin, Api]) => {
-        const plugin = (Plugin, Api) => {
-          const { Modals } = Api;
+      getName() {
+        return config.info.name;
+      }
+      getAuthor() {
+        return config.info.authors.map((a) => a.name).join(", ");
+      }
+      getDescription() {
+        return config.info.description;
+      }
+      getVersion() {
+        return config.info.version;
+      }
+      load() {
+        ZLibrary.PluginUpdater.checkForUpdate(
+          "KSSLibrary",
+          this.getVersion(),
+          "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
+        );
+        const title = "Library Missing";
+        const ModalStack = BdApi.findModuleByProps(
+          "push",
+          "update",
+          "pop",
+          "popWithKey"
+        );
+        const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+        const ConfirmationModal = BdApi.findModule(
+          (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+        );
+        if (!ModalStack || !ConfirmationModal || !TextElement)
+          return BdApi.alert(
+            title,
+            `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+          );
+        ModalStack.push(function(props) {
+          return BdApi.React.createElement(
+            ConfirmationModal,
+            Object.assign({
+                header: title,
+                children: [
+                  TextElement({
+                    color: TextElement.Colors.PRIMARY,
+                    children: [
+                      `The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`
+                    ]
+                  })
+                ],
+                red: false,
+                confirmText: "Download Now",
+                cancelText: "Cancel",
+                onConfirm: () => {
+                  require("request").get(
+                    "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                    async (error, response, body) => {
+                      if (error)
+                        return require("electron").shell.openExternal(
+                          "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                        );
+                      await new Promise((r) =>
+                        require("fs").writeFile(
+                          require("path").join(
+                            ContentManager.pluginsFolder,
+                            "0PluginLibrary.plugin.js"
+                          ),
+                          body,
+                          r
+                        )
+                      );
+                    }
+                  );
+                }
+                // ,
+                // onCancel: () => {
+                //   window.KSSLibrary = null;
+                // }
+              },
+              props
+            )
+          );
+        });
+      }
+      start() {}
+      stop() {}
+    } :
+    (([Plugin, Api]) => {
+      const plugin = (Plugin, Api) => {
+        const {
+          Modals
+        } = Api;
 
-          return class KSSLibrary extends Plugin {
-            onStart() {
-              Modals.showAlertModal(
-                "You don't need to enable this plugin.",
-                "It has been disabled for you automatically."
-              );
-              pluginModule.disablePlugin(this.getName());
-            }
+        return class KSSLibrary extends Plugin {
+          onStart() {
+            Modals.showAlertModal(
+              "You don't need to enable this plugin.",
+              "It has been disabled for you automatically."
+            );
+            pluginModule.disablePlugin(this.getName());
+          }
 
-            onStop() {}
-          };
+          onStop() {}
         };
-        return plugin(Plugin, Api);
-      })(global.ZeresPluginLibrary.buildPlugin(config));
+      };
+      return plugin(Plugin, Api);
+    })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/
