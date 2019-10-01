@@ -437,8 +437,9 @@ var KSSLibrary = (() => {
         ZLibrary.PluginUpdater.checkForUpdate(
           "KSSLibrary",
           this.getVersion(),
-          "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/1KSSLibrary.plugin.js"
+          "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
         );
+
         const title = "Library Missing";
         const ModalStack = BdApi.findModuleByProps(
           "push",
