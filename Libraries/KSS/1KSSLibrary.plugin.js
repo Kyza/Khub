@@ -386,8 +386,8 @@ var KSSLibrary = (() => {
       }],
       version: "0.1.1",
       description: "Easy CSS for BetterDiscord.",
-      github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
-      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
+      github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+      github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
     },
     changelog: [
       // {
