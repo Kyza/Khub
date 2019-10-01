@@ -213,6 +213,8 @@ function KSSLibrary(plugin) {
   this.findSelectorsAccurate = (sel) => {
     let ret = '';
     const selector = sel.split('-')[0];
+    if (ZLibrary.WebpackModules.getByProps(selector)[selector].split(' ')[0] === sel) ret = selector;
+    if (ret) return ret;
     ZLibrary.WebpackModules.find(m => {
       if (ret || !m[selector] || typeof m[selector] !== 'string') return false;
       if (m[selector].split(' ')[0] !== sel) return false;
@@ -382,28 +384,28 @@ var KSSLibrary = (() => {
         discord_id: "220584715265114113",
         github_username: "KyzaGitHub"
       }],
-      version: "0.1.0",
+      version: "0.1.1",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSSLibrary",
       github_raw: "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSSLibrary/KSSLibrary.plugin.js"
     },
     changelog: [
+      // {
+      //   title: "New Stuff",
+      //   items: ["Added findSelectorsFast() and findSelectorsAccurate()."]
+      // }
+      // ,
       {
-        title: "New Stuff",
-        items: ["Added findSelectorsFast() and findSelectorsAccurate()."]
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Fixed findSelectorsAccurate()."]
       }
       // ,
       // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["Fixed currentTheme()."]
+      //   "title": "Improvements",
+      //   "type": "improved",
+      //   "items": ["Changed the way KSS parses KSS."]
       // }
-      ,
-      {
-        "title": "Improvements",
-        "type": "improved",
-        "items": ["Changed the way KSS parses KSS."]
-      }
       // ,
       // {
       //   "title": "On-going",
