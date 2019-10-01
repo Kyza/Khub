@@ -104,7 +104,7 @@
 }
 
 /* Fancy Buttons */
-.|channel|[href="/activity"] {
+|closeIcon channel|[href="/activity"] {
   margin-left: 5px !important;
 }
 

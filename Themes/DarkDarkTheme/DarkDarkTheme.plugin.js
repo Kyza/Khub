@@ -48,14 +48,14 @@ var DarkDarkTheme = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: [
-          "Fixed some members list issues."
-        ]
-      }
-      ,
+      // {
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: [
+      //     "Fixed some members list issues."
+      //   ]
+      // }
+      // ,
       // {
       //   title: "Improvements",
       //   type: "improved",
@@ -228,8 +228,8 @@ var DarkDarkTheme = (() => {
             observer({ addedNodes }) {
               if (KSS) {
                 for (const node of addedNodes) {
-                  if (node.className == KSS.getSelector("chat")) {
-                  }
+                  // if (node.className == KSS.getSelector("chat")) {
+                  // }
                 }
               }
             }
