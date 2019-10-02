@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.14",
+      version: "3.0.15",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -48,22 +48,21 @@ var DarkDarkTheme = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: [
-      //     "Fixed some members list issues."
-      //   ]
-      // }
-      // ,
       {
-        title: "Improvements",
-        type: "improved",
+        title: "Bugs Squashed",
+        type: "fixed",
         items: [
-          "Updated the plugin to work with KSSLibrary automatic module updating."
+          "Fixed repeating banner issue AGAIN."
         ]
-      },
-      //	,
+      }
+      ,
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: [
+      //     "Updated the plugin to work with KSSLibrary automatic module updating."
+      //   ]
+      // },
       {
         title: "On-going",
         type: "progress",
@@ -205,13 +204,11 @@ var DarkDarkTheme = (() => {
 
           return class DarkDarkTheme extends Plugin {
             onStart() {
-              setInterval(() => {
-                PluginUpdater.checkForUpdate(
-                  "DarkDarkTheme",
-                  this.getVersion(),
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
-                );
-              }, 5000);
+              PluginUpdater.checkForUpdate(
+                "DarkDarkTheme",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
+              );
 
               KSS = new KSSLibrary(this);
 
@@ -243,17 +240,29 @@ var DarkDarkTheme = (() => {
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
               ).then((kss) => {
-                KSS.setModule("branding", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss");
+                KSS.setModule(
+                  "branding",
+                  kss,
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
+                );
               });
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
               ).then((kss) => {
-                KSS.setModule("colors", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss");
+                KSS.setModule(
+                  "colors",
+                  kss,
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+                );
               });
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
               ).then((kss) => {
-                KSS.setModule("ui", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss");
+                KSS.setModule(
+                  "ui",
+                  kss,
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
+                );
               });
             }
 
