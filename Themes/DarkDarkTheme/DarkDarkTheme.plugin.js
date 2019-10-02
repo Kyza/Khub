@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.13",
+      version: "3.0.14",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -56,14 +56,13 @@ var DarkDarkTheme = (() => {
       //   ]
       // }
       // ,
-      // {
-      //   title: "Improvements",
-      //   type: "improved",
-      //   items: [
-      //     "Moved the icon to the top right.",
-      //     "Added an animation to the ghostping panel."
-      //   ]
-      // }
+      {
+        title: "Improvements",
+        type: "improved",
+        items: [
+          "Updated the plugin to work with KSSLibrary automatic module updating."
+        ]
+      },
       //	,
       {
         title: "On-going",
@@ -228,8 +227,8 @@ var DarkDarkTheme = (() => {
             observer({ addedNodes }) {
               if (KSS) {
                 for (const node of addedNodes) {
-                  // if (node.className == KSS.getSelector("chat")) {
-                  // }
+                  if (node.className == KSS.getSelector("chat")) {
+                  }
                 }
               }
             }
@@ -244,24 +243,24 @@ var DarkDarkTheme = (() => {
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
               ).then((kss) => {
-                KSS.setModule("branding", kss, true);
+                KSS.setModule("branding", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss");
               });
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
               ).then((kss) => {
-                KSS.setModule("colors", kss, true);
+                KSS.setModule("colors", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss");
               });
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
               ).then((kss) => {
-                KSS.setModule("ui", kss, true);
+                KSS.setModule("ui", kss, "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss");
               });
             }
 
             removeCSS() {
-              KSS.disableModule("branding");
-              KSS.disableModule("colors");
-              KSS.disableModule("ui");
+              KSS.disposeModule("branding");
+              KSS.disposeModule("colors");
+              KSS.disposeModule("ui");
             }
           };
         };
