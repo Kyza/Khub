@@ -86,6 +86,11 @@
   background-color: var(--dark2);
 }
 
+/* Topic Gradient */
+.theme-dark |topic|:after {
+  display: none;
+}
+
 /* Channel Titlebar */
 .theme-dark |bannerVisible header| {
   background-color: var(--dark2) !important;
