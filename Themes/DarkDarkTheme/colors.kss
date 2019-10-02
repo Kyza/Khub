@@ -92,7 +92,7 @@
 }
 
 /* Channel Titlebar */
-.theme-dark |bannerVisible header| {
+.theme-dark |iconTierThree header| {
   background-color: var(--dark2) !important;
 }
 
