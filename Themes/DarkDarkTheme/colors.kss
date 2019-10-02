@@ -168,7 +168,7 @@
 
 /* Nitro Overlay */
 .theme-dark |premiumRetentionNoticeContent premiumPromo| {
-  background-color: var(--dark4);
+  background-color: var(--dark5);
 }
 /* STOP: Emoji Picker */
 
