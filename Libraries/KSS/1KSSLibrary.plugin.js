@@ -249,25 +249,18 @@ function KSSLibrary(plugin) {
   };
 
   // Lighty
-  this.findSelectorsAccurate = (sel) => {
-    let ret = "";
-    const selector = sel.split("-")[0];
-    if (
-      ZLibrary.WebpackModules.getByProps(selector)[selector].split(" ")[0] ===
-      sel
-    )
-      ret = selector;
-    if (ret) return ret;
-    ZLibrary.WebpackModules.find((m) => {
-      if (ret || !m[selector] || typeof m[selector] !== "string") return false;
-      if (m[selector].split(" ")[0] !== sel) return false;
-
+  this.findSelectors = (sel) => {
+    let ret = '';
+    const selector = sel.split('-')[0];
+    const matches = mod => mod && typeof mod[selector] === 'string' && mod[selector].split(' ')[0] === sel;
+    if (matches(ZLibrary.WebpackModules.getByProps(selector))) return console.info(selector), selector;
+    ZLibrary.WebpackModules.find(m => {
+      if (ret || !matches(m)) return false;
       const keys = Object.keys(m);
-      let numArgs = 1;
       let args = [];
       const baseIdx = keys.indexOf(selector);
       goNegative = baseIdx + 1 >= keys.length;
-      const getNextIdx = (idx) => {
+      const getNextIdx = idx => {
         let rr = idx - 1;
         if (rr === baseIdx) rr--;
         return rr;
@@ -275,50 +268,42 @@ function KSSLibrary(plugin) {
       args.push(getNextIdx(keys.length));
       const constructKeysFromArgs = () => {
         const result = [selector];
-        for (let i = 0; i < numArgs; i++) result.push(keys[args[i]]);
+        for (let i = 0; i < args.length; i++) result.push(keys[args[i]]);
         return result;
       };
       while (1) {
         const rargs = constructKeysFromArgs();
-        const module = ZLibrary.WebpackModules.getByProps(...rargs);
-        if (
-          module &&
-          module[selector] &&
-          typeof module[selector] === "string" &&
-          module[selector].split(" ")[0] === sel
-        ) {
+        if (matches(ZLibrary.WebpackModules.getByProps(...rargs))) {
           const result = [];
-          for (let i = 0; i < numArgs; i++) result.push(keys[args[i]]);
+          for (let i = 0; i < args.length; i++) result.push(keys[args[i]]);
           result.push(selector);
-          ret = result.join(" ");
+          ret = result.join(' ');
           break;
         }
-        const incrementNext = (cur) => {
+        const incrementNext = cur => {
           let newVar = getNextIdx(args[cur]);
           if (newVar < 0 || newVar >= keys.length) {
-            if (cur === numArgs - 1) {
-              numArgs++;
-              let nextNewVar = getNextIdx(keys.length);
+            if (cur === args.length - 1) {
+              const nextNewVar = getNextIdx(keys.length);
               args.push(nextNewVar);
               newVar = getNextIdx(nextNewVar);
             } else {
               incrementNext(cur + 1);
               newVar = getNextIdx(args[cur + 1]);
             }
-            if (newVar < 0 || newVar >= keys.length)
-              throw "The selector most likely doesn't exist.";
+            if (newVar < 0 || newVar >= keys.length) throw 'Fuck me';
           }
           args[cur] = newVar;
         };
         try {
           incrementNext(0);
         } catch (e) {
-          if (numArgs >= keys.length) break;
+          if (args.length >= keys.length) break;
         }
       }
       return true;
     });
-    return ret;
+    return ret && console.log(ret), ret;
   };
 
   // Kyza
@@ -439,7 +424,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.2",
+      version: "0.1.3",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -460,7 +445,7 @@ var KSSLibrary = (() => {
       {
         "title": "Improvements",
         "type": "improved",
-        "items": ["Modules now automatically update. Check the code for changes if you're a developer."]
+        "items": ["Changed findSelectorsAccurate() to findSelectors(), and fixed an error that occurs when trying to find some selectors."]
       }
       // ,
       // {
