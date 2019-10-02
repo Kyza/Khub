@@ -93,7 +93,7 @@
 
 /* Channel Titlebar */
 .theme-dark |iconTierThree header| {
-  background-color: var(--dark2) !important;
+  background-color: var(--dark1) !important;
 }
 
 /* Search Bar */
