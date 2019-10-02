@@ -163,7 +163,12 @@
 }
 
 .theme-dark |premiumRetentionNoticeContent category| {
-  background-color: --var(dark4);
+  background-color: var(--dark4);
+}
+
+/* Nitro Overlay */
+.theme-dark |premiumRetentionNoticeContent premiumPromo| {
+  background-color: var(--dark3);
 }
 /* STOP: Emoji Picker */
 
