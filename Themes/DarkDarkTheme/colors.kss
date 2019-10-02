@@ -87,7 +87,7 @@
 }
 
 /* Topic Gradient */
-.theme-dark |topic|:after {
+.theme-dark |status title| .children-19S4PO:after {
   display: none;
 }
 
