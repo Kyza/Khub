@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.15",
+      version: "3.0.17",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -43,16 +43,16 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      // {
-      //   "title": "New Stuff",
-      //   "items": ["Removed the Revenge Ping button."]
-      // }
+      {
+        "title": "New Stuff",
+        "items": ["Finally added settings to toggle the UI changes and the recoloring."]
+      },
       // ,
       {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "Fixed repeating banner issue AGAIN."
+          "The console is no longer spammed with messages constantly."
         ]
       }
       ,
@@ -60,7 +60,7 @@ var DarkDarkTheme = (() => {
       //   title: "Improvements",
       //   type: "improved",
       //   items: [
-      //     "Updated the plugin to work with KSSLibrary automatic module updating."
+      //     "Added profile effects for contributors."
       //   ]
       // },
       {
@@ -69,7 +69,32 @@ var DarkDarkTheme = (() => {
         items: ["Moving V2 elements to V3."]
       }
     ],
-    main: "index.js"
+    main: "index.js",
+    defaultConfig: [
+      {
+        type: "category",
+        id: "modules",
+        name: "Modules",
+        collapsible: false,
+        shown: true,
+        settings: [
+          {
+            type: "switch",
+            id: "colors",
+            name: "Colors",
+            note: "Enable or disable the recoloring.",
+            value: true
+          },
+          {
+            type: "switch",
+            id: "ui",
+            name: "UI Changes",
+            note: "Enable or disable the UI changes.",
+            value: true
+          }
+        ]
+      }
+    ]
   };
 
   return !global.ZeresPluginLibrary || !window.KSSLibrary
@@ -198,7 +223,7 @@ var DarkDarkTheme = (() => {
       }
     : (([Plugin, Api]) => {
         const plugin = (Plugin, Api) => {
-          const { Patcher, PluginUpdater } = Api;
+          const { Patcher, PluginUpdater, PluginUtilities } = Api;
 
           var KSS = null;
 
@@ -225,9 +250,41 @@ var DarkDarkTheme = (() => {
               if (KSS) {
                 for (const node of addedNodes) {
                   if (node.className == KSS.getSelector("chat")) {
+                    var effects = {
+                      creator: ["220584715265114113"],
+                      contributor: ["239513071272329217"]
+                    };
+
+                    var effectKeys = Object.keys(effects);
+                    for (let i = 0; i < effectKeys.length; i++) {
+                      let effectUser = effects[effectKeys[i]];
+                      let effect = effectKeys[i];
+
+                      var userPfps = document.querySelectorAll(
+                        `img[src*="avatars/${effectUser}"]`
+                      );
+                      for (let userPfp of userPfps) {
+                        while (userPfp.tagName.toLowerCase() != "div") {
+                          userPfp = userPfp.parentNode;
+                        }
+                        // console.log(userPfp);
+                        userPfp.setAttribute("kyza-effect", effect);
+                      }
+                    }
                   }
                 }
               }
+            }
+
+            getSettingsPanel() {
+              const panel = this.buildSettingsPanel();
+              panel.addListener((group, id, value) => {
+                try {
+                  this.removeCSS();
+                } catch(e) {}
+                this.updateCSS();
+              });
+              return panel.getElement();
             }
 
             patch() {}
@@ -237,6 +294,15 @@ var DarkDarkTheme = (() => {
             }
 
             updateCSS() {
+              // KSS.downloadStylesheet(
+              //   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ThemeUtilities/ProfileEffects.kss"
+              // ).then((kss) => {
+              //   KSS.setModule(
+              //     "profile-effects",
+              //     kss,
+              //     "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ThemeUtilities/ProfileEffects.kss"
+              //   );
+              // });
               KSS.downloadStylesheet(
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
               ).then((kss) => {
@@ -246,27 +312,35 @@ var DarkDarkTheme = (() => {
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
                 );
               });
-              KSS.downloadStylesheet(
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
-              ).then((kss) => {
-                KSS.setModule(
-                  "colors",
-                  kss,
+              
+              if (
+                this.settings.modules.colors
+              ) {
+                KSS.downloadStylesheet(
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
-                );
-              });
-              KSS.downloadStylesheet(
-                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
-              ).then((kss) => {
-                KSS.setModule(
-                  "ui",
-                  kss,
+                ).then((kss) => {
+                  KSS.setModule(
+                    "colors",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+                  );
+                });
+              }
+              if (this.settings.modules.ui) {
+                KSS.downloadStylesheet(
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
-                );
-              });
+                ).then((kss) => {
+                  KSS.setModule(
+                    "ui",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
+                  );
+                });
+              }
             }
 
             removeCSS() {
+              // KSS.disposeModule("profile-effects");
               KSS.disposeModule("branding");
               KSS.disposeModule("colors");
               KSS.disposeModule("ui");
