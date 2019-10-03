@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.17",
+      version: "3.0.18",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -43,19 +43,16 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      {
-        "title": "New Stuff",
-        "items": ["Finally added settings to toggle the UI changes and the recoloring."]
-      },
+      // {
+      //   "title": "New Stuff",
+      //   "items": ["Finally added settings to toggle the UI changes and the recoloring."]
+      // },
       // ,
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: [
-          "The console is no longer spammed with messages constantly."
-        ]
-      }
-      ,
+        items: ["Fixed a weird error (hopefully). Reload your Discord."]
+      },
       // {
       //   title: "Improvements",
       //   type: "improved",
@@ -279,9 +276,7 @@ var DarkDarkTheme = (() => {
             getSettingsPanel() {
               const panel = this.buildSettingsPanel();
               panel.addListener((group, id, value) => {
-                try {
-                  this.removeCSS();
-                } catch(e) {}
+                this.removeCSS();
                 this.updateCSS();
               });
               return panel.getElement();
@@ -312,10 +307,8 @@ var DarkDarkTheme = (() => {
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/branding.kss"
                 );
               });
-              
-              if (
-                this.settings.modules.colors
-              ) {
+
+              if (this.settings.modules.colors) {
                 KSS.downloadStylesheet(
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
                 ).then((kss) => {
@@ -341,9 +334,15 @@ var DarkDarkTheme = (() => {
 
             removeCSS() {
               // KSS.disposeModule("profile-effects");
-              KSS.disposeModule("branding");
-              KSS.disposeModule("colors");
-              KSS.disposeModule("ui");
+              try {
+                KSS.disposeModule("branding");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("colors");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("ui");
+              } catch (e) {}
             }
           };
         };

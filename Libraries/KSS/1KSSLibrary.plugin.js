@@ -142,7 +142,7 @@ function KSSLibrary(plugin) {
       kss: kss,
       updateURL: updateURL,
       updateInterval: setInterval(() => {
-        if (updateURL) {
+        if (this.modules[moduleName] && updateURL) {
           this.downloadStylesheet(this.modules[moduleName].updateURL).then(
             (newKSS) => {
               if (newKSS != this.modules[moduleName].kss) {
@@ -201,12 +201,15 @@ function KSSLibrary(plugin) {
 
   this.disposeModule = (moduleName) => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
+    console.log(`Disposed ${moduleName}.`);
+    
     this.disableModule(moduleName);
     clearInterval(this.modules[moduleName].updateInterval);
     this.modules[moduleName] = null;
   };
 
   this.downloadStylesheet = (url) => {
+    if (!url) return "";
     if (!url.endsWith(".css") && !url.endsWith(".kss"))
       throw "You can only download CSS or KSS stylesheets.";
 
@@ -354,7 +357,7 @@ var KSS = new window.KSSLibrary({
     return "0.0.0";
   },
   getName: () => {
-    return "PluginName";
+    return "ExamplePlugin";
   }
 });
 
@@ -424,7 +427,6 @@ function removeCSS() {
 
 function loadDataString(key) {
   var dataObject = ZLibrary.PluginUtilities.loadData("KSSLibrary", key, "");
-  console.log(key, dataObject);
   var dataString = "";
   for (let i = 0; i < Object.keys(dataObject).length; i++) {
     dataString += dataObject[i];
@@ -465,7 +467,7 @@ function addOverlay() {
 
     try {
       let content = textarea.value;
-      const matched = content.match(/\b(?:(\w+(-|_)|\w)+)\b/g);
+      const matched = content.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
       for (const m of matched) {
         const findPlz = m.startsWith(".") ? m.substr(1) : m;
         const matches = KSS.findSelectors(findPlz);
@@ -474,11 +476,11 @@ function addOverlay() {
           continue;
         }
         // const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        content = content.replaceAll(
+        content = content.replace(
           "." + (m.startsWith(".") ? m.substr(1) : m),
           `|${matches}|`
         );
-        content = content.replaceAll(
+        content = content.replace(
           m.startsWith(".") ? m.substr(1) : m,
           `|${matches}|`
         );
@@ -681,17 +683,17 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.5",
+      version: "0.1.6",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
     },
     changelog: [
-    //   {
-    //     title: "New Stuff",
-    //     items: ["Added a simple KSS editor. Try Alt+K."]
-    //   }
+      //   {
+      //     title: "New Stuff",
+      //     items: ["Added a simple KSS editor. Try Alt+K."]
+      //   }
       // ,
       //   {
       //     title: "Bugs Squashed",
@@ -699,13 +701,13 @@ var KSSLibrary = (() => {
       //     items: ["Fixed findSelectorsAccurate()."]
       //   }
       // ,
-        {
-          title: "Improvements",
-          type: "improved",
-          items: [
-            "Made the CSS to KSS conversion not require the period before the class name."
-          ]
-        }
+      {
+        title: "Improvements",
+        type: "improved",
+        items: [
+          "Forgot what I did, but it's probably important. Reload your Discord."
+        ]
+      }
       // ,
       // {
       //   "title": "On-going",
