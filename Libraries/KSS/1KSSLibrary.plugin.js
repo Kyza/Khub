@@ -143,21 +143,23 @@ function KSSLibrary(plugin) {
       updateURL: updateURL,
       updateInterval: setInterval(() => {
         if (this.modules[moduleName] && updateURL) {
-          this.downloadStylesheet(this.modules[moduleName].updateURL).then(
-            (newKSS) => {
-              if (newKSS != this.modules[moduleName].kss) {
-                ZLibrary.Logger.info(
-                  plugin.getName(),
-                  `Updated ${moduleName} automatically!`
-                );
-                ZLibrary.Toasts.success(
-                  `${plugin.getName()}: Updated the ${moduleName} module.`
-                );
-                this.modules[moduleName].kss = newKSS;
-                this.reloadModule(moduleName);
+          try {
+            this.downloadStylesheet(this.modules[moduleName].updateURL).then(
+              (newKSS) => {
+                if (newKSS != this.modules[moduleName].kss) {
+                  ZLibrary.Logger.info(
+                    plugin.getName(),
+                    `Updated ${moduleName} automatically!`
+                  );
+                  ZLibrary.Toasts.success(
+                    `${plugin.getName()}: Updated the ${moduleName} module.`
+                  );
+                  this.modules[moduleName].kss = newKSS;
+                  this.reloadModule(moduleName);
+                }
               }
-            }
-          );
+            );
+          } catch (e) {}
         } else {
           //   console.log("Can't update.");
         }
@@ -202,7 +204,7 @@ function KSSLibrary(plugin) {
   this.disposeModule = (moduleName) => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     console.log(`Disposed ${moduleName}.`);
-    
+
     this.disableModule(moduleName);
     clearInterval(this.modules[moduleName].updateInterval);
     this.modules[moduleName] = null;
@@ -683,7 +685,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.6",
+      version: "0.1.7",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -695,19 +697,19 @@ var KSSLibrary = (() => {
       //     items: ["Added a simple KSS editor. Try Alt+K."]
       //   }
       // ,
-      //   {
-      //     title: "Bugs Squashed",
-      //     type: "fixed",
-      //     items: ["Fixed findSelectorsAccurate()."]
-      //   }
+        {
+          title: "Bugs Squashed",
+          type: "fixed",
+          items: ["Fixed the no updateURL error."]
+        }
       // ,
-      {
-        title: "Improvements",
-        type: "improved",
-        items: [
-          "Forgot what I did, but it's probably important. Reload your Discord."
-        ]
-      }
+    //   {
+    //     title: "Improvements",
+    //     type: "improved",
+    //     items: [
+    //       ""
+    //     ]
+    //   }
       // ,
       // {
       //   "title": "On-going",
