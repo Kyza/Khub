@@ -465,22 +465,25 @@ function addOverlay() {
 
     try {
       let content = textarea.value;
-      const matched = content.match(
-        /(?<=\(?)(\.\D[^\.{;):,}[ ]*-*)(?=[ \.\n:),[ ])/g
-      );
+      const matched = content.match(/\b(?:(\w+(-|_)|\w)+)\b/g);
       for (const m of matched) {
-        const findPlz = m.substr(1);
+        const findPlz = m.startsWith(".") ? m.substr(1) : m;
         const matches = KSS.findSelectors(findPlz);
         if (!matches) {
           console.warn(findPlz, "not found!");
           continue;
         }
-        const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        textarea.value = content.replace(
-          new RegExp(escaped, "g"),
+        // const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        content = content.replaceAll(
+          "." + (m.startsWith(".") ? m.substr(1) : m),
+          `|${matches}|`
+        );
+        content = content.replaceAll(
+          m.startsWith(".") ? m.substr(1) : m,
           `|${matches}|`
         );
       }
+      textarea.value = content;
     } catch (e) {}
 
     saveData("editorKSS", textarea.value);
@@ -678,17 +681,17 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.4",
+      version: "0.1.5",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
     },
     changelog: [
-      {
-        title: "New Stuff",
-        items: ["Added a simple KSS editor. Try Alt+K."]
-      }
+    //   {
+    //     title: "New Stuff",
+    //     items: ["Added a simple KSS editor. Try Alt+K."]
+    //   }
       // ,
       //   {
       //     title: "Bugs Squashed",
@@ -696,13 +699,13 @@ var KSSLibrary = (() => {
       //     items: ["Fixed findSelectorsAccurate()."]
       //   }
       // ,
-      //   {
-      //     title: "Improvements",
-      //     type: "improved",
-      //     items: [
-      //       "Changed findSelectorsAccurate() to findSelectors(), and fixed an error that occurs when trying to find some selectors."
-      //     ]
-      //   }
+        {
+          title: "Improvements",
+          type: "improved",
+          items: [
+            "Made the CSS to KSS conversion not require the period before the class name."
+          ]
+        }
       // ,
       // {
       //   "title": "On-going",
