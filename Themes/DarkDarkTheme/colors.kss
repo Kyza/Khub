@@ -81,7 +81,7 @@
   background-color: var(--dark0);
 }
 
-/* Server Titlebar */
+/* Chat Titlebar */
 .theme-dark |chat title| {
   background-color: var(--dark2);
 }
@@ -91,9 +91,13 @@
   display: none;
 }
 
-/* Channel Titlebar */
-.theme-dark |iconTierThree header| {
-  background-color: var(--dark1) !important;
+/* Server Titlebar */
+.theme-dark |iconTierThree container||iconTierThree clickable| {
+	background-color: var(--dark1) !important;
+}
+
+.theme-dark |iconTierThree container||iconTierThree clickable||hasBanner||bannerVisible| {
+	background-color: transparent !important;
 }
 
 /* Search Bar */
