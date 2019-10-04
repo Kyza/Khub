@@ -86,6 +86,11 @@
   background-color: var(--dark2);
 }
 
+/* Discord Call Titlebar */
+|status title||divider transparent| {
+	background-color: transparent;
+}
+
 /* Topic Gradient */
 .theme-dark |status title| .children-19S4PO:after {
   display: none;
