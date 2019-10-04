@@ -52,13 +52,15 @@ function KSSLibrary(plugin) {
   this.parse = (kss) => {
     if (!kss) kss = "";
     for (let selector in this.selectors) {
-      kss = kss.replaceAll(
-        `|${selector}|`,
-        (this.selectors[selector].value
-          ? this.selectors[selector].value
-          : this.selectors[selector]
-        ).trim()
-      );
+      try {
+        kss = kss.replaceAll(
+          `|${selector}|`,
+          (this.selectors[selector].value
+            ? this.selectors[selector].value
+            : this.selectors[selector]
+          ).trim()
+        );
+      } catch (e) {}
     }
 
     // Lighty
@@ -90,9 +92,8 @@ function KSSLibrary(plugin) {
     return kss;
   };
 
-  this.addSelector = (name, selector) => {
-    if (this.selectors[name]) throw "Selector already exists.";
-    this.selectors[name] = selector;
+  this.setSelector = (name, selector) => {
+    this.selectors[name] = selector + "";
   };
 
   this.removeSelector = (name) => {
@@ -262,7 +263,7 @@ function KSSLibrary(plugin) {
 
   // Lighty
   this.findSelectors = (sel) => {
-      if (sel.indexOf('-') === -1) return "";
+    if (sel.indexOf("-") === -1) return "";
     let ret = "";
     const selector = sel.split("-")[0];
     const matches = (mod) =>
@@ -694,7 +695,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.10",
+      version: "0.1.11",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -709,7 +710,7 @@ var KSSLibrary = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["The editor converts classes to KSS again."]
+        items: ["Fixed a function name."]
       }
       // ,
       //   {
