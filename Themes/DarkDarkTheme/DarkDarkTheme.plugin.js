@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.18",
+      version: "3.0.19",
       description: "DarkDarkTheme v3. A theme in plugin form.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -43,16 +43,18 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      // {
-      //   "title": "New Stuff",
-      //   "items": ["Finally added settings to toggle the UI changes and the recoloring."]
-      // },
-      // ,
       {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: ["Fixed a weird error (hopefully). Reload your Discord."]
+        title: "New Stuff",
+        items: [
+          "Optional custom backgrounds! Yes, I know the slider is broken. I can't fix that. :'("
+        ]
       },
+      // ,
+      // {
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: ["Fixed a weird error (hopefully). Reload your Discord."]
+      // },
       // {
       //   title: "Improvements",
       //   type: "improved",
@@ -77,10 +79,10 @@ var DarkDarkTheme = (() => {
         settings: [
           {
             type: "switch",
-            id: "colors",
-            name: "Colors",
-            note: "Enable or disable the recoloring.",
-            value: true
+            id: "background",
+            name: "Background",
+            note: "Enable or disable the background.",
+            value: ""
           },
           {
             type: "switch",
@@ -88,6 +90,36 @@ var DarkDarkTheme = (() => {
             name: "UI Changes",
             note: "Enable or disable the UI changes.",
             value: true
+          }
+        ]
+      },
+      {
+        type: "category",
+        id: "background",
+        name: "Background",
+        collapsible: false,
+        shown: true,
+        settings: [
+          {
+            type: "textbox",
+            id: "url",
+            name: "Background",
+            note:
+              "Which image to show as the background. Leave the field blank for none. It MUST BE A URL and NOT A FILE on your computer.",
+            value: ""
+          },
+          {
+            type: "slider",
+            id: "opacity",
+            name: "Opacity",
+            note: "The opacity of the background.",
+            value: 0.1,
+            minValue: 0.1,
+            maxValue: 0.9,
+            options: {
+              markers: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+              stickToMarkers: true
+            }
           }
         ]
       }
@@ -234,6 +266,12 @@ var DarkDarkTheme = (() => {
 
               KSS = new KSSLibrary(this);
 
+              KSS.setSelector("backgroundURL", this.settings.background.url);
+              KSS.setSelector(
+                "backgroundOpacity",
+                this.settings.background.opacity
+              );
+
               this.patch();
               this.updateCSS();
             }
@@ -276,6 +314,20 @@ var DarkDarkTheme = (() => {
             getSettingsPanel() {
               const panel = this.buildSettingsPanel();
               panel.addListener((group, id, value) => {
+                try {
+                  KSS.removeSelector("backgroundURL");
+                  KSS.removeSelector("backgroundOpacity");
+                } catch (e) {}
+                KSS.setSelector("backgroundURL", this.settings.background.url);
+                if (this.settings.background.opacity > 0.9) {
+                  this.settings.background.opacity =
+                    this.settings.background.opacity / 100;
+                }
+                KSS.setSelector(
+                  "backgroundOpacity",
+                  this.settings.background.opacity
+                );
+
                 this.removeCSS();
                 this.updateCSS();
               });
@@ -308,17 +360,28 @@ var DarkDarkTheme = (() => {
                 );
               });
 
-              if (this.settings.modules.colors) {
-                KSS.downloadStylesheet(
+              KSS.downloadStylesheet(
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+              ).then((kss) => {
+                KSS.setModule(
+                  "colors",
+                  kss,
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+                );
+              });
+
+              if (this.settings.modules.background) {
+                KSS.downloadStylesheet(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ThemeUtilities/background.kss"
                 ).then((kss) => {
                   KSS.setModule(
-                    "colors",
+                    "background",
                     kss,
-                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/colors.kss"
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ThemeUtilities/background.kss"
                   );
                 });
               }
+
               if (this.settings.modules.ui) {
                 KSS.downloadStylesheet(
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
@@ -342,6 +405,9 @@ var DarkDarkTheme = (() => {
               } catch (e) {}
               try {
                 KSS.disposeModule("ui");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("background");
               } catch (e) {}
             }
           };

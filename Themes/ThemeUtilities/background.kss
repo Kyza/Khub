@@ -1,0 +1,13 @@
+html:after {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("|backgroundURL|");
+  background-size: cover;
+  background-position: center;
+  background-color: transparent !important;
+  opacity: |backgroundOpacity|;
+  z-index: 999999999999;
+  pointer-events: none;
+}
