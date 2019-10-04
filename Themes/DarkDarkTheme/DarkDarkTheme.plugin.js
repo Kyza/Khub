@@ -35,8 +35,8 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.19",
-      description: "DarkDarkTheme v3. A theme in plugin form.",
+      version: "3.0.20",
+      description: "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
       github_raw:
@@ -46,7 +46,7 @@ var DarkDarkTheme = (() => {
       {
         title: "New Stuff",
         items: [
-          "Optional custom backgrounds! Yes, I know the slider is broken. I can't fix that. :'("
+          "You can now add blending effects on your background image. Get creative!"
         ]
       },
       // ,
@@ -105,8 +105,81 @@ var DarkDarkTheme = (() => {
             id: "url",
             name: "Background",
             note:
-              "Which image to show as the background. Leave the field blank for none. It MUST BE A URL and NOT A FILE on your computer.",
+              "What image to show as the background. Leave the field blank for none. It MUST BE A URL and NOT A FILE on your computer.",
             value: ""
+          },
+          {
+            type: "dropdown",
+            id: "blendMode",
+            name: "Blend Mode",
+            note: "What blend mode you want to use on the image.",
+            defaultValue: "normal",
+            options: [
+              {
+                label: "Normal",
+                value: "normal"
+              },
+              {
+                label: "Multiply",
+                value: "multiply"
+              },
+              {
+                label: "Screen",
+                value: "Screen"
+              },
+              {
+                label: "Overlay",
+                value: "overlay"
+              },
+              {
+                label: "Darken",
+                value: "darken"
+              },
+              {
+                label: "Lighten",
+                value: "Lighten"
+              },
+              {
+                label: "Color Dodge",
+                value: "color-dodge"
+              },
+              {
+                label: "Color Burn",
+                value: "color-burn"
+              },
+              {
+                label: "Hard Light",
+                value: "hard-light"
+              },
+              {
+                label: "Soft Light",
+                value: "soft-light"
+              },
+              {
+                label: "Difference",
+                value: "difference"
+              },
+              {
+                label: "Exclusion",
+                value: "exclusion"
+              },
+              {
+                label: "Hue",
+                value: "hue"
+              },
+              {
+                label: "Saturation",
+                value: "saturation"
+              },
+              {
+                label: "Color",
+                value: "color"
+              },
+              {
+                label: "Luminosity",
+                value: "luminosity"
+              }
+            ]
           },
           {
             type: "slider",
@@ -268,6 +341,10 @@ var DarkDarkTheme = (() => {
 
               KSS.setSelector("backgroundURL", this.settings.background.url);
               KSS.setSelector(
+                "backgroundBlendMode",
+                this.settings.background.blendMode
+              );
+              KSS.setSelector(
                 "backgroundOpacity",
                 this.settings.background.opacity
               );
@@ -316,6 +393,7 @@ var DarkDarkTheme = (() => {
               panel.addListener((group, id, value) => {
                 try {
                   KSS.removeSelector("backgroundURL");
+                  KSS.removeSelector("backgroundBlendMode");
                   KSS.removeSelector("backgroundOpacity");
                 } catch (e) {}
                 KSS.setSelector("backgroundURL", this.settings.background.url);
@@ -323,6 +401,10 @@ var DarkDarkTheme = (() => {
                   this.settings.background.opacity =
                     this.settings.background.opacity / 100;
                 }
+                KSS.setSelector(
+                  "backgroundBlendMode",
+                  this.settings.background.blendMode
+                );
                 KSS.setSelector(
                   "backgroundOpacity",
                   this.settings.background.opacity
