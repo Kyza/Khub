@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.20",
+      version: "3.0.21",
       description: "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -43,18 +43,18 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      {
-        title: "New Stuff",
-        items: [
-          "You can now add blending effects on your background image. Get creative!"
-        ]
-      },
-      // ,
       // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["Fixed a weird error (hopefully). Reload your Discord."]
+      //   title: "New Stuff",
+      //   items: [
+      //     "You can now add blending effects on your background image. Get creative!"
+      //   ]
       // },
+      // ,
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["You can't set the opacity to 1 anymore to prevent people from making thier Discord completely covered."]
+      },
       // {
       //   title: "Improvements",
       //   type: "improved",
@@ -398,8 +398,10 @@ var DarkDarkTheme = (() => {
                 } catch (e) {}
                 KSS.setSelector("backgroundURL", this.settings.background.url);
                 if (this.settings.background.opacity > 0.9) {
-                  this.settings.background.opacity =
-                    this.settings.background.opacity / 100;
+                  this.settings.background.opacity = this.settings.background.opacity / 100;
+                  if (this.settings.background.opacity > 0.9) {
+                    this.settings.background.opacity = 0.9;
+                  }
                 }
                 KSS.setSelector(
                   "backgroundBlendMode",
