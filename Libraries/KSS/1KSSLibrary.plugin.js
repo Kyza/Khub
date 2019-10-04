@@ -262,6 +262,7 @@ function KSSLibrary(plugin) {
 
   // Lighty
   this.findSelectors = (sel) => {
+      if (sel.indexOf('-') === -1) return "";
     let ret = "";
     const selector = sel.split("-")[0];
     const matches = (mod) =>
@@ -368,55 +369,55 @@ function updateCSS() {
   KSS.setModule(
     "overlay-styles",
     `
-@import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
-
-#KSSOverlay {
-font-family: "Fira Code", monospace;
-
-top: ${KSS.currentPlatform() == "win" ? "22" : "0"}px;
-left: 1px;
-width: calc(100% - 1px);
-height: calc(100% - ${KSS.currentPlatform() == "win" ? "22" : "0"}px);
-
-background-color: black;
-
-opacity: 0.6;
-
-position: absolute;
-z-index: 999;
-
-transition-duration: 0.5s;
-pointer-events: auto;
-}
-
-.hideKSSOverlay {
-opacity: 0 !important;
-pointer-events: none !important;
-}
-
-#KSSOverlayTextarea {
-position: absolute;
-top: 44px;
-left: 0px;
-width: 100%;
-height: calc(100% - 45px);
-
-background-color: rgba(255, 255, 255, 0.0);
-border: none;
-border-top: 1px white dotted;
-padding: 0px;
-color: white;
-
-font-size: 24px;
-font-family: "Fira Code";
-overflow-x: auto;
-white-space: nowrap;
-
-resize: none;
-
-tab-size: 2;
-}
-    `
+  @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
+  
+  #KSSOverlay {
+  font-family: "Fira Code", monospace;
+  
+  top: ${KSS.currentPlatform() == "win" ? "22" : "0"}px;
+  left: 1px;
+  width: calc(100% - 1px);
+  height: calc(100% - ${KSS.currentPlatform() == "win" ? "22" : "0"}px);
+  
+  background-color: black;
+  
+  opacity: 0.6;
+  
+  position: absolute;
+  z-index: 999;
+  
+  transition-duration: 0.5s;
+  pointer-events: auto;
+  }
+  
+  .hideKSSOverlay {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  }
+  
+  #KSSOverlayTextarea {
+  position: absolute;
+  top: 44px;
+  left: 0px;
+  width: 100%;
+  height: calc(100% - 45px);
+  
+  background-color: rgba(255, 255, 255, 0.0);
+  border: none;
+  border-top: 1px white dotted;
+  padding: 0px;
+  color: white;
+  
+  font-size: 24px;
+  font-family: "Fira Code";
+  overflow-x: auto;
+  white-space: nowrap;
+  
+  resize: none;
+  
+  tab-size: 2;
+  }
+      `
   );
 }
 
@@ -455,44 +456,61 @@ function addOverlay() {
 
   // Format and convert KSS.
   textarea.oninput = (e) => {
-    if (e.data != null) {
-      if (textarea.value[textarea.selectionStart - 1] == "{") {
-        textarea.value = textarea.value.splice(
-          textarea.selectionStart,
-          0,
-          `\n\t\n}`
-        );
-        textarea.selectionStart = textarea.selectionStart - 2;
-        textarea.selectionEnd = textarea.selectionEnd - 2;
-      }
-    }
-
-    try {
-      const matched = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
-      for (const m of matched) {
-        const findPlz = m.startsWith(".") ? m.substr(1) : m;
-        const matches = KSS.findSelectors(findPlz);
-        if (!matches) {
-          console.warn(findPlz, "not found!");
-          continue;
-        }
-        
-        textarea.value = textarea.value.replaceAll(
-          "." + (m.startsWith(".") ? m.substr(1) : m),
-          `|${matches}|`
-        );
-        textarea.value = textarea.value.replaceAll(
-          m.startsWith(".") ? m.substr(1) : m,
-          `|${matches}|`
-        );
-      }
-    } catch (e) {}
-
-    saveData("editorKSS", textarea.value);
-
+    // Maybe help it to not kill itself.
     setTimeout(() => {
-      KSS.setModule("userKSS", textarea.value);
-    }, 1e2);
+      if (e.data != null) {
+        if (
+          e.data.toLowerCase() == "v" &&
+          textarea.value[textarea.selectionStart - 1] == "{"
+        ) {
+          textarea.value = textarea.value.splice(
+            textarea.selectionStart,
+            0,
+            `\n\t\n}`
+          );
+          textarea.selectionStart = textarea.selectionStart - 2;
+          textarea.selectionEnd = textarea.selectionEnd - 2;
+        }
+      }
+
+      try {
+        var finalString = textarea.value;
+        var matches = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-*)/g);
+        for (let i = 0; i < matches.length; i++) {
+          var match = matches[i];
+          console.log(match);
+          var selectors = KSS.findSelectors(match);
+        }
+        // const matched = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
+        // var content = textarea.value;
+        // for (const m of matched) {
+        //   const findPlz = m.startsWith(".") ? m.substr(1) : m;
+        //   const matches = KSS.findSelectors(findPlz);
+        //   if (!matches) {
+        //     // console.warn(findPlz, "not found!");
+        //     continue;
+        //   }
+
+        //   content = content.replace(
+        //     "." + (m.startsWith(".") ? m.substr(1) : m),
+        //     `|${matches}|`
+        //   );
+        //   content = content.replace(
+        //     m.startsWith(".") ? m.substr(1) : m,
+        //     `|${matches}|`
+        //   );
+        // }
+        // textarea.value = content;
+      } catch (e) {
+        console.error(e);
+      }
+
+      saveData("editorKSS", textarea.value);
+
+      setTimeout(() => {
+        KSS.setModule("userKSS", textarea.value);
+      }, 1e2);
+    }, 0);
   };
 
   textarea.onkeyup = saveSelection;
@@ -597,78 +615,78 @@ updateCSS();
 
 /* START: Handle KSS Theme Loading */
 /*
-  if (window.OldKSSWatcher) {
-    window.OldKSSWatcher.close();
-  }
-  
-  if (!window.loadedThemes) {
-    window.loadedThemes = {};
-  } else {
-    reloadAllThemes();
-  }
-  
-  const fs = require('fs');
-  
-  const themesFolder = ContentManager.themesFolder;
-  
-  // console.log(`Watching for file changes on ${themesFolder}`);
-  
-  var firstRename = true;
-  const themeWatcher = fs.watch(themesFolder, (event, filename) => {
-    if (filename) {
-      if (filename.endsWith(".theme.kss")) {
-        setTimeout(() => {
-          if (event == "rename") {
-            // The file was renamed.
-            if (firstRename) {
-              // The file was deleted.
-              if (!fs.existsSync(themesFolder + "/" + filename)) {
+    if (window.OldKSSWatcher) {
+      window.OldKSSWatcher.close();
+    }
+    
+    if (!window.loadedThemes) {
+      window.loadedThemes = {};
+    } else {
+      reloadAllThemes();
+    }
+    
+    const fs = require('fs');
+    
+    const themesFolder = ContentManager.themesFolder;
+    
+    // console.log(`Watching for file changes on ${themesFolder}`);
+    
+    var firstRename = true;
+    const themeWatcher = fs.watch(themesFolder, (event, filename) => {
+      if (filename) {
+        if (filename.endsWith(".theme.kss")) {
+          setTimeout(() => {
+            if (event == "rename") {
+              // The file was renamed.
+              if (firstRename) {
+                // The file was deleted.
+                if (!fs.existsSync(themesFolder + "/" + filename)) {
+                  firstRename = !firstRename;
+                }
+                unloadTheme(filename);
+              } else {
+                // The file was added or changed.
                 firstRename = !firstRename;
+                loadTheme(filename);
               }
-              unloadTheme(filename);
             } else {
-              // The file was added or changed.
-              firstRename = !firstRename;
+              // The file was changed.
+              unloadTheme(filename);
               loadTheme(filename);
             }
-          } else {
-            // The file was changed.
-            unloadTheme(filename);
-            loadTheme(filename);
-          }
-        }, 1e3);
-      }
-    }
-  });
-  
-  window.OldKSSWatcher = themeWatcher;
-  
-  function loadTheme(filename) {
-    window.loadedThemes[filename] = new window.KSSLibrary({
-      getVersion: () => {
-        return "";
-      },
-      getName: () => {
-        return "KSSThemeLoader";
+          }, 1e3);
+        }
       }
     });
-    window.loadedThemes[filename].setModule("main", fs.readFileSync(themesFolder + "/" + filename).toString());
-    console.log(window.loadedThemes);
-  }
-  
-  function unloadTheme(filename) {
-    console.log(window.loadedThemes[filename]);
-    if (window.loadedThemes[filename]) {
-      window.loadedThemes[filename].disableModule("main");
-      window.loadedThemes[filename] = null;
+    
+    window.OldKSSWatcher = themeWatcher;
+    
+    function loadTheme(filename) {
+      window.loadedThemes[filename] = new window.KSSLibrary({
+        getVersion: () => {
+          return "";
+        },
+        getName: () => {
+          return "KSSThemeLoader";
+        }
+      });
+      window.loadedThemes[filename].setModule("main", fs.readFileSync(themesFolder + "/" + filename).toString());
       console.log(window.loadedThemes);
     }
-  }
-  
-  function reloadAllThemes() {
-  
-  }
-  */
+    
+    function unloadTheme(filename) {
+      console.log(window.loadedThemes[filename]);
+      if (window.loadedThemes[filename]) {
+        window.loadedThemes[filename].disableModule("main");
+        window.loadedThemes[filename] = null;
+        console.log(window.loadedThemes);
+      }
+    }
+    
+    function reloadAllThemes() {
+    
+    }
+    */
 
 /* STOP: Handle KSS Theme Loading */
 
@@ -683,7 +701,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.8",
+      version: "0.1.9",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -695,19 +713,19 @@ var KSSLibrary = (() => {
       //     items: ["Added a simple KSS editor. Try Alt+K."]
       //   }
       // ,
-        {
-          title: "Bugs Squashed",
-          type: "fixed",
-          items: ["Fixed weird selector issue."]
-        }
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Fixed the editor freezing Discord when \"9\" is entered."]
+      }
       // ,
-    //   {
-    //     title: "Improvements",
-    //     type: "improved",
-    //     items: [
-    //       ""
-    //     ]
-    //   }
+      //   {
+      //     title: "Improvements",
+      //     type: "improved",
+      //     items: [
+      //       ""
+      //     ]
+      //   }
       // ,
       // {
       //   "title": "On-going",
