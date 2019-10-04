@@ -8,6 +8,7 @@ html:after {
   background-position: center;
   background-color: transparent !important;
   opacity: |backgroundOpacity|;
+  mix-blend-mode: |backgroundBlendMode|;
   z-index: 999999999999;
   pointer-events: none;
 }
