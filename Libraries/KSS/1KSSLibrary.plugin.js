@@ -474,33 +474,26 @@ function addOverlay() {
       }
 
       try {
-        var finalString = textarea.value;
-        var matches = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-*)/g);
-        for (let i = 0; i < matches.length; i++) {
-          var match = matches[i];
-          console.log(match);
-          var selectors = KSS.findSelectors(match);
-        }
-        // const matched = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
-        // var content = textarea.value;
-        // for (const m of matched) {
-        //   const findPlz = m.startsWith(".") ? m.substr(1) : m;
-        //   const matches = KSS.findSelectors(findPlz);
-        //   if (!matches) {
-        //     // console.warn(findPlz, "not found!");
-        //     continue;
-        //   }
+        const matched = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
+        var content = textarea.value;
+        for (const m of matched) {
+          const findPlz = m.startsWith(".") ? m.substr(1) : m;
+          const matches = KSS.findSelectors(findPlz);
+          if (!matches) {
+            // console.warn(findPlz, "not found!");
+            continue;
+          }
 
-        //   content = content.replace(
-        //     "." + (m.startsWith(".") ? m.substr(1) : m),
-        //     `|${matches}|`
-        //   );
-        //   content = content.replace(
-        //     m.startsWith(".") ? m.substr(1) : m,
-        //     `|${matches}|`
-        //   );
-        // }
-        // textarea.value = content;
+          content = content.replace(
+            "." + (m.startsWith(".") ? m.substr(1) : m),
+            `|${matches}|`
+          );
+          content = content.replace(
+            m.startsWith(".") ? m.substr(1) : m,
+            `|${matches}|`
+          );
+        }
+        textarea.value = content;
       } catch (e) {
         console.error(e);
       }
@@ -701,7 +694,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.9",
+      version: "0.1.10",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -716,7 +709,7 @@ var KSSLibrary = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed the editor freezing Discord when \"9\" is entered."]
+        items: ["The editor converts classes to KSS again."]
       }
       // ,
       //   {
