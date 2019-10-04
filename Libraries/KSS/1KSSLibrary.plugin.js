@@ -468,8 +468,7 @@ function addOverlay() {
     }
 
     try {
-      let content = textarea.value;
-      const matched = content.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
+      const matched = textarea.value.match(/(\b(?:\w+(?:-|_)|\w)+\b-?)/g);
       for (const m of matched) {
         const findPlz = m.startsWith(".") ? m.substr(1) : m;
         const matches = KSS.findSelectors(findPlz);
@@ -477,17 +476,16 @@ function addOverlay() {
           console.warn(findPlz, "not found!");
           continue;
         }
-        // const escaped = m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        content = content.replace(
+        
+        textarea.value = textarea.value.replaceAll(
           "." + (m.startsWith(".") ? m.substr(1) : m),
           `|${matches}|`
         );
-        content = content.replace(
+        textarea.value = textarea.value.replaceAll(
           m.startsWith(".") ? m.substr(1) : m,
           `|${matches}|`
         );
       }
-      textarea.value = content;
     } catch (e) {}
 
     saveData("editorKSS", textarea.value);
@@ -685,7 +683,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.7",
+      version: "0.1.8",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -700,7 +698,7 @@ var KSSLibrary = (() => {
         {
           title: "Bugs Squashed",
           type: "fixed",
-          items: ["Fixed the no updateURL error."]
+          items: ["Fixed weird selector issue."]
         }
       // ,
     //   {
