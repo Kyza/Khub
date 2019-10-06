@@ -485,11 +485,14 @@ function addOverlay() {
             continue;
           }
 
-          content = content.replace(
+          content = content.replaceAll(
             "." + (m.startsWith(".") ? m.substr(1) : m),
             `|${matches}|`
           );
-
+          content = content.replaceAll(
+            m.startsWith(".") ? m.substr(1) : m,
+            `|${matches}|`
+          );
         }
         textarea.value = content;
       } catch (e) {
@@ -692,7 +695,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.12",
+      version: "0.1.13",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -704,12 +707,12 @@ var KSSLibrary = (() => {
       //     items: ["Added a simple KSS editor. Try Alt+K."]
       //   }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["Fixed a function name."]
-      // }
-      // ,
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Fixed periods before KSS selectors."]
+      }
+      ,
       //   {
       //     title: "Improvements",
       //     type: "improved",
