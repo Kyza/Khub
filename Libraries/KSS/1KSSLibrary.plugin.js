@@ -49,7 +49,7 @@ function KSSLibrary(plugin) {
     pluginName: plugin.getName()
   };
 
-  this.parse = (kss) => {
+  this.parse = kss => {
     if (!kss) kss = "";
     for (let selector in this.selectors) {
       try {
@@ -96,12 +96,12 @@ function KSSLibrary(plugin) {
     this.selectors[name] = selector + "";
   };
 
-  this.removeSelector = (name) => {
+  this.removeSelector = name => {
     if (!this.selectors[name]) throw "Selector does not exist.";
     this.selectors[name] = null;
   };
 
-  this.getSelector = (name) => {
+  this.getSelector = name => {
     return this.selectors[name];
   };
 
@@ -146,7 +146,7 @@ function KSSLibrary(plugin) {
         if (this.modules[moduleName] && updateURL) {
           try {
             this.downloadStylesheet(this.modules[moduleName].updateURL).then(
-              (newKSS) => {
+              newKSS => {
                 if (newKSS != this.modules[moduleName].kss) {
                   ZLibrary.Logger.info(
                     plugin.getName(),
@@ -171,11 +171,11 @@ function KSSLibrary(plugin) {
     }
   };
 
-  this.getModule = (moduleName) => {
+  this.getModule = moduleName => {
     return this.modules[moduleName];
   };
 
-  this.reloadModule = (moduleName) => {
+  this.reloadModule = moduleName => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     var wasEnabled = this.modules[moduleName].enabled;
     this.disableModule(moduleName);
@@ -184,7 +184,7 @@ function KSSLibrary(plugin) {
     }
   };
 
-  this.enableModule = (moduleName) => {
+  this.enableModule = moduleName => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     if (this.modules[moduleName].enabled) {
       this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
@@ -196,13 +196,13 @@ function KSSLibrary(plugin) {
     );
   };
 
-  this.disableModule = (moduleName) => {
+  this.disableModule = moduleName => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     this.modules[moduleName].enabled = false;
     this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
   };
 
-  this.disposeModule = (moduleName) => {
+  this.disposeModule = moduleName => {
     if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
     console.log(`Disposed ${moduleName}.`);
 
@@ -211,7 +211,7 @@ function KSSLibrary(plugin) {
     this.modules[moduleName] = null;
   };
 
-  this.downloadStylesheet = (url) => {
+  this.downloadStylesheet = url => {
     if (!url) return "";
     if (!url.endsWith(".css") && !url.endsWith(".kss"))
       throw "You can only download CSS or KSS stylesheets.";
@@ -238,7 +238,7 @@ function KSSLibrary(plugin) {
     }
   };
 
-  this.clearCSS = (id) => {
+  this.clearCSS = id => {
     let elements = document.querySelectorAll(`#${id}`);
     for (let i = 0; i < elements.length; i++) {
       elements[i].remove();
@@ -262,23 +262,23 @@ function KSSLibrary(plugin) {
   };
 
   // Lighty
-  this.findSelectors = (sel) => {
+  this.findSelectors = sel => {
     if (sel.indexOf("-") === -1) return "";
     let ret = "";
     const selector = sel.split("-")[0];
-    const matches = (mod) =>
+    const matches = mod =>
       mod &&
       typeof mod[selector] === "string" &&
       mod[selector].split(" ")[0] === sel;
     if (matches(ZLibrary.WebpackModules.getByProps(selector)))
       return console.info(selector), selector;
-    ZLibrary.WebpackModules.find((m) => {
+    ZLibrary.WebpackModules.find(m => {
       if (ret || !matches(m)) return false;
       const keys = Object.keys(m);
       let args = [];
       const baseIdx = keys.indexOf(selector);
       goNegative = baseIdx + 1 >= keys.length;
-      const getNextIdx = (idx) => {
+      const getNextIdx = idx => {
         let rr = idx - 1;
         if (rr === baseIdx) rr--;
         return rr;
@@ -298,7 +298,7 @@ function KSSLibrary(plugin) {
           ret = result.join(" ");
           break;
         }
-        const incrementNext = (cur) => {
+        const incrementNext = cur => {
           let newVar = getNextIdx(args[cur]);
           if (newVar < 0 || newVar >= keys.length) {
             if (cur === args.length - 1) {
@@ -325,10 +325,10 @@ function KSSLibrary(plugin) {
   };
 
   // Kyza
-  this.findSelectorsFast = (sel) => {
+  this.findSelectorsFast = sel => {
     let ret = "";
 
-    ZLibrary.WebpackModules.find((mod) => {
+    ZLibrary.WebpackModules.find(mod => {
       if (typeof mod[sel.split("-")[0]] === "string") {
         if (mod[sel.split("-")[0]].indexOf(sel) > -1) {
           let modKeys = Object.keys(mod);
@@ -456,7 +456,7 @@ function addOverlay() {
   textarea.selectionEnd = loadDataString("editorSelectionEnd");
 
   // Format and convert KSS.
-  textarea.oninput = (e) => {
+  textarea.oninput = e => {
     // Maybe help it to not kill itself.
     setTimeout(() => {
       if (e.data != null) {
@@ -511,7 +511,7 @@ function addOverlay() {
   textarea.onmouseup = saveSelection;
 
   // Handle tabs.
-  textarea.onkeydown = (e) => {
+  textarea.onkeydown = e => {
     if (e.keyCode === 9) {
       e.preventDefault();
 
@@ -711,8 +711,7 @@ var KSSLibrary = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: ["Fixed periods before KSS selectors."]
-      }
-      ,
+      },
       //   {
       //     title: "Improvements",
       //     type: "improved",
@@ -722,9 +721,9 @@ var KSSLibrary = (() => {
       //   }
       // ,
       {
-        "title": "On-going",
-        "type": "progress",
-        "items": ["Testing automatic updating."]
+        title: "On-going",
+        type: "progress",
+        items: ["Testing automatic updating."]
       }
     ],
     main: "index.js"
@@ -739,7 +738,7 @@ var KSSLibrary = (() => {
           return config.info.name;
         }
         getAuthor() {
-          return config.info.authors.map((a) => a.name).join(", ");
+          return config.info.authors.map(a => a.name).join(", ");
         }
         getDescription() {
           return config.info.description;
@@ -763,7 +762,7 @@ var KSSLibrary = (() => {
           );
           const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
           const ConfirmationModal = BdApi.findModule(
-            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+            m => m.defaultProps && m.key && m.key() == "confirm-modal"
           );
           if (!ModalStack || !ConfirmationModal || !TextElement)
             return BdApi.alert(
@@ -795,7 +794,7 @@ var KSSLibrary = (() => {
                           return require("electron").shell.openExternal(
                             "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
                           );
-                        await new Promise((r) =>
+                        await new Promise(r =>
                           require("fs").writeFile(
                             require("path").join(
                               ContentManager.pluginsFolder,
