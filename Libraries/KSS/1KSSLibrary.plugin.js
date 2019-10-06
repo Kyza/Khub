@@ -489,10 +489,7 @@ function addOverlay() {
             "." + (m.startsWith(".") ? m.substr(1) : m),
             `|${matches}|`
           );
-          content = content.replace(
-            m.startsWith(".") ? m.substr(1) : m,
-            `|${matches}|`
-          );
+
         }
         textarea.value = content;
       } catch (e) {
