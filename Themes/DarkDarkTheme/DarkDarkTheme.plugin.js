@@ -35,8 +35,9 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.22",
-      description: "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
+      version: "3.0.23",
+      description:
+        "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
       github_raw:
@@ -53,7 +54,7 @@ var DarkDarkTheme = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed background opacity on reload."]
+        items: ["Added step markers to the opacity slider."]
       },
       // {
       //   title: "Improvements",
@@ -186,13 +187,11 @@ var DarkDarkTheme = (() => {
             id: "opacity",
             name: "Opacity",
             note: "The opacity of the background.",
-            value: 0.1,
-            minValue: 0.1,
-            maxValue: 0.9,
-            options: {
-              markers: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
-              stickToMarkers: true
-            }
+            value: 10,
+            minValue: 0,
+            maxValue: 100,
+            markers: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95],
+            stickToMarkers: true
           }
         ]
       }
@@ -345,7 +344,8 @@ var DarkDarkTheme = (() => {
                 this.settings.background.blendMode
               );
               if (this.settings.background.opacity > 0.9) {
-                this.settings.background.opacity = this.settings.background.opacity / 100;
+                this.settings.background.opacity =
+                  this.settings.background.opacity / 100;
                 if (this.settings.background.opacity > 0.9) {
                   this.settings.background.opacity = 0.9;
                 }
@@ -404,7 +404,8 @@ var DarkDarkTheme = (() => {
                 } catch (e) {}
                 KSS.setSelector("backgroundURL", this.settings.background.url);
                 if (this.settings.background.opacity > 0.9) {
-                  this.settings.background.opacity = this.settings.background.opacity / 100;
+                  this.settings.background.opacity =
+                    this.settings.background.opacity / 100;
                   if (this.settings.background.opacity > 0.9) {
                     this.settings.background.opacity = 0.9;
                   }
