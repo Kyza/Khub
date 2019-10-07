@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.21",
+      version: "3.0.22",
       description: "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Themes/DarkDarkTheme",
@@ -53,7 +53,7 @@ var DarkDarkTheme = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["You can't set the opacity to 1 anymore to prevent people from making thier Discord completely covered."]
+        items: ["Fixed background opacity on reload."]
       },
       // {
       //   title: "Improvements",
@@ -344,6 +344,12 @@ var DarkDarkTheme = (() => {
                 "backgroundBlendMode",
                 this.settings.background.blendMode
               );
+              if (this.settings.background.opacity > 0.9) {
+                this.settings.background.opacity = this.settings.background.opacity / 100;
+                if (this.settings.background.opacity > 0.9) {
+                  this.settings.background.opacity = 0.9;
+                }
+              }
               KSS.setSelector(
                 "backgroundOpacity",
                 this.settings.background.opacity
