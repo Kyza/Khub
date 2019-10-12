@@ -74,11 +74,6 @@ function KSSLibrary(plugin) {
             plugin.getName(),
             `Could not find selector for "${search.join(", ")}"!`
           );
-          ZLibrary.Toasts.error(
-            `${plugin.getName()}: Could not find selector for "${search.join(
-              ", "
-            )}"!`
-          );
         } else {
           try {
             const result = "." + res[search[search.length - 1]].split(" ")[0];
