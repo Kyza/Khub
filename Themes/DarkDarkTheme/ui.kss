@@ -103,6 +103,15 @@
   left: 3px !important;
 }
 
+|uploadModal| |innerAutocomplete| {
+	width: 100% !important;
+	border-radius: 10px;
+}
+
+|uploadModal| |autocomplete| {
+	border-radius: 5px;
+}
+
 /* Fancy Buttons */
 |closeIcon channel|[href="/activity"] {
   margin-left: 5px !important;
