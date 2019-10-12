@@ -769,4 +769,19 @@
   background-color: transparent !important;
 }
 /* STOP: dateViewer */
+
+/* START: PermissionsViewer */
+#permissions-modal .header {
+	background-color: var(--dark1);
+}
+
+#permissions-modal .role-side {
+	background-color: var(--dark2);
+}
+
+#permissions-modal .perm-side {
+	background-color: var(--dark4);
+}
+/* STOP: PermissionsViewer */
+
 /* STOP: BetterDiscord */
