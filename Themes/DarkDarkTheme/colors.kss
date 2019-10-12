@@ -726,7 +726,15 @@
 
 /* STOP: Notice Banners */
 
+/* START: Reactions Modal */
+|modal| |remove scroller| {
+	background-color: var(--dark2) !important;
+}
 
+|modal| |scroller| {
+	background-color: var(--dark4);
+}
+/* STOP: Reactions Modal */
 
 /* START: BetterDiscord */
 .theme-dark .inner-3ErfOT {
