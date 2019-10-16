@@ -28,10 +28,6 @@ CustomDiscordIcon.prototype.start = function() {
     document.head.appendChild(libraryScript);
   }
 
-  updateInterval = setInterval(() => {
-    ZLibrary.PluginUpdater.checkForUpdate("CustomDiscordIcon", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js");
-  }, 5000);
-
   iconSetInterval = setInterval(() => {
 		setIcon();
   }, 1000);
@@ -85,7 +81,9 @@ function setIcon() {
 	}
 }
 
-CustomDiscordIcon.prototype.load = function() {};
+CustomDiscordIcon.prototype.load = function() {
+  ZLibrary.PluginUpdater.checkForUpdate("CustomDiscordIcon", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/CustomDiscordIcon/CustomDiscordIcon.plugin.js");
+};
 
 CustomDiscordIcon.prototype.unload = function() {};
 
@@ -263,7 +261,7 @@ CustomDiscordIcon.prototype.getDescription = function() {
 };
 
 CustomDiscordIcon.prototype.getVersion = function() {
-  return "1.1.5";
+  return "1.1.6";
 };
 
 CustomDiscordIcon.prototype.getAuthor = function() {

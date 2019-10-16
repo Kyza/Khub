@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.2",
+      version: "1.2.4",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -53,7 +53,7 @@ var AntiGhostPing = (() => {
         title: "Bugs Squashed",
         type: "fixed",
         items: [
-          "Fixed a loading error on EnhancedDiscord."
+          "The button shows up when switching channels now."
         ]
       }
 // 	    ,
@@ -93,6 +93,11 @@ var AntiGhostPing = (() => {
           return config.info.version;
         }
         load() {
+          PluginUpdater.checkForUpdate(
+            "AntiGhostPing",
+            this.getVersion(),
+            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
+          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -188,21 +193,12 @@ var AntiGhostPing = (() => {
           var bound = false;
 
           const selectors = {
-            chat: WebpackModules.getByProps("chat").chat
+            chat: WebpackModules.getByProps("chat").chat,
+            chatContent: WebpackModules.getByProps("chatContent").chatContent
           };
 
           return class AntiGhostPing extends Plugin {
             onStart() {
-              updateInterval = setInterval(() => {
-                PluginUpdater.checkForUpdate(
-                  "AntiGhostPing",
-                  this.getVersion(),
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
-                );
-              }, 5000);
-
-              // console.log(Patcher._patches.find(p => p.name.includes("dispatch")));
-
               BdApi.linkJS(
                 "KeyboardJS",
                 "https://raw.githubusercontent.com/RobertWHurst/KeyboardJS/master/dist/keyboard.min.js"
@@ -231,10 +227,15 @@ var AntiGhostPing = (() => {
             removeIntervals() {
               clearInterval(updateInterval);
             }
+		  
+	    onSwitch() {
+		// Use this as a backup.
+		this.addButton();    
+	    }
 
             observer({ addedNodes }) {
               for (const node of addedNodes) {
-                if (node.className == selectors.chat) {
+                if (node.className == selectors.chat || node.className == selectors.chatContent) {
                   this.addButton();
                 }
               }

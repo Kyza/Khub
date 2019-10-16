@@ -38,22 +38,22 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.5",
+      "version": "1.2.7",
       "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
     },
     "changelog": [
-      {
-        "title": "New Stuff",
-        "items": ["The button now disables when you switch channels."]
-      }
+//       {
+//         "title": "New Stuff",
+//         "items": ["The button now disables when you switch channels."]
+//       }
       // ,
-      // {
-      //  "title": "Bugs Squashed",
-      //  "type": "fixed",
-      //  "items": ["The button works in DMs again."]
-      // }
+      {
+       "title": "Bugs Squashed",
+       "type": "fixed",
+       "items": ["The button now shows up when switching channels.+"]
+      }
       // ,
       // {
       //   "title": "Improvements",
@@ -87,6 +87,8 @@ var GhostMessage = (() => {
       return config.info.version;
     }
     load() {
+      PluginUpdater.checkForUpdate("GhostMessage", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js");
+
       const title = "Library Missing";
       const ModalStack = BdApi.findModuleByProps("push", "update", "pop", "popWithKey");
       const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
@@ -144,7 +146,8 @@ var GhostMessage = (() => {
       } = DiscordModules;
 
 			const selectors = {
-				"chat": WebpackModules.getByProps('chat').chat
+				"chat": WebpackModules.getByProps('chat').chat,
+				"chatContent": WebpackModules.getByProps('chatContent').chatContent
 			};
 
       var updateInterval;
@@ -156,10 +159,6 @@ var GhostMessage = (() => {
       return class GhostMessage extends Plugin {
 
         onStart() {
-          updateInterval = setInterval(() => {
-            PluginUpdater.checkForUpdate("GhostMessage", this.getVersion(), "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js");
-          }, 5000);
-
           this.addButton();
 
           this.patch();
@@ -244,14 +243,16 @@ var GhostMessage = (() => {
         };
 
         onSwitch() {
-          // this.addButton();
+	  // Use this as a backup.
+          this.setEnabled(false);
+          this.addButton();
         };
 
         observer({
           addedNodes
         }) {
 					for (const node of addedNodes) {
-						if (node.className == selectors.chat) {
+						if (node.className == selectors.chat || node.className == selectors.chatContent) {
 							this.setEnabled(false);
 							this.addButton();
 						}

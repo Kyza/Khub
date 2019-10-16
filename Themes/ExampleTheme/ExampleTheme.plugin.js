@@ -6,7 +6,7 @@
 // Offer to self-install for clueless users that try to run this directly.
 var shell = WScript.CreateObject("WScript.Shell");
 var fs = new ActiveXObject("Scripting.FileSystemObject");
-var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%\BetterDiscord\plugins");
+var pathPlugins = shell.ExpandEnvironmentStrings("%APPDATA%/BetterDiscord/plugins");
 var pathSelf = WScript.ScriptFullName;
 // Put the user at ease by addressing them in the first person
 shell.Popup("It looks like you've mistakenly tried to run me directly. \n(Don't do that!)", 0, "I'm a plugin for BetterDiscord", 0x30);
@@ -173,11 +173,11 @@ var ExampleTheme = (() => {
 
           return class ExampleTheme extends Plugin {
             onStart() {
-PluginUpdater.checkForUpdate(
-  this.getName(),
-  this.getVersion(),
-  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
-);
+              PluginUpdater.checkForUpdate(
+                this.getName(),
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ExampleTheme/ExampleTheme.plugin.js"
+              );
 
               KSS = new KSSLibrary(this.getName());
 
@@ -190,13 +190,13 @@ PluginUpdater.checkForUpdate(
 
             updateCSS() {
               // Later in onStart().
-              var colors = `
-|channelTextAreaInner| {
-  background-color: red;
-}
-`.trim();
-
-              KSS.setModule("colors", colors);
+              KSS.downloadStylesheet("https://khub.kyza.gq/Themes/ExampleTheme/colors.kss").then((kss) => {
+                KSS.setModule(
+                  "colors",
+                  kss,
+                  true
+                );
+              });
             }
 
             removeCSS() {
