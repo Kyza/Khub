@@ -1,5 +1,5 @@
 ---
-name: Bug Report
+name: Misc Bugs
 about: Create a report to help me improve.
 title: ''
 labels: Bug

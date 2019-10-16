@@ -1,15 +1,15 @@
 ---
-name: Dark Dark Theme
-about: Report issues with DarkDarkTheme
-title: '[DarkDarkTheme] '
-labels: bug, DarkDarkTheme
+name: GhostMessage
+about: Report issues with GhostMessage
+title: '[GhostMessage] '
+labels: bug, GhostMessage
 assignees: ''
 
 ---
 
 ## Before submitting a bug report, make sure you have reproduced the bug with all other themes and plugins disabled (excluding mine).
 
-**What version is the theme?**
+**What version is the plugin?**
 [3.0.23]
 
 **Describe the bug.**
