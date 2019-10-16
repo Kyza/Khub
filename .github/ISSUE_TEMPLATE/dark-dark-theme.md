@@ -1,8 +1,8 @@
 ---
 name: Dark Dark Theme
 about: Report issues with DarkDarkTheme
-title: '[DarkDarkTheme] '
-labels: 
+title: "[DarkDarkTheme] "
+labels: bug, documentation
 assignees: ''
 
 ---
