@@ -1,19 +1,16 @@
 ---
-name: Misc Bugs
-about: Create a report to help me improve.
-title: ''
-labels: Bug
+name: SafeEmbedGenerator
+about: Report issues with SafeEmbedGenerator
+title: '[SafeEmbedGenerator] '
+labels: bug, SafeEmbedGenerator
 assignees: ''
 
 ---
 
 ## Before submitting a bug report, make sure you have reproduced the bug with all other themes and plugins disabled (excluding mine).
 
-**What plugin does the bug occur in?**
-[PluginName]
-
 **What version is the plugin?**
-[1.3.10]
+[3.0.23]
 
 **Describe the bug.**
 [Description]
@@ -26,6 +23,3 @@ assignees: ''
 
 **Add attachments or screenshots to help me reproduce the bug.**
 [Attachments/Screenshots]
-
-
-### Make sure you assign the correct plugin or theme flare.
