@@ -112,6 +112,17 @@
 	border-radius: 5px;
 }
 
+|highBackgroundOpacity buttons| {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+|highBackgroundOpacity textArea| {
+	height: 16px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 /* Fancy Buttons */
 |closeIcon channel|[href="/activity"] {
   margin-left: 5px !important;

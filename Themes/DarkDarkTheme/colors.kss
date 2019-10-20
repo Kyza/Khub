@@ -189,9 +189,9 @@
 
 
 /* START: Ping Menu */
-/* Ping Menu Top */
-.theme-dark |message header| {
-  background-color: var(--dark2);
+/* Ping Menu Top/Bottom */
+.theme-dark |comment header|, |tip footer| {
+	background-color: var(--dark2) !important;
 }
 
 /* Ping Menu Middle */
@@ -202,11 +202,6 @@
 /* Ping Menu Jump Button */
 |jumpButton| {
   background-color: var(--dark6) !important;
-}
-
-/* Ping Menu Bottom */
-.theme-dark |body footer| {
-  background-color: var(--dark2);
 }
 
 /* Ping Menu Message */
@@ -360,7 +355,17 @@
   background-color: var(--dark3);
 }
 
-.theme-dark |tierBody| {
+.theme-dark |modal| |scrollerWrap| {
+	background-color: var(--dark4);
+	border-radius: 0px;
+}
+
+.theme-dark |modal| |scrollerWrap| {
+	padding-top: 10px;
+	background-color: var(--dark4);
+}
+
+.theme-dark |error tierBody| {
   background-color: var(--dark5);
 }
 
@@ -743,6 +748,10 @@
 
 .theme-dark |positionTop container| |scroller| {
 	background-color: var(--dark4);
+}
+
+.theme-dark |sectionTag| |scrollerWrap| {
+	background-color: var(--dark3);
 }
 
 .theme-dark |positionTop selected| {
