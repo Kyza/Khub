@@ -154,7 +154,7 @@
 
 /* Frequently Used */
 .theme-dark |category| {
-  background-color: var(--dark3);
+  background-color: var(--dark3) !important;
 }
 
 /* Search Bar */
@@ -220,6 +220,10 @@
 }
 
 /* Search Menu Back */
+.theme-dark |queryContainer| {
+	background-color: var(--dark2) !important;
+}
+
 .theme-dark |searchResultsWrap| {
   background-color: var(--dark3);
 }
