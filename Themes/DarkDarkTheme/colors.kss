@@ -383,7 +383,7 @@
 }
 
 .theme-dark |tierNoneText|:after {
-  content: "https://kyza.gq/discord/";
+  content: "https://kyza.net/discord/";
   font-size: 14px;
 }
 
