@@ -472,6 +472,14 @@
 
 
 
+/* START: Voice Call Screenshare */
+|modal| |flexMarginReset flex| {
+	background-color: var(--dark2);
+}
+/* STOP: Voice Call Screenshare */
+
+
+
 /* START: Discover/Activity Tab */
 .theme-dark |filterLabel searchBox||searchBoxInput| {
   background-color: var(--dark7);
