@@ -1,7 +1,7 @@
 /* START: Branding */
 @font-face {
     font-family: 'UniSansHeavy';
-    src: url("https://khub.kyza.gq/Fonts/Uni%20Sans%20Heavy.ttf")
+    src: url("https://khub.kyza.net/Fonts/Uni%20Sans%20Heavy.ttf")
 }
 
 /* Titlebar */
