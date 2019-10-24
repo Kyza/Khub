@@ -593,6 +593,26 @@
 
 
 
+/* START: Upload Modal */
+.theme-dark |uploadModal| {
+	background-color: var(--dark3);
+}
+
+.theme-dark |uploadModal| |cancelAllButton footer| {
+	background-color: var(--dark1) !important;
+}
+
+.theme-dark |uploadModal| |highBackgroundOpacity inner| {
+	background-color: var(--dark5) !important;
+}
+
+.theme-dark |uploadModal| |button||lookInverted| {
+	background-color: var(--dark4);
+}
+/* STOP: Upload Modal */
+
+
+
 /* START: User Panel */
 .theme-dark |customStatusContainer container| {
   background-color: var(--dark2);
