@@ -123,6 +123,21 @@
 	margin-bottom: auto;
 }
 
+|countdown wrapper| {
+	margin: 0px;
+	height: calc(100% - 32px);
+	border-radius: 0px;
+}
+
+|status form| {
+	height: 70px;
+	width: calc(100% + 357px) !important;
+}
+
+|chatContent|:only-child |status form| {
+	width: 100% !important;
+}
+
 /* Fancy Buttons */
 |closeIcon channel|[href="/activity"] {
   margin-left: 5px !important;
