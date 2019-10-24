@@ -482,12 +482,6 @@
 
 
 /* START: Various Blues */
-.theme-dark |anchorUnderlineOnHover anchor| {
-	color: var(--dark-blue) !important;
-}
-.theme-dark |wrapperHover| {
-	color: var(--dark-blue) !important;
-}
 .theme-dark |wrapperHover|:hover {
 	background-color: var(--dark-blue) !important;
 	color: lightgray !important;
