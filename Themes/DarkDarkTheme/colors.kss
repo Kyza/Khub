@@ -481,11 +481,18 @@
 
 
 
-/* START: Voice Call Screenshare */
-|anchorUnderlineOnHover anchor| {
+/* START: Various Blues */
+.theme-dark |anchorUnderlineOnHover anchor| {
 	color: var(--dark-blue) !important;
 }
-/* STOP: Voice Call Screenshare */
+.theme-dark |wrapperHover| {
+	color: var(--dark-blue) !important;
+}
+.theme-dark |wrapperHover|:hover {
+	background-color: var(--dark-blue) !important;
+	color: lightgray !important;
+}
+/* STOP: Various Blues */
 
 
 
