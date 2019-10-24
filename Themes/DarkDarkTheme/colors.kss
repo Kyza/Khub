@@ -492,6 +492,9 @@
 	background-color: var(--dark-blue) !important;
 	color: lightgray !important;
 }
+.theme-dark |botTag| {
+	background-color: var(--dark-blue);
+}
 /* STOP: Various Blues */
 
 
