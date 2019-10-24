@@ -481,6 +481,14 @@
 
 
 
+/* START: Voice Call Screenshare */
+|anchorUnderlineOnHover anchor| {
+	color: var(--dark-blue) !important;
+}
+/* STOP: Voice Call Screenshare */
+
+
+
 /* START: Discover/Activity Tab */
 .theme-dark |filterLabel searchBox||searchBoxInput| {
   background-color: var(--dark7);
