@@ -48,7 +48,7 @@
 
 |highBackgroundOpacity inner||flex| {
   min-height: 70px;
-  width: calc(100% + 357px);
+  width: 100%;
   border-radius: 0px;
 }
 
