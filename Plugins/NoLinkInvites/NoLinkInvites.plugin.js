@@ -190,9 +190,7 @@ var NoLinkInvites = (() => {
                 DiscordModules.MessageActions,
                 "sendMessage",
                 (thisObject, methodArguments, returnValue) => {
-                  console.log(methodArguments[1].content);
                   methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.{7}|\w{7}))/gi, "https://canary.discordapp.com/__development/link?$1");
-                  console.log(methodArguments[1].content);
                 }
               );
             }
