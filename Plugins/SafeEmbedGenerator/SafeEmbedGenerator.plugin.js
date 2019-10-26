@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.3.11",
+      "version": "1.3.12",
       "description": "Adds a button which allows you to create non-bannable embeds with ease.",
       "website": "https://khub.kyza.net/?plugin=SafeEmbedGenerator",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -50,9 +50,9 @@ var SafeEmbedGenerator = (() => {
       // }
       // ,
       {
-      	"title": "Improvements",
+      	"title": "Announcement",
       	"type": "improved",
-      	"items": ["Gave the embed dialog the proper text length limits."]
+      	"items": ["Hey everyone! I'd just like to ask you to visit a website called teamtrees.org if you haven't already, that's all. Don't bug support about this, it's just an announcement."]
       }
       // ,
       // {

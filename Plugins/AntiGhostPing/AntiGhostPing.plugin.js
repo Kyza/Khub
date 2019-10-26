@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.4",
+      version: "1.2.5",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -49,13 +49,13 @@ var AntiGhostPing = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: [
-          "The button shows up when switching channels now."
-        ]
-      }
+      // {
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: [
+      //     "The button shows up when switching channels now."
+      //   ]
+      // }
 // 	    ,
 //       {
 //         title: "Improvements",
@@ -65,6 +65,11 @@ var AntiGhostPing = (() => {
 //           "Added an animation to the ghostping panel."
 //         ]
 //       }
+      {
+      	"title": "Announcement",
+      	"type": "improved",
+      	"items": ["Hey everyone! I'd just like to ask you to visit a website called teamtrees.org if you haven't already, that's all. Don't bug support about this, it's just an announcement."]
+      }
       //	,
       // {
       //   "title": "On-going",
