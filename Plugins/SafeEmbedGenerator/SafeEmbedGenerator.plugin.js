@@ -32,7 +32,7 @@ var SafeEmbedGenerator = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.3.9",
+      "version": "1.3.11",
       "description": "Adds a button which allows you to create non-bannable embeds with ease.",
       "website": "https://khub.kyza.net/?plugin=SafeEmbedGenerator",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
@@ -52,7 +52,7 @@ var SafeEmbedGenerator = (() => {
       {
       	"title": "Improvements",
       	"type": "improved",
-      	"items": ["The embed API is now back up permanently.", "The embed API has a custom domain now."]
+      	"items": ["Gave the embed dialog the proper text length limits."]
       }
       // ,
       // {
@@ -391,21 +391,25 @@ var SafeEmbedGenerator = (() => {
 
             var providerName = document.createElement("input");
             providerName.setAttribute("id", "providerName");
+            providerName.setAttribute("maxlength", "256");
 
             var providerUrl = document.createElement("input");
             providerUrl.setAttribute("id", "providerUrl");
 
             var authorName = document.createElement("input");
             authorName.setAttribute("id", "authorName");
+            authorName.setAttribute("maxlength", "256");
 
             var authorUrl = document.createElement("input");
             authorUrl.setAttribute("id", "authorUrl");
 
             var title = document.createElement("input");
             title.setAttribute("id", "title");
+            title.setAttribute("maxlength", "70");
 
             var description = document.createElement("textarea");
             description.setAttribute("id", "description");
+            description.setAttribute("maxlength", "280");
 
             var imageUrl = document.createElement("input");
             imageUrl.setAttribute("id", "imageUrl");
@@ -426,7 +430,7 @@ var SafeEmbedGenerator = (() => {
             var fadeOutBackground = document.createElement("div");
 
             var inputStyle = "width: 275px; margin: auto auto 10px auto;";
-            var textInputStyle = "background-color: #484B52; border: none; border-radius: 5px; height: 30px; padding-left: 10px;";
+            var textInputStyle = "background-color: #484B52; border: none; border-radius: 5px; height: 30px; padding-left: 10px; padding-right: 10px;";
 
             providerName.setAttribute("type", "text");
             providerName.setAttribute("placeholder", "Provider Name");
