@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.5",
+      version: "1.2.6",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -57,18 +57,12 @@ var AntiGhostPing = (() => {
       //   ]
       // }
 // 	    ,
-//       {
-//         title: "Improvements",
-//         type: "improved",
-//         items: [
-//           "Moved the icon to the top right.",
-//           "Added an animation to the ghostping panel."
-//         ]
-//       }
       {
-      	"title": "Announcement",
-      	"type": "improved",
-      	"items": ["Hey everyone! I'd just like to ask you to visit a website called teamtrees.org if you haven't already, that's all. Don't bug support about this, it's just an announcement."]
+        title: "Improvements",
+        type: "improved",
+        items: [
+          "Removed a console.log()."
+        ]
       }
       //	,
       // {
@@ -252,7 +246,6 @@ var AntiGhostPing = (() => {
                 keyboardJS.bind("esc", function(e) {
                   // TODO: For some reason this.togglePanel(false); is undefined.
                   panelOpen = false;
-                  console.log("e");
                   $("#ghostping-panel").css({
                     opacity: "0",
                     "pointer-events": "none"
