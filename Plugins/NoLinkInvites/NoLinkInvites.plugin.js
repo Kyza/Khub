@@ -35,7 +35,7 @@ var NoLinkInvites = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.0",
+      version: "1.0.1",
       description: "Converts invites to \"linkless\" invites by abusing Discord's build overrride code. The link still displays on mobile.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/NoLinkInvites",
@@ -48,17 +48,17 @@ var NoLinkInvites = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["The button shows up when switching channels now."]
-      // }
-      // 	    ,
       {
-        title: "Improvements",
-        type: "improved",
-        items: ["Made the plugin exist."]
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Works with more invite links now."]
       }
+      // 	    ,
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: ["Made the plugin exist."]
+      // }
       //	,
       // {
       //   "title": "On-going",
@@ -190,7 +190,7 @@ var NoLinkInvites = (() => {
                 DiscordModules.MessageActions,
                 "sendMessage",
                 (thisObject, methodArguments, returnValue) => {
-                  methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.{7}|\w{7}))/gi, "https://canary.discordapp.com/__development/link?$1");
+                  methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.+|\w+))/gi, "https://canary.discordapp.com/__development/link?$1");
                 }
               );
             }
