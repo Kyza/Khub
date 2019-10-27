@@ -35,7 +35,7 @@ var NoLinkInvites = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.1",
+      version: "1.0.2",
       description: "Converts invites to \"linkless\" invites by abusing Discord's build overrride code. The link still displays on mobile.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/NoLinkInvites",
@@ -51,7 +51,7 @@ var NoLinkInvites = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Works with more invite links now."]
+        items: ["Works with invite links that don't have \"https://\" in front of them."]
       }
       // 	    ,
       // {
@@ -191,6 +191,8 @@ var NoLinkInvites = (() => {
                 "sendMessage",
                 (thisObject, methodArguments, returnValue) => {
                   methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.+|\w+))/gi, "https://canary.discordapp.com/__development/link?$1");
+                  // https://canary.discordapp.com/__development/link?discord
+                  methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)canary\.discordapp\.com\/__development\/link\?)((?:discord\.gg|discordapp\.com\/invite)\/(?:.+|\w+))/gi, "$1https://$2");
                 }
               );
             }
