@@ -194,9 +194,8 @@
 }
 
 /* Fix Horizontal Scrolling */
-|privateChannels|
-  |scroller||firefoxFixScrollFlex||systemPad| {
-  overflow-x: hidden !important;
+|privateChannels| |themedWithTrack scroller| {
+	overflow-x: hidden !important;
 }
 
 /* User Panel */
