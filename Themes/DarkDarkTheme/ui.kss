@@ -92,14 +92,15 @@
   /*height: 0px !important;*/
 }
 
-#charcounter {
+.charcounter {
   position: absolute;
   left: 2px !important;
   top: 4px;
   font-size: 12px;
+	height: 66px;
 }
 
-|uploadModal| #charcounter {
+|uploadModal| .charcounter {
   left: 3px !important;
 }
 
