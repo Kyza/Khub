@@ -240,6 +240,16 @@
 	background-color: var(--dark6);
 }
 
+|containerDefault||userLimit selected| |notInteractive content| {
+	border-width: 10px;
+  border-style: solid;
+  border-color: var(--dark4);
+  border-top: none;
+  border-bottom: none;
+
+	background-color: var(--dark6);
+}
+
 /* Edit Box */
 |messageEditorCompact containerCozy||messageEditorCompact container|
   |highBackgroundOpacity inner||flex||innerNoAutocomplete| {

@@ -75,7 +75,7 @@ function downloadBDAddon(button) {
     }/${name}/${name}.plugin.js`,
     (addon) => {
       // Create an invisible A element
-      const a = document.createElement("a");
+      let a = document.createElement("a");
       a.style.display = "none";
       a.download = `${name}.plugin.js`;
       document.body.appendChild(a);
