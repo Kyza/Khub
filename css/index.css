@@ -196,6 +196,11 @@ body {
 	transform: translateY(36px);
 }
 
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #111 black;
+}
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
