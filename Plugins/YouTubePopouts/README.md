@@ -1,6 +1,8 @@
 # YouTubePopouts
 
-Allows you to open a popout version of YouTube videos that persist across channels.\nA redux of detTube by Megamit/Mitchell.
+Allows you to open a popout version of YouTube videos that persist across channels.
+
+A redux of detTube by Megamit/Mitchell.
 
 ## Usage
 
