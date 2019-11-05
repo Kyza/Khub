@@ -1,0 +1,210 @@
+@import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  outline: none;
+  box-sizing: inherit;
+  font-family: "Fira Code", monospace;
+  color: #19bc8b;
+}
+
+body {
+  margin: 0px !important;
+  overflow: hidden;
+}
+
+#body {
+  background-color: #111;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.button {
+  width: 100%;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  font-size: 36px;
+
+  user-select: none;
+
+  box-shadow: inset 10px 10px 0 10px #19bc8b, inset -10px 10px 0 10px #19bc8b,
+    inset 10px -10px 0 10px #19bc8b;
+
+  transition-duration: 0.4s;
+}
+
+.plugin {
+  background-image: url("https://image.flaticon.com/icons/svg/1176/1176960.svg");
+  background-position: center center;
+  background-size: 180px;
+}
+
+.theme {
+  background-image: url("https://image.flaticon.com/icons/svg/751/751433.svg");
+  background-position: center center;
+  background-size: 180px;
+}
+
+.button:hover,
+.button:focus {
+  cursor: pointer;
+  box-shadow: inset 3em 3em 0 3em #19bc8b, inset -3em 3em 0 3em #19bc8b,
+    inset -3em 3em 0 3em #19bc8b;
+  color: #111;
+}
+
+#download-modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #111;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  transition-duration: 0.4s;
+}
+
+#download-modal-content {
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
+}
+
+#download-modal-content * {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji !important;
+}
+#download-modal-content img {
+  max-width: 100%;
+}
+
+#download-modal.closed {
+  width: 100vw;
+  height: 0px;
+}
+
+#download-modal.open {
+  width: 100vw;
+  height: 100vh;
+}
+
+#download-modal-download {
+  position: fixed;
+  top: 80px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+	cursor: pointer;
+
+	background-image: url("https://image.flaticon.com/icons/svg/149/149211.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	filter: invert(100%) brightness(0.5) sepia(1) hue-rotate(115deg) saturate(5);
+
+	transition-duration: 0.4s;
+}
+
+.open #download-modal-download {
+	transition-delay: 0.4s;
+	opacity: 1;
+}
+
+.closed #download-modal-download {
+	opacity: 0;
+}
+
+#download-modal-close {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+
+#download-modal-close-line1,
+#download-modal-close-line2 {
+  position: absolute;
+  width: 60px;
+  height: 10px;
+  border-radius: 10px;
+
+  transition-delay: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.closed #download-modal-close-line1,
+.closed #download-modal-close-line2 {
+  background-color: rgba(0, 0, 0, 0);
+  transform: translatey(25px) rotateZ(0deg);
+  transition-delay: 0s;
+}
+
+.open #download-modal-close-line1,
+.open #download-modal-close-line2 {
+  background-color: #19bc8b;
+}
+
+.closed #download-modal-close,
+.closed #download-modal-close {
+  pointer-events: none;
+}
+
+.open #download-modal-close,
+.open #download-modal-close {
+  pointer-events: auto;
+}
+
+.open #download-modal-close-line1 {
+  transform: translatey(25px) rotateZ(45deg);
+}
+
+.open #download-modal-close-line2 {
+  transform: translatey(25px) rotateZ(-45deg);
+}
+
+.unofficial:before,
+.unofficial:after {
+	content: "!";
+}
+
+.unofficial:hover:after {
+	content: "Unofficial";
+	display: block;
+	line-height: 0px;
+	font-size: 24px;
+	color: #111;
+	transform: translateY(-36px);
+}
+
+.unofficial:hover:before {
+	content: "Unofficial";
+	display: block;
+	line-height: 0px;
+	font-size: 24px;
+	color: #111;
+	transform: translateY(36px);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #111;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: black;
+}
