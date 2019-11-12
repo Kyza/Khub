@@ -1,6 +1,6 @@
 # TotalMembers
 
-TotalMembers displays the total amount of members in a Discord server. A redux of MemberCount by Arashiryuu. Styleable with #TotalMembers just like MemberCount.
+TotalMembers displays the total amount of members in a Discord server. A redux of MemberCount by Arashiryuu.
 
 ## Usage
 
