@@ -38,7 +38,7 @@ var GhostMessage = (() => {
         "discord_id": "220584715265114113",
         "github_username": "KyzaGitHub"
       }],
-      "version": "1.2.7",
+      "version": "1.2.8",
       "description": "Send messages that delete themselves.",
       "github": "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
       "github_raw": "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
@@ -52,7 +52,7 @@ var GhostMessage = (() => {
       {
        "title": "Bugs Squashed",
        "type": "fixed",
-       "items": ["The button now shows up when switching channels.+"]
+       "items": ["Removed an error log."]
       }
       // ,
       // {
@@ -311,7 +311,6 @@ var GhostMessage = (() => {
               this.removeButton();
             }
           } catch (e) {
-            console.log(e);
           }
           this.setEnabled(enabled);
         }

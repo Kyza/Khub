@@ -35,7 +35,7 @@ var TotalMembers = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.1",
+      version: "1.0.2",
       description:
         "TotalMembers displays the total amount of members in a Discord server. A redux of MemberCount by Arashiryuu.",
       github:
