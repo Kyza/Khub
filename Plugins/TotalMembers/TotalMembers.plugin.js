@@ -35,7 +35,7 @@ var TotalMembers = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.0",
+      version: "1.0.1",
       description:
         "TotalMembers displays the total amount of members in a Discord server. A redux of MemberCount by Arashiryuu. Styleable with #TotalMembers just like MemberCount.",
       github:
@@ -60,7 +60,7 @@ var TotalMembers = (() => {
       {
         title: "Improvements",
         type: "improved",
-        items: ["Made the plugin exist."]
+        items: ["Made the dash the same as the other dashes."]
       }
       //	,
       // {
@@ -269,7 +269,7 @@ var TotalMembers = (() => {
                   KSS.parse("|membersGroup|").replace(".", "") +
                   " container-2ax-kl";
                 totalMembers.innerHTML =
-                  "Members - " + DiscordAPI.currentGuild.memberCount;
+                  "Members—" + DiscordAPI.currentGuild.memberCount;
 
                 membersList.insertBefore(totalMembers, membersList.firstChild);
               }
