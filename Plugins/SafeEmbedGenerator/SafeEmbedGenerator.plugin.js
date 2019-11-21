@@ -565,10 +565,9 @@ var SafeEmbedGenerator = (() => {
             //   cancelText: "",
             //   showInput: true
             // });
-
             // Add the fadeout for the background.
             fadeOutBackground.setAttribute("id", "fadeOutBackground");
-            fadeOutBackground.setAttribute("style", "position: absolute; width: 100%; height: 100%; top: 22px; background-color: rgba(0, 0, 0, 0.8); z-index: 999999999999999999998;");
+            fadeOutBackground.setAttribute("style", `position: absolute; width: 100%; height: 100%;${document.getElementsByClassName('platform-linux').length ? '' : ' top: 22px;'} background-color: rgba(0, 0, 0, 0.8); z-index: 999999999999999999998;`);
             fadeOutBackground.onclick = () => {
               this.closeEmbedPopup();
             };
