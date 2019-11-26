@@ -11,4 +11,4 @@ I've included a sample "Sans" sound [here](https://github.com/KyzaGitHub/Khub/ra
 ## Features
 
 - [x] Sounds play in the main chat box.
-- [ ] Sounds play anywhere.
+- [x] Sounds play anywhere.
