@@ -3,6 +3,38 @@ String.prototype.replaceAll = function(search, replacement) {
   return target.replace(new RegExp(search, "g"), replacement);
 };
 
+function getQueryParams() {
+  let search = window.location.search;
+  let queries = search.split("&");
+  let params = {};
+  for (let i = 0; i < queries.length; i++) {
+    params[queries[i].split("=")[0].replace("?", "")] = queries[i].split("=")[1];
+  }
+  return params;
+}
+
+function getBase() {
+  return window.location.href.replace(window.location.search, "");
+}
+
+if (getQueryParams().plugin) {
+  console.log("in");
+  
+  let button = document.querySelector(
+    "#" + getQueryParams().plugin + "-button"
+  );
+  if (button) {
+    openDownloadModal(button);
+  }
+} else if (getQueryParams().theme) {
+  let button = document.querySelector(
+    "#" + getQueryParams().theme + "-button"
+  );
+  if (button) {
+    openDownloadModal(button);
+  }
+}
+
 var converter = new showdown.Converter();
 
 var buttons = document.querySelectorAll(`#buttons [id*="-button"]`);
@@ -17,6 +49,7 @@ for (let i = 0; i < buttons.length; i++) {
 document.querySelector("#download-modal-close").onclick = closeDownloadModal;
 
 function openDownloadModal(button) {
+  history.replaceState({}, document.title, `${getBase()}?${button.className.indexOf("plugin") > -1 ? "plugin" : "theme"}=${button.id.replace("-button", "")}`);
   document.querySelector("#body").style =
     "transition-duration: 1s; filter: grayscale(100%); overflow: hidden;";
   get(
