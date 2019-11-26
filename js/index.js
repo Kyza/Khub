@@ -18,8 +18,6 @@ function getBase() {
 }
 
 if (getQueryParams().plugin) {
-  console.log("in");
-  
   let button = document.querySelector(
     "#" + getQueryParams().plugin + "-button"
   );
