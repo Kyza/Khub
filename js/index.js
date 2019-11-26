@@ -89,6 +89,7 @@ function openDownloadModal(button) {
 }
 
 function closeDownloadModal() {
+  history.replaceState({}, document.title, `${getBase()}`);
   document.querySelector("#download-modal").className = "closed";
   document.querySelector("#body").style =
     "transition-duration: 1s; filter: grayscale(0%); overflow: auto;";
