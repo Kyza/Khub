@@ -58,7 +58,7 @@ function openDownloadModal(button) {
     }/${button.id.replace("-button", "")}/README.md`,
     (markdown) => {
       var lines = markdown.split("\n");
-      var finishedMarkdown = "";
+      var finishedMarkdown = button.className.indexOf("unofficial") > -1 ? `<h1 align="center">! Unofficial ${button.className.indexOf("plugin") > -1 ? "Plugin" : "Theme"} !</h1>\n` : "";
       for (let i = 0; i < lines.length; i++) {
         if (lines[i].indexOf("- [x]") == 0) {
           lines[i] = lines[i].replace(
