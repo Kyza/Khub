@@ -36,7 +36,7 @@ var TypingSounds = (() => {
         }
       ],
       version: "1.1.0",
-      description: "Become Sans Undertale. A redux of \"typingsound\"/\"Osu Sounds for Rai\" by Jiiks.",
+      description: "Become Sans Undertale. A redux of \"typingsound\" or \"Osu Sounds for Rai\" by Jiiks.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/TypingSounds",
       github_raw:
