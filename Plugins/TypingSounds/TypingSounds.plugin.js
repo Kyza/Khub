@@ -35,7 +35,7 @@ var TypingSounds = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.0",
+      version: "1.1.0",
       description: "Become Sans Undertale.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/TypingSounds",
@@ -43,31 +43,27 @@ var TypingSounds = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/TypingSounds/TypingSounds.plugin.js"
     },
     changelog: [
-      {
-        "title": "New Stuff",
-        "items": ["made the plugin exist."]
-      }
-      ,
+      // {
+      //   title: "New Stuff",
+      //   items: ["made the plugin exist."]
+      // },
       // {
       //   title: "Bugs Squashed",
       //   type: "fixed",
       //   items: ["The button shows up when switching channels now."]
       // }
       // 	    ,
-      //       {
-      //         title: "Improvements",
-      //         type: "improved",
-      //         items: [
-      //           "Moved the icon to the top right.",
-      //           "Added an animation to the ghostping panel."
-      //         ]
-      //       }
-      //	,
       {
-        "title": "On-going",
-        "type": "progress",
-        "items": ["Only works with the main chat box so far."]
+        title: "Improvements",
+        type: "improved",
+        items: ["The plugin now works on all chat boxes."]
       }
+      //	,
+      // {
+      //   title: "On-going",
+      //   type: "progress",
+      //   items: ["Only works with the main chat box so far."]
+      // }
     ],
     main: "index.js",
     defaultConfig: [
@@ -191,11 +187,6 @@ var TypingSounds = (() => {
           return config.info.version;
         }
         load() {
-          PluginUpdater.checkForUpdate(
-            "TypingSounds",
-            this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/TypingSounds/TypingSounds.plugin.js"
-          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -288,6 +279,12 @@ var TypingSounds = (() => {
 
           return class TypingSounds extends Plugin {
             onStart() {
+              ZLibrary.PluginUpdater.checkForUpdate(
+                "TypingSounds",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/TypingSounds/TypingSounds.plugin.js"
+              );
+
               this.patch();
               this.readAudio(this.settings.sound.file);
               this.addTypingEvent();
@@ -309,14 +306,12 @@ var TypingSounds = (() => {
                 try {
                   this.readAudio(this.settings.sound.file);
                   if (group == "sound" && id == "file") {
-                    Toasts.success(
-                      this.getName() + ": Loaded the audio file."
-                    );  
+                    Toasts.success(this.getName() + ": Loaded the audio file.");
                   }
                   this.playSound();
                 } catch (e) {
                   Toasts.error(
-                    this.getName() + ": Could not find the audio file."
+                    this.getName() + ": Couldn't find your audio file."
                   );
                 }
               });
@@ -330,43 +325,51 @@ var TypingSounds = (() => {
             }
 
             readAudio(filePath) {
-              var fs = require("fs");
-              var buffer = fs.readFileSync(filePath);
+              try {
+                var fs = require("fs");
+                var buffer = fs.readFileSync(filePath);
 
-              var blob = new Blob([buffer], { type: "audio/wav" });
-              var url = window.URL.createObjectURL(blob);
+                var blob = new Blob([buffer], { type: "audio/wav" });
+                var url = window.URL.createObjectURL(blob);
 
-              audioURL = url;
+                audioURL = url;
+              } catch (e) {
+                Toasts.error(
+                  this.getName() + ": Couldn't find your audio file."
+                );
+              }
             }
 
             addTypingEvent() {
-              var textarea = document.querySelector(
-                new DOMTools.Selector(
-                  WebpackModules.getByProps("textArea").textArea
-                )
-              );
-              textarea.oninput = () => {
+              var typingarea = document.querySelector("#app-mount");
+              typingarea.onkeydown = () => {
                 this.playSound();
               };
             }
 
             removeTypingEvent() {
-              var textarea = document.querySelector(
-                new DOMTools.Selector(
-                  WebpackModules.getByProps("textArea").textArea
-                )
-              );
-              textarea.oninput = () => {};
+              var typingarea = document.querySelector("#app-mount");
+              typingarea.onkeydown = () => {};
             }
 
             playSound() {
               var audio = new Audio(audioURL);
               audio.volume = this.settings.sound.volume / 100;
+              audio.onerror = () => {
+                Toasts.error(
+                  this.getName() + ": Couldn't find your audio file."
+                );
+              };
               audio.play();
               if (this.settings.echo.enabled) {
                 setTimeout(() => {
                   audio = new Audio(audioURL);
                   audio.volume = this.settings.sound.volume / 100;
+                  audio.onerror = () => {
+                    Toasts.error(
+                      this.getName() + ": Couldn't find your audio file."
+                    );
+                  };
                   audio.play();
                 }, this.settings.echo.delay);
               }
@@ -375,6 +378,11 @@ var TypingSounds = (() => {
             readySounds() {
               var audio = new Audio(audioURL);
               audio.volume = 0;
+              audio.onerror = () => {
+                Toasts.error(
+                  this.getName() + ": Couldn't find your audio file."
+                );
+              };
               audio.play();
             }
           };
