@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.0.23",
+      version: "3.1.0",
       description:
         "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
@@ -51,56 +51,38 @@ var DarkDarkTheme = (() => {
       //   ]
       // },
       // ,
-      {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: ["Added step markers to the opacity slider."]
-      },
       // {
-      //   title: "Improvements",
-      //   type: "improved",
-      //   items: [
-      //     "Added profile effects for contributors."
-      //   ]
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: ["Added step markers to the opacity slider."]
       // },
+      {
+        title: "Improvements",
+        type: "improved",
+        items: ["Added toggling for all of the different UI changes."]
+      },
       {
         title: "On-going",
         type: "progress",
-        items: ["Moving V2 elements to V3."]
+        items: ["Fixing the scrolling issues with the chat box."]
       }
     ],
     main: "index.js",
     defaultConfig: [
       {
         type: "category",
-        id: "modules",
-        name: "Modules",
-        collapsible: false,
-        shown: true,
-        settings: [
-          {
-            type: "switch",
-            id: "background",
-            name: "Background",
-            note: "Enable or disable the background.",
-            value: ""
-          },
-          {
-            type: "switch",
-            id: "ui",
-            name: "UI Changes",
-            note: "Enable or disable the UI changes.",
-            value: true
-          }
-        ]
-      },
-      {
-        type: "category",
         id: "background",
         name: "Background",
-        collapsible: false,
-        shown: true,
+        collapsible: true,
+        shown: false,
         settings: [
+          {
+            type: "switch",
+            id: "enabled",
+            name: "Background",
+            note: "Enable or disable the background.",
+            value: false
+          },
           {
             type: "textbox",
             id: "url",
@@ -190,8 +172,73 @@ var DarkDarkTheme = (() => {
             value: 10,
             minValue: 0,
             maxValue: 100,
-            markers: [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95],
+            markers: [
+              0,
+              5,
+              10,
+              15,
+              20,
+              25,
+              30,
+              35,
+              40,
+              45,
+              50,
+              55,
+              60,
+              65,
+              70,
+              75,
+              80,
+              85,
+              90,
+              95
+            ],
             stickToMarkers: true
+          }
+        ]
+      },
+      {
+        type: "category",
+        id: "ui",
+        name: "UI Changes",
+        collapsible: true,
+        shown: true,
+        settings: [
+          {
+            type: "switch",
+            id: "messages",
+            name: "Animated Messages",
+            note: "Enable or disable the animated messages.",
+            value: true
+          },
+          {
+            type: "switch",
+            id: "listbuttons",
+            name: "Channel List/Members List",
+            note: "Enable or disable the channel list and member list changes.",
+            value: true
+          },
+          {
+            type: "switch",
+            id: "chatbox",
+            name: "Chat Box",
+            note: "Enable or disable the large chat box.",
+            value: false
+          },
+          {
+            type: "switch",
+            id: "codefont",
+            name: "Fira Code Font",
+            note: "Enable or disable the Fira Code font for code blocks.",
+            value: true
+          },
+          {
+            type: "switch",
+            id: "smalldmbuttons",
+            name: "Small DM Buttons",
+            note: "Enable or disable the small DM buttons.",
+            value: true
           }
         ]
       }
@@ -461,7 +508,7 @@ var DarkDarkTheme = (() => {
                 );
               });
 
-              if (this.settings.modules.background) {
+              if (this.settings.background.enabled) {
                 KSS.downloadStylesheet(
                   "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/ThemeUtilities/background.kss"
                 ).then((kss) => {
@@ -473,14 +520,58 @@ var DarkDarkTheme = (() => {
                 });
               }
 
-              if (this.settings.modules.ui) {
+              if (this.settings.ui.codefont) {
                 KSS.downloadStylesheet(
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codefont.kss"
                 ).then((kss) => {
                   KSS.setModule(
-                    "ui",
+                    "codefont",
                     kss,
-                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/ui.kss"
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codefont.kss"
+                  );
+                });
+              }
+              if (this.settings.ui.smalldmbuttons) {
+                KSS.downloadStylesheet(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/smalldmbuttons.kss"
+                ).then((kss) => {
+                  KSS.setModule(
+                    "smalldmbuttons",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/smalldmbuttons.kss"
+                  );
+                });
+              }
+              if (this.settings.ui.listbuttons) {
+                KSS.downloadStylesheet(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/listbuttons.kss"
+                ).then((kss) => {
+                  KSS.setModule(
+                    "listbuttons",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/listbuttons.kss"
+                  );
+                });
+              }
+              if (this.settings.ui.messages) {
+                KSS.downloadStylesheet(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/messages.kss"
+                ).then((kss) => {
+                  KSS.setModule(
+                    "messages",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/messages.kss"
+                  );
+                });
+              }
+              if (this.settings.ui.chatbox) {
+                KSS.downloadStylesheet(
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/chatbox.kss"
+                ).then((kss) => {
+                  KSS.setModule(
+                    "chatbox",
+                    kss,
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/chatbox.kss"
                   );
                 });
               }
@@ -495,7 +586,19 @@ var DarkDarkTheme = (() => {
                 KSS.disposeModule("colors");
               } catch (e) {}
               try {
-                KSS.disposeModule("ui");
+                KSS.disposeModule("codefont");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("smalldmbuttons");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("listbuttons");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("messages");
+              } catch (e) {}
+              try {
+                KSS.disposeModule("chatbox");
               } catch (e) {}
               try {
                 KSS.disposeModule("background");
