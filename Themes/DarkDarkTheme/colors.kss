@@ -105,6 +105,11 @@
 	background-color: transparent !important;
 }
 
+/* Other Titlebars */
+|iconBadge container| {
+  background-color: var(--dark1) !important;
+}
+
 /* Search Bar */
 .theme-dark |privateChannels searchBar| {
   background-color: var(--dark1);

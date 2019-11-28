@@ -56,3 +56,12 @@
   transform: translateX(-30px) translateY(5px);
 }
 
+[href*="/activity"]|children selected| |children avatar|,
+[href*="/library"]|children selected| |children avatar|,
+[href*="/store"]|children selected| |children avatar|,
+[href="/channels/@me"]|children selected| |children avatar| {
+	transform: translateX(-12px) !important;
+}
+[href="/channels/@me"]|children selected| |numberBadge| {
+  transform: translateX(-35.5px) translateY(5px);
+}
