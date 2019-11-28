@@ -1,0 +1,58 @@
+|closeIcon channel|[href="/activity"] {
+  margin-left: 5px !important;
+}
+
+[href*="/activity"],
+[href*="/library"],
+[href*="/store"],
+[href="/channels/@me"] {
+  display: inline-block;
+  width: 24%;
+  /*height: 80px;*/
+  margin: 0px;
+  padding: 0px;
+}
+
+[href*="/activity"] |children avatar|,
+[href*="/library"] |children avatar|,
+[href*="/store"] |children avatar|,
+[href="/channels/@me"] |children avatar| {
+  margin: 0px;
+  padding-left: 5px;
+}
+
+[href*="/channels/@me"] |numberBadge| {
+  transform: translateX(-25px) translateY(5px);
+	transition-duration: 0.5s;
+}
+
+[href*="/activity"] |subText name|,
+[href*="/library"] |subText name|,
+[href*="/store"] |subText name|,
+[href="/channels/@me"] |subText name| {
+  font-size: 0px;
+}
+
+[href*="/activity"] |children avatar|,
+[href*="/library"] |children avatar|,
+[href*="/store"] |children avatar|,
+[href="/channels/@me"] |children avatar| {
+	transition-duration: 0.5s;
+	transform: translateX(-1.5px);
+}
+
+/* Fix Horizontal Scrolling */
+|privateChannels| |themedWithTrack scroller| {
+	overflow-x: hidden !important;
+}
+
+[href*="/activity"]:hover |children avatar|,
+[href*="/library"]:hover |children avatar|,
+[href*="/store"]:hover |children avatar|,
+[href="/channels/@me"]:hover |children avatar| {
+	transform: translateX(-6.5px) !important;
+}
+[href="/channels/@me"]:hover |numberBadge| {
+  transform: translateX(-30px) translateY(5px);
+}
+

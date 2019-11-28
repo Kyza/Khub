@@ -1,0 +1,28 @@
+@keyframes transitionIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-5%);
+  }
+
+  50% {
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+|containerCozyBounded||messageEditorCompact containerCozy||messageEditorCompact container|,
+|containerCozyBounded||messageEditorCompact containerCozy||messageEditorCompact container| > div {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-name: transitionIn;
+  animation-fill-mode: forwards;
+}
+
+|scroller||firefoxFixScrollFlex||systemPad||messages| {
+  width: 100px !important;
+}
