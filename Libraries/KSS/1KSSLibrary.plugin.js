@@ -71,8 +71,15 @@ function KSSLibrary(plugin) {
         const res = ZLibrary.WebpackModules.getByProps(...search);
         if (!res || !res[search[search.length - 1]]) {
           ZLibrary.Logger.warn(
-            plugin.getName(),
+            plugin.getName() + " v" + plugin.getVersion(),
             `Could not find selector for "${search.join(", ")}"!`
+          );
+          ZLibrary.Toasts.error(
+            `${plugin.getName() +
+              " v" +
+              plugin.getVersion()}: Could not find selector for "${search.join(
+              ", "
+            )}"!`
           );
         } else {
           try {
@@ -85,6 +92,10 @@ function KSSLibrary(plugin) {
     }
 
     return kss;
+  };
+
+  this.createClassName = (kss) => {
+    return this.parse(kss).repalceAll(".", "");
   };
 
   this.setSelector = (name, selector) => {
@@ -706,15 +717,12 @@ var KSSLibrary = (() => {
       //   title: "Bugs Squashed",
       //   type: "fixed",
       //   items: ["Fixed periods before KSS selectors."]
-      // }
-      // ,
-      //   {
-      //     title: "Improvements",
-      //     type: "improved",
-      //     items: [
-      //       ""
-      //     ]
-      //   }
+      // },
+      {
+        title: "Improvements",
+        type: "improved",
+        items: ['Added "createClassName()" QOL function.']
+      },
       // ,
       {
         title: "On-going",
@@ -743,6 +751,7 @@ var KSSLibrary = (() => {
           return config.info.version;
         }
         load() {
+          pluginModule.enablePlugin(this.getName());
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -816,8 +825,8 @@ var KSSLibrary = (() => {
 
           return class KSSLibrary extends Plugin {
             onStart() {
-              ZLibrary.PluginUpdater.checkForUpdate(
-                this.getName(),
+              PluginUpdater.checkForUpdate(
+                "KSSLibrary",
                 this.getVersion(),
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
               );
@@ -826,10 +835,10 @@ var KSSLibrary = (() => {
                 "You don't need to enable this plugin.",
                 "It has been disabled for you automatically."
               );
-              pluginModule.disablePlugin(this.getName());
             }
-
-            onStop() {}
+            onStop() {
+              pluginModule.enablePlugin(this.getName());
+            }
           };
         };
         return plugin(Plugin, Api);
