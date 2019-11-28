@@ -75,9 +75,7 @@ function KSSLibrary(plugin) {
             `Could not find selector for "${search.join(", ")}"!`
           );
           ZLibrary.Toasts.error(
-            `${plugin.getName() +
-              " v" +
-              plugin.getVersion()}: Could not find selector for "${search.join(
+            `${plugin.getName() + " v" + plugin.getVersion()}: Could not find selector for "${search.join(
               ", "
             )}"!`
           );
@@ -95,7 +93,7 @@ function KSSLibrary(plugin) {
   };
 
   this.createClassName = (kss) => {
-    return this.parse(kss).repalceAll(".", "");
+    return this.parse(kss).replaceAll(".", "");
   };
 
   this.setSelector = (name, selector) => {
@@ -701,7 +699,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.14",
+      version: "0.1.15",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -718,11 +716,13 @@ var KSSLibrary = (() => {
       //   type: "fixed",
       //   items: ["Fixed periods before KSS selectors."]
       // },
-      {
-        title: "Improvements",
-        type: "improved",
-        items: ['Added "createClassName()" QOL function.']
-      },
+        {
+          title: "Improvements",
+          type: "improved",
+          items: [
+            "Added \"createClassName()\" QOL function."
+          ]
+        },
       // ,
       {
         title: "On-going",
