@@ -847,4 +847,8 @@
 }
 /* STOP: PermissionsViewer */
 
+|themedPopout| {
+  background-color: var(--dark2) !important;
+}
+
 /* STOP: BetterDiscord */

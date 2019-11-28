@@ -93,7 +93,7 @@ function KSSLibrary(plugin) {
   };
 
   this.createClassName = (kss) => {
-    return this.parse(kss).replaceAll(".", "");
+    return this.parse(kss).replaceAll(".", "").trim();
   };
 
   this.setSelector = (name, selector) => {
@@ -699,7 +699,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.15",
+      version: "0.1.14",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
