@@ -378,6 +378,14 @@
 .theme-dark |modal||size modal| {
   background-color: var(--dark4);
 }
+
+|everyonePopout| |icon body| {
+  background-color: var(--dark2);
+}
+
+|everyonePopout| |buttonHint footer| {
+  background-color: var(--dark1);
+}
 /* STOP: Popups */
 
 
