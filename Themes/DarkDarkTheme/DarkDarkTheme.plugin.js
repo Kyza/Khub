@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.1.0",
+      version: "3.1.1",
       description:
         "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
@@ -56,11 +56,11 @@ var DarkDarkTheme = (() => {
       //   type: "fixed",
       //   items: ["Added step markers to the opacity slider."]
       // },
-      {
-        title: "Improvements",
-        type: "improved",
-        items: ["Added toggling for all of the different UI changes."]
-      },
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: ["Added toggling for all of the different UI changes."]
+      // },
       {
         title: "On-going",
         type: "progress",
@@ -224,7 +224,7 @@ var DarkDarkTheme = (() => {
             id: "chatbox",
             name: "Chat Box",
             note: "Enable or disable the large chat box.",
-            value: false
+            value: true
           },
           {
             type: "switch",
