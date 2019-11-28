@@ -366,6 +366,15 @@
 
 /* START: Popups */
 /* Channel Popup */
+.theme-dark |hideOnFullscreen modal| |themedWithTrack scroller|  {
+  padding-top: 10px;
+  background-color: var(--dark5);
+}
+
+.theme-dark |hideOnFullscreen modal| |header| {
+  background-color: var(--dark3);
+}
+
 .theme-dark |modal||size modal| {
   background-color: var(--dark4);
 }
