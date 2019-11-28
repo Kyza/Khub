@@ -360,6 +360,14 @@
 	padding-top: 10px;
 	background-color: var(--dark4);
 }
+
+.theme-dark |carouselLeftGradientEdge| {
+  background-image: linear-gradient(90deg, var(--dark1), rgba(54, 57, 63, 0));
+}
+
+.theme-dark |carouselRightGradientEdge| {
+  background-image: linear-gradient(-90deg, var(--dark1), rgba(54, 57, 63, 0));
+}
 /* STOP: Nitro Boost Menu */
 
 
