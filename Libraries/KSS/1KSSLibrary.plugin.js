@@ -366,7 +366,7 @@ window.KSSLibrary = KSSLibrary;
 
 var KSS = new window.KSSLibrary({
   getVersion: () => {
-    return "0.0.0";
+    return `0.0.0`;
   },
   getName: () => {
     return "ExamplePlugin";
