@@ -756,10 +756,6 @@ var KSSLibrary = (() => {
         }
         load() {
           pluginModule.enablePlugin(this.getName());
-          Modals.showAlertModal(
-            "You don't need to enable KSSLibrary.",
-            "To prevent confusion, it has been enabled for you automatically."
-          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
