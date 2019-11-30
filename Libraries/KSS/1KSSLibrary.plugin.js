@@ -755,7 +755,6 @@ var KSSLibrary = (() => {
           return config.info.version;
         }
         load() {
-          pluginModule.enablePlugin(this.getName());
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -829,15 +828,19 @@ var KSSLibrary = (() => {
 
           return class KSSLibrary extends Plugin {
             onStart() {
-              PluginUpdater.checkForUpdate(
+              ZLibrary.PluginUpdater.checkForUpdate(
                 "KSSLibrary",
                 this.getVersion(),
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
               );
+              Modals.showAlertModal(
+                "You don't need to enable KSSLibrary.",
+                "It has been disabled for you automatically."
+              );
+              pluginModule.disablePlugin(this.getName());
             }
 
             onStop() {
-              pluginModule.enablePlugin(this.getName());
             }
           };
         };
