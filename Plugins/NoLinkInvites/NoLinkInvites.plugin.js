@@ -35,8 +35,9 @@ var NoLinkInvites = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.0.2",
-      description: "Converts invites to \"linkless\" invites by abusing Discord's build overrride code. The link still displays on mobile.",
+      version: "1.0.3",
+      description:
+        'Converts invites to "linkless" invites by abusing Discord\'s build overrride code. The link still displays on mobile.',
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/NoLinkInvites",
       github_raw:
@@ -51,7 +52,9 @@ var NoLinkInvites = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Works with invite links that don't have \"https://\" in front of them."]
+        items: [
+          'Fixed updating.'
+        ]
       }
       // 	    ,
       // {
@@ -87,11 +90,6 @@ var NoLinkInvites = (() => {
           return config.info.version;
         }
         load() {
-          PluginUpdater.checkForUpdate(
-            "NoLinkInvites",
-            this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/NoLinkInvites/NoLinkInvites.plugin.js"
-          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -179,6 +177,11 @@ var NoLinkInvites = (() => {
 
           return class NoLinkInvites extends Plugin {
             onStart() {
+              PluginUpdater.checkForUpdate(
+                "NoLinkInvites",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/NoLinkInvites/NoLinkInvites.plugin.js"
+              );
               this.patch();
             }
 
@@ -190,9 +193,15 @@ var NoLinkInvites = (() => {
                 DiscordModules.MessageActions,
                 "sendMessage",
                 (thisObject, methodArguments, returnValue) => {
-                  methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.+|\w+))/gi, "https://canary.discordapp.com/__development/link?$1");
+                  methodArguments[1].content = methodArguments[1].content.replace(
+                    /((?:http:\/\/|https:\/\/)?(?:discord.gg|discordapp.com\/invite)\/(?:.+|\w+))/gi,
+                    "https://canary.discordapp.com/__development/link?$1"
+                  );
                   // https://canary.discordapp.com/__development/link?discord
-                  methodArguments[1].content = methodArguments[1].content.replace(/((?:http:\/\/|https:\/\/)canary\.discordapp\.com\/__development\/link\?)((?:discord\.gg|discordapp\.com\/invite)\/(?:.+|\w+))/gi, "$1https://$2");
+                  methodArguments[1].content = methodArguments[1].content.replace(
+                    /((?:http:\/\/|https:\/\/)canary\.discordapp\.com\/__development\/link\?)((?:discord\.gg|discordapp\.com\/invite)\/(?:.+|\w+))/gi,
+                    "$1https://$2"
+                  );
                 }
               );
             }

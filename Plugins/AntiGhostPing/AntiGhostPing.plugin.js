@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.6",
+      version: "1.2.7",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -49,21 +49,19 @@ var AntiGhostPing = (() => {
       //   "items": ["Removed the Revenge Ping button."]
       // }
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: [
-      //     "The button shows up when switching channels now."
-      //   ]
-      // }
-// 	    ,
       {
-        title: "Improvements",
-        type: "improved",
+        title: "Bugs Squashed",
+        type: "fixed",
         items: [
-          "Removed a console.log()."
+          'Fixed updating.'
         ]
       }
+      // 	    ,
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: ["Removed a console.log()."]
+      // }
       //	,
       // {
       //   "title": "On-going",
@@ -92,11 +90,6 @@ var AntiGhostPing = (() => {
           return config.info.version;
         }
         load() {
-          PluginUpdater.checkForUpdate(
-            "AntiGhostPing",
-            this.getVersion(),
-            "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
-          );
           const title = "Library Missing";
           const ModalStack = BdApi.findModuleByProps(
             "push",
@@ -198,6 +191,12 @@ var AntiGhostPing = (() => {
 
           return class AntiGhostPing extends Plugin {
             onStart() {
+              PluginUpdater.checkForUpdate(
+                "AntiGhostPing",
+                this.getVersion(),
+                "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/AntiGhostPing/AntiGhostPing.plugin.js"
+              );
+
               BdApi.linkJS(
                 "KeyboardJS",
                 "https://raw.githubusercontent.com/RobertWHurst/KeyboardJS/master/dist/keyboard.min.js"
@@ -207,11 +206,14 @@ var AntiGhostPing = (() => {
               this.addPanel();
               this.addButton();
               this.bindKeyboard();
-              BdApi.injectCSS('AntiGhostPing-css', `
+              BdApi.injectCSS(
+                "AntiGhostPing-css",
+                `
               .ghostping-button-unread .ghostping-button-icon {
               color: #D51400;
               };
-              `);
+              `
+              );
             }
 
             onStop() {
@@ -220,21 +222,24 @@ var AntiGhostPing = (() => {
               this.removePanel();
               this.unpatch();
               this.removeIntervals();
-              BdApi.clearCSS('AntiGhostPing-css');
+              BdApi.clearCSS("AntiGhostPing-css");
             }
 
             removeIntervals() {
               clearInterval(updateInterval);
             }
-		  
-	    onSwitch() {
-		// Use this as a backup.
-		this.addButton();    
-	    }
+
+            onSwitch() {
+              // Use this as a backup.
+              this.addButton();
+            }
 
             observer({ addedNodes }) {
               for (const node of addedNodes) {
-                if (node.className == selectors.chat || node.className == selectors.chatContent) {
+                if (
+                  node.className == selectors.chat ||
+                  node.className == selectors.chatContent
+                ) {
                   this.addButton();
                 }
               }
@@ -638,13 +643,9 @@ var AntiGhostPing = (() => {
                 "ghostping-button-inner"
               )[0];
               if (ghostPings.length > 0) {
-                ghostButton.classList.add(
-                  "ghostping-button-unread"
-                );
+                ghostButton.classList.add("ghostping-button-unread");
               } else {
-                ghostButton.classList.remove(
-                  "ghostping-button-unread"
-                );
+                ghostButton.classList.remove("ghostping-button-unread");
               }
             }
 
