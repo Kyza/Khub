@@ -831,10 +831,6 @@ var KSSLibrary = (() => {
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
               );
 
-              Modals.showAlertModal(
-                "You don't need to enable this plugin.",
-                "It has been disabled for you automatically."
-              );
             }
             onStop() {
               pluginModule.enablePlugin(this.getName());
