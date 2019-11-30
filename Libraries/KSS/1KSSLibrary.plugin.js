@@ -75,7 +75,9 @@ function KSSLibrary(plugin) {
             `Could not find selector for "${search.join(", ")}"!`
           );
           ZLibrary.Toasts.error(
-            `${plugin.getName() + " v" + plugin.getVersion()}: Could not find selector for "${search.join(
+            `${plugin.getName() +
+              " v" +
+              plugin.getVersion()}: Could not find selector for "${search.join(
               ", "
             )}"!`
           );
@@ -93,7 +95,9 @@ function KSSLibrary(plugin) {
   };
 
   this.createClassName = (kss) => {
-    return this.parse(kss).replaceAll(".", "").trim();
+    return this.parse(kss)
+      .replaceAll(".", "")
+      .trim();
   };
 
   this.setSelector = (name, selector) => {
@@ -716,13 +720,13 @@ var KSSLibrary = (() => {
       //   type: "fixed",
       //   items: ["Fixed periods before KSS selectors."]
       // },
-        // {
-        //   title: "Improvements",
-        //   type: "improved",
-        //   items: [
-        //     "Added \"createClassName()\" QOL function."
-        //   ]
-        // },
+      // {
+      //   title: "Improvements",
+      //   type: "improved",
+      //   items: [
+      //     "Added \"createClassName()\" QOL function."
+      //   ]
+      // },
       // ,
       {
         title: "On-going",
@@ -830,8 +834,8 @@ var KSSLibrary = (() => {
                 this.getVersion(),
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
               );
-
             }
+
             onStop() {
               pluginModule.enablePlugin(this.getName());
             }
