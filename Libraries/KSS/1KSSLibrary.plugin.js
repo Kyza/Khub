@@ -699,7 +699,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.14",
+      version: "0.1.15",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -716,13 +716,13 @@ var KSSLibrary = (() => {
       //   type: "fixed",
       //   items: ["Fixed periods before KSS selectors."]
       // },
-        {
-          title: "Improvements",
-          type: "improved",
-          items: [
-            "Added \"createClassName()\" QOL function."
-          ]
-        },
+        // {
+        //   title: "Improvements",
+        //   type: "improved",
+        //   items: [
+        //     "Added \"createClassName()\" QOL function."
+        //   ]
+        // },
       // ,
       {
         title: "On-going",
