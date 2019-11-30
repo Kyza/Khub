@@ -828,7 +828,7 @@ var KSSLibrary = (() => {
 
           return class KSSLibrary extends Plugin {
             onStart() {
-              ZLibrary.PluginUpdater.checkForUpdate(
+              PluginUpdater.checkForUpdate(
                 "KSSLibrary",
                 this.getVersion(),
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
