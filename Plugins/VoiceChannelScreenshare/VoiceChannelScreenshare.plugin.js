@@ -35,9 +35,9 @@ var VoiceChannelScreenshare = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.1.0",
+      version: "2.0.0",
       description:
-        "VoiceChannelScreenshare displays the total amount of members in a Discord server. A redux of MemberCount by Arashiryuu. Styleable with #VoiceChannelScreenshare just like MemberCount.",
+        "VoiceChannelScreenshare lets you open the screenshare menu on public voice channels when you click on the channel for a second time.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/VoiceChannelScreenshare",
       github_raw:
