@@ -302,6 +302,10 @@
 
 
 /* START: Sliders */
+.theme-dark |switch|::after {
+  background-color: #ccc;
+}
+
 /* Slider Off */
 .theme-dark |valueUnchecked| {
   background-color: var(--dark1);
@@ -656,12 +660,37 @@
 }
 
 /* Buttons */
+.theme-dark |lookFilled| {
+  box-sizing: border-box;
+  background-color: transparent !important;
+}
+
+.theme-dark |lookFilled| * {
+  box-sizing: border-box;
+}
+
 .theme-dark |lookFilled||colorBrand| {
-  background-color: transparent;
-  border: 1px solid var(--dark-blue);
+  border: 1px var(--dark-blue) solid;
 }
 
 .theme-dark |lookFilled||colorGreen| {
+  border: 1px var(--dark-green) solid;
+}
+
+.theme-dark |lookFilled||colorRed| {
+  border: 1px var(--dark-red) solid;
+}
+
+.theme-dark |lookFilled||colorBrand|:hover {
+  background-color: var(--dark-blue) !important;
+}
+
+.theme-dark |lookFilled||colorGreen|:hover {
+  background-color: var(--dark-green) !important;
+}
+
+.theme-dark |lookFilled||colorRed|:hover {
+  background-color: var(--dark-red) !important;
 }
 
 /* Slider */
