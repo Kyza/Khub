@@ -604,8 +604,8 @@
   background-color: var(--dark2);
 }
 
-.theme-dark |panels| {
-  background-color: transparent;
+.theme-dark |panels| * {
+  background-color: var(--dark2);
 }
 
 .theme-dark |strikethrough container| {
