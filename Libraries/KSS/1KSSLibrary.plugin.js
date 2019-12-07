@@ -369,7 +369,7 @@ var KSS = new window.KSSLibrary({
     return `0.0.0`;
   },
   getName: () => {
-    return "ExamplePlugin";
+    return "KSSEditor";
   }
 });
 
@@ -703,7 +703,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.16",
+      version: "0.1.17",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
