@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.2.0",
+      version: "3.2.1",
       description:
         "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
@@ -54,7 +54,7 @@ var DarkDarkTheme = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed the scrolling issues with the chat box by building in FixEditScrolling."]
+        items: ["Fixed the theme not applying."]
       }
       // ,
       // {
@@ -372,7 +372,7 @@ var DarkDarkTheme = (() => {
       }
     : (([Plugin, Api]) => {
         const plugin = (Plugin, Api) => {
-          const { Patcher, PluginUpdater, PluginUtilities } = Api;
+          const { Patcher, PluginUpdater, PluginUtilities, DiscordModules } = Api;
 
           var KSS = null;
 
