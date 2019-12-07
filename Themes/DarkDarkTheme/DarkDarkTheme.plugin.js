@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.1.1",
+      version: "3.2.0",
       description:
         "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
@@ -51,21 +51,22 @@ var DarkDarkTheme = (() => {
       //   ]
       // },
       // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["Added step markers to the opacity slider."]
-      // },
+      {
+        title: "Bugs Squashed",
+        type: "fixed",
+        items: ["Fixed the scrolling issues with the chat box by building in FixEditScrolling."]
+      }
+      // ,
       // {
       //   title: "Improvements",
       //   type: "improved",
       //   items: ["Added toggling for all of the different UI changes."]
       // },
-      {
-        title: "On-going",
-        type: "progress",
-        items: ["Fixing the scrolling issues with the chat box."]
-      }
+      // {
+      //   title: "On-going",
+      //   type: "progress",
+      //   items: ["Fixing the scrolling issues with the chat box."]
+      // }
     ],
     main: "index.js",
     defaultConfig: [
@@ -375,6 +376,8 @@ var DarkDarkTheme = (() => {
 
           var KSS = null;
 
+          var scrollPosition = 0;
+
           return class DarkDarkTheme extends Plugin {
             onStart() {
               PluginUpdater.checkForUpdate(
@@ -472,7 +475,36 @@ var DarkDarkTheme = (() => {
               return panel.getElement();
             }
 
-            patch() {}
+            patch() {
+              Patcher.before(
+                DiscordModules.MessageActions,
+                "endEditMessage",
+                () => {
+                  let scroller = document.querySelector(
+                    KSS.parse("|messagesWrapper| |themedWithTrack scroller|")
+                  );
+                  scrollPosition = scroller.scrollHeight - scroller.scrollTop;
+                }
+              );
+              Patcher.after(
+                DiscordModules.MessageActions,
+                "endEditMessage",
+                () => {
+                    // Hijack scrolling for one second in intervals of 100ms.
+                    // This seems to work the best.
+                    for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                      let scroller = document.querySelector(
+                        KSS.parse(
+                          "|messagesWrapper| |themedWithTrack scroller|"
+                        )
+                      );
+                      scroller.scrollTop = scroller.scrollHeight - scrollPosition;
+                    }, 100 * i);
+                  }
+                }
+              );
+            }
 
             unpatch() {
               Patcher.unpatchAll();
