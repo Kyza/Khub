@@ -16,7 +16,7 @@
 }
 
 |chatContent| |highBackgroundOpacity textArea| {
-	margin-top: 5px;
+	margin-top: 4px;
 	margin-bottom: 14px;
 }
 
@@ -29,13 +29,12 @@
 	height: 100%;
 }
 
-|followButton content| > :nth-of-type(2) {
-	bottom: 53px;
+|followButton content| > |membersWrap| {
+	margin-bottom: 80px;
 }
 
 |membersWrap|, |membersWrap| |themedWithTrack scroller| {
 	width: 418px;
-	margin-bottom: 14px;
 }
 
 |membersWrap| |themedWithTrack scroller| > |membersGroup| {
@@ -57,7 +56,7 @@
 }
 
 |panels|, |strikethrough container| {
-	height: 81px;
+	height: 80px;
 	margin: 0px;
 }
 
