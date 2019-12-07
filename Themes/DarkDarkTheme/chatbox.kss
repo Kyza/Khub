@@ -75,3 +75,12 @@
 	right: 0px !important;
 	background-color: var(--dark2);
 }
+
+/* Announcements */
+|countdown wrapper| {
+	border-radius: 0px;
+	height: 80px;
+	margin: 0px;
+	padding: 0px;
+	padding-right: 20px;
+}
