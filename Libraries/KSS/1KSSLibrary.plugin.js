@@ -393,7 +393,7 @@ function updateCSS() {
   opacity: 0.6;
   
   position: absolute;
-  z-index: 999;
+  z-index: 999999999999;
   
   transition-duration: 0.5s;
   pointer-events: auto;
@@ -703,7 +703,7 @@ var KSSLibrary = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "0.1.15",
+      version: "0.1.16",
       description: "Easy CSS for BetterDiscord.",
       github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
       github_raw:
@@ -720,19 +720,19 @@ var KSSLibrary = (() => {
       //   type: "fixed",
       //   items: ["Fixed periods before KSS selectors."]
       // },
-      // {
-      //   title: "Improvements",
-      //   type: "improved",
-      //   items: [
-      //     "Added \"createClassName()\" QOL function."
-      //   ]
-      // },
-      // ,
       {
-        title: "On-going",
-        type: "progress",
-        items: ["Testing automatic updating."]
+        title: "Improvements",
+        type: "improved",
+        items: [
+          "Gave the KSS editor overlay a higher z-index."
+        ]
       }
+      // ,
+      // {
+      //   title: "On-going",
+      //   type: "progress",
+      //   items: ["Testing automatic updating."]
+      // }
     ],
     main: "index.js"
   };
