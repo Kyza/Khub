@@ -16,8 +16,8 @@
 }
 
 |chatContent| |highBackgroundOpacity textArea| {
-	margin-top: 5.5px;
-	margin-bottom: 5.5px;
+	margin-top: 5px;
+	margin-bottom: 14px;
 }
 
 |chatContent| |highBackgroundOpacity inner| {
@@ -35,6 +35,7 @@
 
 |membersWrap|, |membersWrap| |themedWithTrack scroller| {
 	width: 418px;
+	margin-bottom: 14px;
 }
 
 |membersWrap| |themedWithTrack scroller| > |membersGroup| {
@@ -46,6 +47,32 @@
 	margin-right: 8px;
 }
 
+
 |chatContent|:only-child |status form| {
 	width: 100%;
+}
+
+|typing| {
+	height: 14px;
+}
+
+|panels|, |strikethrough container| {
+	height: 81px;
+	margin: 0px;
+}
+
+|messagesWrapper| {
+	margin-bottom: 20px;
+}
+
+.charcounter {
+	position: absolute;
+	display: inline !important;
+	height: 14px;
+	padding: 3px;
+	top: -20px;
+	bottom: unset !important;
+	left: 0px;
+	right: 0px !important;
+	background-color: var(--dark2);
 }
