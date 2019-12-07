@@ -1,6 +1,6 @@
 /* START: Variables */
 /* Theme Variables */
-* {
+:root {
   --dark-1: #070707;
   --dark0: #0d0d0d;
   --dark1: #111;
@@ -57,6 +57,42 @@
   --deprecated-text-input-prefix: #dcddde;
 }
 /* STOP: Variables */
+
+
+
+/* START: Startup */
+|quote container| {
+	transition-duration: 1s !important;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+|quote content| {
+	transition-duration: 1s !important;
+	background-color: var(--dark1);
+	padding: 20px;
+	border-radius: 20px;
+	filter: drop-shadow(0px 0px 20px black);
+}
+
+|problems| {
+	transition-duration: 1s !important;
+	padding-top: 20px;
+	background-color: var(--dark1);
+	filter: drop-shadow(0px 0px 20px black);
+}
+
+.bd-modal-wrapper {
+	z-index: 999999;
+}
+
+.bd-modal, .modal-3c3bKg {
+	z-index: 999998 !important;
+}
+
+|backdrop| {
+	z-index: 999997 !important;
+}
+/* STOP: Startup */
 
 
 
