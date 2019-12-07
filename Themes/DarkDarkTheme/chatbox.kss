@@ -1,3 +1,7 @@
+|chatContent| {
+	width: calc(100% - 418px);
+}
+
 |chatContent| |status form| {
 	min-height: 53px;
 	width: calc(100% + 418px);
