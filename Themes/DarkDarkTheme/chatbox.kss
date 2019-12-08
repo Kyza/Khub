@@ -56,7 +56,7 @@
 }
 
 |panels|, |strikethrough container| {
-	height: 80px;
+	min-height: 80px;
 	margin: 0px;
 }
 
