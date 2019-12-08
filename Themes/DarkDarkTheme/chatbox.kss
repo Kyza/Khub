@@ -64,7 +64,7 @@
 	margin-bottom: 20px;
 }
 
-.charcounter {
+|chatContent| .charcounter {
 	position: absolute;
 	display: inline !important;
 	height: 14px;
@@ -74,6 +74,10 @@
 	left: 0px;
 	right: 0px !important;
 	background-color: var(--dark2);
+}
+
+|chatContent| |autocomplete| {
+	margin-bottom: 20px;
 }
 
 /* Announcements */
