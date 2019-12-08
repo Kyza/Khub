@@ -80,18 +80,6 @@
 	background-color: var(--dark1);
 	filter: drop-shadow(0px 0px 20px black);
 }
-
-.bd-modal-wrapper {
-	z-index: 999999;
-}
-
-.bd-modal, .modal-3c3bKg {
-	z-index: 999998 !important;
-}
-
-|backdrop| {
-	z-index: 999997 !important;
-}
 /* STOP: Startup */
 
 
