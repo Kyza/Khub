@@ -43,7 +43,7 @@ var GhostMessage = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.9",
+      version: "1.2.10",
       description: "Send messages that delete themselves.",
       github:
         "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
@@ -59,7 +59,10 @@ var GhostMessage = (() => {
       {
         title: "Bugs Squashed",
         type: "fixed",
-        items: ["Fixed updating."]
+        items: [
+          "Fixed files not deleting if many are sent at once.",
+          "Added a notification that GhostMessage was disabled when switching channels."
+        ]
       }
       // ,
       // {
@@ -216,7 +219,7 @@ var GhostMessage = (() => {
               // Patch when a normal message is sent.
               Patcher.after(
                 DiscordModules.MessageActions,
-                "_sendMessage",
+                "sendMessage",
                 (thisObject, methodArguments, returnValue) => {
                   let channel = DiscordAPI.currentChannel;
 
@@ -297,9 +300,9 @@ var GhostMessage = (() => {
                           return message.id == methodArguments[0].message.id;
                         });
                         message.delete();
+                        // Make sure to remove the file.
+                        files.splice(files.indexOf(foundAttachment), 1);
                       }
-                      // Make sure to remove the file.
-                      files.splice(files.indexOf(foundAttachment), 1);
                     }
                   }
                 }
@@ -316,18 +319,15 @@ var GhostMessage = (() => {
               this.unpatch();
             }
 
-            onSwitch() {
-              // Use this as a backup.
-              this.setEnabled(false);
-              this.addButton();
-            }
-
             observer({ addedNodes }) {
               for (const node of addedNodes) {
                 if (
                   node.className == selectors.chat ||
                   node.className == selectors.chatContent
                 ) {
+                  if (enabled) {
+                    Toasts.info("GhostMessage: Disabled automatically.");
+                  }
                   this.setEnabled(false);
                   this.addButton();
                 }
