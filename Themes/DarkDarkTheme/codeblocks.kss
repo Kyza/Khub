@@ -22,123 +22,123 @@ code::before {
 	border-radius: 2px;
 }
 
-code.apache::before {
+code[class$="apache"i]::before {
 	content: "Apache";
 }
-code.bash::before, code.sh::before {
+code[class$="bash::before"i], code[class$="sh"i]::before {
 	content: "Bash";
 }
-code.bat::before {
+code[class$="bat"i]::before {
 	content: "Batch";
 }
-code.bf::before, code.brainfuck::before {
+code[class$="bf::before"i], code[class$="brainfuck"i]::before {
 	content: "Brainfuck";
 }
-code.coffeescript::before, code.cs::after {
+code[class$="coffeescript"i]::before, code[class$="cs"i]::after {
 	content: "CoffeeScript";
 }
-code.c::before {
+code[class$="c"i]::before {
 	content: "C";
 }
-code.cpp::before {
+code[class$="cpp"i]::before {
 	content: "C++";
 }
-code.csharp::before {
+code[class$="csharp"i]::before {
 	content: "C#";
 }
-code.css::before {
+code[class$="css"i]::before {
 	content: "Cascading Style Sheets [CSS]";
 }
-code.diff::before {
+code[class$="diff"i]::before {
 	content: "Diff";
 }
-code.go::before {
+code[class$="go"i]::before {
 	content: "Go";
 }
-code.http::before {
+code[class$="http"i]::before {
 	content: "Hypertext Transfer Protocol [HTTP]";
 }
-code.toml::before {
+code[class$="toml"i]::before {
 	content: "Tom's Obvious, Minimal Language [TOML]";
 }
-code.ini::before {
+code[class$="ini"i]::before {
 	content: "Initialization [INI]";
 }
-code.java::before {
+code[class$="java"i]::before {
 	content: "Java";
 }
-code.javascript::before, code.js::before {
+code[class$="javascript::before"i], code[class$="js"i]::before {
 	content: "JavaScript";
 }
-code.json::before {
+code[class$="json"i]::before {
 	content: "JavaScript Object Notation [JSON]";
 }
-code.kotlin::before {
+code[class$="kotlin"i]::before {
 	content: "Kotlin";
 }
-code.less::before {
+code[class$="less"i]::before {
 	content: "Leaner Style Sheets [LESS]";
 }
-code.lua::before {
+code[class$="lua"i]::before {
 	content: "Lua";
 }
-code.makefile::before {
+code[class$="makefile"i]::before {
 	content: "Makefile";
 }
-code.md::before, code.markdown::before {
+code[class$="md::before"i], code[class$="markdown"i]::before {
 	content: "Markdown";
 }
-code.nginx::before {
+code[class$="nginx"i]::before {
 	content: "Nginx";
 }
-code.objectivec::before, code.objc::before {
+code[class$="objectivec::before"i], code[class$="objc"i]::before {
 	content: "Objective-C";
 }
-code.perl::before {
+code[class$="perl"i]::before {
 	content: "Perl";
 }
-code.php::before {
+code[class$="php"i]::before {
 	content: "PHP: Hypertext Preprocessor";
 }
-code.plaintext::before {
+code[class$="plaintext"i]::before {
 	content: "Plaintext";
 }
-code.properties::before {
+code[class$="properties"i]::before {
 	content: "Properties";
 }
-code.py::before, code.python::before {
+code[class$="py::before"i], code[class$="python"i]::before {
 	content: "Python";
 }
-code.ruby::before {
+code[class$="ruby"i]::before {
 	content: "Ruby";
 }
-code.rust::before {
+code[class$="rust"i]::before {
 	content: "Rust";
 }
-code.sass::before {
+code[class$="sass"i]::before {
 	content: "Syntactically Awesome Stylesheets [SASS]";
 }
-code.scss::before {
+code[class$="scss"i]::before {
 	content: "Sassy Cascading Stylesheets [SCSS]";
 }
-code.shell::before {
+code[class$="shell"i]::before {
 	content: "Shell Session";
 }
-code.sql::before {
+code[class$="sql"i]::before {
 	content: "Structured Query Language [SQL]";
 }
-code.swift::before {
+code[class$="swift"i]::before {
 	content: "Swift";
 }
-code.ts::before, code.typescript::before {
+code[class$="ts::before"i], code[class$="typescript"i]::before {
 	content: "TypeScript";
 }
-code.html::before {
+code[class$="html"i]::before {
 	content: "Hypertext Markup Language [HTML]";
 }
-code.xml::before {
+code[class$="xml"i]::before {
 	content: "Extensible Markup Language [XML]";
 }
-code.yaml::before {
+code[class$="yaml"i]::before {
 	content: "YAML Ain't Markup Language";
 }
