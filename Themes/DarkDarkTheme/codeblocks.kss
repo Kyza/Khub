@@ -1,0 +1,138 @@
+/* Code Font */
+@import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
+
+code,
+#bd-customcss-editor,
+#bd-customcss-editor-detached {
+  font-family: "Fira Code", monospace !important;
+}
+
+/* Language Identifiers */
+code::before {
+	display: block;
+	margin-bottom: 7px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	font-weight: 900;
+	width: calc(100% - 2px);
+	text-align: center;
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-tertiary);
+	filter: drop-shadow(0px 0px 1px black);
+	border-radius: 2px;
+}
+
+code.apache::before {
+	content: "Apache";
+}
+code.bash::before {
+	content: "Bash";
+}
+code.coffeescript::before, code.cs::after {
+	content: "CoffeeScript";
+}
+code.c::before {
+	content: "C";
+}
+code.cpp::before {
+	content: "C++";
+}
+code.csharp::before {
+	content: "C#";
+}
+code.css::before {
+	content: "Cascading Style Sheets [CSS]";
+}
+code.diff::before {
+	content: "Diff";
+}
+code.go::before {
+	content: "Go";
+}
+code.http::before {
+	content: "Hypertext Transfer Protocol [HTTP]";
+}
+code.toml::before {
+	content: "Tom's Obvious, Minimal Language [TOML]";
+}
+code.ini::before {
+	content: "Initialization [INI]";
+}
+code.java::before {
+	content: "Java";
+}
+code.javascript::before, code.js::before {
+	content: "JavaScript";
+}
+code.json::before {
+	content: "JavaScript Object Notation [JSON]";
+}
+code.kotlin::before {
+	content: "Kotlin";
+}
+code.less::before {
+	content: "Leaner Style Sheets [LESS]";
+}
+code.lua::before {
+	content: "Lua";
+}
+code.makefile::before {
+	content: "Makefile";
+}
+code.md::before, code.markdown::before {
+	content: "Markdown";
+}
+code.nginx::before {
+	content: "Nginx";
+}
+code.objectivec::before, code.objc::before {
+	content: "Objective-C";
+}
+code.perl::before {
+	content: "Perl";
+}
+code.php::before {
+	content: "PHP: Hypertext Preprocessor";
+}
+code.plaintext::before {
+	content: "Plaintext";
+}
+code.properties::before {
+	content: "Properties";
+}
+code.py::before, code.python::before {
+	content: "Python";
+}
+code.ruby::before {
+	content: "Ruby";
+}
+code.rust::before {
+	content: "Rust";
+}
+code.sass::before {
+	content: "Syntactically Awesome Stylesheets [SASS]";
+}
+code.scss::before {
+	content: "Sassy Cascading Stylesheets [SCSS]";
+}
+code.shell::before {
+	content: "Shell Session";
+}
+code.sql::before {
+	content: "Structured Query Language [SQL]";
+}
+code.swift::before {
+	content: "Swift";
+}
+code.ts::before, code.typescript::before {
+	content: "TypeScript";
+}
+code.html::before {
+	content: "Hypertext Markup Language [HTML]";
+}
+code.xml::before {
+	content: "Extensible Markup Language [XML]";
+}
+code.yaml::before {
+	content: "YAML Ain't Markup Language";
+}

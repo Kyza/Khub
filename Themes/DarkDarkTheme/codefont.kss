@@ -1,8 +1,0 @@
-/* Code Font */
-@import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
-
-code,
-#bd-customcss-editor,
-#bd-customcss-editor-detached {
-  font-family: "Fira Code", monospace !important;
-}
