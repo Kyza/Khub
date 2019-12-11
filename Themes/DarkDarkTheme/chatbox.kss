@@ -16,8 +16,8 @@
 }
 
 |chatContent| |highBackgroundOpacity textArea| {
-	margin-top: 4px;
-	margin-bottom: 14px;
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 |chatContent| |highBackgroundOpacity inner| {
@@ -78,6 +78,18 @@
 
 |chatContent| |autocomplete| {
 	margin-bottom: 20px;
+}
+
+|scrollableContainer| {
+	border-radius: 0px;
+}
+
+|status form| {
+	border: none;
+}
+
+|attachButton|  {
+	height: 100%;
 }
 
 /* Announcements */
