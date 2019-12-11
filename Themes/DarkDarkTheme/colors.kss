@@ -374,6 +374,11 @@
   font-size: 24px;
 }
 
+/* A user#0001 */
+|slateTextArea| {
+  caret-color: currentColor;
+}
+
 |ctaBar|, |icon perk| {
   background-color: var(--dark2) !important;
 }
