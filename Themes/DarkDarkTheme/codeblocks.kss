@@ -25,8 +25,14 @@ code::before {
 code.apache::before {
 	content: "Apache";
 }
-code.bash::before {
+code.bash::before, code.sh::before {
 	content: "Bash";
+}
+code.bat::before {
+	content: "Batch";
+}
+code.bf::before, code.brainfuck::before {
+	content: "Brainfuck";
 }
 code.coffeescript::before, code.cs::after {
 	content: "CoffeeScript";
