@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "3.2.1",
+      version: "3.3.0",
       description:
         "DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
       github:
@@ -44,18 +44,19 @@ var DarkDarkTheme = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/DarkDarkTheme.plugin.js"
     },
     changelog: [
-      // {
-      //   title: "New Stuff",
-      //   items: [
-      //     "You can now add blending effects on your background image. Get creative!"
-      //   ]
-      // },
-      // ,
       {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: ["Fixed the theme not applying."]
+        title: "New Stuff",
+        items: [
+          "Added codeblock language identifiers.",
+          "Combined the Fira Code font with the new setting".
+        ]
       }
+      // ,
+      // {
+      //   title: "Bugs Squashed",
+      //   type: "fixed",
+      //   items: ["Fixed the theme not applying."]
+      // }
       // ,
       // {
       //   title: "Improvements",
@@ -75,7 +76,7 @@ var DarkDarkTheme = (() => {
         id: "background",
         name: "Background",
         collapsible: true,
-        shown: false,
+        shown: true,
         settings: [
           {
             type: "switch",
@@ -223,15 +224,15 @@ var DarkDarkTheme = (() => {
           {
             type: "switch",
             id: "chatbox",
-            name: "Chat Box",
-            note: "Enable or disable the large chat box.",
+            name: "Channel Textarea",
+            note: "Enable or disable the large channel textarea.",
             value: true
           },
           {
             type: "switch",
-            id: "codefont",
-            name: "Fira Code Font",
-            note: "Enable or disable the Fira Code font for code blocks.",
+            id: "codeblocks",
+            name: "Codeblocks",
+            note: "Enable or disable the codeblock changes.",
             value: true
           },
           {
@@ -552,14 +553,14 @@ var DarkDarkTheme = (() => {
                 });
               }
 
-              if (this.settings.ui.codefont) {
+              if (this.settings.ui.codeblocks) {
                 KSS.downloadStylesheet(
-                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codefont.kss"
+                  "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codeblocks.kss"
                 ).then((kss) => {
                   KSS.setModule(
-                    "codefont",
+                    "codeblocks",
                     kss,
-                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codefont.kss"
+                    "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Themes/DarkDarkTheme/codeblocks.kss"
                   );
                 });
               }
@@ -618,7 +619,7 @@ var DarkDarkTheme = (() => {
                 KSS.disposeModule("colors");
               } catch (e) {}
               try {
-                KSS.disposeModule("codefont");
+                KSS.disposeModule("codeblocks");
               } catch (e) {}
               try {
                 KSS.disposeModule("smalldmbuttons");
