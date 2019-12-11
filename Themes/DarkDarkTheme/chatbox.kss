@@ -16,17 +16,12 @@
 }
 
 |chatContent| |highBackgroundOpacity textArea| {
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: 0px;
+	margin-bottom: 16px;
 }
 
 |chatContent| |highBackgroundOpacity inner| {
 	border-radius: 0px;
-}
-
-|chatContent| |buttons| {
-	min-height: 53px;
-	height: 100%;
 }
 
 |followButton content| > |membersWrap| {
@@ -88,8 +83,30 @@
 	border: none;
 }
 
-|attachButton|  {
+|attachButton|, |buttons| {
 	height: 100%;
+	max-height: 144px;
+}
+
+|attachWrapper| {
+	position: fixed;
+	height: 80px;
+	border: none;
+	bottom: 0px;
+}
+
+|buttons| {
+	position: fixed;
+	height: 80px !important;
+	border: none;
+	right: 12px;
+	top: unset;
+	bottom: 0px;
+	align-items: center;
+}
+
+|highBackgroundOpacity textArea| {
+	margin-left: 44px;
 }
 
 /* Announcements */
