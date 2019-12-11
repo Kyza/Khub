@@ -48,7 +48,7 @@ var DarkDarkTheme = (() => {
         title: "New Stuff",
         items: [
           "Added codeblock language identifiers.",
-          "Combined the Fira Code font with the new setting".
+          "Combined the Fira Code font with the new setting."
         ]
       }
       // ,
