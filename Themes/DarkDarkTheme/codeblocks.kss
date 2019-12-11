@@ -139,6 +139,6 @@ code[class$="hljs html"i]::before {
 code[class$="hljs xml"i]::before {
 	content: "Extensible Markup Language [XML]";
 }
-code[class$="hljs hljs yaml"i]::before {
+code[class$="hljs yaml"i]::before {
 	content: "YAML Ain't Markup Language";
 }
