@@ -693,7 +693,6 @@ var DarkDarkTheme = (() => {
 									break;
 								}
 							}
-							console.log(language);
 
 							switch (language.name) {
 								case "apache":
