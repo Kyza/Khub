@@ -251,7 +251,25 @@ function KSSLibrary(plugin) {
 		this.disableModule(moduleName);
 		clearInterval(this.modules[moduleName].updateInterval);
 		this.modules[moduleName] = null;
-	};
+  };
+  
+  this.disposeAllModules = () => {
+    // Clean up this instance and have it delete itself.
+    let modules = Object.keys(this.modules);
+    for (let i = 0; i < modules.length; i++) {
+      this.disposeModule(modules[i]);
+    }
+  };
+
+  this.dispose = () => {
+    // Clean up the modules.
+    this.disposeAllModules();
+    // Clean up this instance.
+    let things = Object.keys(this);
+    for (let i = 0; i < things.length; i++) {
+      this[things[i]] = null;
+    }
+  };
 
 	this.downloadStylesheet = (url) => {
 		if (!url) return "";
@@ -364,33 +382,7 @@ function KSSLibrary(plugin) {
 			return true;
 		});
 		return ret && console.log(ret), ret;
-	};
-
-	// Kyza
-	this.findSelectorsFast = (sel) => {
-		let ret = "";
-
-		ZLibrary.WebpackModules.find((mod) => {
-			if (typeof mod[sel.split("-")[0]] === "string") {
-				if (mod[sel.split("-")[0]].indexOf(sel) > -1) {
-					let modKeys = Object.keys(mod);
-					for (const modKey of modKeys) {
-						if (
-							ZLibrary.WebpackModules.getByProps(modKey, sel.split("-")[0])[
-								sel.split("-")[0]
-							].indexOf(sel) > -1
-						) {
-							ret = modKey + " " + sel.split("-")[0];
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		});
-
-		return ret;
-	};
+  };
 }
 /* STOP: Library */
 
@@ -398,7 +390,10 @@ window.KSSLibrary = KSSLibrary;
 
 /* START: Handle Overlay */
 
-var KSS = new window.KSSLibrary({
+if (window.KSSMain) {
+  window.KSSMain.dispose();
+}
+window.KSSMain = new window.KSSLibrary({
 	getVersion: () => {
 		return `0.0.0`;
 	},
@@ -408,8 +403,8 @@ var KSS = new window.KSSLibrary({
 });
 
 function updateCSS() {
-	KSS.setModule("userKSS", loadDataString("editorKSS"));
-	KSS.setModule(
+	KSSMain.setModule("userKSS", loadDataString("editorKSS"));
+	KSSMain.setModule(
 		"overlay-styles",
 		`
   @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
@@ -417,10 +412,10 @@ function updateCSS() {
   #KSSOverlay {
   font-family: "Fira Code", monospace;
   
-  top: ${KSS.currentPlatform() == "win" ? "22" : "0"}px;
+  top: ${KSSMain.currentPlatform() == "win" ? "22" : "0"}px;
   left: 1px;
   width: calc(100% - 1px);
-  height: calc(100% - ${KSS.currentPlatform() == "win" ? "22" : "0"}px);
+  height: calc(100% - ${KSSMain.currentPlatform() == "win" ? "22" : "0"}px);
   
   background-color: black;
   
@@ -466,8 +461,8 @@ function updateCSS() {
 
 function removeCSS() {
 	try {
-		KSS.disposeModule("userKSS");
-		KSS.disposeModule("overlay-styles");
+		KSSMain.disposeModule("userKSS");
+		KSSMain.disposeModule("overlay-styles");
 	} catch (e) {}
 }
 
@@ -521,7 +516,7 @@ function addOverlay() {
 				var content = textarea.value;
 				for (const m of matched) {
 					const findPlz = m.startsWith(".") ? m.substr(1) : m;
-					const matches = KSS.findSelectors(findPlz);
+					const matches = KSSMain.findSelectors(findPlz);
 					if (!matches) {
 						// console.warn(findPlz, "not found!");
 						continue;
@@ -542,7 +537,7 @@ function addOverlay() {
 			saveData("editorKSS", textarea.value);
 
 			setTimeout(() => {
-				KSS.setModule("userKSS", textarea.value);
+				KSSMain.setModule("userKSS", textarea.value);
 			}, 1e2);
 		}, 0);
 	};
@@ -734,7 +729,7 @@ var KSSLibrary = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.2.0",
+			version: "0.2.2",
 			description: "Easy CSS for BetterDiscord.",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
 			github_raw:
@@ -746,15 +741,15 @@ var KSSLibrary = (() => {
 			//     items: ["Added a simple KSS editor. Try Alt+K."]
 			//   }
 			// ,
-			{
-			  title: "Bugs Squashed",
-			  type: "fixed",
-			  items: ["Fixed a error that occurs when the overlay code area is empty."]
-			},
+			// {
+			//   title: "Bugs Squashed",
+			//   type: "fixed",
+			//   items: ["Fixed a error that occurs when the overlay code area is empty."]
+			// },
 			{
 				title: "Improvements",
 				type: "improved",
-				items: ["KSS selectors are now cached globally and are cleared apon reloading KSSLibrary or Discord. This speeds up other plugins using KSSLibrary can can reduce loading times by up to 11500%."]
+				items: ["New `dispose()` function. If you're using KSSLibrary, make sure you place `KSS.dispose()` in your `onStop()` function to completely clean up your instance."]
 			}
 			// ,
 			// {
