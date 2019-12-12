@@ -244,17 +244,25 @@ function KSSLibrary(plugin) {
 		this.clearCSS(`${this.plugin.getName()}-${moduleName}`);
 	};
 
+  this.disableAllModules = () => {
+    let modules = Object.keys(this.modules);
+    for (let i = 0; i < modules.length; i++) {
+      try {
+        this.disableModule(modules[i]);
+      } catch (e) {}
+    }
+  };
+
 	this.disposeModule = (moduleName) => {
 		if (!this.modules[moduleName]) throw `Module ${moduleName} doesn't exist.`;
 		console.log(`Disposed ${moduleName}.`);
 
-		this.disableModule(moduleName);
 		clearInterval(this.modules[moduleName].updateInterval);
+		this.disableModule(moduleName);
 		this.modules[moduleName] = null;
   };
   
   this.disposeAllModules = () => {
-    // Clean up this instance and have it delete itself.
     let modules = Object.keys(this.modules);
     for (let i = 0; i < modules.length; i++) {
       try {
@@ -731,7 +739,7 @@ var KSSLibrary = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.2.4",
+			version: "0.2.5",
 			description: "Easy CSS for BetterDiscord.",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
 			github_raw:
@@ -746,7 +754,7 @@ var KSSLibrary = (() => {
 			{
 			  title: "Bugs Squashed",
 			  type: "fixed",
-			  items: ["Fixed module disposing."]
+			  items: ["Probably fixed some error."]
       }
       // ,
 			// {
