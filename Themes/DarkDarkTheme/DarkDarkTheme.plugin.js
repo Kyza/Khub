@@ -35,7 +35,7 @@ var DarkDarkTheme = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "3.3.5",
+			version: "3.3.7",
 			description:
 				"DarkDarkTheme v3. A theme in plugin form. The first KSS theme.",
 			github:
@@ -59,11 +59,11 @@ var DarkDarkTheme = (() => {
 			// }
 			// ,
 			{
-			  title: "Improvements",
-			  type: "improved",
-			  items: ["Improved the codeblock identifiers."]
-      }
-      // ,
+				title: "Improvements",
+				type: "improved",
+				items: ["Added `KSS.dispose()`."]
+			}
+			// ,
 			// {
 			//   title: "On-going",
 			//   type: "progress",
@@ -451,7 +451,7 @@ var DarkDarkTheme = (() => {
 						onStop() {
 							this.removeIdentifications();
 							this.unpatch();
-							this.removeCSS();
+							KSS.dispose();
 						}
 
 						observer({ addedNodes }) {
@@ -640,32 +640,7 @@ var DarkDarkTheme = (() => {
 						}
 
 						removeCSS() {
-							// KSS.disposeModule("profile-effects");
-							try {
-								KSS.disposeModule("branding");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("colors");
-							} catch (e) {}
-							try {
-								this.removeIdentifications();
-								KSS.disposeModule("codeblocks");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("smalldmbuttons");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("listbuttons");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("messages");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("chatbox");
-							} catch (e) {}
-							try {
-								KSS.disposeModule("background");
-							} catch (e) {}
+							KSS.disposeAllModules();
 						}
 
 						seedColor(s) {
