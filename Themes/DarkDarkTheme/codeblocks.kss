@@ -1,6 +1,7 @@
 /* Code Font */
 @import url("https://cdn.jsdelivr.net/gh/tonsky/FiraCode@master/distr/fira_code.css");
 
+.codeblock-identifier,
 code,
 #bd-customcss-editor,
 #bd-customcss-editor-detached {
