@@ -206,7 +206,7 @@ function KSSLibrary(plugin) {
 				} else {
 					//   console.log("Can't update.");
 				}
-			}, 30e3)
+			}, 60e3 * 5)
 		};
 		if (enabled) {
 			this.enableModule(moduleName);
@@ -257,7 +257,9 @@ function KSSLibrary(plugin) {
     // Clean up this instance and have it delete itself.
     let modules = Object.keys(this.modules);
     for (let i = 0; i < modules.length; i++) {
-      this.disposeModule(modules[i]);
+      try {
+        this.disposeModule(modules[i]);
+      } catch (e) {}
     }
   };
 
@@ -729,7 +731,7 @@ var KSSLibrary = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "0.2.2",
+			version: "0.2.4",
 			description: "Easy CSS for BetterDiscord.",
 			github: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
 			github_raw:
@@ -741,16 +743,17 @@ var KSSLibrary = (() => {
 			//     items: ["Added a simple KSS editor. Try Alt+K."]
 			//   }
 			// ,
-			// {
-			//   title: "Bugs Squashed",
-			//   type: "fixed",
-			//   items: ["Fixed a error that occurs when the overlay code area is empty."]
-			// },
 			{
-				title: "Improvements",
-				type: "improved",
-				items: ["New `dispose()` function. If you're using KSSLibrary, make sure you place `KSS.dispose()` in your `onStop()` function to completely clean up your instance."]
-			}
+			  title: "Bugs Squashed",
+			  type: "fixed",
+			  items: ["Fixed module disposing."]
+      }
+      // ,
+			// {
+			// 	title: "Improvements",
+			// 	type: "improved",
+			// 	items: ["New `dispose()` function. If you're using KSSLibrary, make sure you place `KSS.dispose()` in your `onStop()` function to completely clean up your instance."]
+			// }
 			// ,
 			// {
 			//   title: "On-going",
