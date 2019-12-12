@@ -8,6 +8,28 @@ code,
   font-family: "Fira Code", monospace !important;
 }
 
+.codeblock-identifier {
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-tertiary);
+	padding: 7px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 500;
+	border-bottom: none;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	color: #2aa198;
+}
+.codeblock-identifier.formatted {
+}
+.codeblock-identifier.unformatted {
+	text-transform: uppercase;
+}
+.codeblock-identifier + code {
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
 /* Language Identifiers */
 /* code::before {
 	display: block;
