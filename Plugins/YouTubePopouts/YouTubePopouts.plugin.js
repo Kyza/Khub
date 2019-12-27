@@ -24,275 +24,290 @@
 
 @else@*/
 
+function getLibraries_220584715265114113() {
+	const title = "Libraries Missing";
+	const ModalStack = BdApi.findModuleByProps(
+		"push",
+		"update",
+		"pop",
+		"popWithKey"
+	);
+	const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+	const ConfirmationModal = BdApi.findModule(
+		(m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+	);
+	if (!ModalStack || !ConfirmationModal || !TextElement)
+		return BdApi.alert(
+			title,
+			`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+		);
+	ModalStack.push(function(props) {
+		return BdApi.React.createElement(
+			ConfirmationModal,
+			Object.assign(
+				{
+					header: title,
+					children: [
+						TextElement({
+							color: TextElement.Colors.PRIMARY,
+							children: [
+								`In order to work, ${config.info.name} needs to download the two libraries `,
+								BdApi.React.createElement(
+									"a",
+									{
+										href: "https://github.com/rauenzi/BDPluginLibrary/",
+										target: "_blank"
+									},
+									"ZeresPluginLibrary"
+								),
+								` and `,
+								BdApi.React.createElement(
+									"a",
+									{
+										href: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+										target: "_blank"
+									},
+									"KSS"
+								),
+								`.`
+							]
+						})
+					],
+					red: false,
+					confirmText: "Download",
+					cancelText: "No! Disable this plugin!",
+					onConfirm: () => {
+						// Install ZLibrary first.
+						require("request").get(
+							"https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+							async (error, response, body) => {
+								if (error)
+									return require("electron").shell.openExternal(
+										"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+									);
+								await new Promise((r) =>
+									require("fs").writeFile(
+										require("path").join(
+											ContentManager.pluginsFolder,
+											"0PluginLibrary.plugin.js"
+										),
+										body,
+										r
+									)
+								);
+							}
+						);
+						// Install KSS last.
+						require("request").get(
+							"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
+							async (error, response, body) => {
+								if (error)
+									return require("electron").shell.openExternal(
+										"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
+									);
+								await new Promise((r) =>
+									require("fs").writeFile(
+										require("path").join(
+											ContentManager.pluginsFolder,
+											"1KSSLibrary.plugin.js"
+										),
+										body,
+										r
+									)
+								);
+							}
+						);
+					},
+					onCancel: () => {
+						pluginModule.disablePlugin(this.getName());
+					}
+				},
+				props
+			)
+		);
+	});
+}
+
 var YouTubePopouts = (() => {
-  const config = {
-    info: {
-      name: "YouTubePopouts",
-      authors: [
-        {
-          name: "Kyza",
-          discord_id: "220584715265114113",
-          github_username: "KyzaGitHub"
-        }
-      ],
-      version: "1.1.1",
-      description:
-        "Allows you to open a popout version of YouTube videos that persist across channels.\nA redux of detTube by Megamit/Mitchell.",
-      github:
-        "https://github.com/KyzaGitHub/Khub/tree/master/Plugins/YouTubePopouts",
-      github_raw:
-        "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/YouTubePopouts/YouTubePopouts.plugin.js"
-    },
-    changelog: [
-      // {
-      //   title: "New Stuff",
-      //   items: [
-      //     "Added an option to open an external window instead. This is slower, but you can drag it outside of Discord."
-      //   ]
-      // }
-      // ,
-      // {
-      //   title: "Bugs Squashed",
-      //   type: "fixed",
-      //   items: ["The button shows up when switching channels now."]
-      // }
-      // 	    ,
-      {
-        title: "Improvements",
-        type: "improved",
-        items: ["The external popout window is now always on top."]
-      }
-      //	,
-      // {
-      //   "title": "On-going",
-      //   "type": "progress",
-      //   "items": []
-      // }
-    ],
-    main: "index.js",
-    defaultConfig: [
-      {
-        type: "category",
-        id: "popout",
-        name: "popout",
-        collapsible: false,
-        shown: true,
-        settings: [
-          {
-            type: "switch",
-            id: "externalWindow",
-            name: "External Window",
-            note:
-              "Open the popout as an external window. This is slower, but you can drag it outside of Discord.",
-            value: ""
-          }
-        ]
-      }
-    ]
-  };
+	const config = {
+		info: {
+			name: "YouTubePopouts",
+			authors: [
+				{
+					name: "Kyza",
+					discord_id: "220584715265114113",
+					github_username: "KyzaGitHub"
+				}
+			],
+			version: "1.1.2",
+			description:
+				"Allows you to open a popout version of YouTube videos that persist across channels.\nA redux of detTube by Megamit/Mitchell.",
+			github:
+				"https://github.com/KyzaGitHub/Khub/tree/master/Plugins/YouTubePopouts",
+			github_raw:
+				"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/YouTubePopouts/YouTubePopouts.plugin.js"
+		},
+		changelog: [
+			// {
+			//   "title": "New Stuff",
+			//   "items": ["Removed the Revenge Ping button."]
+			// }
+			// ,
+			{
+			  title: "Bugs Squashed",
+			  type: "fixed",
+			  items: [
+			    "Fixed the plugin not asking to download KSSLibrary."
+			  ]
+			}
+			// 	    ,
+			// {
+			// 	title: "Improvements",
+			// 	type: "improved",
+			// 	items: [
+			// 		"Fully rewritten.",
+			// 		"Added a button to copy the channel link so others can join you."
+			// 	]
+			// }
+			//	,
+			// {
+			//   "title": "On-going",
+			//   "type": "progress",
+			//   "items": []
+			// }
+		],
+		main: "index.js",
+		defaultConfig: [
+			{
+				type: "category",
+				id: "popout",
+				name: "popout",
+				collapsible: false,
+				shown: true,
+				settings: [
+					{
+						type: "switch",
+						id: "externalWindow",
+						name: "External Window",
+						note:
+							"Open the popout as an external window. This is slower, but you can drag it outside of Discord.",
+						value: ""
+					}
+				]
+			}
+		]
+	};
 
-  return !global.ZeresPluginLibrary
-    ? class {
-        constructor() {
-          this._config = config;
-        }
-        getName() {
-          return config.info.name;
-        }
-        getAuthor() {
-          return config.info.authors.map((a) => a.name).join(", ");
-        }
-        getDescription() {
-          return config.info.description;
-        }
-        getVersion() {
-          return config.info.version;
-        }
-        load() {
-          const title = "Libraries Missing";
-          const ModalStack = BdApi.findModuleByProps(
-            "push",
-            "update",
-            "pop",
-            "popWithKey"
-          );
-          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-          const ConfirmationModal = BdApi.findModule(
-            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
-          );
-          if (!ModalStack || !ConfirmationModal || !TextElement)
-            return BdApi.alert(
-              title,
-              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
-            );
-          ModalStack.push(function(props) {
-            return BdApi.React.createElement(
-              ConfirmationModal,
-              Object.assign(
-                {
-                  header: title,
-                  children: [
-                    TextElement({
-                      color: TextElement.Colors.PRIMARY,
-                      children: [
-                        `In order to work, ${config.info.name} needs to download the two libraries `,
-                        BdApi.React.createElement(
-                          "a",
-                          {
-                            href: "https://github.com/rauenzi/BDPluginLibrary/",
-                            target: "_blank"
-                          },
-                          "ZeresPluginLibrary"
-                        ),
-                        ` and `,
-                        BdApi.React.createElement(
-                          "a",
-                          {
-                            href:
-                              "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-                            target: "_blank"
-                          },
-                          "KSS"
-                        ),
-                        `.`
-                      ]
-                    })
-                  ],
-                  red: false,
-                  confirmText: "Download",
-                  cancelText: "No! Disable this plugin!",
-                  onConfirm: () => {
-                    // Install ZLibrary first.
-                    require("request").get(
-                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
-                      async (error, response, body) => {
-                        if (error)
-                          return require("electron").shell.openExternal(
-                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
-                          );
-                        await new Promise((r) =>
-                          require("fs").writeFile(
-                            require("path").join(
-                              ContentManager.pluginsFolder,
-                              "0PluginLibrary.plugin.js"
-                            ),
-                            body,
-                            r
-                          )
-                        );
-                      }
-                    );
-                    // Install KSS last.
-                    require("request").get(
-                      "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
-                      async (error, response, body) => {
-                        if (error)
-                          return require("electron").shell.openExternal(
-                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
-                          );
-                        await new Promise((r) =>
-                          require("fs").writeFile(
-                            require("path").join(
-                              ContentManager.pluginsFolder,
-                              "1KSSLibrary.plugin.js"
-                            ),
-                            body,
-                            r
-                          )
-                        );
-                      }
-                    );
-                  },
-                  onCancel: () => {
-                    pluginModule.disablePlugin(this.getName());
-                  }
-                },
-                props
-              )
-            );
-          });
-        }
-        start() {}
-        stop() {}
-      }
-    : (([Plugin, Api]) => {
-        const plugin = (Plugin, Api) => {
-          const {
-            DiscordModules,
-            Patcher,
-            Logger,
-            PluginUpdater,
-            PluginUtilities,
-            WebpackModules,
-            DiscordAPI,
-            Toasts
-          } = Api;
+	return !global.ZeresPluginLibrary
+		? class {
+				constructor() {
+					this._config = config;
+				}
+				getName() {
+					return config.info.name;
+				}
+				getAuthor() {
+					return config.info.authors.map((a) => a.name).join(", ");
+				}
+				getDescription() {
+					return config.info.description;
+				}
+				getVersion() {
+					return config.info.version;
+				}
+				load() {
+					getLibraries_220584715265114113();
+				}
+				start() {}
+				stop() {}
+		  }
+		: (([Plugin, Api]) => {
+				const plugin = (Plugin, Api) => {
+					const {
+						DiscordModules,
+						Patcher,
+						Logger,
+						PluginUpdater,
+						PluginUtilities,
+						WebpackModules,
+						DiscordAPI,
+						Toasts
+					} = Api;
 
-          const {
-            MessageStore,
-            UserStore,
-            ImageResolver,
-            ChannelStore,
-            GuildStore,
-            Dispatcher
-          } = DiscordModules;
+					const {
+						MessageStore,
+						UserStore,
+						ImageResolver,
+						ChannelStore,
+						GuildStore,
+						Dispatcher
+					} = DiscordModules;
 
-          const { remote } = require("electron");
+					const { remote } = require("electron");
 
-          var KSS = null;
+					var KSS = null;
 
-          var draggedOnTitlebar = false;
+					var draggedOnTitlebar = false;
 
-          var useExternalWindow = false;
+					var useExternalWindow = false;
 
-          var youtubeWindow = null;
+					var youtubeWindow = null;
 
-          return class YouTubePopouts extends Plugin {
-            onStart() {
-              useExternalWindow = this.settings.popout.externalWindow;
-              KSS = new KSSLibrary(this);
-              this.createVideoPlayer();
-              this.injectCSS();
-              this.patch();
-            }
+					return class YouTubePopouts extends Plugin {
+						onStart() {
+							if (!window.KSSLibrary) {
+								getLibraries_220584715265114113();
+							}
 
-            onStop() {
-              this.removeVideoPlayer();
-              this.removeCSS();
-              this.unpatch();
-            }
-            patch() {
-              Patcher.after(
-                Dispatcher,
-                "dirtyDispatch",
-                (thisObject, methodArguments) => {
-                  const event = methodArguments[0];
-                  if (!event || !event.type || !DiscordAPI.currentChannel)
-                    return;
+							PluginUpdater.checkForUpdate(
+								this.getName(),
+								this.getVersion(),
+								"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/YouTubePopouts/YouTubePopouts.plugin.js"
+							);
 
-                  // Subscribe to all the events needed.
-                  // These events will be used to add the popout buttons to the DOM.
-                  if (
-                    event.type == "CHANNEL_SELECT" ||
-                    event.type == "LOAD_MESSAGES_SUCCESS_CACHED" ||
-                    (event.type.indexOf("MESSAGE") > -1 &&
-                      event.channelId == DiscordAPI.currentChannel.id) ||
-                    event.type == "UPDATE_CHANNEL_DIMENSIONS"
-                  ) {
-                    this.addButtons();
-                  }
-                }
-              );
-            }
+							useExternalWindow = this.settings.popout.externalWindow;
+							KSS = new KSSLibrary(this);
+							this.createVideoPlayer();
+							this.injectCSS();
+							this.patch();
+						}
 
-            unpatch() {
-              Patcher.unpatchAll();
-            }
+						onStop() {
+							this.removeVideoPlayer();
+							this.removeCSS();
+							this.unpatch();
+						}
+						patch() {
+							Patcher.after(
+								Dispatcher,
+								"dirtyDispatch",
+								(thisObject, methodArguments) => {
+									const event = methodArguments[0];
+									if (!event || !event.type || !DiscordAPI.currentChannel) return;
 
-            injectCSS() {
-              KSS.setModule(
-                "button",
-                `
+									// Subscribe to all the events needed.
+									// These events will be used to add the popout buttons to the DOM.
+									if (
+										event.type == "CHANNEL_SELECT" ||
+										event.type == "LOAD_MESSAGES_SUCCESS_CACHED" ||
+										(event.type.indexOf("MESSAGE") > -1 &&
+											event.channelId == DiscordAPI.currentChannel.id) ||
+										event.type == "UPDATE_CHANNEL_DIMENSIONS"
+									) {
+										this.addButtons();
+									}
+								}
+							);
+						}
+
+						unpatch() {
+							Patcher.unpatchAll();
+						}
+
+						injectCSS() {
+							KSS.setModule(
+								"button",
+								`
                 :root {
                   --youtube-popouts-button-size: 24px;
                 }
@@ -318,10 +333,10 @@ var YouTubePopouts = (() => {
                   filter: invert(0%);
                 }
                 `
-              );
-              KSS.setModule(
-                "video-player",
-                `
+							);
+							KSS.setModule(
+								"video-player",
+								`
                 :root {
                   --youtube-popouts-titlebar-height: 22px;
                 }
@@ -381,173 +396,167 @@ var YouTubePopouts = (() => {
                   background-color: transparent;
                 }
                 `
-              );
-            }
+							);
+						}
 
-            removeCSS() {
-              try {
-                KSS.disposeModule("button");
-              } catch (e) {}
-              try {
-                KSS.disposeModule("video-player");
-              } catch (e) {}
-            }
+						removeCSS() {
+							try {
+								KSS.disposeModule("button");
+							} catch (e) {}
+							try {
+								KSS.disposeModule("video-player");
+							} catch (e) {}
+						}
 
-            getSettingsPanel() {
-              const panel = this.buildSettingsPanel();
-              panel.addListener((group, id, value) => {
-                if (group == "popout" && id == "externalWindow") {
-                  useExternalWindow = value;
-                }
-              });
-              return panel.getElement();
-            }
+						getSettingsPanel() {
+							const panel = this.buildSettingsPanel();
+							panel.addListener((group, id, value) => {
+								if (group == "popout" && id == "externalWindow") {
+									useExternalWindow = value;
+								}
+							});
+							return panel.getElement();
+						}
 
-            insertAfter(el, referenceNode) {
-              referenceNode.parentNode.insertBefore(
-                el,
-                referenceNode.nextSibling
-              );
-            }
+						insertAfter(el, referenceNode) {
+							referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+						}
 
-            isYouTubeLink(url) {
-              return /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$/gi.test(
-                url
-              );
-            }
+						isYouTubeLink(url) {
+							return /^(?:https?:\/\/)?(?:m\.|www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(\?\S*)?$/gi.test(
+								url
+							);
+						}
 
-            addButtons() {
-              let links = document.querySelectorAll("a");
+						addButtons() {
+							let links = document.querySelectorAll("a");
 
-              for (let i = 0; i < links.length; i++) {
-                let link = links[i];
+							for (let i = 0; i < links.length; i++) {
+								let link = links[i];
 
-                // Validate that the link is a YouTube video link.
-                if (
-                  this.isYouTubeLink(link.href.trim()) &&
-                  link.className
-                    .trim()
-                    .indexOf(
-                      KSS.parse("|anchorUnderlineOnHover anchor|").replace(
-                        /\./g,
-                        ""
-                      )
-                    ) > -1 &&
-                  link.href.trim() == link.innerHTML.trim()
-                ) {
-                  this.createButton(link);
-                }
-              }
-            }
+								// Validate that the link is a YouTube video link.
+								if (
+									this.isYouTubeLink(link.href.trim()) &&
+									link.className
+										.trim()
+										.indexOf(
+											KSS.parse("|anchorUnderlineOnHover anchor|").replace(/\./g, "")
+										) > -1 &&
+									link.href.trim() == link.innerHTML.trim()
+								) {
+									this.createButton(link);
+								}
+							}
+						}
 
-            createButton(link) {
-              if (
-                !link.nextSibling ||
-                link.nextSibling.className != "youtube-popouts-button"
-              ) {
-                let button = document.createElement("span");
-                // Using a space here to size the height correctly.
-                button.innerHTML = " ";
-                button.className = "youtube-popouts-button";
+						createButton(link) {
+							if (
+								!link.nextSibling ||
+								link.nextSibling.className != "youtube-popouts-button"
+							) {
+								let button = document.createElement("span");
+								// Using a space here to size the height correctly.
+								button.innerHTML = " ";
+								button.className = "youtube-popouts-button";
 
-                button.onclick = () => {
-                  this.changeVideo(link.href);
-                };
+								button.onclick = () => {
+									this.changeVideo(link.href);
+								};
 
-                this.insertAfter(button, link);
-              }
-            }
+								this.insertAfter(button, link);
+							}
+						}
 
-            getYouTubeVideoID(url) {
-              var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
-              var match = url.match(regExp);
-              return match && match[1].length == 11 ? match[1] : false;
-            }
+						getYouTubeVideoID(url) {
+							var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+							var match = url.match(regExp);
+							return match && match[1].length == 11 ? match[1] : false;
+						}
 
-            getURLParameters(url) {
-              var vars = {};
-              var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
-                m,
-                key,
-                value
-              ) {
-                vars[key] = value;
-              });
-              return vars;
-            }
+						getURLParameters(url) {
+							var vars = {};
+							var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
+								m,
+								key,
+								value
+							) {
+								vars[key] = value;
+							});
+							return vars;
+						}
 
-            changeVideo(url) {
-              if (useExternalWindow) {
-                var file =
-                  "data:text/html;charset=UTF-8," +
-                  encodeURIComponent(
-                    this.buildWindow({
-                      url: this.generateFullscreenURL(url)
-                    })
-                  );
-                if (youtubeWindow) {
-                  youtubeWindow.loadURL(file);
-                } else {
-                  youtubeWindow = new remote.BrowserWindow({
-                    width: 480,
-                    height: 292,
-                    frame: false,
-                    show: false,
-                    title: "YouTube - Kyza#9994",
-                    alwaysOnTop: true
-                  });
-                  youtubeWindow.once("closed", () => {
-                    youtubeWindow = null;
-                  });
-                  youtubeWindow.once("ready-to-show", () => {
-                    youtubeWindow.show();
-                  });
+						changeVideo(url) {
+							if (useExternalWindow) {
+								var file =
+									"data:text/html;charset=UTF-8," +
+									encodeURIComponent(
+										this.buildWindow({
+											url: this.generateFullscreenURL(url)
+										})
+									);
+								if (youtubeWindow) {
+									youtubeWindow.loadURL(file);
+								} else {
+									youtubeWindow = new remote.BrowserWindow({
+										width: 480,
+										height: 292,
+										frame: false,
+										show: false,
+										title: "YouTube - Kyza#9994",
+										alwaysOnTop: true
+									});
+									youtubeWindow.once("closed", () => {
+										youtubeWindow = null;
+									});
+									youtubeWindow.once("ready-to-show", () => {
+										youtubeWindow.show();
+									});
 
-                  youtubeWindow.loadURL(file);
-                }
-              } else {
-                if (!document.querySelector("#youtube-popouts-wrapper")) {
-                  this.createVideoPlayer();
-                }
-                this.showVideoPlayer();
+									youtubeWindow.loadURL(file);
+								}
+							} else {
+								if (!document.querySelector("#youtube-popouts-wrapper")) {
+									this.createVideoPlayer();
+								}
+								this.showVideoPlayer();
 
-                document.querySelector(
-                  "#youtube-popouts-video-player"
-                ).src = this.generateFullscreenURL(url);
-              }
-            }
+								document.querySelector(
+									"#youtube-popouts-video-player"
+								).src = this.generateFullscreenURL(url);
+							}
+						}
 
-            buildWindow(options) {
-              let wrapper = document.createElement("div");
-              wrapper.id = "youtube-popouts-wrapper";
-              wrapper.style.top = "0px";
-              wrapper.style.left = "0px";
+						buildWindow(options) {
+							let wrapper = document.createElement("div");
+							wrapper.id = "youtube-popouts-wrapper";
+							wrapper.style.top = "0px";
+							wrapper.style.left = "0px";
 
-              let titlebar = document.createElement("div");
-              titlebar.id = "youtube-popouts-titlebar";
-              titlebar.textContent = "YouTube - Kyza#9994";
+							let titlebar = document.createElement("div");
+							titlebar.id = "youtube-popouts-titlebar";
+							titlebar.textContent = "YouTube - Kyza#9994";
 
-              titlebar.onmousedown = this.initDrag;
-              document.onmousemove = this.popoutDrag;
-              document.onmouseup = this.endDrag;
+							titlebar.onmousedown = this.initDrag;
+							document.onmousemove = this.popoutDrag;
+							document.onmouseup = this.endDrag;
 
-              let titlebarClose = document.createElement("div");
-              titlebarClose.id = "youtube-popouts-titlebar-close";
+							let titlebarClose = document.createElement("div");
+							titlebarClose.id = "youtube-popouts-titlebar-close";
 
-              titlebarClose.onclick = this.hideVideoPlayer;
+							titlebarClose.onclick = this.hideVideoPlayer;
 
-              let videoPlayer = document.createElement("iframe");
-              videoPlayer.id = "youtube-popouts-video-player";
-              videoPlayer.setAttribute("allowfullscreen", "");
-              videoPlayer.src = options.url;
+							let videoPlayer = document.createElement("iframe");
+							videoPlayer.id = "youtube-popouts-video-player";
+							videoPlayer.setAttribute("allowfullscreen", "");
+							videoPlayer.src = options.url;
 
-              titlebar.appendChild(titlebarClose);
+							titlebar.appendChild(titlebarClose);
 
-              wrapper.appendChild(titlebar);
-              wrapper.appendChild(videoPlayer);
+							wrapper.appendChild(titlebar);
+							wrapper.appendChild(videoPlayer);
 
-              return (
-                `
+							return (
+								`
               <style>
               @font-face {
                 font-family: "Whitney Medium";
@@ -621,157 +630,149 @@ var YouTubePopouts = (() => {
               };
               </script>
               ` + wrapper.outerHTML
-              );
-            }
+							);
+						}
 
-            generateFullscreenURL(url) {
-              let parametersString = "";
+						generateFullscreenURL(url) {
+							let parametersString = "";
 
-              for (
-                let i = 0;
-                i < Object.keys(this.getURLParameters(url)).length;
-                i++
-              ) {
-                let parameter = Object.keys(this.getURLParameters(url))[i];
-                let value = this.getURLParameters(url)[parameter];
+							for (
+								let i = 0;
+								i < Object.keys(this.getURLParameters(url)).length;
+								i++
+							) {
+								let parameter = Object.keys(this.getURLParameters(url))[i];
+								let value = this.getURLParameters(url)[parameter];
 
-                if (parameter != "watch") {
-                  if (parameter == "t") {
-                    parameter = "start";
-                  }
+								if (parameter != "watch") {
+									if (parameter == "t") {
+										parameter = "start";
+									}
 
-                  parametersString += `&${parameter}=${value}`;
-                }
-              }
+									parametersString += `&${parameter}=${value}`;
+								}
+							}
 
-              return (
-                "https://www.youtube.com/embed/" +
-                this.getYouTubeVideoID(url) +
-                "?autoplay=1" +
-                parametersString
-              );
-            }
+							return (
+								"https://www.youtube.com/embed/" +
+								this.getYouTubeVideoID(url) +
+								"?autoplay=1" +
+								parametersString
+							);
+						}
 
-            createVideoPlayer() {
-              let wrapper = document.createElement("div");
-              wrapper.id = "youtube-popouts-wrapper";
-              wrapper.style.top = "22px";
-              wrapper.style.left = "0px";
-              wrapper.style.display = "none";
+						createVideoPlayer() {
+							let wrapper = document.createElement("div");
+							wrapper.id = "youtube-popouts-wrapper";
+							wrapper.style.top = "22px";
+							wrapper.style.left = "0px";
+							wrapper.style.display = "none";
 
-              let titlebar = document.createElement("div");
-              titlebar.id = "youtube-popouts-titlebar";
-              titlebar.textContent = "YouTube - Kyza#9994";
+							let titlebar = document.createElement("div");
+							titlebar.id = "youtube-popouts-titlebar";
+							titlebar.textContent = "YouTube - Kyza#9994";
 
-              titlebar.onmousedown = this.initDrag;
-              document.onmousemove = this.popoutDrag;
-              document.onmouseup = this.endDrag;
+							titlebar.onmousedown = this.initDrag;
+							document.onmousemove = this.popoutDrag;
+							document.onmouseup = this.endDrag;
 
-              let titlebarClose = document.createElement("div");
-              titlebarClose.id = "youtube-popouts-titlebar-close";
+							let titlebarClose = document.createElement("div");
+							titlebarClose.id = "youtube-popouts-titlebar-close";
 
-              titlebarClose.onclick = this.hideVideoPlayer;
+							titlebarClose.onclick = this.hideVideoPlayer;
 
-              let videoPlayer = document.createElement("iframe");
-              videoPlayer.id = "youtube-popouts-video-player";
-              videoPlayer.setAttribute("allowfullscreen", "");
+							let videoPlayer = document.createElement("iframe");
+							videoPlayer.id = "youtube-popouts-video-player";
+							videoPlayer.setAttribute("allowfullscreen", "");
 
-              let iframeBlocker = document.createElement("div");
-              iframeBlocker.id = "youtube-popouts-iframe-blocker";
-              iframeBlocker.style.display = "none";
+							let iframeBlocker = document.createElement("div");
+							iframeBlocker.id = "youtube-popouts-iframe-blocker";
+							iframeBlocker.style.display = "none";
 
-              titlebar.appendChild(titlebarClose);
+							titlebar.appendChild(titlebarClose);
 
-              wrapper.appendChild(titlebar);
-              wrapper.appendChild(videoPlayer);
-              wrapper.appendChild(iframeBlocker);
+							wrapper.appendChild(titlebar);
+							wrapper.appendChild(videoPlayer);
+							wrapper.appendChild(iframeBlocker);
 
-              document.body.appendChild(wrapper);
-            }
+							document.body.appendChild(wrapper);
+						}
 
-            removeVideoPlayer() {
-              try {
-                document.querySelector("#youtube-popouts-wrapper").remove();
-              } catch (e) {}
-            }
+						removeVideoPlayer() {
+							try {
+								document.querySelector("#youtube-popouts-wrapper").remove();
+							} catch (e) {}
+						}
 
-            showVideoPlayer() {
-              document.querySelector("#youtube-popouts-wrapper").style.display =
-                "block";
-            }
+						showVideoPlayer() {
+							document.querySelector("#youtube-popouts-wrapper").style.display =
+								"block";
+						}
 
-            hideVideoPlayer() {
-              document.querySelector("#youtube-popouts-wrapper").style.display =
-                "none";
-              document.querySelector("#youtube-popouts-video-player").src = "";
-            }
+						hideVideoPlayer() {
+							document.querySelector("#youtube-popouts-wrapper").style.display =
+								"none";
+							document.querySelector("#youtube-popouts-video-player").src = "";
+						}
 
-            initDrag(e) {
-              if (e.buttons == 1) {
-                document.querySelector(
-                  "#youtube-popouts-iframe-blocker"
-                ).style.display = "block";
-                draggedOnTitlebar = true;
-              }
-            }
+						initDrag(e) {
+							if (e.buttons == 1) {
+								document.querySelector(
+									"#youtube-popouts-iframe-blocker"
+								).style.display = "block";
+								draggedOnTitlebar = true;
+							}
+						}
 
-            endDrag(e) {
-              document.querySelector(
-                "#youtube-popouts-iframe-blocker"
-              ).style.display = "none";
-              draggedOnTitlebar = false;
-            }
+						endDrag(e) {
+							document.querySelector("#youtube-popouts-iframe-blocker").style.display =
+								"none";
+							draggedOnTitlebar = false;
+						}
 
-            popoutDrag(e) {
-              if (e.buttons == 1 && draggedOnTitlebar) {
-                let wrapper = document.querySelector(
-                  "#youtube-popouts-wrapper"
-                );
+						popoutDrag(e) {
+							if (e.buttons == 1 && draggedOnTitlebar) {
+								let wrapper = document.querySelector("#youtube-popouts-wrapper");
 
-                let leftMovement = e.movementX;
-                let topMovement = e.movementY;
+								let leftMovement = e.movementX;
+								let topMovement = e.movementY;
 
-                wrapper.style.top =
-                  parseInt(wrapper.style.top.replace("px", "")) +
-                  topMovement +
-                  "px";
-                wrapper.style.left =
-                  parseInt(wrapper.style.left.replace("px", "")) +
-                  leftMovement +
-                  "px";
+								wrapper.style.top =
+									parseInt(wrapper.style.top.replace("px", "")) + topMovement + "px";
+								wrapper.style.left =
+									parseInt(wrapper.style.left.replace("px", "")) + leftMovement + "px";
 
-                // Boundaries...
-                if (parseInt(wrapper.style.top.replace("px", "")) < 22) {
-                  wrapper.style.top = "22px";
-                }
-                if (parseInt(wrapper.style.left.replace("px", "")) < 0) {
-                  wrapper.style.left = "0px";
-                }
-                if (
-                  parseInt(wrapper.style.left.replace("px", "")) >
-                  document.querySelector("#app-mount").clientWidth -
-                    wrapper.clientWidth
-                ) {
-                  wrapper.style.left =
-                    document.querySelector("#app-mount").clientWidth -
-                    wrapper.clientWidth +
-                    "px";
-                }
-                if (
-                  parseInt(wrapper.style.top.replace("px", "")) >
-                  document.querySelector("#app-mount").clientHeight -
-                    wrapper.clientHeight
-                ) {
-                  wrapper.style.top =
-                    document.querySelector("#app-mount").clientHeight -
-                    wrapper.clientHeight +
-                    "px";
-                }
-              }
-            }
-          };
-        };
-        return plugin(Plugin, Api);
-      })(global.ZeresPluginLibrary.buildPlugin(config));
+								// Boundaries...
+								if (parseInt(wrapper.style.top.replace("px", "")) < 22) {
+									wrapper.style.top = "22px";
+								}
+								if (parseInt(wrapper.style.left.replace("px", "")) < 0) {
+									wrapper.style.left = "0px";
+								}
+								if (
+									parseInt(wrapper.style.left.replace("px", "")) >
+									document.querySelector("#app-mount").clientWidth - wrapper.clientWidth
+								) {
+									wrapper.style.left =
+										document.querySelector("#app-mount").clientWidth -
+										wrapper.clientWidth +
+										"px";
+								}
+								if (
+									parseInt(wrapper.style.top.replace("px", "")) >
+									document.querySelector("#app-mount").clientHeight -
+										wrapper.clientHeight
+								) {
+									wrapper.style.top =
+										document.querySelector("#app-mount").clientHeight -
+										wrapper.clientHeight +
+										"px";
+								}
+							}
+						}
+					};
+				};
+				return plugin(Plugin, Api);
+		  })(global.ZeresPluginLibrary.buildPlugin(config));
 })();
 /*@end@*/

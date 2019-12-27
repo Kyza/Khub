@@ -24,6 +24,110 @@
 
 @else@*/
 
+function getLibraries_220584715265114113() {
+	const title = "Libraries Missing";
+	const ModalStack = BdApi.findModuleByProps(
+		"push",
+		"update",
+		"pop",
+		"popWithKey"
+	);
+	const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+	const ConfirmationModal = BdApi.findModule(
+		(m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+	);
+	if (!ModalStack || !ConfirmationModal || !TextElement)
+		return BdApi.alert(
+			title,
+			`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+		);
+	ModalStack.push(function(props) {
+		return BdApi.React.createElement(
+			ConfirmationModal,
+			Object.assign(
+				{
+					header: title,
+					children: [
+						TextElement({
+							color: TextElement.Colors.PRIMARY,
+							children: [
+								`In order to work, ${config.info.name} needs to download the two libraries `,
+								BdApi.React.createElement(
+									"a",
+									{
+										href: "https://github.com/rauenzi/BDPluginLibrary/",
+										target: "_blank"
+									},
+									"ZeresPluginLibrary"
+								),
+								` and `,
+								BdApi.React.createElement(
+									"a",
+									{
+										href: "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+										target: "_blank"
+									},
+									"KSS"
+								),
+								`.`
+							]
+						})
+					],
+					red: false,
+					confirmText: "Download",
+					cancelText: "No! Disable this plugin!",
+					onConfirm: () => {
+						// Install ZLibrary first.
+						require("request").get(
+							"https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+							async (error, response, body) => {
+								if (error)
+									return require("electron").shell.openExternal(
+										"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+									);
+								await new Promise((r) =>
+									require("fs").writeFile(
+										require("path").join(
+											ContentManager.pluginsFolder,
+											"0PluginLibrary.plugin.js"
+										),
+										body,
+										r
+									)
+								);
+							}
+						);
+						// Install KSS last.
+						require("request").get(
+							"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
+							async (error, response, body) => {
+								if (error)
+									return require("electron").shell.openExternal(
+										"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
+									);
+								await new Promise((r) =>
+									require("fs").writeFile(
+										require("path").join(
+											ContentManager.pluginsFolder,
+											"1KSSLibrary.plugin.js"
+										),
+										body,
+										r
+									)
+								);
+							}
+						);
+					},
+					onCancel: () => {
+						pluginModule.disablePlugin(this.getName());
+					}
+				},
+				props
+			)
+		);
+	});
+}
+
 String.prototype.replaceAll = function(find, replace) {
 	var str = this;
 	return str.replace(
@@ -43,7 +147,7 @@ var GhostMessage = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "1.3.0",
+			version: "1.3.1",
 			description: "Send messages that delete themselves.",
 			github:
 				"https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
@@ -51,27 +155,32 @@ var GhostMessage = (() => {
 				"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
 		},
 		changelog: [
-			//       {
-			//         "title": "New Stuff",
-			//         "items": ["The button now disables when you switch channels."]
-			//       }
-			// ,
-			{
-				title: "Bugs Squashed",
-				type: "fixed",
-				items: ["Fixed what the update broke."]
-			}
-			// ,
 			// {
-			//   "title": "Improvements",
-			//   "type": "improved",
-			//   "items": ["The button now loads faster."]
+			//   "title": "New Stuff",
+			//   "items": ["Removed the Revenge Ping button."]
 			// }
 			// ,
+			{
+			  title: "Bugs Squashed",
+			  type: "fixed",
+			  items: [
+			    "Fixed the plugin not asking to download KSSLibrary."
+			  ]
+			}
+			// 	    ,
+			// {
+			// 	title: "Improvements",
+			// 	type: "improved",
+			// 	items: [
+			// 		"Fully rewritten.",
+			// 		"Added a button to copy the channel link so others can join you."
+			// 	]
+			// }
+			//	,
 			// {
 			//   "title": "On-going",
 			//   "type": "progress",
-			//   "items": ["Early version of text-based quotes. They activate when you do not have permission to use embedded links."]
+			//   "items": []
 			// }
 		],
 		main: "index.js"
@@ -95,108 +204,7 @@ var GhostMessage = (() => {
 					return config.info.version;
 				}
 				load() {
-					const title = "Libraries Missing";
-					const ModalStack = BdApi.findModuleByProps(
-						"push",
-						"update",
-						"pop",
-						"popWithKey"
-					);
-					const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
-					const ConfirmationModal = BdApi.findModule(
-						(m) => m.defaultProps && m.key && m.key() == "confirm-modal"
-					);
-					if (!ModalStack || !ConfirmationModal || !TextElement)
-						return BdApi.alert(
-							title,
-							`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
-						);
-					ModalStack.push(function(props) {
-						return BdApi.React.createElement(
-							ConfirmationModal,
-							Object.assign(
-								{
-									header: title,
-									children: [
-										TextElement({
-											color: TextElement.Colors.PRIMARY,
-											children: [
-												`In order to work, ${config.info.name} needs to download the two libraries `,
-												BdApi.React.createElement(
-													"a",
-													{
-														href: "https://github.com/rauenzi/BDPluginLibrary/",
-														target: "_blank"
-													},
-													"ZeresPluginLibrary"
-												),
-												` and `,
-												BdApi.React.createElement(
-													"a",
-													{
-														href:
-															"https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
-														target: "_blank"
-													},
-													"KSS"
-												),
-												`.`
-											]
-										})
-									],
-									red: false,
-									confirmText: "Download",
-									cancelText: "No! Disable this plugin!",
-									onConfirm: () => {
-										// Install ZLibrary first.
-										require("request").get(
-											"https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
-											async (error, response, body) => {
-												if (error)
-													return require("electron").shell.openExternal(
-														"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
-													);
-												await new Promise((r) =>
-													require("fs").writeFile(
-														require("path").join(
-															ContentManager.pluginsFolder,
-															"0PluginLibrary.plugin.js"
-														),
-														body,
-														r
-													)
-												);
-											}
-										);
-										// Install KSS last.
-										require("request").get(
-											"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
-											async (error, response, body) => {
-												if (error)
-													return require("electron").shell.openExternal(
-														"https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
-													);
-												await new Promise((r) =>
-													require("fs").writeFile(
-														require("path").join(
-															ContentManager.pluginsFolder,
-															"1KSSLibrary.plugin.js"
-														),
-														body,
-														r
-													)
-												);
-											}
-										);
-									},
-									onCancel: () => {
-										pluginModule.disablePlugin(this.getName());
-									}
-								},
-								props
-							)
-						);
-					});
+					getLibraries_220584715265114113();
 				}
 				start() {}
 				stop() {}
@@ -246,6 +254,10 @@ var GhostMessage = (() => {
 
 					return class GhostMessage extends Plugin {
 						onStart() {
+							if (!window.KSSLibrary) {
+								getLibraries_220584715265114113();
+							}
+
 							PluginUpdater.checkForUpdate(
 								"GhostMessage",
 								this.getVersion(),
