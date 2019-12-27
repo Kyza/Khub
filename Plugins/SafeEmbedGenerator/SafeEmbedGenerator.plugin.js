@@ -34,7 +34,7 @@ var SafeEmbedGenerator = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.3.13",
+      version: "2.0.0",
       description:
         "Adds a button which allows you to create non-bannable embeds with ease.",
       website: "https://khub.kyza.net/?plugin=SafeEmbedGenerator",
@@ -42,21 +42,25 @@ var SafeEmbedGenerator = (() => {
         "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
     },
     changelog: [
-      // {
-      // 	"title": "New Stuff",
-      // 	"items": ["Changed the embed API to my own.", "Added this changelog."]
-      // }
-      // ,
       {
-        title: "Bugs Squashed",
-        type: "fixed",
-        items: ["Fixed updating."]
+        title: "New Stuff",
+        items: [
+          "I just completely rewrote this plugin. I'm not even going to say what I did, just check it out."
+        ]
+      }
+      ,
+      {
+        "title": "Important",
+        "type": "fixed",
+        "items": ["This plugin is no longer a part of the official list. If you only want plugins from the official plugin list, you may delete this plugin."]
       }
       // ,
       // {
-      // 	"title": "Announcement",
-      // 	"type": "improved",
-      // 	"items": ["Hey everyone! I'd just like to ask you to visit a website called teamtrees.org if you haven't already, that's all. Don't bug support about this, it's just an announcement."]
+      //   title: "Improved",
+      //   type: "improved",
+      //   items: [
+      //     "Hey everyone! I'd just like to ask you to visit a website called teamtrees.org, that's all. Don't bug support about this."
+      //   ]
       // }
       // ,
       // {
@@ -86,19 +90,108 @@ var SafeEmbedGenerator = (() => {
           return config.info.version;
         }
         load() {
-          let libraryScript = document.getElementById("ZLibraryScript");
-          if (!libraryScript || !window.ZLibrary) {
-            if (libraryScript)
-              libraryScript.parentElement.removeChild(libraryScript);
-            libraryScript = document.createElement("script");
-            libraryScript.setAttribute("type", "text/javascript");
-            libraryScript.setAttribute(
-              "src",
-              "https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js"
+          const title = "Libraries Missing";
+          const ModalStack = BdApi.findModuleByProps(
+            "push",
+            "update",
+            "pop",
+            "popWithKey"
+          );
+          const TextElement = BdApi.findModuleByProps("Sizes", "Weights");
+          const ConfirmationModal = BdApi.findModule(
+            (m) => m.defaultProps && m.key && m.key() == "confirm-modal"
+          );
+          if (!ModalStack || !ConfirmationModal || !TextElement)
+            return BdApi.alert(
+              title,
+              `The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
             );
-            libraryScript.setAttribute("id", "ZLibraryScript");
-            document.head.appendChild(libraryScript);
-          }
+          ModalStack.push(function(props) {
+            return BdApi.React.createElement(
+              ConfirmationModal,
+              Object.assign(
+                {
+                  header: title,
+                  children: [
+                    TextElement({
+                      color: TextElement.Colors.PRIMARY,
+                      children: [
+                        `In order to work, ${config.info.name} needs to download the two libraries `,
+                        BdApi.React.createElement(
+                          "a",
+                          {
+                            href: "https://github.com/rauenzi/BDPluginLibrary/",
+                            target: "_blank"
+                          },
+                          "ZeresPluginLibrary"
+                        ),
+                        ` and `,
+                        BdApi.React.createElement(
+                          "a",
+                          {
+                            href:
+                              "https://github.com/KyzaGitHub/Khub/tree/master/Libraries/KSS",
+                            target: "_blank"
+                          },
+                          "KSS"
+                        ),
+                        `.`
+                      ]
+                    })
+                  ],
+                  red: false,
+                  confirmText: "Download",
+                  cancelText: "No! Disable this plugin!",
+                  onConfirm: () => {
+                    // Install ZLibrary first.
+                    require("request").get(
+                      "https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js",
+                      async (error, response, body) => {
+                        if (error)
+                          return require("electron").shell.openExternal(
+                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js"
+                          );
+                        await new Promise((r) =>
+                          require("fs").writeFile(
+                            require("path").join(
+                              ContentManager.pluginsFolder,
+                              "0PluginLibrary.plugin.js"
+                            ),
+                            body,
+                            r
+                          )
+                        );
+                      }
+                    );
+                    // Install KSS last.
+                    require("request").get(
+                      "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js",
+                      async (error, response, body) => {
+                        if (error)
+                          return require("electron").shell.openExternal(
+                            "https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Libraries/KSS/1KSSLibrary.plugin.js"
+                          );
+                        await new Promise((r) =>
+                          require("fs").writeFile(
+                            require("path").join(
+                              ContentManager.pluginsFolder,
+                              "1KSSLibrary.plugin.js"
+                            ),
+                            body,
+                            r
+                          )
+                        );
+                      }
+                    );
+                  },
+                  onCancel: () => {
+                    pluginModule.disablePlugin(this.getName());
+                  }
+                },
+                props
+              )
+            );
+          });
         }
         start() {}
         stop() {}
@@ -112,7 +205,9 @@ var SafeEmbedGenerator = (() => {
             WebpackModules,
             PluginUpdater,
             PluginUtilities,
-            DiscordAPI
+            DiscordAPI,
+            Toasts,
+            ReactTools
           } = Api;
 
           const {
@@ -123,29 +218,9 @@ var SafeEmbedGenerator = (() => {
             Dispatcher
           } = DiscordModules;
 
-          const selectors = {
-            chat: WebpackModules.getByProps("chat").chat,
-            chatContent: WebpackModules.getByProps("chatContent").chatContent
-          };
+          var request = require("request");
 
-          var embedOpen = false;
-          var recentEmbeds = [];
-
-          var updateInterval;
-          var makeSureClosedInterval;
-
-          var popupWrapperWidth = 320;
-          var popupWrapperHeight = 620;
-
-          var oldImageUrl;
-          var oldImageWidth = -1;
-          var oldImageHeight = -1;
-
-          var oldDescription = "";
-          var oldProviderName = "";
-          var disabledDescription =
-            "You must have an author name to use the description or provider name with image banner mode on.";
-          var disabledProviderName = "Read the description box.";
+          var KSS = null;
 
           return class SafeEmbedGenerator extends Plugin {
             onStart() {
@@ -154,103 +229,217 @@ var SafeEmbedGenerator = (() => {
                 this.getVersion(),
                 "https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
               );
-              /* Start Libraries */
 
-              makeSureClosedInterval = setInterval(() => {
-                if (!embedOpen) {
-                  this.closeEmbedPopup();
-                }
-              }, 1000);
+              KSS = new KSSLibrary(this);
+
+              KSS.setModule(
+                "css",
+                `
+#embed-creator {
+  position: absolute;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-tertiary);
+  z-index: 999999999999;
+  transition-duration: 0.4s;
+
+  display: grid;
+  grid-template-rows: 40% auto 52px;
+}
+
+#embed-creator.open {
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(100%);
+}
+
+#embed-creator.closed {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0%);
+}
+
+#embed-inputs {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto auto auto auto 24px;
+}
+
+#embed-inputs .col1 {
+  grid-column: 1;
+}
+
+#embed-inputs .col2 {
+  grid-column: 2;
+}
+
+#embed-inputs * {
+  border-radius: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  resize: none;
+}
+
+#embed-image-banner-wrapper {
+  grid-column: 1 / 3;
+}
+
+#embed-image-banner-wrapper::after {
+  content: "Image Banner";
+  color: #72767d;
+  font-weight: bold;
+  text-align: center;
+  line-height: 18px;
+  width: calc(50% - 6px);
+  height: calc(100% - 6px);
+}
+
+#embed-image-banner-wrapper[class*="valueChecked"]::after {
+  color: #7289da;
+  transform: none;
+  left: calc(50%);
+}
+
+#embed-preview {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+  overflow-y: auto;
+}
+
+#embed-preview-author {
+  font-weight: 500;
+}
+
+|embedProvider||embedLink| {
+  color: var(--interactive-normal);
+}
+
+#embed-buttons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: 100%;
+}
+
+#embed-buttons * {
+  border-radius: 0px;
+  height: 52px;
+}
+
+#embed-buttons * * {
+  line-height: 48px;
+}
+
+#embed-button-wrapper {
+  cursor: normal !important;
+}
+#embed-button-inner {
+  cursor: pointer !important;
+}
+                `
+              );
 
               this.addButton();
-
-              // loadRecentEmbeds();
+              this.createPopup();
             }
 
             onStop() {
-              clearInterval(updateInterval);
-              clearInterval(makeSureClosedInterval);
               this.removeButton();
-            }
-
-            loadRecentEmbeds() {
-              try {
-                // Load the recent embeds.
-                var pluginsFolder = PluginUtilities.getBDFolder("plugins");
-
-                var fs = require("fs");
-                recentEmbeds = JSON.parse(
-                  fs.readFileSync(
-                    pluginsFolder + "/SafeEmbedGenerator.recentEmbeds.json"
-                  )
-                );
-              } catch (e) {
-                recentEmbeds = [];
-              }
+              this.removePopup();
+              KSS.dispose();
             }
 
             onSwitch() {
               // Use this as a backup.
               this.addButton();
+              this.createPopup();
             }
 
             observer({ addedNodes }) {
               for (const node of addedNodes) {
                 if (
-                  node.className == selectors.chat ||
-                  node.className == selectors.chatContent
+                  node.className == KSS.createClassName("|chat|") ||
+                  node.className == KSS.createClassName("|chatContent|")
                 ) {
                   this.addButton();
+                  this.createPopup();
                 }
               }
             }
 
+            error(error, toast) {
+              let before = this.getName() + " v" + this.getVersion() + ": ";
+              if (toast) {
+                Toasts.show(before + error, {
+                  type: "error",
+                  timeout: 5000
+                });
+                console.error(before + error);
+              } else {
+                console.error(before + error);
+              }
+            }
+
+            hasPermission() {
+              let channel = DiscordAPI.currentChannel;
+              if (!channel) return false;
+              if (channel.type == "DM") return true;
+              if (channel.checkPermissions) {
+                if (
+                  channel.checkPermissions(
+                    DiscordModules.DiscordPermissions.SEND_MESSAGES
+                  ) &&
+                  channel.checkPermissions(
+                    DiscordModules.DiscordPermissions.EMBED_LINKS
+                  ) &&
+                  this.isAllowed()
+                ) {
+                  return true;
+                }
+              } else {
+                if (this.isAllowed()) {
+                  return true;
+                }
+              }
+              return false;
+            }
+
             addButton() {
               try {
-                var channelId = window.location.toString().split("/")[
-                  window.location.toString().split("/").length - 1
-                ];
-                var channelObject = DiscordAPI.Channel.fromId(channelId);
-                if (!channelObject) return;
-                var channel = DiscordAPI.Channel.from(channelObject);
-                var permissions = channel.discordObject.permissions;
-
                 // Only add the button if the user has permissions to send messages and embed links.
-                if (
-                  (this.isAllowed() &&
-                    this.hasPermission("textEmbedLinks") &&
-                      this.hasPermission("textSendMessages")) ||
-                  channel.type != "GUILD_TEXT"
-                ) {
+                if (this.hasPermission()) {
+                  var daButtons = document.querySelector(
+                    KSS.parse("|highBackgroundOpacity buttons|")
+                  );
                   if (
-                    document.getElementsByClassName("embed-button-wrapper")
-                      .length == 0
+                    !document.querySelector("#embed-button-wrapper") &&
+                    daButtons != null
                   ) {
-                    var daButtons = document.getElementsByClassName(
-                      "buttons-205you"
-                    )[0];
                     var embedButton = document.createElement("button");
                     embedButton.setAttribute("type", "button");
-                    embedButton.setAttribute(
-                      "class",
-                      "buttonWrapper-1ZmCpA da-buttonWrapper button-38aScr da-button lookBlank-3eh9lL da-lookBlank colorBrand-3pXr91 da-colorBrand grow-q77ONN da-grow normal embed-button-wrapper"
+                    embedButton.id = "embed-button-wrapper";
+                    embedButton.className = KSS.createClassName(
+                      "|active buttonWrapper| |button| |lookBlank| |colorBrand| |grow|"
                     );
 
                     var embedButtonInner = document.createElement("div");
-                    embedButtonInner.setAttribute(
-                      "class",
-                      "contents-18-Yxp da-contents button-3AYNKb da-button button-2vd_v_ da-button embed-button-inner"
+                    embedButtonInner.id = "embed-button-inner";
+                    embedButtonInner.className = KSS.createClassName(
+                      "|contents| |pulseButton button| |highBackgroundOpacity button|"
                     );
 
                     var embedButtonIcon = document.createElement("img");
-                    //version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"
                     embedButtonIcon.setAttribute(
                       "src",
                       "https://image.flaticon.com/icons/svg/25/25463.svg"
                     );
                     embedButtonIcon.setAttribute(
                       "class",
-                      "icon-3D60ES da-icon"
+                      KSS.createClassName("|pulseButton icon|")
                     );
                     embedButtonIcon.setAttribute(
                       "style",
@@ -276,176 +465,67 @@ var SafeEmbedGenerator = (() => {
                     embedButton.appendChild(embedButtonInner);
                     daButtons.insertBefore(embedButton, daButtons.firstChild);
 
-                    embedButton.onclick = () => {
-                      var channelId = window.location.toString().split("/")[
-                        window.location.toString().split("/").length - 1
-                      ];
-                      var channel = DiscordAPI.Channel.from(
-                        DiscordAPI.Channel.fromId(channelId)
-                      );
-
-                      // Only send the embed if the user has permissions to embed links.
-                      if (
-                        this.hasPermission("textEmbedLinks") ||
-                        channel.type != "GUILD_TEXT"
-                      ) {
-                        this.openEmbedPopup();
-                      } else {
-                        BdApi.alert(
-                          "SafeEmbedGenerator",
-                          `You do not have permissions to send embedded links in this channel.\n\nThis is not a problem with the plugin, it is a server setting.`
-                        );
-                      }
+                    embedButtonInner.onclick = () => {
+                      this.openPopup();
                     };
                   }
                 } else {
                   this.removeButton();
                 }
               } catch (e) {
-                console.log(e);
+                this.error(e, true);
               }
             }
 
             isAllowed() {
-              // Must be one of the following requirements.
-              // Be myself.
-              // Have any role in the BetterDiscord servers.
-
-              var guildId = window.location.toString().split("/")[
-                window.location.toString().split("/").length - 2
-              ];
-              var betterDiscordServer1;
               try {
-                betterDiscordServer1 = DiscordAPI.Guild.fromId(
-                  "86004744966914048"
-                );
-              } catch (e) {}
-              var betterDiscordServer2;
-              try {
-                betterDiscordServer2 = DiscordAPI.Guild.fromId(
-                  "280806472928198656"
-                );
-              } catch (e) {}
-
-              if (!betterDiscordServer1 || !betterDiscordServer2) {
-                return true;
-              }
-
-              var currentUser1 = betterDiscordServer1.currentUser;
-              var currentUser2 = betterDiscordServer2.currentUser;
-
-              if (
-                ["86004744966914048", "280806472928198656"].includes(
-                  guildId.toString()
-                )
-              ) {
-                if (!betterDiscordServer1) {
-                  if (currentUser2.userId == "220584715265114113") {
-                    // The user is Kyza, return true right away.
-                    return true;
-                  }
-
-                  if (currentUser2.roles.length > 0) {
-                    // The user is in a BetterDiscord server but has a role.
-                    return true;
-                  } else {
-                    // The user is in a BetterDiscord server but does not have a role.
-                    return false;
-                  }
-                } else if (!betterDiscordServer2) {
-                  if (currentUser1.userId == "220584715265114113") {
-                    // The user is Kyza, return true right away.
-                    return true;
-                  }
-
-                  if (currentUser1.roles.length > 0) {
-                    // The user is in a BetterDiscord server but has a role.
-                    return true;
-                  } else {
-                    // The user is in a BetterDiscord server but does not have a role.
-                    return false;
-                  }
-                } else {
-                  if (currentUser1.userId == "220584715265114113") {
-                    // The user is Kyza, return true right away.
-                    return true;
-                  }
-
-                  if (
-                    currentUser1.roles.length > 0 ||
-                    currentUser2.roles.length > 0
-                  ) {
-                    // The user is in a BetterDiscord server but has a role.
-                    return true;
-                  } else {
-                    // The user is in a BetterDiscord server but does not have a role.
-                    return false;
-                  }
+                let guild = DiscordAPI.currentGuild;
+                if (!guild) {
+                  return true;
+                } else if (
+                  (guild.id != "86004744966914048" &&
+                    guild.id != "280806472928198656") ||
+                  DiscordAPI.currentUser.id == "220584715265114113"
+                ) {
+                  return true;
                 }
-              }
+              } catch (e) {}
 
-              // The user doesn't have any of the BetterDiscord servers selected, so return true.
-              return true;
+              return false;
             }
 
             removeButton() {
-              if (
-                document.getElementsByClassName("embed-button-wrapper").length >
-                0
-              ) {
-                document
-                  .getElementsByClassName("embed-button-wrapper")[0]
-                  .remove();
+              if (document.querySelector("embed-button-wrapper")) {
+                document.querySelector("embed-button-wrapper").remove();
               }
             }
 
-            sendEmbed(
-              providerName,
-              providerUrl,
-              authorName,
-              authorUrl,
-              title,
-              description,
-              image,
-              imageType,
-              color
-            ) {
-              var channelId = window.location.toString().split("/")[
-                window.location.toString().split("/").length - 1
-              ];
-              var channel = DiscordAPI.Channel.from(
-                DiscordAPI.Channel.fromId(channelId)
-              );
+            sendEmbed() {
+              this.disableButtons();
+              var channel = DiscordAPI.currentChannel;
+
+              let providerName = document.querySelector("#embed-provider-name");
+              let providerURL = document.querySelector("#embed-provider-url");
+              let authorName = document.querySelector("#embed-author-name");
+              let authorURL = document.querySelector("#embed-author-url");
+              let title = document.querySelector("#embed-title");
+              let description = document.querySelector("#embed-description");
+              let color = document.querySelector("#embed-color");
+              let imageURL = document.querySelector("#embed-image-url");
+              let imageBanner = document.querySelector("#embed-image-banner");
 
               // Only send the embed if the user has permissions to embed links.
-              if (
-                (this.isAllowed() && this.hasPermission("textEmbedLinks")) ||
-                channel.type != "GUILD_TEXT"
-              ) {
+              if (this.isAllowed()) {
                 const obj = {};
-                obj.providerName = providerName;
-                obj.providerUrl = providerUrl; // The link on the Provider Name.
-                obj.authorName = authorName + (imageType == "true" ? " " : "");
-                obj.authorUrl = authorUrl; // The link on the Author Name.
-                obj.title = title;
-                obj.description = description;
-                obj.banner = imageType == "true" ? true : false; // Photo is a banner, nothing is a small image on the right.
-                obj.image = image; // The image displayed on the right.
-                obj.color = color; // The color on the left of the embed.
-
-                var request = require("request");
-
-                // Everything was successful, so add the embed to the recent embeds.
-                recentEmbeds.unshift(obj);
-                // Save the recent embeds.
-                var pluginsFolder = PluginUtilities.getBDFolder("plugins");
-
-                // var fs = require("fs");
-                // fs.writeFile(pluginsFolder + "/SafeEmbedGenerator.recentEmbeds.json", JSON.stringify(recentEmbeds, null, 2), function(err) {
-                //   if (err) {
-                //     console.log(err);
-                //   }
-                // });
+                obj.providerName = providerName.value;
+                obj.providerUrl = providerURL.value; // The link on the Provider Name.
+                obj.authorName = authorName.value;
+                obj.authorUrl = authorURL.value; // The link on the Author Name.
+                obj.title = title.value;
+                obj.description = description.value;
+                obj.banner = imageBanner.checked; // Photo is a banner, nothing is a small image on the right.
+                obj.image = imageURL.value; // The image displayed on the right.
+                obj.color = color.value; // The color on the left of the embed.
 
                 request(
                   {
@@ -455,17 +535,26 @@ var SafeEmbedGenerator = (() => {
                   },
                   (err, res, body) => {
                     if (err) {
-                      console.error(err);
+                      this.error(err, true);
                       return;
                     }
-                    console.log(body);
-                    DiscordAPI.Channel.fromId(channelId).sendMessage(
-                      `http://em.kyza.net/embed/${body.id}`,
-                      true
-                    );
+                    if (this.hasPermission()) {
+                      channel.sendMessage(
+                        `http://em.kyza.net/embed/${body.id}`,
+                        true
+                      );
+                      this.closePopup();
+                    } else {
+                      this.enableButtons();
+                      BdApi.alert(
+                        "SafeEmbedGenerator",
+                        `You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
+                      );
+                    }
                   }
                 );
               } else {
+                this.enableButtons();
                 BdApi.alert(
                   "SafeEmbedGenerator",
                   `You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
@@ -473,931 +562,571 @@ var SafeEmbedGenerator = (() => {
               }
             }
 
-            openEmbedPopup() {
-              if (!document.getElementById("embedPopupWrapper")) {
-                embedOpen = true;
+            appendEmbed() {
+              this.disableButtons();
+              var channel = DiscordAPI.currentChannel;
 
-                var popupWrapper = document.createElement("div");
-                popupWrapper.setAttribute("id", "embedPopupWrapper");
+              let providerName = document.querySelector("#embed-provider-name");
+              let providerURL = document.querySelector("#embed-provider-url");
+              let authorName = document.querySelector("#embed-author-name");
+              let authorURL = document.querySelector("#embed-author-url");
+              let title = document.querySelector("#embed-title");
+              let description = document.querySelector("#embed-description");
+              let color = document.querySelector("#embed-color");
+              let imageURL = document.querySelector("#embed-image-url");
+              let imageBanner = document.querySelector("#embed-image-banner");
 
-                var embedButton = document
-                  .getElementsByClassName("embed-button-wrapper")[0]
-                  .getBoundingClientRect();
-                var positionInterval = setInterval(() => {
-                  if (!document.getElementById("embedPopupWrapper")) {
-                    window.clearInterval(positionInterval);
+              // Only send the embed if the user has permissions to embed links.
+              if (this.isAllowed()) {
+                const obj = {};
+                obj.providerName = providerName.value;
+                obj.providerUrl = providerURL.value; // The link on the Provider Name.
+                obj.authorName = authorName.value;
+                obj.authorUrl = authorURL.value; // The link on the Author Name.
+                obj.title = title.value;
+                obj.description = description.value;
+                obj.banner = imageBanner.checked; // Photo is a banner, nothing is a small image on the right.
+                obj.image = imageURL.value; // The image displayed on the right.
+                obj.color = color.value; // The color on the left of the embed.
+
+                request(
+                  {
+                    url: "http://em.kyza.net/create/",
+                    method: "POST",
+                    json: obj
+                  },
+                  (err, res, body) => {
+                    if (err) {
+                      this.error(err, true);
+                      return;
+                    }
+                    if (this.hasPermission()) {
+                      let textarea = ReactTools.getOwnerInstance(
+                        document.querySelector(KSS.parse("|channelTextArea|"))
+                      );
+                      textarea.appendText(
+                        `${
+                          textarea.props.textValue[
+                            textarea.props.textValue.length - 1
+                          ] == "\n" || textarea.props.textValue.length == 0
+                            ? ""
+                            : "\n"
+                        }http://em.kyza.net/embed/${body.id}`
+                      );
+                      textarea.focus();
+                      this.closePopup();
+                    } else {
+                      this.enableButtons();
+                      BdApi.alert(
+                        "SafeEmbedGenerator",
+                        `You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
+                      );
+                    }
                   }
-                  popupWrapper.setAttribute(
-                    "style",
-                    "text-align: center; border-radius: 10px; width: " +
-                      popupWrapperWidth +
-                      "px; height: " +
-                      popupWrapperHeight +
-                      "px; position: absolute; top: " +
-                      (window.innerHeight / 2 - popupWrapperHeight / 2) +
-                      "px; left: " +
-                      (window.innerWidth / 2 - popupWrapperWidth / 2) +
-                      "px; background-color: #36393F; z-index: 999999999999999999999; text-rendering: optimizeLegibility;"
-                  );
-                }, 100);
-
-                // Exit button: <svg width="18" height="18" class="button-1w5pas da-button dropdown-33sEFX da-dropdown open-1Te94t da-open"><g fill="none" fill-rule="evenodd"><path d="M0 0h18v18H0"></path><path stroke="#FFF" d="M4.5 4.5l9 9" stroke-linecap="round"></path><path stroke="#FFF" d="M13.5 4.5l-9 9" stroke-linecap="round"></path></g></svg>
-                var exitButton = document.createElement("div");
-                exitButton.setAttribute(
-                  "style",
-                  "position: absolute; width: 18px; height: 18px; right: 10px; top: 10px;"
                 );
-                exitButton.innerHTML = `<svg width="18" height="18" class="button-1w5pas dropdown-33sEFX open-1Te94t"><g fill="none" fill-rule="evenodd"><path d="M0 0h18v18H0"></path><path stroke="#FFF" d="M4.5 4.5l9 9" stroke-linecap="round"></path><path stroke="#FFF" d="M13.5 4.5l-9 9" stroke-linecap="round"></path></g></svg>`;
+              } else {
+                this.enableButtons();
+                BdApi.alert(
+                  "SafeEmbedGenerator",
+                  `You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
+                );
+              }
+            }
 
-                var providerName = document.createElement("input");
-                providerName.setAttribute("id", "providerName");
+            enableButtons() {
+              document
+                .querySelector("#embed-send-button")
+                .removeAttribute("disabled");
+              document
+                .querySelector("#embed-append-button")
+                .removeAttribute("disabled");
+              document
+                .querySelector("#embed-cancel-button")
+                .removeAttribute("disabled");
+            }
+
+            disableButtons() {
+              document.querySelector("#embed-send-button").disabled = "true";
+              document.querySelector("#embed-append-button").disabled = "true";
+              document.querySelector("#embed-cancel-button").disabled = "true";
+            }
+
+            createPopup() {
+              let layerContainer = document.querySelector(
+                KSS.parse("|chatContent| |layerContainer|")
+              );
+              if (
+                !document.querySelector("#embed-creator") &&
+                layerContainer != null
+              ) {
+                let embedPopup = document.createElement("div");
+                embedPopup.id = "embed-creator";
+                embedPopup.className = "closed";
+
+                let embedInputs = document.createElement("div");
+                embedInputs.id = "embed-inputs";
+
+                let providerName = document.createElement("input");
+                providerName.id = "embed-provider-name";
                 providerName.setAttribute("maxlength", "256");
-
-                var providerUrl = document.createElement("input");
-                providerUrl.setAttribute("id", "providerUrl");
-
-                var authorName = document.createElement("input");
-                authorName.setAttribute("id", "authorName");
-                authorName.setAttribute("maxlength", "256");
-
-                var authorUrl = document.createElement("input");
-                authorUrl.setAttribute("id", "authorUrl");
-
-                var title = document.createElement("input");
-                title.setAttribute("id", "title");
-                title.setAttribute("maxlength", "70");
-
-                var description = document.createElement("textarea");
-                description.setAttribute("id", "description");
-                description.setAttribute("maxlength", "280");
-
-                var imageUrl = document.createElement("input");
-                imageUrl.setAttribute("id", "imageUrl");
-
-                var imageType = document.createElement("div");
-                imageType.setAttribute("id", "imageType");
-
-                var imageTypeText = document.createElement("div");
-                imageTypeText.setAttribute("id", "imageTypeText");
-
-                var imageTypeInput = document.createElement("input");
-                imageTypeInput.setAttribute("id", "imageTypeInput");
-
-                var colorPicker = document.createElement("input");
-                colorPicker.setAttribute("id", "colorPicker");
-
-                var submitButton = document.createElement("input");
-                var fadeOutBackground = document.createElement("div");
-
-                var inputStyle = "width: 275px; margin: auto auto 10px auto;";
-                var textInputStyle =
-                  "background-color: #484B52; border: none; border-radius: 5px; height: 30px; padding-left: 10px; padding-right: 10px;";
-
-                providerName.setAttribute("type", "text");
-                providerName.setAttribute("placeholder", "Provider Name");
-                providerName.setAttribute(
-                  "style",
-                  inputStyle + "margin-top: 10px;" + textInputStyle
+                providerName.placeholder = "Provider Name";
+                providerName.className = KSS.createClassName(
+                  "|inputDefault| |input|"
                 );
                 providerName.oninput = () => {
-                  oldProviderName = providerName.value;
-
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                providerUrl.setAttribute("type", "text");
-                providerUrl.setAttribute("placeholder", "Provider URL");
-                providerUrl.setAttribute("style", inputStyle + textInputStyle);
-                providerUrl.oninput = () => {
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                let providerURL = document.createElement("input");
+                providerURL.id = "embed-provider-url";
+                providerURL.placeholder = "Provider URL";
+                providerURL.className = KSS.createClassName(
+                  "|inputDefault| |input|"
+                );
+                providerURL.oninput = () => {
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                authorName.setAttribute("type", "text");
-                authorName.setAttribute("placeholder", "Author Name");
-                authorName.setAttribute("style", inputStyle + textInputStyle);
+                let authorName = document.createElement("input");
+                authorName.id = "embed-author-name";
+                authorName.setAttribute("maxlength", "256");
+                authorName.placeholder = "Author Name";
+                authorName.className = KSS.createClassName(
+                  "|inputDefault| |input|"
+                );
                 authorName.oninput = () => {
-                  if (
-                    authorName.value.trim() == "" &&
-                    imageTypeInput.getAttribute("checked") == "true"
-                  ) {
-                    this.disableUnusableInputs(
-                      authorName,
-                      description,
-                      providerName
-                    );
-                  } else {
-                    this.reenableNowUsableInputs(
-                      authorName,
-                      description,
-                      providerName
-                    );
-                  }
-
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                authorUrl.setAttribute("type", "text");
-                authorUrl.setAttribute("placeholder", "Author URL");
-                authorUrl.setAttribute("style", inputStyle + textInputStyle);
-                authorUrl.oninput = () => {
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                let authorURL = document.createElement("input");
+                authorURL.id = "embed-author-url";
+                authorURL.placeholder = "Author URL";
+                authorURL.className = KSS.createClassName(
+                  "|inputDefault| |input|"
+                );
+                authorURL.oninput = () => {
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                title.setAttribute("type", "text");
-                title.setAttribute("placeholder", "Title");
-                title.setAttribute("style", inputStyle + textInputStyle);
+                let title = document.createElement("input");
+                title.id = "embed-title";
+                title.setAttribute("maxlength", "70");
+                title.placeholder = "Title";
+                title.className = KSS.createClassName("|inputDefault| |input|");
                 title.oninput = () => {
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                description.setAttribute("placeholder", "Description");
-                description.setAttribute(
-                  "style",
-                  inputStyle +
-                    "height: 250px !important; resize: none;" +
-                    textInputStyle
+                let description = document.createElement("textarea");
+                description.id = "embed-description";
+                description.setAttribute("maxlength", "280");
+                description.placeholder = "Description";
+                description.className = KSS.createClassName(
+                  "|inputDefault| |input|"
                 );
                 description.oninput = () => {
-                  oldDescription = description.value;
-
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                  this.validateInputs();
+                  this.updatePreview();
                 };
 
-                imageUrl.setAttribute("type", "text");
-                imageUrl.setAttribute("placeholder", "Image URL");
-                imageUrl.setAttribute("style", inputStyle + textInputStyle);
-                imageUrl.oninput = () => {
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
-                };
-
-                imageType.setAttribute(
-                  "class",
-                  "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"
+                let imageURL = document.createElement("input");
+                imageURL.id = "embed-image-url";
+                imageURL.placeholder = "Image URL";
+                imageURL.className = KSS.createClassName(
+                  "|inputDefault| |input|"
                 );
-                imageType.setAttribute("tabindex", "0");
-                imageType.setAttribute("style", "flex: 0 0 auto;" + inputStyle);
-                imageType.onclick = () => {
-                  if (
-                    imageType.getAttribute("class") ==
-                    "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"
-                  ) {
-                    imageType.setAttribute(
-                      "class",
-                      "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueUnchecked-2lU_20 value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"
-                    );
-                    imageTypeText.setAttribute(
-                      "style",
-                      "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: white;"
-                    );
-                    imageTypeInput.setAttribute("checked", "false");
+                imageURL.oninput = () => {
+                  this.validateInputs();
+                  this.updatePreview();
+                };
 
-                    this.reenableNowUsableInputs(
-                      authorName,
-                      description,
-                      providerName
+                let color = document.createElement("input");
+                color.id = "embed-color";
+                color.type = "color";
+                color.value = "#1E2327";
+                color.className = KSS.createClassName(
+                  "|colorPickerSwatch| |custom| |noColor|"
+                );
+                color.oninput = () => {
+                  this.validateInputs();
+                  this.updatePreview();
+                };
+
+                let imageBannerWrapper = document.createElement("div");
+                imageBannerWrapper.id = "embed-image-banner-wrapper";
+                imageBannerWrapper.className = KSS.createClassName(
+                  "|flexChild| |switchEnabled| |switch| |valueUnchecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
+                );
+                let imageBanner = document.createElement("input");
+                imageBanner.id = "embed-image-banner";
+                imageBanner.type = "checkbox";
+                imageBanner.className = KSS.createClassName(
+                  "|checkboxEnabled| |value checkbox|"
+                );
+                imageBannerWrapper.oninput = () => {
+                  if (imageBanner.checked) {
+                    imageBannerWrapper.className = KSS.createClassName(
+                      "|flexChild| |switchEnabled| |switch| |valueChecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
                     );
                   } else {
-                    imageType.setAttribute(
-                      "class",
-                      "flexChild-faoVW3 switchEnabled-V2WDBB switch-3wwwcV valueChecked-m-4IJZ value-2hFrkk sizeDefault-2YlOZr size-3rFEHg themeDefault-24hCdX"
-                    );
-                    imageTypeText.setAttribute(
-                      "style",
-                      "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: black;"
-                    );
-                    imageTypeInput.setAttribute("checked", "true");
-
-                    this.disableUnusableInputs(
-                      authorName,
-                      description,
-                      providerName
+                    imageBannerWrapper.className = KSS.createClassName(
+                      "|flexChild| |switchEnabled| |switch| |valueUnchecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
                     );
                   }
-
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
+                  this.validateInputs();
+                  this.updatePreview();
                 };
-                imageTypeText.innerHTML = "Banner Image Mode";
-                imageTypeText.setAttribute(
-                  "style",
-                  "position: absolute; text-align: center; width: 100%; height: 100%; line-height: 22.5px; color: white;"
-                );
-                imageTypeInput.setAttribute(
-                  "class",
-                  "checkboxEnabled-CtinEn checkbox-2tyjJg"
-                );
-                imageTypeInput.setAttribute("type", "checkbox");
-                imageTypeInput.setAttribute("tabindex", "-1");
-                imageTypeInput.setAttribute("checked", "false");
-                imageTypeInput.setAttribute(
-                  "style",
-                  "margin-left: auto; margin-right: auto;"
-                );
-                imageType.appendChild(imageTypeText);
-                imageType.appendChild(imageTypeInput);
+                imageBannerWrapper.appendChild(imageBanner);
 
-                colorPicker.setAttribute("type", "color");
-                colorPicker.setAttribute(
-                  "style",
-                  inputStyle +
-                    "background-color: #484B52; border: none; border-radius: 5px;"
-                );
-                colorPicker.oninput = () => {
-                  this.createEmbedPreviewPopup(
-                    popupWrapperWidth + 100,
-                    providerName.value,
-                    providerUrl.value,
-                    authorName.value,
-                    authorUrl.value,
-                    description.value,
-                    colorPicker.value,
-                    imageTypeInput.getAttribute("checked"),
-                    imageUrl.value
-                  );
-                };
+                embedInputs.appendChild(providerName);
+                embedInputs.appendChild(providerURL);
+                embedInputs.appendChild(authorName);
+                embedInputs.appendChild(authorURL);
+                embedInputs.appendChild(title);
+                embedInputs.appendChild(description);
+                embedInputs.appendChild(imageURL);
+                embedInputs.appendChild(color);
+                embedInputs.appendChild(imageBannerWrapper);
 
-                submitButton.setAttribute("type", "button");
-                submitButton.setAttribute("value", "Send");
-                submitButton.setAttribute(
-                  "style",
-                  inputStyle +
-                    "background-color: #484B52; border: none; border-radius: 5px; color: #99AAB5; height: 30px;"
+                let embedPreview = document.createElement("div");
+                embedPreview.id = "embed-preview";
+
+                let embedWrapper = document.createElement("div");
+                embedWrapper.id = "embed-preview-wrapper";
+                embedWrapper.className = KSS.createClassName(
+                  "|embedWrapper| embedFull-2tM8-- |spoilerAttachment embed| |markup|"
+                );
+                embedWrapper.style = "border-color: rgb(30, 35, 39);";
+
+                let embedGrid = document.createElement("div");
+                embedGrid.className = KSS.createClassName(
+                  "|spoilerAttachment grid|"
                 );
 
-                submitButton.onclick = () => {
-                  if (
-                    !(
-                      providerName.value.trim() == "" &&
-                      providerUrl.value.trim() == "" &&
-                      authorName.value.trim() == "" &&
-                      authorUrl.value.trim() == "" &&
-                      description.value.trim() == "" &&
-                      imageUrl.value.trim() == ""
-                    )
-                  ) {
-                    var img = new Image();
-                    if (
-                      providerName.value.trim() == "" &&
-                      authorName.value.trim() == "" &&
-                      description.value.trim() == "" &&
-                      imageUrl.value.trim() != ""
-                    ) {
-                      img.onload = function() {
-                        this.sendEmbed(
-                          providerName.value,
-                          providerUrl.value,
-                          authorName.value,
-                          authorUrl.value,
-                          "",
-                          description.value,
-                          imageUrl.value,
-                          imageTypeInput.getAttribute("checked"),
-                          colorPicker.value
-                        );
-                        this.closeEmbedPopup();
-                      };
-                      img.src = imageUrl.value;
-                    } else {
-                      this.sendEmbed(
-                        providerName.value,
-                        providerUrl.value,
-                        authorName.value,
-                        authorUrl.value,
-                        "",
-                        description.value,
-                        imageUrl.value,
-                        imageTypeInput.getAttribute("checked"),
-                        colorPicker.value
-                      );
-                      this.closeEmbedPopup();
-                    }
-                  }
+                let embedProvider = document.createElement("a");
+                embedProvider.id = "embed-preview-provider";
+                embedProvider.className = KSS.createClassName(
+                  "|anchorUnderlineOnHover anchor| |anchorUnderlineOnHover| |embedLink| |embedProvider| |embedMargin|"
+                );
+                embedProvider.target = "_blank";
+                embedProvider.style.display = "none";
+
+                let embedAuthor = document.createElement("a");
+                embedAuthor.id = "embed-preview-author";
+                embedAuthor.className = KSS.createClassName(
+                  "|embedAuthorNameLink| |embedAuthorName| |embedAuthor| |embedMargin|"
+                );
+                embedAuthor.target = "_blank";
+                embedAuthor.style.display = "none";
+
+                let embedTitle = document.createElement("a");
+                embedTitle.id = "embed-preview-title";
+                embedTitle.className = KSS.createClassName(
+                  "|embedTitle| |embedMargin|"
+                );
+                embedTitle.target = "_blank";
+                embedTitle.href = "http://em.kyza.net/";
+                embedTitle.style.display = "none";
+
+                let embedDescription = document.createElement("div");
+                embedDescription.id = "embed-preview-description";
+                embedDescription.className = KSS.createClassName(
+                  "|embedDescription| |embedMargin|"
+                );
+                embedDescription.style.display = "none";
+
+                let embedImage = document.createElement("div");
+                embedImage.id = "embed-preview-image";
+                embedImage.style = "width: 400px; height: 225px;";
+                embedImage.style.display = "none";
+
+                embedGrid.appendChild(embedProvider);
+                embedGrid.appendChild(embedAuthor);
+                embedGrid.appendChild(embedTitle);
+                embedGrid.appendChild(embedDescription);
+                embedGrid.appendChild(embedImage);
+                embedWrapper.appendChild(embedGrid);
+                embedPreview.appendChild(embedWrapper);
+
+                let embedButtons = document.createElement("div");
+                embedButtons.id = "embed-buttons";
+
+                let sendButton = document.createElement("button");
+                sendButton.id = "embed-send-button";
+                sendButton.disabled = "true";
+                sendButton.className = KSS.createClassName(
+                  "|button| |lookFilled| |colorGreen| |disabledButtonOverlay sizeLarge| |grow|"
+                );
+                let sendButtonInner = document.createElement("div");
+                sendButtonInner.className = KSS.createClassName("|contents|");
+                sendButtonInner.textContent = "Send Embed";
+                sendButton.onclick = () => {
+                  this.sendEmbed();
                 };
 
-                //    popupWrapper.appendChild(exitButton);
-                popupWrapper.appendChild(providerName);
-                popupWrapper.appendChild(providerUrl);
-                popupWrapper.appendChild(authorName);
-                popupWrapper.appendChild(authorUrl);
-                //    popupWrapper.appendChild(title);
-                popupWrapper.appendChild(description);
-                popupWrapper.appendChild(imageUrl);
-                popupWrapper.appendChild(imageType);
-                popupWrapper.appendChild(colorPicker);
-                popupWrapper.appendChild(submitButton);
-
-                // var jQColoPicker = $(colorPicker);
-                // jQColorPicker.spectrum({
-                //   color: "#000000",
-                //   flat: true,
-                //   cancelText: "",
-                //   showInput: true
-                // });
-                // Add the fadeout for the background.
-                fadeOutBackground.setAttribute("id", "fadeOutBackground");
-                fadeOutBackground.setAttribute(
-                  "style",
-                  `position: absolute; width: 100%; height: 100%;${
-                    document.getElementsByClassName("platform-linux").length
-                      ? ""
-                      : " top: 22px;"
-                  } background-color: rgba(0, 0, 0, 0.8); z-index: 999999999999999999998;`
+                let appendButton = document.createElement("button");
+                appendButton.id = "embed-append-button";
+                appendButton.disabled = "true";
+                appendButton.className = KSS.createClassName(
+                  "|button| |lookFilled| |colorBrand| |disabledButtonOverlay sizeLarge| |grow|"
                 );
-                fadeOutBackground.onclick = () => {
-                  this.closeEmbedPopup();
+                let appendButtonInner = document.createElement("div");
+                appendButtonInner.className = KSS.createClassName("|contents|");
+                appendButtonInner.textContent = "Append To Message";
+                appendButton.onclick = () => {
+                  this.appendEmbed();
                 };
 
-                document.body.appendChild(fadeOutBackground);
-
-                // createRecentEmbedPopup(300);
-                this.createEmbedPreviewPopup(
-                  popupWrapperWidth + 80,
-                  providerName.value,
-                  providerUrl.value,
-                  authorName.value,
-                  authorUrl.value,
-                  description.value,
-                  colorPicker.value,
-                  imageTypeInput.getAttribute("checked"),
-                  imageUrl.value
+                let cancelButton = document.createElement("button");
+                cancelButton.id = "embed-cancel-button";
+                cancelButton.className = KSS.createClassName(
+                  "|button| |lookFilled| |colorRed| |disabledButtonOverlay sizeLarge| |grow|"
                 );
+                let cancelButtonInner = document.createElement("div");
+                cancelButtonInner.className = KSS.createClassName("|contents|");
+                cancelButtonInner.textContent = "Cancel";
+                cancelButton.onclick = () => {
+                  this.closePopup();
+                };
 
-                document.body.appendChild(popupWrapper);
+                sendButton.appendChild(sendButtonInner);
+                appendButton.appendChild(appendButtonInner);
+                cancelButton.appendChild(cancelButtonInner);
+
+                embedButtons.appendChild(sendButton);
+                embedButtons.appendChild(appendButton);
+                embedButtons.appendChild(cancelButton);
+
+                embedPopup.appendChild(embedInputs);
+                embedPopup.appendChild(embedPreview);
+                embedPopup.appendChild(embedButtons);
+
+                layerContainer.appendChild(embedPopup);
               }
             }
 
-            createRecentEmbedPopup(offset) {
-              if (!document.getElementById("recentEmbedsWrapper")) {
-                var recentEmbedsWrapper = document.createElement("div");
-                var recentEmbedsWidth = 200;
-                var recentEmbedsHeight = 600;
-                recentEmbedsWrapper.setAttribute("id", "recentEmbedsWrapper");
-                recentEmbedsWrapper.setAttribute("class", "theme-dark");
+            removePopup() {
+              try {
+                document.querySelector("#embed-creator").remove();
+              } catch (e) {}
+            }
 
-                var positionInterval = setInterval(() => {
-                  if (!document.getElementById("embedPreviewWrapper")) {
-                    window.clearInterval(positionInterval);
-                  }
-                  recentEmbedsWrapper.setAttribute(
-                    "style",
-                    "border-radius: 10px; width: " +
-                      recentEmbedsWidth +
-                      "px; height: " +
-                      recentEmbedsHeight +
-                      "px; position: absolute; top: " +
-                      (window.innerHeight / 2 - recentEmbedsHeight / 2 - 10) +
-                      "px; left: " +
-                      (window.innerWidth / 2 - recentEmbedsWidth / 2 - offset) +
-                      "px; background-color: #36393F; z-index: 999999999999999999999; padding: 10px; text-rendering: optimizeLegibility;"
-                  );
-                }, 100);
+            openPopup() {
+              if (!document.querySelector("#embed-creator")) {
+                this.createPopup();
+              }
+              document.querySelector(
+                "#embed-creator"
+              ).className = document
+                .querySelector("#embed-creator")
+                .className.replace("closed", "open");
+            }
 
-                var recentEmbedsInner = document.createElement("div");
-                recentEmbedsInner.setAttribute(
-                  "style",
-                  "overflow-y: scroll; width: " +
-                    recentEmbedsWidth +
-                    "px; height: " +
-                    recentEmbedsHeight +
-                    "px;"
-                );
+            closePopup() {
+              try {
+                document.querySelector(
+                  "#embed-creator"
+                ).className = document
+                  .querySelector("#embed-creator")
+                  .className.replace("open", "closed");
+                setTimeout(this.enableButtons, 4e3);
+              } catch (e) {}
+            }
 
-                for (var i = 0; i < recentEmbeds.length; i++) {
-                  var embed = recentEmbeds[i];
+            removeButton() {
+              try {
+                document.querySelector("#embed-button-wrapper").remove();
+              } catch (e) {}
+            }
 
-                  var embedElement = document.createElement("div");
-                  embedElement.setAttribute("id", "embedNumber" + i);
-                  embedElement.setAttribute(
-                    "class",
-                    "embed-IeVjo6 da-embed embedWrapper-3AbfJJ da-embedWrapper"
-                  );
-                  embedElement.setAttribute("aria-hidden", "false");
-                  embedElement.setAttribute(
-                    "style",
-                    "margin-bottom: 10px; max-width: 426px; width: auto; height: auto;"
-                  );
+            validateInputs() {
+              let providerName = document.querySelector("#embed-provider-name");
+              let providerURL = document.querySelector("#embed-provider-url");
+              let authorName = document.querySelector("#embed-author-name");
+              let authorURL = document.querySelector("#embed-author-url");
+              let title = document.querySelector("#embed-title");
+              let description = document.querySelector("#embed-description");
+              let imageURL = document.querySelector("#embed-image-url");
+              let imageBanner = document.querySelector("#embed-image-banner");
 
-                  embedElement.ondblclick = (e) => {
-                    var target = (e || window.event).target;
+              let sendButton = document.querySelector("#embed-send-button");
+              let appendButton = document.querySelector("#embed-append-button");
+              let cancelButton = document.querySelector("#embed-cancel-button");
 
-                    while (!target.id.startsWith("embedNumber")) {
-                      target = target.parentElement;
-                    }
+              let enableSending = true;
 
-                    var elementIndex = parseInt(
-                      target.id.replace("embedNumber", "")
-                    );
-
-                    document.getElementById("providerName").value =
-                      recentEmbeds[elementIndex].providerName;
-                    document.getElementById("providerUrl").value =
-                      recentEmbeds[elementIndex].providerUrl;
-                    document.getElementById("authorName").value =
-                      recentEmbeds[elementIndex].authorName;
-                    document.getElementById("authorUrl").value =
-                      recentEmbeds[elementIndex].authorUrl;
-                    // Title isn't being used right now.
-                    //				document.getElementById("title").value = recentEmbeds[elementIndex].title;
-                    document.getElementById("description").value =
-                      recentEmbeds[elementIndex].description;
-                    document
-                      .getElementById("imageType")
-                      .setAttribute(
-                        "checked",
-                        recentEmbeds[elementIndex].isBanner ? "true" : "false"
-                      );
-                    document.getElementById("colorPicker").value =
-                      "#" + recentEmbeds[elementIndex].color;
-
-                    this.createEmbedPreviewPopup(
-                      popupWrapperWidth + 80,
-                      document.getElementById("providerName").value,
-                      document.getElementById("providerUrl").value,
-                      document.getElementById("authorName").value,
-                      document.getElementById("authorUrl").value,
-                      document.getElementById("description").value,
-                      document.getElementById("colorPicker").value,
-                      document
-                        .getElementById("authorUrl")
-                        .getAttribute("checked"),
-                      document.getElementById("imageUrl").value
-                    );
-                  };
-
-                  embedElement.innerHTML =
-                    `<div class="embedPill-1Zntps da-embedPill" style="background-color: ` +
-                    (embed.color == "000000" ? "#4f545c" : "#" + embed.color) +
-                    `;"></div><div class="embedInner-1-fpTo da-embedInner"><div class="embedContent-3fnYWm da-embedContent"><div class="embedContentInner-FBnk7v da-embedContentInner markup-2BOw-j da-markup" style="clear: right;">` +
-                    (embed.providerName.trim() != ""
-                      ? `<div class=""><` +
-                        (embed.providerUrl.trim() == "" ? "span" : "a") +
-                        ` tabindex="0" class="` +
-                        (embed.providerUrl.trim() == ""
-                          ? "embedProvider-3k5pfl da-embedProvider"
-                          : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedProviderLink-2Pq1Uw embedLink-1G1K1D embedProvider-3k5pfl da-embedProviderLink da-embedLink da-embedProvider`) +
-                        `" href=` +
-                        embed.providerUrl +
-                        `" rel="noreferrer noopener" target="_blank">` +
-                        embed.providerName +
-                        `</` +
-                        (embed.providerUrl.trim() == "" ? "span" : "a") +
-                        `></div>`
-                      : "") +
-                    `` +
-                    (embed.authorName.trim() != ""
-                      ? `<div class="embedAuthor-3l5luH da-embedAuthor embedMargin-UO5XwE da-embedMargin"><` +
-                        (embed.authorUrl.trim() == "" ? "span" : "a") +
-                        ` tabindex="0" class="` +
-                        (embed.authorUrl.trim() == ""
-                          ? "embedAuthorName-3mnTWj da-embedAuthorName"
-                          : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedAuthorNameLink-1gVryT embedLink-1G1K1D embedAuthorName-3mnTWj da-embedAuthorNameLink da-embedLink da-embedAuthorName`) +
-                        `" href="` +
-                        embed.authorUrl +
-                        `" rel="noreferrer noopener" target="_blank">` +
-                        embed.authorName +
-                        `</` +
-                        (embed.providerUrl.trim() == "" ? "span" : "a") +
-                        `></div>`
-                      : "") +
-                    `` +
-                    (embed.description.trim() != ""
-                      ? `<div class="embedDescription-1Cuq9a da-embedDescription embedMargin-UO5XwE da-embedMargin">` +
-                        embed.description +
-                        `</div>`
-                      : "") +
-                    `</div></div></div>`;
-
-                  recentEmbedsInner.appendChild(embedElement);
+              if (
+                imageBanner.checked &&
+                authorName.value.length == 0 &&
+                imageURL.value.length > 0
+              ) {
+                enableSending = false;
+                if (
+                  authorName.className.indexOf(
+                    KSS.createClassName("|errorMessage error|")
+                  ) < 0
+                ) {
+                  authorName.className +=
+                    " " + KSS.createClassName("|errorMessage error|");
                 }
+              } else {
+                authorName.className = authorName.className
+                  .replace(KSS.createClassName("|errorMessage error|"), "")
+                  .trim();
+              }
 
-                recentEmbedsWrapper.appendChild(recentEmbedsInner);
-                document.body.appendChild(recentEmbedsWrapper);
+              if (
+                providerName.value.length == 0 &&
+                authorName.value.length == 0 &&
+                title.value.length == 0 &&
+                description.value.length == 0
+              ) {
+                enableSending = false;
+              }
+
+              if (enableSending) {
+                sendButton.removeAttribute("disabled");
+                appendButton.removeAttribute("disabled");
+              } else {
+                sendButton.disabled = "true";
+                appendButton.disabled = "true";
               }
             }
 
-            createEmbedPreviewPopup(
-              offset,
-              providerName,
-              providerUrl,
-              authorName,
-              authorUrl,
-              description,
-              color,
-              imageType,
-              imageUrl
-            ) {
-              var img = new Image();
+            updatePreview() {
+              let providerName = document.querySelector("#embed-provider-name");
+              let providerURL = document.querySelector("#embed-provider-url");
+              let authorName = document.querySelector("#embed-author-name");
+              let authorURL = document.querySelector("#embed-author-url");
+              let title = document.querySelector("#embed-title");
+              let description = document.querySelector("#embed-description");
+              let color = document.querySelector("#embed-color");
+              let imageURL = document.querySelector("#embed-image-url");
+              let imageBanner = document.querySelector("#embed-image-banner");
 
-              var create = (useImage, oldImage) => {
-                var imageWidth = 0;
-                var imageHeight = 0;
-                if (useImage && !oldImage) {
-                  oldImageUrl = imageUrl;
+              let embedWrapper = document.querySelector(
+                "#embed-preview-wrapper"
+              );
+              let embedProvider = document.querySelector(
+                "#embed-preview-provider"
+              );
+              let embedAuthor = document.querySelector("#embed-preview-author");
+              let embedTitle = document.querySelector("#embed-preview-title");
+              let embedDescription = document.querySelector(
+                "#embed-preview-description"
+              );
+              let embedImage = document.querySelector("#embed-preview-image");
 
-                  imageWidth = img.width;
-                  imageHeight = img.height;
+              embedWrapper.style.borderColor =
+                color.value == "#000000" ? "rgb(30, 35, 39)" : color.value;
 
-                  oldImageWidth = imageWidth;
-                  oldImageHeight = imageHeight;
-                } else if (oldImage) {
-                  imageUrl = oldImageUrl;
-                  imageWidth = oldImageWidth;
-                  imageHeight = oldImageHeight;
-                }
+              if (providerName.value.trim().length == 0) {
+                embedProvider.style.display = "none";
+              } else {
+                embedProvider.textContent = providerName.value;
+                embedProvider.removeAttribute("style");
+              }
 
-                imageType = imageType == "true" ? "photo" : "thumbnail";
+              if (providerURL.value.trim().length == 0) {
+                embedProvider.removeAttribute("href");
+              } else {
+                embedProvider.href = providerURL.value;
+              }
 
-                var imageString = "";
+              if (authorName.value.trim().length == 0) {
+                embedAuthor.style.display = "none";
+              } else {
+                embedAuthor.textContent = authorName.value;
+                embedAuthor.style.display = "";
+              }
 
-                var embedImageLink = document.createElement("a");
-                if (imageType == "photo") {
-                  embedImageLink.setAttribute(
-                    "class",
-                    "anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover imageWrapper-2p5ogY da-imageWrapper imageZoom-1n-ADA da-imageZoom clickable-3Ya1ho da-clickable embedImage-2W1cML da-embedImage embedMarginLarge-YZDCEs da-embedMarginLarge embedWrapper-3AbfJJ da-embedWrapper"
+              if (authorURL.value.trim().length == 0) {
+                embedAuthor.removeAttribute("href");
+              } else {
+                embedAuthor.href = authorURL.value;
+              }
+
+              if (title.value.length == 0) {
+                embedTitle.style.display = "none";
+              } else {
+                embedTitle.textContent = title.value;
+                embedTitle.style.display = "";
+              }
+
+              if (description.value.length == 0) {
+                embedDescription.style.display = "none";
+              } else {
+                embedDescription.textContent = description.value;
+                embedDescription.style.display = "";
+              }
+
+              if (
+                imageURL.value.length == 0 ||
+                !this.validURL(imageURL.value)
+              ) {
+                embedImage.style.display = "none";
+              } else {
+                if (imageBanner.checked) {
+                  embedWrapper.style.maxWidth = "436px";
+                  embedImage.className = KSS.createClassName(
+                    "|imageWrapper| |embedWrapper| |embedMedia| |embedImage|"
                   );
                 } else {
-                  embedImageLink.setAttribute(
-                    "class",
-                    "anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover imageWrapper-2p5ogY da-imageWrapper imageZoom-1n-ADA da-imageZoom clickable-3Ya1ho da-clickable embedThumbnail-2Y84-K da-embedThumbnail"
-                  );
-                }
-                embedImageLink.setAttribute("href", imageUrl);
-                embedImageLink.setAttribute("ref", "noreferrer noopener");
-                embedImageLink.setAttribute("target", "_blank");
-                embedImageLink.setAttribute("role", "button");
-
-                var embedImage = document.createElement("img");
-                embedImage.setAttribute("src", imageUrl);
-
-                var scaledImageWidth = -1;
-                var scaledImageHeight = -1;
-
-                if (imageType == "photo") {
-                  //			` + (imageType == "photo" ? `float: right; max-width: 400px; max-height: 400px;` : `float: default; max-width: 80px; max-height: 80px;`) + ("width: " + imageWidth + "px; height: " + imageHeight + "px;") + `
-
-                  var countDownScale = 1000.0;
-                  if (imageWidth >= imageHeight) {
-                    while (scaledImageWidth > 400 || scaledImageWidth == -1) {
-                      scaledImageWidth = imageWidth * (countDownScale / 1000);
-                      countDownScale--;
-                    }
-                    scaledImageHeight = imageHeight * (countDownScale / 1000);
-                  } else {
-                    while (scaledImageHeight > 400 || scaledImageHeight == -1) {
-                      scaledImageHeight = imageHeight * (countDownScale / 1000);
-                      countDownScale--;
-                    }
-                    scaledImageWidth = imageWidth * (countDownScale / 1000);
-                  }
-
-                  embedImageLink.setAttribute(
-                    "style",
-                    "float: default; max-width: 400px; max-height: 400px; width: " +
-                      scaledImageWidth +
-                      "px; height: " +
-                      scaledImageHeight +
-                      "px;"
-                  );
-                  embedImage.setAttribute(
-                    "style",
-                    "max-width: 400px; max-height: 400px; width: " +
-                      scaledImageWidth +
-                      "px; height: " +
-                      scaledImageHeight +
-                      "px;" +
-                      `background-image: url("https://media1.tenor.com/images/54cc77830f82ef67471d8d868d09ad2f/tenor.gif?itemid=11230336"); background-size: cover; background-repeat: none; background-position: center;`
-                  );
-                } else {
-                  var countDownScale = 1000.0;
-                  if (imageWidth >= imageHeight) {
-                    while (scaledImageWidth > 80 || scaledImageWidth == -1) {
-                      scaledImageWidth = imageWidth * (countDownScale / 1000);
-                      countDownScale--;
-                    }
-                    scaledImageHeight = imageHeight * (countDownScale / 1000);
-                  } else {
-                    while (scaledImageHeight > 80 || scaledImageHeight == -1) {
-                      scaledImageHeight = imageHeight * (countDownScale / 1000);
-                      countDownScale--;
-                    }
-                    scaledImageWidth = imageWidth * (countDownScale / 1000);
-                  }
-
-                  embedImageLink.setAttribute(
-                    "style",
-                    "float: right; max-width: 80px; max-height: 80px; width: " +
-                      scaledImageWidth +
-                      "px; height: " +
-                      scaledImageHeight +
-                      "px;"
-                  );
-                  embedImage.setAttribute(
-                    "style",
-                    "max-width: 80px; max-height: 80px; width: " +
-                      scaledImageWidth +
-                      "px; height: " +
-                      scaledImageHeight +
-                      "px;" +
-                      `background-image: url("https://media1.tenor.com/images/54cc77830f82ef67471d8d868d09ad2f/tenor.gif?itemid=11230336"); background-size: cover; background-repeat: none; background-position: center;`
+                  embedImage.className = KSS.createClassName(
+                    "|imageWrapper| |embedThumbnail|"
                   );
                 }
 
-                embedImageLink.appendChild(embedImage);
+                let img = new Image();
 
-                imageString = embedImageLink.outerHTML;
-
-                var tmpString =
-                  `<div class="embed-IeVjo6 da-embed embedWrapper-3AbfJJ da-embedWrapper" aria-hidden="false" style="max-width: 426px; width: auto; height: auto;"><div class="embedPill-1Zntps da-embedPill" style="background-color: ` +
-                  (color == "#000000" ? "#4f545c" : color) +
-                  `;"></div><div class="embedInner-1-fpTo da-embedInner">` +
-                  (useImage
-                    ? imageType == "thumbnail"
-                      ? imageString
-                      : ""
-                    : "") +
-                  `<div class="embedContent-3fnYWm da-embedContent"><div class="embedContentInner-FBnk7v da-embedContentInner markup-2BOw-j da-markup" style="clear: right;">` +
-                  (providerName.trim() != ""
-                    ? `<div class=""><` +
-                      (providerUrl.trim() == "" ? "span" : "a") +
-                      ` tabindex="0" class="` +
-                      (providerUrl.trim() == ""
-                        ? "embedProvider-3k5pfl da-embedProvider"
-                        : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedProviderLink-2Pq1Uw embedLink-1G1K1D embedProvider-3k5pfl da-embedProviderLink da-embedLink da-embedProvider`) +
-                      `" href=` +
-                      providerUrl +
-                      `" rel="noreferrer noopener" target="_blank">` +
-                      providerName +
-                      `</` +
-                      (providerUrl.trim() == "" ? "span" : "a") +
-                      `></div>`
-                    : "") +
-                  `` +
-                  (authorName.trim() != ""
-                    ? `<div class="embedAuthor-3l5luH da-embedAuthor embedMargin-UO5XwE da-embedMargin"><` +
-                      (authorUrl.trim() == "" ? "span" : "a") +
-                      ` tabindex="0" class="` +
-                      (authorUrl.trim() == ""
-                        ? "embedAuthorName-3mnTWj da-embedAuthorName"
-                        : `anchor-3Z-8Bb da-anchor anchorUnderlineOnHover-2ESHQB da-anchorUnderlineOnHover embedAuthorNameLink-1gVryT embedLink-1G1K1D embedAuthorName-3mnTWj da-embedAuthorNameLink da-embedLink da-embedAuthorName`) +
-                      `" href="` +
-                      authorUrl +
-                      `" rel="noreferrer noopener" target="_blank">` +
-                      authorName +
-                      `</` +
-                      (providerUrl.trim() == "" ? "span" : "a") +
-                      `></div>`
-                    : "") +
-                  `` +
-                  (description.trim() != ""
-                    ? `<div class="embedDescription-1Cuq9a da-embedDescription embedMargin-UO5XwE da-embedMargin">` +
-                      description +
-                      `</div>`
-                    : "") +
-                  `</div></div>` +
-                  (useImage ? (imageType == "photo" ? imageString : "") : "") +
-                  `</div></div>`;
-
-                var htmlString =
-                  providerName.trim() == "" &&
-                  authorName.trim() == "" &&
-                  description.trim() == "" &&
-                  imageType == "photo"
-                    ? providerName.trim() == "" &&
-                      authorName.trim() == "" &&
-                      description.trim() == "" &&
-                      imageUrl.trim() == ""
-                      ? tmpString
-                      : imageString
-                    : tmpString;
-                if (!document.getElementById("embedPreviewWrapper")) {
-                  var previewWrapper = document.createElement("div");
-                  var previewWrapperWidth = 446;
-                  var previewWrapperHeight = 446;
-                  previewWrapper.setAttribute("id", "embedPreviewWrapper");
-                  previewWrapper.setAttribute("class", "theme-dark");
-
-                  var embedButton = document
-                    .getElementsByClassName("embed-button-wrapper")[0]
-                    .getBoundingClientRect();
-                  var positionInterval = setInterval(() => {
-                    if (!document.getElementById("embedPreviewWrapper")) {
-                      window.clearInterval(positionInterval);
-                    }
-                    previewWrapper.setAttribute(
-                      "style",
-                      "border-radius: 10px; width: auto; height: auto; position: absolute; top: " +
-                        (window.innerHeight / 2 - previewWrapperHeight / 2) +
-                        "px; left: " +
-                        (window.innerWidth / 2 -
-                          previewWrapperWidth / 2 +
-                          offset) +
-                        "px; background-color: #36393F; z-index: 999999999999999999999; padding: 10px; text-rendering: optimizeLegibility;"
-                    );
-                  }, 100);
-
-                  previewWrapper.innerHTML = htmlString;
-
-                  document.body.appendChild(previewWrapper);
-
-                  return previewWrapper;
-                } else {
-                  // Refresh the embed preview because it is already there.
-                  var previewWrapper = document.getElementById(
-                    "embedPreviewWrapper"
+                var addImage = () => {
+                  let imageWidth = img.width;
+                  let imageHeight = img.height;
+                  var imageScale = Math.min(
+                    (imageBanner.checked ? 400 : 80) / imageWidth,
+                    (imageBanner.checked ? 400 : 80) / imageHeight
                   );
-                  previewWrapper.innerHTML = htmlString;
-                  return previewWrapper;
-                }
-              };
+                  let scaledImageWidth =
+                    imageScale >= 1 ? imageWidth : imageWidth * imageScale;
+                  let scaledImageHeight =
+                    imageScale >= 1 ? imageHeight : imageHeight * imageScale;
 
-              if (oldImageUrl != imageUrl) {
+                  embedImage.style.width = scaledImageWidth + "px";
+                  embedImage.style.height = scaledImageHeight + "px";
+
+                  embedImage.innerHTML = `<img src="${imageURL.value}" style="width: ${scaledImageWidth}px; height: ${scaledImageHeight}px;">`;
+                  embedImage.style.display = "";
+                };
+
                 img.onload = function() {
-                  create(true, false);
+                  addImage();
                 };
                 img.onerror = function() {
-                  create(false, false);
+                  Toasts.warning(
+                    "Couldn't load the image preview. Are you sure this is an image?"
+                  );
                 };
 
-                img.src = imageUrl;
-              } else {
-                create(true, true);
+                img.src = imageURL.value;
               }
             }
 
-            testImage(imageUrl) {
-              return imageUrl.trim() != "" ? true : false;
-            }
-
-            reenableNowUsableInputs(authorName, description, providerName) {
-              description.disabled = false;
-              if (oldDescription != "") {
-                description.value = oldDescription;
-              }
-              description.setAttribute("placeholder", "Description");
-
-              providerName.disabled = false;
-              if (oldProviderName != "") {
-                providerName.value = oldProviderName;
-              }
-              providerName.setAttribute("placeholder", "Provider Name");
-            }
-
-            disableUnusableInputs(authorName, description, providerName) {
-              if (authorName.value.trim() == "") {
-                description.disabled = true;
-                description.value = "";
-                description.setAttribute("placeholder", disabledDescription);
-
-                providerName.disabled = true;
-                oldProviderName = providerName.value;
-                providerName.value = "";
-                providerName.setAttribute("placeholder", disabledProviderName);
-              }
-            }
-
-            closeEmbedPopup() {
-              try {
-                document.getElementById("embedPopupWrapper").remove();
-              } catch (e) {}
-              try {
-                document.getElementById("embedPreviewWrapper").remove();
-              } catch (e) {}
-              try {
-                document.getElementById("recentEmbedsWrapper").remove();
-              } catch (e) {}
-              try {
-                document.getElementById("fadeOutBackground").remove();
-              } catch (e) {}
-              oldDescription = "";
-              oldProviderName = "";
-
-              embedOpen = false;
-            }
-
-            hasPermission(permission) {
-              var channelId = window.location.toString().split("/")[
-                window.location.toString().split("/").length - 1
-              ];
-              var channel = ZLibrary.DiscordAPI.Channel.from(
-                ZLibrary.DiscordAPI.Channel.fromId(channelId)
-              );
-              var permissions = channel.discordObject.permissions;
-
-              var hexCode;
-
-              // General
-              if (permission == "generalCreateInstantInvite") hexCode = 0x1;
-              if (permission == "generalKickMembers") hexCode = 0x2;
-              if (permission == "generalBanMembers") hexCode = 0x4;
-              if (permission == "generalAdministrator") hexCode = 0x8;
-              if (permission == "generalManageChannels") hexCode = 0x10;
-              if (permission == "generalManageServer") hexCode = 0x20;
-              if (permission == "generalChangeNickname") hexCode = 0x4000000;
-              if (permission == "generalManageNicknames") hexCode = 0x8000000;
-              if (permission == "generalManageRoles") hexCode = 0x10000000;
-              if (permission == "generalManageWebhooks") hexCode = 0x20000000;
-              if (permission == "generalManageEmojis") hexCode = 0x40000000;
-              if (permission == "generalViewAuditLog") hexCode = 0x80;
-              // Text
-              if (permission == "textAddReactions") hexCode = 0x40;
-              if (permission == "textReadMessages") hexCode = 0x400;
-              if (permission == "textSendMessages") hexCode = 0x800;
-              if (permission == "textSendTTSMessages") hexCode = 0x1000;
-              if (permission == "textManageMessages") hexCode = 0x2000;
-              if (permission == "textEmbedLinks") hexCode = 0x4000;
-              if (permission == "textAttachFiles") hexCode = 0x8000;
-              if (permission == "textReadMessageHistory") hexCode = 0x10000;
-              if (permission == "textMentionEveryone") hexCode = 0x20000;
-              if (permission == "textUseExternalEmojis") hexCode = 0x40000;
-              // Voice
-              if (permission == "voiceViewChannel") hexCode = 0x400;
-              if (permission == "voiceConnect") hexCode = 0x100000;
-              if (permission == "voiceSpeak") hexCode = 0x200000;
-              if (permission == "voiceMuteMembers") hexCode = 0x400000;
-              if (permission == "voiceDeafenMembers") hexCode = 0x800000;
-              if (permission == "voiceMoveMembers") hexCode = 0x1000000;
-              if (permission == "voiceUseVAD") hexCode = 0x2000000;
-
-              return (permissions & hexCode) != 0;
+            validURL(str) {
+              var pattern = new RegExp(
+                "^(https?:\\/\\/)?" + // protocol
+                "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+                "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+                "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+                "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+                  "(\\#[-a-z\\d_]*)?$",
+                "i"
+              ); // fragment locator
+              return !!pattern.test(str);
             }
           };
         };
