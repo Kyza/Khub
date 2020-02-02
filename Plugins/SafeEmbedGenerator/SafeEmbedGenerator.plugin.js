@@ -549,7 +549,7 @@ var SafeEmbedGenerator = (() => {
 											return;
 										}
 										if (this.hasPermission()) {
-											channel.sendMessage(`http://em.kyza.net/embed/${body.id}`, true);
+											channel.sendMessage(`http://em.kyza.net/embed/${body.id}`);
 											this.closePopup();
 										} else {
 											this.enableButtons();
