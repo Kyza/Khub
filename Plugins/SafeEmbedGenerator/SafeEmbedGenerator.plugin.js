@@ -24,7 +24,7 @@
 
 @else@*/
 
-function getLibraries_220584715265114113() {
+function getLibraries_220584715265114113(plugin) {
 	const title = "Libraries Missing";
 	const ModalStack = BdApi.findModuleByProps(
 		"push",
@@ -39,7 +39,7 @@ function getLibraries_220584715265114113() {
 	if (!ModalStack || !ConfirmationModal || !TextElement)
 		return BdApi.alert(
 			title,
-			`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+			`The library plugin needed for ${plugin._config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
 		);
 	ModalStack.push(function(props) {
 		return BdApi.React.createElement(
@@ -51,7 +51,7 @@ function getLibraries_220584715265114113() {
 						TextElement({
 							color: TextElement.Colors.PRIMARY,
 							children: [
-								`In order to work, ${config.info.name} needs to download the two libraries `,
+								`In order to work, ${plugin._config.info.name} needs to download the two libraries `,
 								BdApi.React.createElement(
 									"a",
 									{
@@ -119,7 +119,7 @@ function getLibraries_220584715265114113() {
 						);
 					},
 					onCancel: () => {
-						pluginModule.disablePlugin(this.getName());
+						pluginModule.disablePlugin(plugin.getName());
 					}
 				},
 				props
@@ -139,7 +139,7 @@ var SafeEmbedGenerator = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "2.0.1",
+			version: "2.0.3",
 			description:
 				"Adds a button which allows you to create non-bannable embeds with ease.",
 			website: "https://khub.kyza.net/?plugin=SafeEmbedGenerator",
@@ -153,11 +153,9 @@ var SafeEmbedGenerator = (() => {
 			// }
 			// ,
 			{
-			  title: "Bugs Squashed",
-			  type: "fixed",
-			  items: [
-			    "Fixed the plugin not asking to download KSSLibrary."
-			  ]
+				title: "Bugs Squashed",
+				type: "fixed",
+				items: ["Fixed the plugin not asking to download KSSLibrary."]
 			}
 			// 	    ,
 			// {
@@ -174,7 +172,6 @@ var SafeEmbedGenerator = (() => {
 			//   "type": "progress",
 			//   "items": []
 			// }
-
 		],
 		main: "index.js"
 	};
@@ -197,7 +194,7 @@ var SafeEmbedGenerator = (() => {
 					return config.info.version;
 				}
 				load() {
-					getLibraries_220584715265114113();
+					getLibraries_220584715265114113(this);
 				}
 				start() {}
 				stop() {}
@@ -231,27 +228,26 @@ var SafeEmbedGenerator = (() => {
 					return class SafeEmbedGenerator extends Plugin {
 						onStart() {
 							if (!window.KSSLibrary) {
-								getLibraries_220584715265114113();
-							}
+								getLibraries_220584715265114113(this);
+							} else {
+								PluginUpdater.checkForUpdate(
+									"SafeEmbedGenerator",
+									this.getVersion(),
+									"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
+								);
 
-							PluginUpdater.checkForUpdate(
-								"SafeEmbedGenerator",
-								this.getVersion(),
-								"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
-							);
+								KSS = new KSSLibrary(this);
 
-							KSS = new KSSLibrary(this);
-
-							KSS.setModule(
-								"css",
-								`
+								KSS.setModule(
+									"css",
+									`
 #embed-creator {
   position: absolute;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
   background-color: var(--background-primary);
   border: 1px solid var(--background-tertiary);
-  z-index: 999999999999;
+  z-index: 999999;
   transition-duration: 0.4s;
 
   display: grid;
@@ -350,17 +346,20 @@ var SafeEmbedGenerator = (() => {
 #embed-button-inner {
   cursor: pointer !important;
 }
-                `
-							);
+                  `
+								);
 
-							this.addButton();
-							this.createPopup();
+								this.addButton();
+								this.createPopup();
+							}
 						}
 
 						onStop() {
 							this.removeButton();
 							this.removePopup();
-							KSS.dispose();
+							if (KSS) {
+								KSS.dispose();
+							}
 						}
 
 						onSwitch() {
@@ -423,7 +422,7 @@ var SafeEmbedGenerator = (() => {
 								// Only add the button if the user has permissions to send messages and embed links.
 								if (this.hasPermission()) {
 									var daButtons = document.querySelector(
-										KSS.parse("|highBackgroundOpacity buttons|")
+										KSS.parse("|fontSize24Padding buttons|")
 									);
 									if (
 										!document.querySelector("#embed-button-wrapper") &&
@@ -439,7 +438,7 @@ var SafeEmbedGenerator = (() => {
 										var embedButtonInner = document.createElement("div");
 										embedButtonInner.id = "embed-button-inner";
 										embedButtonInner.className = KSS.createClassName(
-											"|contents| |pulseButton button| |highBackgroundOpacity button|"
+											"|contents| |pulseButton button| |fontSize24Padding button|"
 										);
 
 										var embedButtonIcon = document.createElement("img");
@@ -539,7 +538,7 @@ var SafeEmbedGenerator = (() => {
 
 								request(
 									{
-										url: "http://em.kyza.net/create/",
+										url: "https://em.kyza.net/create/",
 										method: "POST",
 										json: obj
 									},
@@ -549,7 +548,7 @@ var SafeEmbedGenerator = (() => {
 											return;
 										}
 										if (this.hasPermission()) {
-											channel.sendMessage(`http://em.kyza.net/embed/${body.id}`);
+											channel.sendMessage(`https://em.kyza.net/embed/${body.id}`);
 											this.closePopup();
 										} else {
 											this.enableButtons();
@@ -598,7 +597,7 @@ var SafeEmbedGenerator = (() => {
 
 								request(
 									{
-										url: "http://em.kyza.net/create/",
+										url: "https://em.kyza.net/create/",
 										method: "POST",
 										json: obj
 									},
@@ -617,7 +616,7 @@ var SafeEmbedGenerator = (() => {
 														"\n" || textarea.props.textValue.length == 0
 														? ""
 														: "\n"
-												}http://em.kyza.net/embed/${body.id}`
+												}https://em.kyza.net/embed/${body.id}`
 											);
 											textarea.focus();
 											this.closePopup();
@@ -820,7 +819,7 @@ var SafeEmbedGenerator = (() => {
 									"|embedTitle| |embedMargin|"
 								);
 								embedTitle.target = "_blank";
-								embedTitle.href = "http://em.kyza.net/";
+								embedTitle.href = "https://em.kyza.net/";
 								embedTitle.style.display = "none";
 
 								let embedDescription = document.createElement("div");
