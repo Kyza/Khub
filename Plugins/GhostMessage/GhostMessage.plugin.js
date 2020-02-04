@@ -147,7 +147,7 @@ var GhostMessage = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "1.3.1",
+			version: "1.3.2",
 			description: "Send messages that delete themselves.",
 			github:
 				"https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
@@ -155,18 +155,25 @@ var GhostMessage = (() => {
 				"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
 		},
 		changelog: [
+			{
+				title: "Bugs Squashed",
+				type: "fixed selectors",
+				items: [
+					"Adapted to recently changed selectors."
+				]
+			}
 			// {
 			//   "title": "New Stuff",
 			//   "items": ["Removed the Revenge Ping button."]
 			// }
 			// ,
-			{
-			  title: "Bugs Squashed",
-			  type: "fixed",
-			  items: [
-			    "Fixed the plugin not asking to download KSSLibrary."
-			  ]
-			}
+			//{
+			//  title: "Bugs Squashed",
+			//  type: "fixed",
+			//  items: [
+			//    "Fixed the plugin not asking to download KSSLibrary."
+			//  ]
+			//}
 			// 	    ,
 			// {
 			// 	title: "Improvements",
@@ -405,7 +412,7 @@ var GhostMessage = (() => {
 										document.getElementsByClassName("ghost-button-wrapper").length == 0
 									) {
 										var daButtons = document.querySelector(
-											KSS.parse("|highBackgroundOpacity buttons|")
+											".buttons-3JBrkn"
 										);
 
 										var ghostButton = document.createElement("button");
@@ -416,7 +423,7 @@ var GhostMessage = (() => {
 
 										var ghostButtonInner = document.createElement("div");
 										ghostButtonInner.className = KSS.createClassName(
-											"|contents| |pulseButton button| |highBackgroundOpacity button| ghost-button-inner"
+											"|contents| |pulseButton button|" + " button-318s1X ghost-button-inner"
 										);
 
 										//<img src="https://image.flaticon.com/icons/svg/24/24207.svg" width="224" height="224" alt="Embed free icon" title="Embed free icon">
