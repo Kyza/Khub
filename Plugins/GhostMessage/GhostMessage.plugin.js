@@ -1,4 +1,4 @@
-//META{"name":"SafeEmbedGenerator","website":"https://khub.kyza.net/?plugin=SafeEmbedGenerator","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"}*//
+//META{"name":"GhostMessage","website":"https://khub.kyza.gq/?plugin=GhostMessage","source":"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"}*//
 
 /*@cc_on
 @if (@_jscript)
@@ -24,7 +24,7 @@
 
 @else@*/
 
-function getLibraries_220584715265114113(plugin) {
+function getLibraries_220584715265114113() {
 	const title = "Libraries Missing";
 	const ModalStack = BdApi.findModuleByProps(
 		"push",
@@ -39,7 +39,7 @@ function getLibraries_220584715265114113(plugin) {
 	if (!ModalStack || !ConfirmationModal || !TextElement)
 		return BdApi.alert(
 			title,
-			`The library plugin needed for ${plugin._config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
+			`The library plugin needed for ${config.info.name} is missing.<br /><br /> <a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`
 		);
 	ModalStack.push(function(props) {
 		return BdApi.React.createElement(
@@ -51,7 +51,7 @@ function getLibraries_220584715265114113(plugin) {
 						TextElement({
 							color: TextElement.Colors.PRIMARY,
 							children: [
-								`In order to work, ${plugin._config.info.name} needs to download the two libraries `,
+								`In order to work, ${config.info.name} needs to download the two libraries `,
 								BdApi.React.createElement(
 									"a",
 									{
@@ -119,7 +119,7 @@ function getLibraries_220584715265114113(plugin) {
 						);
 					},
 					onCancel: () => {
-						pluginModule.disablePlugin(plugin.getName());
+						pluginModule.disablePlugin(this.getName());
 					}
 				},
 				props
@@ -128,10 +128,18 @@ function getLibraries_220584715265114113(plugin) {
 	});
 }
 
-var SafeEmbedGenerator = (() => {
+String.prototype.replaceAll = function(find, replace) {
+	var str = this;
+	return str.replace(
+		new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&"), "g"),
+		replace
+	);
+};
+
+var GhostMessage = (() => {
 	const config = {
 		info: {
-			name: "SafeEmbedGenerator",
+			name: "GhostMessage",
 			authors: [
 				{
 					name: "Kyza",
@@ -139,24 +147,33 @@ var SafeEmbedGenerator = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "2.0.3",
-			description:
-				"Adds a button which allows you to create non-bannable embeds with ease.",
-			website: "https://khub.kyza.net/?plugin=SafeEmbedGenerator",
+			version: "1.3.2",
+			description: "Send messages that delete themselves.",
+			github:
+				"https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
 			github_raw:
-				"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
+				"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
 		},
 		changelog: [
+			{
+				title: "Bugs Squashed",
+				type: "fixed selectors",
+				items: [
+					"Adapted to recently changed selectors."
+				]
+			}
 			// {
 			//   "title": "New Stuff",
 			//   "items": ["Removed the Revenge Ping button."]
 			// }
 			// ,
-			{
-				title: "Bugs Squashed",
-				type: "fixed",
-				items: ["Fixed the plugin not asking to download KSSLibrary."]
-			}
+			//{
+			//  title: "Bugs Squashed",
+			//  type: "fixed",
+			//  items: [
+			//    "Fixed the plugin not asking to download KSSLibrary."
+			//  ]
+			//}
 			// 	    ,
 			// {
 			// 	title: "Improvements",
@@ -194,7 +211,7 @@ var SafeEmbedGenerator = (() => {
 					return config.info.version;
 				}
 				load() {
-					getLibraries_220584715265114113(this);
+					getLibraries_220584715265114113();
 				}
 				start() {}
 				stop() {}
@@ -202,913 +219,296 @@ var SafeEmbedGenerator = (() => {
 		: (([Plugin, Api]) => {
 				const plugin = (Plugin, Api) => {
 					const {
-						DiscordModules,
-						Logger,
-						Patcher,
-						WebpackModules,
+						Toasts,
+						DiscordSelectors,
+						DiscordClasses,
 						PluginUpdater,
+						DiscordModules,
+						WebpackModules,
+						Tooltip,
+						Modals,
+						ReactTools,
+						ReactComponents,
+						ContextMenu,
+						Patcher,
+						Settings,
 						PluginUtilities,
 						DiscordAPI,
-						Toasts,
-						ReactTools
+						DOMTools,
+						DiscordClassModules
 					} = Api;
 
 					const {
-						MessageStore,
-						UserStore,
-						ImageResolver,
+						MessageActions,
+						Dispatcher,
+						DiscordPermissions,
 						ChannelStore,
-						Dispatcher
+						SimpleMarkdown
 					} = DiscordModules;
 
-					var request = require("request");
+					const selectors = {
+						chat: WebpackModules.getByProps("chat").chat,
+						chatContent: WebpackModules.getByProps("chatContent").chatContent
+					};
+
+					var updateInterval;
+
+					var files = [];
+
+					var enabled = false;
 
 					var KSS = null;
 
-					return class SafeEmbedGenerator extends Plugin {
+					return class GhostMessage extends Plugin {
 						onStart() {
 							if (!window.KSSLibrary) {
-								getLibraries_220584715265114113(this);
-							} else {
-								PluginUpdater.checkForUpdate(
-									"SafeEmbedGenerator",
-									this.getVersion(),
-									"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/SafeEmbedGenerator/SafeEmbedGenerator.plugin.js"
-								);
-
-								KSS = new KSSLibrary(this);
-
-								KSS.setModule(
-									"css",
-									`
-#embed-creator {
-  position: absolute;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  background-color: var(--background-primary);
-  border: 1px solid var(--background-tertiary);
-  z-index: 999999;
-  transition-duration: 0.4s;
-
-  display: grid;
-  grid-template-rows: 40% auto 52px;
-}
-
-#embed-creator.open {
-  pointer-events: auto;
-  opacity: 1;
-  transform: scale(100%);
-}
-
-#embed-creator.closed {
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(0%);
-}
-
-#embed-inputs {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: auto auto auto auto 24px;
-}
-
-#embed-inputs .col1 {
-  grid-column: 1;
-}
-
-#embed-inputs .col2 {
-  grid-column: 2;
-}
-
-#embed-inputs * {
-  border-radius: 0px;
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  resize: none;
-}
-
-#embed-image-banner-wrapper {
-  grid-column: 1 / 3;
-}
-
-#embed-image-banner-wrapper::after {
-  content: "Image Banner";
-  color: #72767d;
-  font-weight: bold;
-  text-align: center;
-  line-height: 18px;
-  width: calc(50% - 6px);
-  height: calc(100% - 6px);
-}
-
-#embed-image-banner-wrapper[class*="valueChecked"]::after {
-  color: #7289da;
-  transform: none;
-  left: calc(50%);
-}
-
-#embed-preview {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: auto;
-  grid-template-columns: auto;
-  overflow-y: auto;
-}
-
-#embed-preview-author {
-  font-weight: 500;
-}
-
-|embedProvider||embedLink| {
-  color: var(--interactive-normal);
-}
-
-#embed-buttons {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: 100%;
-}
-
-#embed-buttons * {
-  border-radius: 0px;
-  height: 52px;
-}
-
-#embed-buttons * * {
-  line-height: 48px;
-}
-
-#embed-button-wrapper {
-  cursor: normal !important;
-}
-#embed-button-inner {
-  cursor: pointer !important;
-}
-                  `
-								);
-
-								this.addButton();
-								this.createPopup();
+								getLibraries_220584715265114113();
 							}
+
+							PluginUpdater.checkForUpdate(
+								"GhostMessage",
+								this.getVersion(),
+								"https://raw.githubusercontent.com/KyzaGitHub/Khub/master/Plugins/GhostMessage/GhostMessage.plugin.js"
+							);
+
+							KSS = new KSSLibrary(this);
+
+							this.addButton();
+
+							this.patch();
+						}
+
+						patch() {
+							// Patch when a normal message is sent.
+							Patcher.after(
+								DiscordModules.MessageActions,
+								"sendMessage",
+								(thisObject, methodArguments, returnValue) => {
+									let channel = DiscordAPI.currentChannel;
+
+									if (enabled) {
+										returnValue.then((result) => {
+											try {
+												channel.messages
+													.find((message) => {
+														return message.id == result.body.id;
+													})
+													.delete();
+											} catch (e) {
+												DiscordAPI.currentChannel.sendBotMessage(
+													"Failed to delete your message!\nDon't switch channels so fast, I couldn't catch where that message landed!"
+												);
+											}
+										});
+									}
+								}
+							);
+
+							// Patch when an upload is sent.
+							Patcher.before(
+								WebpackModules.getByProps("instantBatchUpload"),
+								"upload",
+								(thisObject, methodArguments) => {
+									if (enabled) {
+										let channel = DiscordAPI.currentChannel;
+										files.push({
+											content: methodArguments[2].content,
+											name: methodArguments[1].name
+										});
+									}
+								}
+							);
+
+							// Patch when an instant batch upload is sent.
+							Patcher.before(
+								WebpackModules.getByProps("instantBatchUpload"),
+								"instantBatchUpload",
+								(thisObject, methodArguments) => {
+									if (enabled) {
+										let channel = DiscordAPI.currentChannel;
+										for (const file of methodArguments[1]) {
+											files.push({
+												content: "",
+												name: file.name
+											});
+										}
+									}
+								}
+							);
+
+							// Patch when an upload is sent.
+							Patcher.after(
+								Dispatcher,
+								"dirtyDispatch",
+								(thisObject, methodArguments) => {
+									let event = methodArguments[0];
+									let channel = DiscordAPI.currentChannel;
+
+									if (event.type == "MESSAGE_CREATE") {
+										for (const attachment of event.message.attachments) {
+											let foundAttachment = files.find((file) => {
+												return (
+													file.name == attachment.filename &&
+													file.content == methodArguments[0].message.content &&
+													DiscordAPI.User.fromId(methodArguments[0].message.author.id).tag ==
+														DiscordAPI.currentUser.tag
+												);
+											});
+
+											// If it found the attachment...
+											if (foundAttachment) {
+												// Delete the message.
+												let message = channel.messages.find((message) => {
+													return message.id == methodArguments[0].message.id;
+												});
+												message.delete();
+												// Make sure to remove the file.
+												files.splice(files.indexOf(foundAttachment), 1);
+											}
+										}
+									}
+								}
+							);
+						}
+
+						unpatch() {
+							Patcher.unpatchAll();
 						}
 
 						onStop() {
+							clearInterval(updateInterval);
 							this.removeButton();
-							this.removePopup();
-							if (KSS) {
-								KSS.dispose();
-							}
-						}
-
-						onSwitch() {
-							// Use this as a backup.
-							this.addButton();
-							this.createPopup();
+							this.unpatch();
+							KSS.dispose();
 						}
 
 						observer({ addedNodes }) {
 							for (const node of addedNodes) {
 								if (
-									node.className == KSS.createClassName("|chat|") ||
-									node.className == KSS.createClassName("|chatContent|")
+									node.className == selectors.chat ||
+									node.className == selectors.chatContent
 								) {
+									if (enabled) {
+										Toasts.info("GhostMessage: Disabled automatically.");
+									}
+									this.setEnabled(false);
 									this.addButton();
-									this.createPopup();
 								}
 							}
-						}
-
-						error(error, toast) {
-							let before = this.getName() + " v" + this.getVersion() + ": ";
-							if (toast) {
-								Toasts.show(before + error, {
-									type: "error",
-									timeout: 5000
-								});
-								console.error(before + error);
-							} else {
-								console.error(before + error);
-							}
-						}
-
-						hasPermission() {
-							let channel = DiscordAPI.currentChannel;
-							if (!channel) return false;
-							if (channel.type == "DM") return true;
-							if (channel.checkPermissions) {
-								if (
-									channel.checkPermissions(
-										DiscordModules.DiscordPermissions.SEND_MESSAGES
-									) &&
-									channel.checkPermissions(
-										DiscordModules.DiscordPermissions.EMBED_LINKS
-									) &&
-									this.isAllowed()
-								) {
-									return true;
-								}
-							} else {
-								if (this.isAllowed()) {
-									return true;
-								}
-							}
-							return false;
 						}
 
 						addButton() {
+							let channel = DiscordAPI.currentChannel;
+							// console.log(channel);
 							try {
 								// Only add the button if the user has permissions to send messages and embed links.
-								if (this.hasPermission()) {
-									var daButtons = document.querySelector(
-										KSS.parse("|fontSize24Padding buttons|")
-									);
+								// DM check should go first so that the .checkPermissions() is not called.
+								if (
+									channel.type == "DM" ||
+									channel.type == "GROUP_DM" ||
+									channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)
+								) {
 									if (
-										!document.querySelector("#embed-button-wrapper") &&
-										daButtons != null
+										document.getElementsByClassName("ghost-button-wrapper").length == 0
 									) {
-										var embedButton = document.createElement("button");
-										embedButton.setAttribute("type", "button");
-										embedButton.id = "embed-button-wrapper";
-										embedButton.className = KSS.createClassName(
-											"|active buttonWrapper| |button| |lookBlank| |colorBrand| |grow|"
+										var daButtons = document.querySelector(
+											KSS.parse("|fontSize24Padding button|")
 										);
 
-										var embedButtonInner = document.createElement("div");
-										embedButtonInner.id = "embed-button-inner";
-										embedButtonInner.className = KSS.createClassName(
-											"|contents| |pulseButton button| |fontSize24Padding button|"
+										var ghostButton = document.createElement("button");
+										ghostButton.setAttribute("type", "button");
+										ghostButton.className = KSS.createClassName(
+											"|active buttonWrapper| |button| |lookBlank| |colorBrand| |grow| ghost-button-wrapper"
 										);
 
-										var embedButtonIcon = document.createElement("img");
-										embedButtonIcon.setAttribute(
-											"src",
-											"https://image.flaticon.com/icons/svg/25/25463.svg"
+										var ghostButtonInner = document.createElement("div");
+										ghostButtonInner.className = KSS.createClassName(
+											"|contents| |pulseButton button| |fontSize24Padding button| ghost-button-inner"
 										);
-										embedButtonIcon.setAttribute(
-											"class",
-											KSS.createClassName("|pulseButton icon|")
+
+										//<img src="https://image.flaticon.com/icons/svg/24/24207.svg" width="224" height="224" alt="Embed free icon" title="Embed free icon">
+										//<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="icon-3D60ES da-icon" viewBox="0 0 22 22" fill="currentColor"><path d="M 19.794, 3.299 H 9.765 L 8.797, 0 h -6.598 C 0.99, 0, 0, 0.99, 0, 2.199 V 16.495 c 0, 1.21, 0.99, 2.199, 2.199, 2.199 H 9.897 l 1.1, 3.299 H 19.794 c 1.21, 0, 2.199 -0.99, 2.199 -2.199 V 5.498 C 21.993, 4.289, 21.003, 3.299, 19.794, 3.299 z M 5.68, 13.839 c -2.48, 0 -4.492 -2.018 -4.492 -4.492 s 2.018 -4.492, 4.492 -4.492 c 1.144, 0, 2.183, 0.407, 3.008, 1.171 l 0.071, 0.071 l -1.342, 1.298 l -0.066 -0.06 c -0.313 -0.297 -0.858 -0.643 -1.671 -0.643 c -1.441, 0 -2.612, 1.193 -2.612, 2.661 c 0, 1.468, 1.171, 2.661, 2.612, 2.661 c 1.507, 0, 2.161 -0.962, 2.337 -1.606 h -2.43 v -1.704 h 4.344 l 0.016, 0.077 c 0.044, 0.231, 0.06, 0.434, 0.06, 0.665 C 10.001, 12.036, 8.225, 13.839, 5.68, 13.839 z M 11.739, 9.979 h 4.393 c 0, 0 -0.374, 1.446 -1.715, 3.008 c -0.588 -0.676 -0.995 -1.336 -1.254 -1.864 h -1.089 L 11.739, 9.979 z M 13.625, 13.839 l -0.588, 0.583 l -0.72 -2.452 C 12.685, 12.63, 13.13, 13.262, 13.625, 13.839 z M 20.893, 19.794 c 0, 0.605 -0.495, 1.1 -1.1, 1.1 H 12.096 l 2.199 -2.199 l -0.896 -3.041 l 1.012 -1.012 l 2.953, 2.953 l 0.803 -0.803 l -2.975 -2.953 c 0.99 -1.138, 1.759 -2.474, 2.106 -3.854 h 1.397 V 8.841 H 14.697 v -1.144 h -1.144 v 1.144 H 11.398 l -1.309 -4.443 H 19.794 c 0.605, 0, 1.1, 0.495, 1.1, 1.1 V 19.794 z"></path></svg>
+
+										var ghostButtonMask = document.createElementNS(
+											"http://www.w3.org/2000/svg",
+											"svg"
 										);
-										embedButtonIcon.setAttribute(
-											"style",
-											"filter: invert(70%) !important;"
+										ghostButtonMask.setAttribute("width", "18");
+										ghostButtonMask.setAttribute("height", "18");
+										ghostButtonMask.setAttribute("viewBox", "0 0 450.002 450.002");
+										ghostButtonMask.setAttribute("class", "icon-3D60ES");
+
+										var ghostButtonIcon = document.createElementNS(
+											"http://www.w3.org/2000/svg",
+											"path"
 										);
-										embedButtonIcon.setAttribute("width", "22");
-										embedButtonIcon.setAttribute("height", "22");
+										ghostButtonIcon.setAttribute("fill", "currentColor");
+										ghostButtonIcon.setAttribute("fill-rule", "evenodd");
+										ghostButtonIcon.setAttribute("clip-rule", "evenodd");
+										ghostButtonIcon.setAttribute(
+											"d",
+											"M411.972,204.367c0-118.248-83.808-204.777-186.943-204.365C121.896-0.41,38.001,86.119,38.001,204.367L38.373,441  l62.386-29.716l62.382,38.717l62.212-38.716l62.215,38.718l62.213-38.714l62.221,29.722L411.972,204.367z M143.727,258.801  c-27.585-6.457-44.713-34.053-38.256-61.638l99.894,23.383C198.908,248.13,171.312,265.258,143.727,258.801z M306.276,258.801  c-27.585,6.457-55.181-10.671-61.638-38.256l99.894-23.383C350.988,224.748,333.861,252.344,306.276,258.801z"
+										);
 
-										embedButtonIcon.onmouseover = () => {
-											embedButtonIcon.setAttribute(
-												"style",
-												"filter: invert(100%) !important;"
-											);
-										};
-										embedButtonIcon.onmouseout = () => {
-											embedButtonIcon.setAttribute(
-												"style",
-												"filter: invert(70%) !important;"
-											);
-										};
+										ghostButtonMask.appendChild(ghostButtonIcon);
+										ghostButtonInner.appendChild(ghostButtonMask);
+										ghostButton.appendChild(ghostButtonInner);
+										daButtons.insertBefore(ghostButton, daButtons.firstChild);
 
-										embedButtonInner.appendChild(embedButtonIcon);
-										embedButton.appendChild(embedButtonInner);
-										daButtons.insertBefore(embedButton, daButtons.firstChild);
+										ghostButton.onclick = () => {
+											var channel = DiscordAPI.currentChannel;
 
-										embedButtonInner.onclick = () => {
-											this.openPopup();
+											// Only send the embed if the user has permissions to embed links.
+											if (
+												channel.type === "DM" ||
+												channel.type == "GROUP_DM" ||
+												channel.checkPermissions(DiscordPermissions.SEND_MESSAGES)
+											) {
+												this.setEnabled(!enabled);
+											} else {
+												BdApi.alert(
+													"GhostMessage",
+													`You do not have permission to send messages in this channel.<br><br>This is <strong><u>not</u></strong> a problem with the plugin, it is a <strong><u>server setting</u></strong>.`
+												);
+												this.removeButton();
+											}
 										};
 									}
 								} else {
 									this.removeButton();
 								}
-							} catch (e) {
-								this.error(e, true);
-							}
-						}
-
-						isAllowed() {
-							try {
-								let guild = DiscordAPI.currentGuild;
-								if (!guild) {
-									return true;
-								} else if (
-									(guild.id != "86004744966914048" &&
-										guild.id != "280806472928198656") ||
-									DiscordAPI.currentUser.id == "220584715265114113"
-								) {
-									return true;
-								}
 							} catch (e) {}
-
-							return false;
+							this.setEnabled(enabled);
 						}
 
 						removeButton() {
-							if (document.querySelector("embed-button-wrapper")) {
-								document.querySelector("embed-button-wrapper").remove();
+							if (document.getElementsByClassName("ghost-button-wrapper").length > 0) {
+								document.getElementsByClassName("ghost-button-wrapper")[0].remove();
+								this.setEnabled(false);
 							}
 						}
 
-						sendEmbed() {
-							this.disableButtons();
-							var channel = DiscordAPI.currentChannel;
+						setEnabled(set) {
+							enabled = set;
 
-							let providerName = document.querySelector("#embed-provider-name");
-							let providerURL = document.querySelector("#embed-provider-url");
-							let authorName = document.querySelector("#embed-author-name");
-							let authorURL = document.querySelector("#embed-author-url");
-							let title = document.querySelector("#embed-title");
-							let description = document.querySelector("#embed-description");
-							let color = document.querySelector("#embed-color");
-							let imageURL = document.querySelector("#embed-image-url");
-							let imageBanner = document.querySelector("#embed-image-banner");
-
-							// Only send the embed if the user has permissions to embed links.
-							if (this.isAllowed()) {
-								const obj = {};
-								obj.providerName = providerName.value;
-								obj.providerUrl = providerURL.value; // The link on the Provider Name.
-								obj.authorName = authorName.value;
-								obj.authorUrl = authorURL.value; // The link on the Author Name.
-								obj.title = title.value;
-								obj.description = description.value;
-								obj.banner = imageBanner.checked; // Photo is a banner, nothing is a small image on the right.
-								obj.image = imageURL.value; // The image displayed on the right.
-								obj.color = color.value; // The color on the left of the embed.
-
-								request(
-									{
-										url: "https://em.kyza.net/create/",
-										method: "POST",
-										json: obj
-									},
-									(err, res, body) => {
-										if (err) {
-											this.error(err, true);
-											return;
-										}
-										if (this.hasPermission()) {
-											channel.sendMessage(`https://em.kyza.net/embed/${body.id}`);
-											this.closePopup();
-										} else {
-											this.enableButtons();
-											BdApi.alert(
-												"SafeEmbedGenerator",
-												`You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
-											);
-										}
-									}
-								);
-							} else {
-								this.enableButtons();
-								BdApi.alert(
-									"SafeEmbedGenerator",
-									`You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
-								);
+							// Make the ghost button stay selected if it is clicked on.
+							var ghostInner = document.getElementsByClassName(
+								"ghost-button-inner"
+							)[0];
+							if (ghostInner && ghostInner.children[0] && enabled) {
+								ghostInner.setAttribute("style", "filter: contrast(2);");
+								ghostInner.children[0].setAttribute("style", "transform: scale(1.2)");
+							} else if (ghostInner && ghostInner.children[0] && !enabled) {
+								ghostInner.setAttribute("style", "");
+								ghostInner.children[0].setAttribute("style", "");
 							}
 						}
 
-						appendEmbed() {
-							this.disableButtons();
-							var channel = DiscordAPI.currentChannel;
-
-							let providerName = document.querySelector("#embed-provider-name");
-							let providerURL = document.querySelector("#embed-provider-url");
-							let authorName = document.querySelector("#embed-author-name");
-							let authorURL = document.querySelector("#embed-author-url");
-							let title = document.querySelector("#embed-title");
-							let description = document.querySelector("#embed-description");
-							let color = document.querySelector("#embed-color");
-							let imageURL = document.querySelector("#embed-image-url");
-							let imageBanner = document.querySelector("#embed-image-banner");
-
-							// Only send the embed if the user has permissions to embed links.
-							if (this.isAllowed()) {
-								const obj = {};
-								obj.providerName = providerName.value;
-								obj.providerUrl = providerURL.value; // The link on the Provider Name.
-								obj.authorName = authorName.value;
-								obj.authorUrl = authorURL.value; // The link on the Author Name.
-								obj.title = title.value;
-								obj.description = description.value;
-								obj.banner = imageBanner.checked; // Photo is a banner, nothing is a small image on the right.
-								obj.image = imageURL.value; // The image displayed on the right.
-								obj.color = color.value; // The color on the left of the embed.
-
-								request(
-									{
-										url: "https://em.kyza.net/create/",
-										method: "POST",
-										json: obj
-									},
-									(err, res, body) => {
-										if (err) {
-											this.error(err, true);
-											return;
-										}
-										if (this.hasPermission()) {
-											let textarea = ReactTools.getOwnerInstance(
-												document.querySelector(KSS.parse("|channelTextArea|"))
-											);
-											textarea.appendText(
-												`${
-													textarea.props.textValue[textarea.props.textValue.length - 1] ==
-														"\n" || textarea.props.textValue.length == 0
-														? ""
-														: "\n"
-												}https://em.kyza.net/embed/${body.id}`
-											);
-											textarea.focus();
-											this.closePopup();
-										} else {
-											this.enableButtons();
-											BdApi.alert(
-												"SafeEmbedGenerator",
-												`You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
-											);
-										}
-									}
-								);
-							} else {
-								this.enableButtons();
-								BdApi.alert(
-									"SafeEmbedGenerator",
-									`You do not have permissions to send embedded links in this channel.\n\nBecause of this your message was not sent in order to prevent the embarrassment of 1,000 deaths.\n\nThis is not a problem with the plugin, it is a server setting.`
-								);
+						FireEvent(element, eventName) {
+							if (element != null) {
+								const mouseoverEvent = new Event(eventName);
+								element.dispatchEvent(mouseoverEvent);
 							}
-						}
-
-						enableButtons() {
-							document.querySelector("#embed-send-button").removeAttribute("disabled");
-							document
-								.querySelector("#embed-append-button")
-								.removeAttribute("disabled");
-							document
-								.querySelector("#embed-cancel-button")
-								.removeAttribute("disabled");
-						}
-
-						disableButtons() {
-							document.querySelector("#embed-send-button").disabled = "true";
-							document.querySelector("#embed-append-button").disabled = "true";
-							document.querySelector("#embed-cancel-button").disabled = "true";
-						}
-
-						createPopup() {
-							let layerContainer = document.querySelector(
-								KSS.parse("|chatContent| |layerContainer|")
-							);
-							if (
-								!document.querySelector("#embed-creator") &&
-								layerContainer != null
-							) {
-								let embedPopup = document.createElement("div");
-								embedPopup.id = "embed-creator";
-								embedPopup.className = "closed";
-
-								let embedInputs = document.createElement("div");
-								embedInputs.id = "embed-inputs";
-
-								let providerName = document.createElement("input");
-								providerName.id = "embed-provider-name";
-								providerName.setAttribute("maxlength", "256");
-								providerName.placeholder = "Provider Name";
-								providerName.className = KSS.createClassName("|inputDefault| |input|");
-								providerName.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let providerURL = document.createElement("input");
-								providerURL.id = "embed-provider-url";
-								providerURL.placeholder = "Provider URL";
-								providerURL.className = KSS.createClassName("|inputDefault| |input|");
-								providerURL.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let authorName = document.createElement("input");
-								authorName.id = "embed-author-name";
-								authorName.setAttribute("maxlength", "256");
-								authorName.placeholder = "Author Name";
-								authorName.className = KSS.createClassName("|inputDefault| |input|");
-								authorName.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let authorURL = document.createElement("input");
-								authorURL.id = "embed-author-url";
-								authorURL.placeholder = "Author URL";
-								authorURL.className = KSS.createClassName("|inputDefault| |input|");
-								authorURL.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let title = document.createElement("input");
-								title.id = "embed-title";
-								title.setAttribute("maxlength", "70");
-								title.placeholder = "Title";
-								title.className = KSS.createClassName("|inputDefault| |input|");
-								title.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let description = document.createElement("textarea");
-								description.id = "embed-description";
-								description.setAttribute("maxlength", "280");
-								description.placeholder = "Description";
-								description.className = KSS.createClassName("|inputDefault| |input|");
-								description.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let imageURL = document.createElement("input");
-								imageURL.id = "embed-image-url";
-								imageURL.placeholder = "Image URL";
-								imageURL.className = KSS.createClassName("|inputDefault| |input|");
-								imageURL.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let color = document.createElement("input");
-								color.id = "embed-color";
-								color.type = "color";
-								color.value = "#1E2327";
-								color.className = KSS.createClassName(
-									"|colorPickerSwatch| |custom| |noColor|"
-								);
-								color.oninput = () => {
-									this.validateInputs();
-									this.updatePreview();
-								};
-
-								let imageBannerWrapper = document.createElement("div");
-								imageBannerWrapper.id = "embed-image-banner-wrapper";
-								imageBannerWrapper.className = KSS.createClassName(
-									"|flexChild| |switchEnabled| |switch| |valueUnchecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
-								);
-								let imageBanner = document.createElement("input");
-								imageBanner.id = "embed-image-banner";
-								imageBanner.type = "checkbox";
-								imageBanner.className = KSS.createClassName(
-									"|checkboxEnabled| |value checkbox|"
-								);
-								imageBannerWrapper.oninput = () => {
-									if (imageBanner.checked) {
-										imageBannerWrapper.className = KSS.createClassName(
-											"|flexChild| |switchEnabled| |switch| |valueChecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
-										);
-									} else {
-										imageBannerWrapper.className = KSS.createClassName(
-											"|flexChild| |switchEnabled| |switch| |valueUnchecked| |valueUnchecked value| |sizeDefault| |value size| |themeDefault|"
-										);
-									}
-									this.validateInputs();
-									this.updatePreview();
-								};
-								imageBannerWrapper.appendChild(imageBanner);
-
-								embedInputs.appendChild(providerName);
-								embedInputs.appendChild(providerURL);
-								embedInputs.appendChild(authorName);
-								embedInputs.appendChild(authorURL);
-								embedInputs.appendChild(title);
-								embedInputs.appendChild(description);
-								embedInputs.appendChild(imageURL);
-								embedInputs.appendChild(color);
-								embedInputs.appendChild(imageBannerWrapper);
-
-								let embedPreview = document.createElement("div");
-								embedPreview.id = "embed-preview";
-
-								let embedWrapper = document.createElement("div");
-								embedWrapper.id = "embed-preview-wrapper";
-								embedWrapper.className = KSS.createClassName(
-									"|embedWrapper| embedFull-2tM8-- |spoilerAttachment embed| |markup|"
-								);
-								embedWrapper.style = "border-color: rgb(30, 35, 39);";
-
-								let embedGrid = document.createElement("div");
-								embedGrid.className = KSS.createClassName("|spoilerAttachment grid|");
-
-								let embedProvider = document.createElement("a");
-								embedProvider.id = "embed-preview-provider";
-								embedProvider.className = KSS.createClassName(
-									"|anchorUnderlineOnHover anchor| |anchorUnderlineOnHover| |embedLink| |embedProvider| |embedMargin|"
-								);
-								embedProvider.target = "_blank";
-								embedProvider.style.display = "none";
-
-								let embedAuthor = document.createElement("a");
-								embedAuthor.id = "embed-preview-author";
-								embedAuthor.className = KSS.createClassName(
-									"|embedAuthorNameLink| |embedAuthorName| |embedAuthor| |embedMargin|"
-								);
-								embedAuthor.target = "_blank";
-								embedAuthor.style.display = "none";
-
-								let embedTitle = document.createElement("a");
-								embedTitle.id = "embed-preview-title";
-								embedTitle.className = KSS.createClassName(
-									"|embedTitle| |embedMargin|"
-								);
-								embedTitle.target = "_blank";
-								embedTitle.href = "https://em.kyza.net/";
-								embedTitle.style.display = "none";
-
-								let embedDescription = document.createElement("div");
-								embedDescription.id = "embed-preview-description";
-								embedDescription.className = KSS.createClassName(
-									"|embedDescription| |embedMargin|"
-								);
-								embedDescription.style.display = "none";
-
-								let embedImage = document.createElement("div");
-								embedImage.id = "embed-preview-image";
-								embedImage.style = "width: 400px; height: 225px;";
-								embedImage.style.display = "none";
-
-								embedGrid.appendChild(embedProvider);
-								embedGrid.appendChild(embedAuthor);
-								embedGrid.appendChild(embedTitle);
-								embedGrid.appendChild(embedDescription);
-								embedGrid.appendChild(embedImage);
-								embedWrapper.appendChild(embedGrid);
-								embedPreview.appendChild(embedWrapper);
-
-								let embedButtons = document.createElement("div");
-								embedButtons.id = "embed-buttons";
-
-								let sendButton = document.createElement("button");
-								sendButton.id = "embed-send-button";
-								sendButton.disabled = "true";
-								sendButton.className = KSS.createClassName(
-									"|button| |lookFilled| |colorGreen| |disabledButtonOverlay sizeLarge| |grow|"
-								);
-								let sendButtonInner = document.createElement("div");
-								sendButtonInner.className = KSS.createClassName("|contents|");
-								sendButtonInner.textContent = "Send Embed";
-								sendButton.onclick = () => {
-									this.sendEmbed();
-								};
-
-								let appendButton = document.createElement("button");
-								appendButton.id = "embed-append-button";
-								appendButton.disabled = "true";
-								appendButton.className = KSS.createClassName(
-									"|button| |lookFilled| |colorBrand| |disabledButtonOverlay sizeLarge| |grow|"
-								);
-								let appendButtonInner = document.createElement("div");
-								appendButtonInner.className = KSS.createClassName("|contents|");
-								appendButtonInner.textContent = "Append To Message";
-								appendButton.onclick = () => {
-									this.appendEmbed();
-								};
-
-								let cancelButton = document.createElement("button");
-								cancelButton.id = "embed-cancel-button";
-								cancelButton.className = KSS.createClassName(
-									"|button| |lookFilled| |colorRed| |disabledButtonOverlay sizeLarge| |grow|"
-								);
-								let cancelButtonInner = document.createElement("div");
-								cancelButtonInner.className = KSS.createClassName("|contents|");
-								cancelButtonInner.textContent = "Cancel";
-								cancelButton.onclick = () => {
-									this.closePopup();
-								};
-
-								sendButton.appendChild(sendButtonInner);
-								appendButton.appendChild(appendButtonInner);
-								cancelButton.appendChild(cancelButtonInner);
-
-								embedButtons.appendChild(sendButton);
-								embedButtons.appendChild(appendButton);
-								embedButtons.appendChild(cancelButton);
-
-								embedPopup.appendChild(embedInputs);
-								embedPopup.appendChild(embedPreview);
-								embedPopup.appendChild(embedButtons);
-
-								layerContainer.appendChild(embedPopup);
-							}
-						}
-
-						removePopup() {
-							try {
-								document.querySelector("#embed-creator").remove();
-							} catch (e) {}
-						}
-
-						openPopup() {
-							if (!document.querySelector("#embed-creator")) {
-								this.createPopup();
-							}
-							document.querySelector(
-								"#embed-creator"
-							).className = document
-								.querySelector("#embed-creator")
-								.className.replace("closed", "open");
-						}
-
-						closePopup() {
-							try {
-								document.querySelector(
-									"#embed-creator"
-								).className = document
-									.querySelector("#embed-creator")
-									.className.replace("open", "closed");
-								setTimeout(this.enableButtons, 4e3);
-							} catch (e) {}
-						}
-
-						removeButton() {
-							try {
-								document.querySelector("#embed-button-wrapper").remove();
-							} catch (e) {}
-						}
-
-						validateInputs() {
-							let providerName = document.querySelector("#embed-provider-name");
-							let providerURL = document.querySelector("#embed-provider-url");
-							let authorName = document.querySelector("#embed-author-name");
-							let authorURL = document.querySelector("#embed-author-url");
-							let title = document.querySelector("#embed-title");
-							let description = document.querySelector("#embed-description");
-							let imageURL = document.querySelector("#embed-image-url");
-							let imageBanner = document.querySelector("#embed-image-banner");
-
-							let sendButton = document.querySelector("#embed-send-button");
-							let appendButton = document.querySelector("#embed-append-button");
-							let cancelButton = document.querySelector("#embed-cancel-button");
-
-							let enableSending = true;
-
-							if (
-								imageBanner.checked &&
-								authorName.value.length == 0 &&
-								imageURL.value.length > 0
-							) {
-								enableSending = false;
-								if (
-									authorName.className.indexOf(
-										KSS.createClassName("|errorMessage error|")
-									) < 0
-								) {
-									authorName.className +=
-										" " + KSS.createClassName("|errorMessage error|");
-								}
-							} else {
-								authorName.className = authorName.className
-									.replace(KSS.createClassName("|errorMessage error|"), "")
-									.trim();
-							}
-
-							if (
-								providerName.value.length == 0 &&
-								authorName.value.length == 0 &&
-								title.value.length == 0 &&
-								description.value.length == 0
-							) {
-								enableSending = false;
-							}
-
-							if (enableSending) {
-								sendButton.removeAttribute("disabled");
-								appendButton.removeAttribute("disabled");
-							} else {
-								sendButton.disabled = "true";
-								appendButton.disabled = "true";
-							}
-						}
-
-						updatePreview() {
-							let providerName = document.querySelector("#embed-provider-name");
-							let providerURL = document.querySelector("#embed-provider-url");
-							let authorName = document.querySelector("#embed-author-name");
-							let authorURL = document.querySelector("#embed-author-url");
-							let title = document.querySelector("#embed-title");
-							let description = document.querySelector("#embed-description");
-							let color = document.querySelector("#embed-color");
-							let imageURL = document.querySelector("#embed-image-url");
-							let imageBanner = document.querySelector("#embed-image-banner");
-
-							let embedWrapper = document.querySelector("#embed-preview-wrapper");
-							let embedProvider = document.querySelector("#embed-preview-provider");
-							let embedAuthor = document.querySelector("#embed-preview-author");
-							let embedTitle = document.querySelector("#embed-preview-title");
-							let embedDescription = document.querySelector(
-								"#embed-preview-description"
-							);
-							let embedImage = document.querySelector("#embed-preview-image");
-
-							embedWrapper.style.borderColor =
-								color.value == "#000000" ? "rgb(30, 35, 39)" : color.value;
-
-							if (providerName.value.trim().length == 0) {
-								embedProvider.style.display = "none";
-							} else {
-								embedProvider.textContent = providerName.value;
-								embedProvider.removeAttribute("style");
-							}
-
-							if (providerURL.value.trim().length == 0) {
-								embedProvider.removeAttribute("href");
-							} else {
-								embedProvider.href = providerURL.value;
-							}
-
-							if (authorName.value.trim().length == 0) {
-								embedAuthor.style.display = "none";
-							} else {
-								embedAuthor.textContent = authorName.value;
-								embedAuthor.style.display = "";
-							}
-
-							if (authorURL.value.trim().length == 0) {
-								embedAuthor.removeAttribute("href");
-							} else {
-								embedAuthor.href = authorURL.value;
-							}
-
-							if (title.value.length == 0) {
-								embedTitle.style.display = "none";
-							} else {
-								embedTitle.textContent = title.value;
-								embedTitle.style.display = "";
-							}
-
-							if (description.value.length == 0) {
-								embedDescription.style.display = "none";
-							} else {
-								embedDescription.textContent = description.value;
-								embedDescription.style.display = "";
-							}
-
-							if (imageURL.value.length == 0 || !this.validURL(imageURL.value)) {
-								embedImage.style.display = "none";
-							} else {
-								if (imageBanner.checked) {
-									embedWrapper.style.maxWidth = "436px";
-									embedImage.className = KSS.createClassName(
-										"|imageWrapper| |embedWrapper| |embedMedia| |embedImage|"
-									);
-								} else {
-									embedImage.className = KSS.createClassName(
-										"|imageWrapper| |embedThumbnail|"
-									);
-								}
-
-								let img = new Image();
-
-								var addImage = () => {
-									let imageWidth = img.width;
-									let imageHeight = img.height;
-									var imageScale = Math.min(
-										(imageBanner.checked ? 400 : 80) / imageWidth,
-										(imageBanner.checked ? 400 : 80) / imageHeight
-									);
-									let scaledImageWidth =
-										imageScale >= 1 ? imageWidth : imageWidth * imageScale;
-									let scaledImageHeight =
-										imageScale >= 1 ? imageHeight : imageHeight * imageScale;
-
-									embedImage.style.width = scaledImageWidth + "px";
-									embedImage.style.height = scaledImageHeight + "px";
-
-									embedImage.innerHTML = `<img src="${imageURL.value}" style="width: ${scaledImageWidth}px; height: ${scaledImageHeight}px;">`;
-									embedImage.style.display = "";
-								};
-
-								img.onload = function() {
-									addImage();
-								};
-								img.onerror = function() {
-									Toasts.warning(
-										"Couldn't load the image preview. Are you sure this is an image?"
-									);
-								};
-
-								img.src = imageURL.value;
-							}
-						}
-
-						validURL(str) {
-							var pattern = new RegExp(
-								"^(https?:\\/\\/)?" + // protocol
-								"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-								"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-								"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-								"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-									"(\\#[-a-z\\d_]*)?$",
-								"i"
-							); // fragment locator
-							return !!pattern.test(str);
 						}
 					};
 				};
