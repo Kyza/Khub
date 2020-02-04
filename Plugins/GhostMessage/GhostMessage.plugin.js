@@ -147,7 +147,7 @@ var GhostMessage = (() => {
 					github_username: "KyzaGitHub"
 				}
 			],
-			version: "1.3.2",
+			version: "1.3.3",
 			description: "Send messages that delete themselves.",
 			github:
 				"https://github.com/KyzaGitHub/Khub/tree/master/Plugins/GhostMessage",
@@ -412,7 +412,7 @@ var GhostMessage = (() => {
 										document.getElementsByClassName("ghost-button-wrapper").length == 0
 									) {
 										var daButtons = document.querySelector(
-											KSS.parse("|fontSize24Padding button|")
+											KSS.parse("|fontSize24Padding buttons|")
 										);
 
 										var ghostButton = document.createElement("button");
