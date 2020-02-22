@@ -564,6 +564,44 @@ var AntiGhostPing = (() => {
               dismissButton.appendTo(ghostPingWrapper);
 
               ghostPingWrapper.appendTo($("#ghostping-panel"));
+
+              // The button for viewing the message content.
+              var contentButton = $(document.createElement("button"));
+
+              contentButton.attr("type", "button");
+              contentButton.css({
+                display: "inline",
+                "margin-right": "5px"
+              });
+              contentButton.attr(
+                "class",
+                "button-38aScr lookFilled-1Gx00P colorBrand-3pXr91 sizeSmall-2cSMqn grow-q77ONN"
+              );
+
+              contentButton.html(`<div class="contents-18-Yxp">Content</div>`);
+
+              contentButton.click(() => {
+                try {
+                 var contentDiv = document.getElementById(`ghost-ping-content-${message.id}`);
+                 if (contentDiv) {
+                   contentDiv.remove();
+                   return;
+                 }
+                 contentDiv = $(document.createElement('div'));
+                 contentDiv.attr(`id`, `ghost-ping-content-${message.id}`);
+                 contentDiv.css({
+                  "position": "relative",
+                  "word-break": "break-all",
+                  "font-size": "16px"
+                 });
+                 contentDiv.html(`<br>${message.content.replace(/\n/, '</br><br>')}</br>`);
+                 contentDiv.appendTo(ghostPingWrapper);
+                } catch (e) {
+                 console.error("Failed to view the message content.\n" + e);
+                }
+              });
+
+              contentButton.appendTo(ghostPingWrapper);
             }
 
             addButton() {
