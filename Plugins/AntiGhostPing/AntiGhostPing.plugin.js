@@ -580,21 +580,22 @@ var AntiGhostPing = (() => {
 
               contentButton.html(`<div class="contents-18-Yxp">Content</div>`);
 
+              var contentDiv = null;
+
               contentButton.click(() => {
                 try {
-                 var contentDiv = document.getElementById(`ghost-ping-content-${message.id}`);
                  if (contentDiv) {
                    contentDiv.remove();
+                   contentDiv = null;
                    return;
                  }
                  contentDiv = $(document.createElement('div'));
-                 contentDiv.attr(`id`, `ghost-ping-content-${message.id}`);
                  contentDiv.css({
                   "position": "relative",
                   "word-break": "break-all",
                   "font-size": "16px"
                  });
-                 contentDiv.html(`<br>${message.content.replace(/\n/, '</br><br>')}</br>`);
+                 contentDiv.html(`<br>${message.content}</br>`);
                  contentDiv.appendTo(ghostPingWrapper);
                 } catch (e) {
                  console.error("Failed to view the message content.\n" + e);
