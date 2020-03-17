@@ -595,7 +595,7 @@ var AntiGhostPing = (() => {
                   "word-break": "break-all",
                   "font-size": "16px"
                  });
-                 contentDiv.html(`<br>${message.content}</br>`);
+                 contentDiv.html(`<br>${message.content.replace(/\n/, '</br><br>')}</br>`);
                  contentDiv.appendTo(ghostPingWrapper);
                 } catch (e) {
                  console.error("Failed to view the message content.\n" + e);
