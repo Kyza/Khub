@@ -1,3 +1,5 @@
+# Fixed by Discord. BROKEN
+
 # NoLinkInvites
 
 NoLinkInvites makes all server invites you send appear to have no link.
