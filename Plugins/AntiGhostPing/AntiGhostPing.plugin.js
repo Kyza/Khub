@@ -35,7 +35,7 @@ var AntiGhostPing = (() => {
           github_username: "KyzaGitHub"
         }
       ],
-      version: "1.2.7",
+      version: "1.2.8",
       description:
         "AntiGhostPing is a BetterDiscord plugin that detects ghostpings and allows you to take action on them.",
       github:
@@ -564,6 +564,45 @@ var AntiGhostPing = (() => {
               dismissButton.appendTo(ghostPingWrapper);
 
               ghostPingWrapper.appendTo($("#ghostping-panel"));
+
+              // The button for viewing the message content.
+              var contentButton = $(document.createElement("button"));
+
+              contentButton.attr("type", "button");
+              contentButton.css({
+                display: "inline",
+                "margin-right": "5px"
+              });
+              contentButton.attr(
+                "class",
+                "button-38aScr lookFilled-1Gx00P colorBrand-3pXr91 sizeSmall-2cSMqn grow-q77ONN"
+              );
+
+              contentButton.html(`<div class="contents-18-Yxp">Content</div>`);
+
+              var contentDiv = null;
+
+              contentButton.click(() => {
+                try {
+                 if (contentDiv) {
+                   contentDiv.remove();
+                   contentDiv = null;
+                   return;
+                 }
+                 contentDiv = $(document.createElement('div'));
+                 contentDiv.css({
+                  "position": "relative",
+                  "word-break": "break-all",
+                  "font-size": "16px"
+                 });
+                 contentDiv.html(`<br>${message.content.replace(/\n/, '</br><br>')}</br>`);
+                 contentDiv.appendTo(ghostPingWrapper);
+                } catch (e) {
+                 console.error("Failed to view the message content.\n" + e);
+                }
+              });
+
+              contentButton.appendTo(ghostPingWrapper);
             }
 
             addButton() {
